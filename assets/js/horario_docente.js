@@ -24,12 +24,12 @@ $(document).ready(function() {
 
     $("#registrar").on("click", function() {
         
-          
+        if (validarenvio()) {
             enviaAjax($("#f"));
             $('#addEmployeeModal').modal('hide');
          
             $('#f').trigger('reset');
-       
+        }
         
 
     });
@@ -50,41 +50,6 @@ $(document).ready(function() {
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
-/*validaciones para registrar*/
-
-
-$("#clase").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z\s]$/, e);
-});
-
-$("#clase").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
-        $(this), $("#sclase"), "seleccione una sección");
-});
-$("#cedula_profesor").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z\s]$/, e);
-});
-
-$("#cedula_profesor").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
-        $(this), $("#scedula_profesor"), "Selecione un docente");
-});
-$("#ano").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z\s]$/, e);
-});
-
-$("#ano").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
-        $(this), $("#sano"), "Selecione una seccion");
-});
-$("#dia").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z\s]$/, e);
-});
-
-$("#dia").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
-        $(this), $("#sdia"), "elegir un dia");
-});
 
 
 
@@ -310,89 +275,33 @@ $("#dia").on("keyup", function() {
 function validarenvio() {
         
     
-if (valfecha($("#clase"), $("#sclase")) == 0) {
-        mensaje("La materia no puede estar vacia");
-        return false;
-    } else if (valfecha($("#cedula_profesor"), $("#scedula_profesor")) == 0) {
-        mensaje("selecione una cedula");
-        return false;
-    } else if (valfecha($("#ano"), $("#sano")) == 0) {
-        mensaje("selecione una sección");
-        return false;
-    } else if (valfecha($("#dia"), $("#sdia")) == 0) {
-        mensaje("El dia no puede estar vacio");
-        return false;
-    }
-    else if (valfecha($("#clase_inicia"), $("#sclase_inicia")) == 0) {
-        mensaje("La hora no puede estar vacia");
-        return false;
-    }
-    else if (valfecha($("#clase_termina"), $("#sclase_termina")) == 0) {
-        mensaje("La fecha no puede estar vacia");
-        return false;
-    }
-    else if (valfecha($("#inicio"), $("#sinicio")) == 0) {
-        mensaje("La fecha no puede estar vacia");
-        return false;
-    }
-    else if (valfecha($("#fin"), $("#sfin")) == 0) {
-        mensaje("La fecha no puede estar vacia");
-        return false;
-    }
-    
+if (valclase($('#clase').val(),$("#sclase")) == 0) {
+    mensaje("<p>Debe de seleccionar una materia</p>");
+    return false;
+}else if (valprof($('#cedula_profesor').val(),$("#scedula_profesor")) == 0) {
+    mensaje("<p>Debe de seleccionar una materia</p>");
+    return false;
+}else if (valseccion($('#ano').val(),$("#sano")) == 0) {
+    mensaje("<p>Debe de seleccionar una materia</p>");
+    return false;
+}else if (valdia($('#dia').val(),$("#sdia")) == 0) {
+    mensaje("<p>Debe de seleccionar un dia</p>");
+    return false;
+}
+
     
     return true;
 }
 
-function validarenvio() {
-    if (validarkeyup(/^[0-9]{1,20}$/,
-    $("#clase"), $("#sclase"), "selecione una materia") == 0) {
-        mensaje("selecione una materia");
-        return false;
-
-    } else if (validarkeyup(/^[0-9]{4,10}$/,
-    $("#cedula_profesor"), $("#scedula_profesor"), "selecione un docente") == 0) {
-        mensaje("El diato puede ser 0000");
-        return false;
-
-    }  else if (validarkeyup(/^[A-Za-z]{4,26}$/,
-    $("#ano"), $("#sano"), "seleccione una seccion") == 0) {
-        mensaje("seleccione una seccion");
-        return false;
-
-    } else if (validarkeyup(/^[A-Za-z\s]{4,26}$/,
-    $("#dia"), $("#sdia"), "selecione un dia") == 0) {
-        mensaje("selecione un dia");
-        return false;
-
-    } else if (valfecha($("#clase_inicia"), $("#sclase_inicia")) == 0) {
-        mensaje("La hora no puede estar vacia");
-        return false;
-    }
-    else if (valfecha($("#clase_termina"), $("#sclase_termina")) == 0) {
-        mensaje("La fecha no puede estar vacia");
-        return false;
-    }
-    else if (valfecha($("#inicio"), $("#sinicio")) == 0) {
-        mensaje("La fecha no puede estar vacia");
-        return false;
-    }
-    else if (valfecha($("#fin"), $("#sfin")) == 0) {
-        mensaje("La fecha no puede estar vacia");
-        return false;
-    }
-    return true;
-}
 
 
 
-
-function valfecha(fecha, sfecha) {
-    fechaq = fecha.val();
+function valfecha(inicio, sinicio) {
+    fechaq = inicio.val();
     if (fechaq == '') {
         sfecha.text("seleccione una fecha");
         setTimeout(function () {
-            sfecha.text("");
+            sinicio.text("");
         }, 3000);
         return false;
     } else {
@@ -405,9 +314,76 @@ function valfecha(fecha, sfecha) {
 
 
 
-   
+function valprof(cedula_profesor,scedula_profesor) {
+    
+
+    if (cedula_profesor != 'seleccionar') {
+        
+        return true;
+    } else {
+        scedula_profesor.text("seleccione a un profesor")
+        setTimeout(function() {
+            scedula_profesor.fadeOut();
+        }, 3000);
+        return false;
+    }
 
 
+
+}
+function valclase(clase,sclase) {
+    
+
+    if (clase != 'seleccionar') {
+        
+        return true;
+    } else {
+        sclase.text("seleccione una materia")
+        setTimeout(function() {
+            sclase.fadeOut();
+        }, 3000);
+        return false;
+    }
+
+
+
+}
+function valseccion(ano,sano) {
+    
+
+    if (ano != 'seleccionar') {
+        
+        return true;
+    } else {
+        sano.text("seleccione una seccion")
+        setTimeout(function() {
+            sano.fadeOut();
+        }, 3000);
+        return false;
+    }
+
+
+
+}
+
+
+function valdia(dia,sdia) {
+    
+
+    if (dia != 0) {
+        
+        return true;
+    } else {
+        sdia.text("seleccione un dia")
+        setTimeout(function() {
+            sdia.fadeOut();
+        }, 3000);
+        return false;
+    }
+
+
+
+}
 
 
 

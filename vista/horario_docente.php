@@ -299,7 +299,8 @@ if (isset($_SESSION['permisos'])) {
 										<div class="form-group col-md-4">
 											<label>docente</label>
 											<div class="form-group col-md-4">
-
+												<span id="scedula_profesor"></span>
+												<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
 												<select class="form-control" name="cedula_profesor" id="cedula_profesor" onchange="añadir2('#cedula_profesor')">
 													<?php
 													if (!empty($consuta3)) {
@@ -315,6 +316,8 @@ if (isset($_SESSION['permisos'])) {
 												<div class="form-group col-md-4">
 													<div class="form-group col-md-4">
 														<label>Seleccionar un año y sección:</label>
+														<span id="sano"></span>
+												<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
 														<select name="ano" id="ano" onchange="añadir3('#ano')">
 															<?php
 															if (!empty($consuta4)) {
@@ -336,6 +339,7 @@ if (isset($_SESSION['permisos'])) {
 												<label>dia</label>
 												<span id="sdia"></span>
 												<select class="form-control" id="dia" name="dia">
+													<option value="0">-Selecionar-</option>
 													<option value="1">lunes</option>
 													<option value="2">martes</option>
 													<option value="3">miercoles</option>
