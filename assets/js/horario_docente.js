@@ -287,30 +287,51 @@ if (valclase($('#clase').val(),$("#sclase")) == 0) {
 }else if (valdia($('#dia').val(),$("#sdia")) == 0) {
     mensaje("<p>Debe de seleccionar un dia</p>");
     return false;
+}else if (valhora($('#clase_inicia').val(),$("#sclase_inicia")) == 0) {
+    mensaje("<p>Debe de seleccionar un dia</p>");
+    return false;
+}else if (valhora($('#clase_termina').val(),$("#sclase_termina")) == 0) {
+    mensaje("<p>Debe de seleccionar un dia</p>");
+    return false;
+}else if (valrango($('#inicio').val(),$("#sinicio")) == 0) {
+    mensaje("<p>Debe de seleccionar un dia</p>");
+    return false;
+}else if (valrango($('#fin').val(),$("#sfin")) == 0) {
+    mensaje("<p>Debe de seleccionar un dia</p>");
+    return false;
 }
 
     
     return true;
 }
 
-
-
-
-function valfecha(inicio, sinicio) {
-    fechaq = inicio.val();
-    if (fechaq == '') {
-        sfecha.text("seleccione una fecha");
-        setTimeout(function () {
-            sinicio.text("");
-        }, 3000);
+function validarenvio2() {
+        
+    if (valdia($('#dia1').val(),$("#sdia1")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
         return false;
-    } else {
+    }else if (valhora($('#clase_inicia1').val(),$("#sclase_inicia1")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }else if (valhora($('#clase_termina1').val(),$("#sclase_termina1")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }else if (valrango($('#inicio1').val(),$("#sinicio1")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }else if (valrango($('#fin1').val(),$("#sfin1")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }
+    
+        
         return true;
     }
 
 
 
-}
+
+
 
 
 
@@ -377,6 +398,40 @@ function valdia(dia,sdia) {
         sdia.text("seleccione un dia")
         setTimeout(function() {
             sdia.fadeOut();
+        }, 3000);
+        return false;
+    }
+
+
+
+}
+function valhora(clase_inicia,sclase_inicia) {
+    
+
+    if (clase_inicia != 0) {
+        
+        return true;
+    } else {
+        sclase_inicia.text("seleccione una hora")
+        setTimeout(function() {
+            sclase_inicia.fadeOut();
+        }, 3000);
+        return false;
+    }
+
+
+
+}
+function valrango(inicia,sinicia) {
+    
+
+    if (inicia != 0) {
+        
+        return true;
+    } else {
+        sinicia.text("seleccione una fecha")
+        setTimeout(function() {
+            sinicia.fadeOut();
         }, 3000);
         return false;
     }

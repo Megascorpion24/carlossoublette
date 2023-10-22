@@ -450,10 +450,11 @@ if (isset($_SESSION['permisos'])) {
 
 										<div class="form-group col-md-4">
 											<label>Dia</label>
-											<span id="sdia"></span>
+											<span id="sdia1"></span>
 											<input type="text" class="form-control" style="display: none;" name="accion1" value="accion1" required>
 											<input type="text" class="form-control" style="display: none;" name="id" id="id" required>
 											<select class="form-control" id="dia1" name="dia1">
+												<option value="0">-Seleccionar-</option>
 												<option value="1">lunes</option>
 												<option value="2">martes</option>
 												<option value="3">miercoles</option>
