@@ -50,10 +50,41 @@ $(document).ready(function() {
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
+/*validaciones para registrar*/
 
 
+$("#clase").on("keypress", function(e) {
+    validarkeypress(/^[0-9A-Za-z\s]$/, e);
+});
 
+$("#clase").on("keyup", function() {
+    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
+        $(this), $("#sclase"), "seleccione una sección");
+});
+$("#cedula_profesor").on("keypress", function(e) {
+    validarkeypress(/^[0-9A-Za-z\s]$/, e);
+});
 
+$("#cedula_profesor").on("keyup", function() {
+    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
+        $(this), $("#scedula_profesor"), "Selecione un docente");
+});
+$("#ano").on("keypress", function(e) {
+    validarkeypress(/^[0-9A-Za-z\s]$/, e);
+});
+
+$("#ano").on("keyup", function() {
+    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
+        $(this), $("#sano"), "Selecione una seccion");
+});
+$("#dia").on("keypress", function(e) {
+    validarkeypress(/^[0-9A-Za-z\s]$/, e);
+});
+
+$("#dia").on("keyup", function() {
+    validarkeyup(/^[0-9A-Za-z\s]{1,20}$/,
+        $(this), $("#sdia"), "elegir un dia");
+});
 
 
 
@@ -173,7 +204,8 @@ $(document).ready(function() {
                  alert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
-                window.location.reload();
+                 window.location.reload()
+                
                 },
                 error: function(request, status, err){
                     if (status == "timeout") {
@@ -275,8 +307,101 @@ $(document).ready(function() {
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
+function validarenvio() {
+        
+    
+if (valfecha($("#clase"), $("#sclase")) == 0) {
+        mensaje("La materia no puede estar vacia");
+        return false;
+    } else if (valfecha($("#cedula_profesor"), $("#scedula_profesor")) == 0) {
+        mensaje("selecione una cedula");
+        return false;
+    } else if (valfecha($("#ano"), $("#sano")) == 0) {
+        mensaje("selecione una sección");
+        return false;
+    } else if (valfecha($("#dia"), $("#sdia")) == 0) {
+        mensaje("El dia no puede estar vacio");
+        return false;
+    }
+    else if (valfecha($("#clase_inicia"), $("#sclase_inicia")) == 0) {
+        mensaje("La hora no puede estar vacia");
+        return false;
+    }
+    else if (valfecha($("#clase_termina"), $("#sclase_termina")) == 0) {
+        mensaje("La fecha no puede estar vacia");
+        return false;
+    }
+    else if (valfecha($("#inicio"), $("#sinicio")) == 0) {
+        mensaje("La fecha no puede estar vacia");
+        return false;
+    }
+    else if (valfecha($("#fin"), $("#sfin")) == 0) {
+        mensaje("La fecha no puede estar vacia");
+        return false;
+    }
+    
+    
+    return true;
+}
+
+function validarenvio() {
+    if (validarkeyup(/^[0-9]{1,20}$/,
+    $("#clase"), $("#sclase"), "selecione una materia") == 0) {
+        mensaje("selecione una materia");
+        return false;
+
+    } else if (validarkeyup(/^[0-9]{4,10}$/,
+    $("#cedula_profesor"), $("#scedula_profesor"), "selecione un docente") == 0) {
+        mensaje("El diato puede ser 0000");
+        return false;
+
+    }  else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+    $("#ano"), $("#sano"), "seleccione una seccion") == 0) {
+        mensaje("seleccione una seccion");
+        return false;
+
+    } else if (validarkeyup(/^[A-Za-z\s]{4,26}$/,
+    $("#dia"), $("#sdia"), "selecione un dia") == 0) {
+        mensaje("selecione un dia");
+        return false;
+
+    } else if (valfecha($("#clase_inicia"), $("#sclase_inicia")) == 0) {
+        mensaje("La hora no puede estar vacia");
+        return false;
+    }
+    else if (valfecha($("#clase_termina"), $("#sclase_termina")) == 0) {
+        mensaje("La fecha no puede estar vacia");
+        return false;
+    }
+    else if (valfecha($("#inicio"), $("#sinicio")) == 0) {
+        mensaje("La fecha no puede estar vacia");
+        return false;
+    }
+    else if (valfecha($("#fin"), $("#sfin")) == 0) {
+        mensaje("La fecha no puede estar vacia");
+        return false;
+    }
+    return true;
+}
 
 
+
+
+function valfecha(fecha, sfecha) {
+    fechaq = fecha.val();
+    if (fechaq == '') {
+        sfecha.text("seleccione una fecha");
+        setTimeout(function () {
+            sfecha.text("");
+        }, 3000);
+        return false;
+    } else {
+        return true;
+    }
+
+
+
+}
 
 
 
