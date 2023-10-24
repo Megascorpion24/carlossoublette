@@ -19,10 +19,21 @@ require_once("modelo/".$pagina.".php");
 			else{
 				$nivel = "";
 			}
+
+			if(!empty($_POST['estado'])){
+				$o->set_id($_POST['estado']);
+				$o->modificar();
+				$notificaciones_concepto=$o->consultar();
+		$_SESSION['notificaciones'] = $notificaciones_concepto[0];
+		$_SESSION['cantidad'] = $notificaciones_concepto[1];
+				
+			}
 			$o->set_nivel($nivel);
 		$var=$o->morocidad();
 		$var=$o->notificaciones();
-		
+		$notificaciones_concepto=$o->consultar();
+		$_SESSION['notificaciones'] = $notificaciones_concepto[0];
+		$_SESSION['cantidad'] = $notificaciones_concepto[1];
 		
 
 		require_once("vista/".$pagina.".php");

@@ -17,7 +17,7 @@ class principal extends datos{
 	}
     public function set_nivel($valor){
 		$val=$this->nivel = $valor; 
-        echo $val;
+ 
 	}
 
 
@@ -141,16 +141,29 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
                 try{
                     $resultado = $co->prepare("SELECT deudas.id,deudas.concepto, deudas.id_estudiante, estudiantes.nombre FROM deudas INNER JOIN estudiantes on deudas.id_estudiante=estudiantes.cedula WHERE deudas.estado_deudas=1 AND deudas.concepto='mensualidad'");
                     $resultado->execute();
+                    $resultado1 = $co->prepare("SELECT * FROM notificaciones WHERE notificaciones.estado=1");
+                    $resultado1->execute();
     if (!empty($resultado)) {
         $r1="";
         $r2="";
         $r3="";
         $r4="";
+        $p1="";
+        foreach($resultado1 as $r){
+        $p1=$r['mensaje'];
+
+        }
         foreach($resultado as $r){
             $r1=$r['id'];
             $r2=$r['id_estudiante'];
             $r3=$r['nombre'];
             $r4=$r['concepto'];
+           
+
+if (!$p1=='hay una deuda pendiente con concepto de: $r4 que corresponde al estudiante: $r3, $r2') {
+    
+
+
         
             $r= $co->prepare("Insert into notificaciones(
 						
@@ -165,7 +178,7 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
         )"
     );
     $r->execute();
-
+}
 
        
     }
@@ -185,44 +198,23 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
 
 
   //<!---------------------------------funcion consultar------------------------------------------------------------------>          
-public function consultar($nivel1){
+public function consultar(){
     $co = $this->conecta();
 		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
 			
 			
-			$resultado = $co->prepare("SELECT * from materias where estado=1");
+			$resultado = $co->prepare("SELECT * FROM `notificaciones` WHERE notificaciones.estado=1");
 			$resultado->execute();
            $respuesta="";
-
+            $coun=0;
             foreach($resultado as $r){
-                $respuesta= $respuesta.'<tr> <th><span class="custom-checkbox">
-                <input type="checkbox" id="checkbox1" name="option[]" value="1">
-                <label for="checkbox1"></label></th>';
-                $respuesta=$respuesta."<th>".$r['id']."</th>";
-                $respuesta=$respuesta."<th>".$r['nombre']."</th>";
-                $respuesta=$respuesta.'<th>';
-                if (in_array("modificar materias",$nivel1)) {
-                    # code...
-                
-                
-                $respuesta=$respuesta.'<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
-               <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-               </a>';
+              $respuesta=$respuesta.'<li><a href="?pagina=pagos">'.$r["titulo"].'</a><input type="text" value="'.$r["id"].'" class="ocultar" name="estado" id="estado" onclick="funcion_estado()"></li><hr>';
+                $coun++;
             }
-            if(in_array("eliminar materias",$nivel1)){
-               $respuesta=$respuesta.'<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
-               <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-               </a>';
-               
-            }
-            $respuesta=$respuesta.'</th>';
-             $respuesta= $respuesta.'</tr>';
-
-            }
- 
-            return $respuesta;
+            $fila=array($respuesta,$coun);
+            return $fila;
          	
 			
 		}catch(Exception $e){
@@ -232,7 +224,46 @@ public function consultar($nivel1){
 }
 //<!---------------------------------fin funcion consultar------------------------------------------------------------------>
 
+public function modificar(){
 
+
+    $co = $this->conecta();
+    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if($this->existe($this->id)){
+        try{
+            $r= $co->prepare("Update notificaciones set 
+                    
+               
+            estado=0
+             
+                where
+                id =:id
+                
+        
+                 
+                    
+                    
+                ");
+            $r->bindParam(':id',$this->id);	
+          
+        
+         
+            $r->execute();
+
+         
+                return "Registro modificado";	
+            
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
+            
+        }
+        else{
+            return "Año no registrado";
+        }
+
+
+    }
 
 //<!---------------------------------funcion existe------------------------------------------------------------------>
     private function existe($id){

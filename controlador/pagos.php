@@ -35,10 +35,8 @@ require_once("modelo/".$pagina.".php");
 		
 		$o = new pagos();
 		if(!empty($_POST['accion'])){
-			if (preg_match("/^[0-9]{1,5}$/",$_POST['id'] )) {
-				$o->set_id($_POST['id']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['id_deudas'])) {
+
+			if (preg_match("/^[a-zA-Z0-9\s]{1,5}+$/", $_POST['id_deudas'])) {
 				$o->set_id_deudas($_POST['id_deudas']);
 			}
 			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['identificador'])) {
@@ -80,9 +78,6 @@ require_once("modelo/".$pagina.".php");
 	
 		  if(!empty($_POST['accionr'])){
 		  
-			if (preg_match("/^[0-9]{1,5}$/",$_POST['idr'] )) {
-				$o->set_id($_POST['idr']);
-			}
 			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['id_deudasr'])) {
 				$o->set_id_deudas($_POST['id_deudasr']);
 			}
@@ -197,7 +192,9 @@ require_once("modelo/".$pagina.".php");
 
 
 
+		  
 		  $consuta=$o->consultar($nivel1);
+	
 		$consuta2=$o->consultar2();
 		$consutar=$o->consultarr();
 

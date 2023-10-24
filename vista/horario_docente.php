@@ -85,7 +85,7 @@ if (isset($_SESSION['permisos'])) {
 										<div class="tab-pane container active" id="home">
 
 
-											<select id="selector">
+											<select class="form-control col-md-4" id="selector">
 												<option value="todos">todos</option>
 												<?php
 												foreach ($selector as $r) {
@@ -115,6 +115,16 @@ if (isset($_SESSION['permisos'])) {
 															left: 'prev,today,next',
 															center: 'title',
 															right: 'dayGridMonth,timeGridWeek,timeGridDay'
+														},
+														buttonText: {
+															prev: 'Ant',
+															next: 'Sig',
+															today: 'Hoy',
+															year: 'Año',
+															month: 'Mes',
+															week: 'Semana',
+															day: 'Día',
+															list: 'Agenda',
 														},
 														businessHours: {
 															// days of week. an array of zero-based day of week integers (0=Sunday)
@@ -263,7 +273,7 @@ if (isset($_SESSION['permisos'])) {
 
 
 
-						
+
 						<!------------------------------------------------MODAL REGISTRO------------------------------------------------->
 						<div class="modal fade" tabindex="-1" id="addEmployeeModal" role="dialog">
 							<div class="modal-dialog" role="document">
@@ -283,63 +293,179 @@ if (isset($_SESSION['permisos'])) {
 										<div class="form-row">
 											<div class="form-group col-md-4">
 												<label>Materia</label>
-												<span id="sclase"></span>
+												<span style="color:#FF0000" id="sclase"></span>
 												<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
 												<div class="form-group col-md-4">
 
-													<select class="form-control" name="clase" id="clase" onchange="añadir('#clase')">
+													<select class="form-control col-md-4" name="clase" id="clase" onchange="añadir('#clase')">
 														<?php
 														if (!empty($consuta2)) {
 															echo $consuta2;
 														}
 														?>
 													</select>
+												</div>
 											</div>
-										</div>
-										<div class="form-group col-md-4">
-											<label>docente</label>
 											<div class="form-group col-md-4">
-												<span id="scedula_profesor"></span>
-												<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
-												<select class="form-control" name="cedula_profesor" id="cedula_profesor" onchange="añadir2('#cedula_profesor')">
-													<?php
-													if (!empty($consuta3)) {
-														echo $consuta3;
-													}
-													?>
-												</select>
-											</div>
-										</div>
-
-										<div class="form-row">
-											<div class="form-group col-md-4">
+												<label>docente</label>
 												<div class="form-group col-md-4">
-													<div class="form-group col-md-4">
-														<label>Seleccionar un año y sección:</label>
-														<span id="sano"></span>
-												<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
-														<select name="ano" id="ano" onchange="añadir3('#ano')">
-															<?php
-															if (!empty($consuta4)) {
-																echo $consuta4;
-															}
-															?>
-														</select>
-													</div>
+													<span style="color:#FF0000" id="scedula_profesor"></span>
+													<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
+													<select class="form-control" name="cedula_profesor" id="cedula_profesor" onchange="añadir2('#cedula_profesor')">
+														<?php
+														if (!empty($consuta3)) {
+															echo $consuta3;
+														}
+														?>
+													</select>
 												</div>
 											</div>
 
+											
+												<div class="form-group col-md-4">
+													<div class="form-group col-md-4">
+														<div class="form-group col-md-4">
+															<label>Seleccionar sección:</label>
+															<span style="color:#FF0000" id="sano"></span>
+															<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
+															<select name="ano" id="ano" onchange="añadir3('#ano')">
+																<?php
+																if (!empty($consuta4)) {
+																	echo $consuta4;
+																}
+																?>
+															</select>
+														</div>
+													</div>
+												</div>
 
 
+
+											</div>
+
+											<div class="form-row">
+
+												<div class="form-group col-md-4">
+													<label>dia</label>
+													<span style="color:#FF0000" id="sdia"></span>
+													<select class="form-control" id="dia" name="dia">
+														<option value="0">-Selecionar-</option>
+														<option value="1">lunes</option>
+														<option value="2">martes</option>
+														<option value="3">miercoles</option>
+														<option value="4">jueves</option>
+														<option value="5">viernes</option>
+													</select>
+												</div>
+
+												<div class="form-group col-md-4">
+													<label >Clase inicia</label>
+													<span style="color:#FF0000" id="sclase_inicia"></span>
+													<input type="time" class="form-control" name="clase_inicia" id="clase_inicia" required>
+												</div>
+												<div class="form-group col-md-4">
+													<label>Clase termina</label>
+													<span  style="color:#FF0000" id="sclase_termina"></span>
+													<input type="time" class="form-control" name="clase_termina" id="clase_termina" required>
+												</div>
+											</div>
+											<div class="form-row">
+												<div class="form-group col-md-4">
+													<label>Hora de inicio</label>
+													<span style="color:#FF0000" id="sinicio"></span>
+													<input type="date" class="form-control" name="inicio" id="inicio" required>
+												</div>
+												<div class="form-group col-md-4">
+													<label>Hora de finalización</label>
+													<span style="color:#FF0000" id="sfin"></span>
+													<input type="date" class="form-control" name="fin" id="fin" required>
+												</div>
+
+
+
+											</div>
+											<div class="form-row">
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+													<button type="button" class="btn btn-success" id="registrar">Registrar</button>
+												</div>
+												</form>
+											</div>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!--------------------------------------clase_termina MODAL REGISTRO-------------------------------------------------->
+
+
+
+						<!---MODAL BORRAR--------->
+						<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Anular Clase</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true"></span>
+										</button>
+									</div>
+									<form id="f3">
+
+										<input type="text" class="form-control" style="display: none;" name="id1" id="id1" required>
+										<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
+									</form>
+									<div class="modal-body">
+										<p>Esta seguro/segura que desea anular este registro?</p>
+										<p style="color:#FF0000">esta accion no puede ser revertida</p>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+										<button type="button" class="btn btn-success" id="borrar">borrar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!----FIN MODAL BORRAR--------->
+
+
+					<!-----------------------------------------------clase_termina MODAL BORRAR------------------------------------------------------>
+
+
+
+					<!---------------------------------MODAL EDITAR------------------------------------------------------------------>
+					<div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<form id="f2">
+										<h5 class="modal-title">Editar clase</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true"></span>
+										</button>
+								</div>
+								<div class="modal-body">
+
+									<h5 class="modal-title">Modifcar informacion de la clases</h5>
+									<hr>
+
+									<div class="form-row">
+
+
 
 										<div class="form-row">
 
 											<div class="form-group col-md-4">
-												<label>dia</label>
-												<span id="sdia"></span>
-												<select class="form-control" id="dia" name="dia">
-													<option value="0">-Selecionar-</option>
+												<label>Dia</label>
+												<span style="color:#FF0000" id="sdia1"></span>
+												<input type="text" class="form-control" style="display: none;" name="accion1" value="accion1" required>
+												<input type="text" class="form-control" style="display: none;" name="id" id="id" required>
+												<select class="form-control" id="dia1" name="dia1">
+													<option value="0">-Seleccionar-</option>
 													<option value="1">lunes</option>
 													<option value="2">martes</option>
 													<option value="3">miercoles</option>
@@ -349,161 +475,46 @@ if (isset($_SESSION['permisos'])) {
 											</div>
 
 											<div class="form-group col-md-4">
-												<label>Clase inicia</label>
-												<span id="sclase_inicia"></span>
-												<input type="time" class="form-control" name="clase_inicia" id="clase_inicia" required>
+												<label>inicio de la clase</label>
+												<span  style="color:#FF0000" id="sclase_inicia1"></span>
+												<input type="time" class="form-control" name="clase_inicia1" id="clase_inicia1" required>
 											</div>
 											<div class="form-group col-md-4">
-												<label>Clase termina</label>
-												<span id="sclase_termina"></span>
-												<input type="time" class="form-control" name="clase_termina" id="clase_termina" required>
+												<label>clase_termina</label>
+												<span style="color:#FF0000" id="sclase_termina1"></span>
+												<input type="time" class="form-control" name="clase_termina1" id="clase_termina1" required>
 											</div>
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-4">
-												<label>Hora de inicio</label>
-												<span id="sinicio"></span>
-												<input type="date" class="form-control" name="inicio" id="inicio" required>
+												<label>Hora de início</label>
+												<span style="color:#FF0000" id="sinicio1"></span>
+												<input type="date" class="form-control" name="inicio1" id="inicio1" required>
 											</div>
 											<div class="form-group col-md-4">
 												<label>Hora de finalización</label>
-												<span id="sfin"></span>
-												<input type="date" class="form-control" name="fin" id="fin" required>
+												<span style="color:#FF0000" id="sfin1"></span>
+												<input type="date" class="form-control" name="fin1" id="fin1" required>
 											</div>
 
 
-
 										</div>
-										<div class="form-row">
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-												<button type="button" class="btn btn-success" id="registrar">Registrar</button>
-											</div>
-											</form>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+											<button type="button" class="btn btn-success" id="registrar2">Actualizar</button>
 										</div>
+										</form>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!---------------------------------------------clase_termina MODAL EDITAR------------------------------------------------->
 
-					<!--------------------------------------clase_termina MODAL REGISTRO-------------------------------------------------->
-
-
-
-					<!---MODAL BORRAR--------->
-					<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title">Anular Clase</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true"></span>
-									</button>
-								</div>
-								<form id="f3">
-
-									<input type="text" class="form-control" style="display: none;" name="id1" id="id1" required>
-									<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
-								</form>
-								<div class="modal-body">
-									<p>Esta seguro/segura que desea anular este registro?</p>
-									
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-									<button type="button" class="btn btn-success" id="borrar">borrar</button>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 
-				<!----FIN MODAL BORRAR--------->
 
-
-				<!-----------------------------------------------clase_termina MODAL BORRAR------------------------------------------------------>
-
-
-
-				<!---------------------------------MODAL EDITAR------------------------------------------------------------------>
-				<div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<form id="f2">
-									<h5 class="modal-title">Editar clase</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true"></span>
-									</button>
-							</div>
-							<div class="modal-body">
-
-								<h5 class="modal-title">Modifcar informacion de la clases</h5>
-								<hr>
-
-								<div class="form-row">
-
-
-
-									<div class="form-row">
-
-										<div class="form-group col-md-4">
-											<label>Dia</label>
-											<span id="sdia1"></span>
-											<input type="text" class="form-control" style="display: none;" name="accion1" value="accion1" required>
-											<input type="text" class="form-control" style="display: none;" name="id" id="id" required>
-											<select class="form-control" id="dia1" name="dia1">
-												<option value="0">-Seleccionar-</option>
-												<option value="1">lunes</option>
-												<option value="2">martes</option>
-												<option value="3">miercoles</option>
-												<option value="4">jueves</option>
-												<option value="5">viernes</option>
-											</select>
-										</div>
-
-										<div class="form-group col-md-4">
-											<label>inicio de la clase</label>
-											<span id="sclase_inicia1"></span>
-											<input type="time" class="form-control" name="clase_inicia1" id="clase_inicia1" required>
-										</div>
-										<div class="form-group col-md-4">
-											<label>clase_termina</label>
-											<span id="sclase_termina1"></span>
-											<input type="time" class="form-control" name="clase_termina1" id="clase_termina1" required>
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="form-group col-md-4">
-											<label>Hora de início</label>
-											<span id="sinicio1"></span>
-											<input type="date" class="form-control" name="inicio1" id="inicio1" required>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Hora de finalización</label>
-											<span id="sfin1"></span>
-											<input type="date" class="form-control" name="fin1" id="fin1" required>
-										</div>
-
-
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-										<button type="button" class="btn btn-success" id="registrar2">Actualizar</button>
-									</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!---------------------------------------------clase_termina MODAL EDITAR------------------------------------------------->
-
-			</div>
-
-
-			<!-- End popup dialog box -->
+				<!-- End popup dialog box -->
 
 
 

@@ -1,3 +1,19 @@
+<?php
+
+
+if (empty($_SESSION)) {
+	session_start();
+}
+
+if (isset($_SESSION['permisos'])) {
+	$nivel1 = $_SESSION['permisos'];
+} else {
+	$nivel1 = "";
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -252,8 +268,8 @@
 										<p>Modal body text goes here.</p>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-primary">Save changes</button>
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Guardar Cambios</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 									</div>
 								</div>
 							</div>
@@ -278,9 +294,9 @@
 										<div class="form-row">
 											<div class="form-group col-md-4">
 												<label>materia</label>
-												<span id="sclase"></span>
+												<span style="color:#FF0000" id="sclase"></span>
 												<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
-												<<div class="form-group col-md-4">
+												<div class="form-group col-md-4">
 
 													<select class="form-control" name="clase" id="clase" onchange="añadir('#clase')">
 														<?php
@@ -294,7 +310,7 @@
 										<div class="form-group col-md-4">
 											<label>docente</label>
 											<div class="form-group col-md-4">
-
+											<span style="color:#FF0000" id="scedula_profesor"></span>
 												<select class="form-control" name="cedula_profesor" id="cedula_profesor" onchange="añadir2('#cedula_profesor')">
 													<?php
 													if (!empty($consuta3)) {
@@ -308,27 +324,18 @@
 										<div class="form-row">
 											<div class="form-group col-md-4">
 												<div class="form-group col-md-4">
-													<label>seccion:</label>
-													<select class="form-control" name="seccion" id="seccion" onchange="añadir3('#seccion')">
-														<?php
-														if (!empty($consuta4)) {
-															echo $consuta4;
-														}
-														?>
-													</select>
-												</div>
-											</div>
-											<div class="form-group col-mf-4">
-												<div class="form-group col-mf-4">
-													<label>año</label>
-
-													<select name="ano" id="ano" onchange="añadir4('#ano')">
-														<?php
-														if (!empty($consuta5)) {
-															echo $consuta5;
-														}
-														?>
-													</select>
+													<div class="form-group col-md-4">
+											
+														<label>selecciona un año y seccion:</label>
+														<span style="color:#FF0000" id="sano"></span>
+														<select name="ano" id="ano" onchange="añadir3('#ano')">
+															<?php
+															if (!empty($consuta4)) {
+																echo $consuta4;
+															}
+															?>
+														</select>
+													</div>
 												</div>
 											</div>
 
@@ -340,8 +347,9 @@
 
 											<div class="form-group col-md-4">
 												<label>dia</label>
-												<span id="sdia"></span>
+												<span style="color:#FF0000" id="sdia"></span>
 												<select class="form-control" id="dia" name="dia">
+												<option value="0">-seleccionar</option>
 													<option value="1">lunes</option>
 													<option value="2">martes</option>
 													<option value="3">miercoles</option>
@@ -352,24 +360,26 @@
 
 											<div class="form-group col-md-4">
 												<label>clase_inicia</label>
-												<span id="sclase_inicia"></span>
+												<span style="color:#FF0000" id="sclase_inicia"></span>
+												
 												<input type="time" class="form-control" name="clase_inicia" id="clase_inicia" required>
 											</div>
 											<div class="form-group col-md-4">
 												<label>clase_termina</label>
-												<span id="sclase_termina"></span>
+												
+												<span style="color:#FF0000"  id="sclase_termina"></span>
 												<input type="time" class="form-control" name="clase_termina" id="clase_termina" required>
 											</div>
 										</div>
 										<div class="form-row">
 											<div class="form-group col-md-4">
 												<label>inicio</label>
-												<span id="sinicio"></span>
+												<span style="color:#FF0000" id="sinicio"></span>
 												<input type="date" class="form-control" name="inicio" id="inicio" required>
 											</div>
 											<div class="form-group col-md-4">
 												<label>fin</label>
-												<span id="sfin"></span>
+												<span style="color:#FF0000" id="sfin"></span>
 												<input type="date" class="form-control" name="fin" id="fin" required>
 											</div>
 
@@ -530,7 +540,7 @@
 
 
 	<?php require_once('comunes/footer.php') ?>
-	<script src="assets/js/horario_docente.js"></script>
+	<script src="assets/js/horario_secciones.js"></script>
 	<script src="assets/js/script.js"></script>
 
 

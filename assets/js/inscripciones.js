@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+
+    
+
     $('#mibuscador').select2({
         dropdownParent: $('#addEmployeeModal')
     });
@@ -80,7 +83,7 @@ $(document).ready(function () {
     });
 
     $("#cedulae").on("keyup", function () {
-        validarkeyup(/^[0-9]{6,10}$/,
+        validarkeyup(/^[0-9]{6,8}$/,
             $(this), $("#scedulae"), "La Cedula debe ser en el siguiente formato 00000000");
     });
 
@@ -90,8 +93,8 @@ $(document).ready(function () {
     });
 
     $("#nombree").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#snombree"), "El formato puede ser A-Z a-z 8-26");
+        validarkeyup(/^[A-Za-z]{4,15}$/,
+            $(this), $("#snombree"), "El formato puede ser A-Z a-z 4-15");
     });
 
     $("#apellidoe").on("keypress", function (e) {
@@ -100,8 +103,8 @@ $(document).ready(function () {
     });
 
     $("#apellidoe").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#sapellidoe"), "El formato puede ser A-Z a-z 8-26");
+        validarkeyup(/^[A-Za-z]{4,15}$/,
+            $(this), $("#sapellidoe"), "El formato puede ser A-Z a-z 4-15");
     });
 
     $("#edade").on("keypress", function (e) {
@@ -121,7 +124,7 @@ $(document).ready(function () {
 
     $("#observacionese").on("keyup", function () {
         validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#sobservacionese"), "El formato puede ser A-Z a-z 4-26");
+            $(this), $("#sobservacionese"), "El formato puede ser A-Z a-z 8-26");
     });
 
 
@@ -133,7 +136,7 @@ $(document).ready(function () {
 
     $("#sangre").on("keyup", function () {
         validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#ssangre"), "El formato puede ser A-Z a-z 4-26");
+            $(this), $("#ssangre"), "El formato puede ser A-Z a-z 8-26");
     });
 
     $("#vacunas").on("keypress", function (e) {
@@ -219,8 +222,8 @@ $(document).ready(function () {
     });
 
     $("#nombre1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#snombre1"), "El formato puede ser A-Z a-z 8-26");
+        validarkeyup(/^[A-Za-z]{4,15}$/,
+            $(this), $("#snombre1"), "El formato puede ser A-Z a-z 4-15");
     });
 
     $("#apellido3").on("keypress", function (e) {
@@ -229,8 +232,8 @@ $(document).ready(function () {
     });
 
     $("#apellido3").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#sapellido3"), "El formato puede ser A-Z a-z 8-26");
+        validarkeyup(/^[A-Za-z]{4,15}$/,
+            $(this), $("#sapellido3"), "El formato puede ser A-Z a-z 4-15");
     });
 
     $("#edad1").on("keypress", function (e) {
@@ -250,7 +253,7 @@ $(document).ready(function () {
 
     $("#observaciones3").on("keyup", function () {
         validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#sobservaciones3"), "El formato puede ser A-Z a-z 8-26");
+            $(this), $("#sobservaciones3"), "El formato puede ser A-Z a-z 4-26");
     });
 
 
@@ -261,8 +264,8 @@ $(document).ready(function () {
     });
 
     $("#sangre1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
-            $(this), $("#ssangre1"), "El formato puede ser A-Z a-z 8-26");
+        validarkeyup(/^[A-Za-z]{4,10}$/,
+            $(this), $("#ssangre1"), "El formato puede ser A-Z a-z 4-10");
     });
 
     $("#vacunas1").on("keypress", function (e) {
@@ -328,6 +331,217 @@ $(document).ready(function () {
         validarkeyup(/^[A-Za-z]{4,26}$/,
             $(this), $("#scondicion1"), "El formato puede ser A-Z a-z 8-26");
     });
+
+
+
+    $("#cedulae").on("keyup",function(){
+        var codigo = $(this).val();
+        $("#tabla tr").each(function(){
+            if(codigo == $(this).find("th:eq(0)").text()){
+                $("#laveC").append(" registrada");
+                $("#nombree").attr("readonly","readonly");
+                $("#apellidoe").attr("readonly","readonly");
+                $("#edade").attr("readonly","readonly");
+                $("#materiae").attr("readonly","readonly");
+                $("#observacionese").attr("readonly","readonly");
+
+                
+            }else{
+                $("#laveC").text("cedula");
+                $("#nombree").removeAttr("readonly");
+                $("#apellidoe").removeAttr("readonly");
+                $("#edade").removeAttr("readonly");
+                $("#materiae").removeAttr("readonly");
+                $("#observacionese").removeAttr("readonly");
+           
+            }
+        });
+    }); 
+
+    
+   
+    const input1 = document.getElementById("cedulae");
+    const input2 = document.getElementById("nombree");
+    const input3 = document.getElementById("apellidoe");
+    const input4 = document.getElementById("edade");
+    const input5 = document.getElementById("observacionese");
+
+    const input6 = document.getElementById("sangre");
+    const input7 = document.getElementById("vacunas");
+    const input8 = document.getElementById("operaciones");
+
+    const input9 = document.getElementById("enfermedades");
+    const input10 = document.getElementById("medicamentos");
+    const input11 = document.getElementById("alerias");
+    
+    const input12 = document.getElementById("tratamiento");
+    const input13 = document.getElementById("condicion");
+
+
+    const input111 = document.getElementById("cedula1");
+    const input22 = document.getElementById("nombre1");
+    const input33 = document.getElementById("apellido3");
+    const input44 = document.getElementById("edad1");
+    const input55 = document.getElementById("observaciones3");
+
+    const input66 = document.getElementById("sangre1");
+    const input77 = document.getElementById("vacunas1");
+    const input88 = document.getElementById("operaciones1");
+
+    const input99 = document.getElementById("enfermedades1");
+    const input101 = document.getElementById("medicamentos1");
+    const input112 = document.getElementById("alerias1");
+    
+    const input123 = document.getElementById("tratamiento1");
+    const input134 = document.getElementById("condicion1");
+    
+    
+    
+    // Función para limitar la longitud del valor
+    const limitarLongitud = (input, maxLength) => {
+      if (input.value.length > maxLength) {
+        input.value = input.value.slice(0, maxLength); // Limita el valor al máximo permitido
+      }
+    };
+    
+    input1.addEventListener("input", () => {
+      const maxLength = 8; // Cambia este valor al límite máximo deseado
+      limitarLongitud(input1, maxLength);
+    });
+      
+    input2.addEventListener("input", () => {
+        const maxLength = 15; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input2, maxLength);
+    });
+    input3.addEventListener("input", () => {
+        const maxLength = 15; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input3, maxLength);
+      });
+        
+    input4.addEventListener("input", () => {
+        const maxLength = 2; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input4, maxLength);
+    });
+    
+    input5.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input5, maxLength);
+      });
+
+
+
+      input6.addEventListener("input", () => {
+        const maxLength = 10; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input6, maxLength);
+      });
+        
+    input7.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input7, maxLength);
+    });
+    
+    input8.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input8, maxLength);
+      });
+
+      input9.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input9, maxLength);
+      });
+
+      input10.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input10, maxLength);
+      });
+
+      input11.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input11, maxLength);
+      });
+
+      input12.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input12, maxLength);
+      });
+
+      input13.addEventListener("input", () => {
+        const maxLength = 26; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input13, maxLength);
+      });
+
+
+
+
+         // Función para limitar la longitud del valor
+
+      
+      input111.addEventListener("input", () => {
+        const maxLength = 8; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input111, maxLength);
+      });
+        
+      input22.addEventListener("input", () => {
+          const maxLength = 15; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input22, maxLength);
+      });
+      input33.addEventListener("input", () => {
+          const maxLength = 15; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input33, maxLength);
+        });
+          
+      input44.addEventListener("input", () => {
+          const maxLength = 2; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input44, maxLength);
+      });
+      
+      input55.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input55, maxLength);
+        });
+  
+  
+  
+        input66.addEventListener("input", () => {
+          const maxLength = 10; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input66, maxLength);
+        });
+          
+      input77.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input77, maxLength);
+      });
+      
+      input88.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input88, maxLength);
+        });
+  
+        input99.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input99, maxLength);
+        });
+  
+        input101.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input101, maxLength);
+        });
+  
+        input112.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input112, maxLength);
+        });
+  
+        input123.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input123, maxLength);
+        });
+  
+        input134.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input134, maxLength);
+        });
+
 
 
 });
@@ -715,6 +929,26 @@ function chect(valo) {
 
     $("#mibuscador2").attr("disabled", "disabled");
     $("#cedulae").removeAttr("disabled");
+    if (valo == 0) {
+        $("#cedulae").val("");
+                $("#nombree").val("");
+                $("#apellidoe").val("");
+                $("#edade").val("");
+                $("#materiae").val("");
+                $("#observacionese").val("");
+
+                $("#sangre").val("");
+                $("#vacunas").val("");
+                $("#operaciones").val("");
+                $("#enfermedades").val("");
+                $("#medicamentos").val("");
+                $("#alerias").val("");
+                $("#tratamiento").val("");
+                $("#condicion").val("");
+    }
+                
+
+
 
 
 }

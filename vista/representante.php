@@ -28,9 +28,9 @@
 
 							<!-- MAIN -->
 	<main>
-			<div class="head-title pt-3  mx-auto" style="width: 200px;  ">
+			<div class="head-title pt-3  mx-auto" style="width: 500px;  ">
 				<div class="left">
-					<h1 >REPRESENTANTES</h1>
+					<h1 >GESTION DE REPRESENTANTES</h1>
 				</div>
 			</div>
 
@@ -49,7 +49,7 @@
 							<div class="table-title  mb-3">
 								<div class="row ">
 									<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-										<h2 class="ml-lg-2">Registro de Representante</h2>
+										<h2 class="ml-lg-2">Información de Representante</h2>
 									</div>
 									<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 									<?PHP if (in_array("registrar representante", $nivel1)) {?>
@@ -376,6 +376,6 @@
 
 	<?php require_once('comunes/footer.php') ?> 
     <script src="assets/js/representante.js"></script>
-	<script  src="assets/js/script.js"></script>
+
 </body>
 </html>

@@ -128,7 +128,7 @@ class tutor_legal extends datos{
                         :correo,
                         :clave,
                         :estado,
-                        19
+                        1
                     )");
 
                 $r->bindParam(':nombre',$this->nombre1);	
@@ -153,8 +153,8 @@ class tutor_legal extends datos{
                         :id_usuarios,
                         :id_tutor
                     )");
-                    $r->bindParam(':id_usuarios',$this->cedula);	
-                    $r->bindParam(':id_tutor',$lid1);
+                    $r->bindParam(':id_usuarios', $lid1);	
+                    $r->bindParam(':id_tutor',$this->cedula);
                     
                     $r->execute();
 

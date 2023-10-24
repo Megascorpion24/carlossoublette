@@ -103,8 +103,8 @@ $("#nombre1").on("keypress", function(e) {
 });
 
 $("#nombre1").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,26}$/,
-        $(this), $("#snombre1"), "El formato puede ser A-Z a-z 8-26");
+    validarkeyup(/^[A-Za-z]{4,10}$/,
+        $(this), $("#snombre1"), "El formato puede ser A-Z a-z 4-10");
 });
 
 
@@ -122,19 +122,82 @@ $("#contraceña2").on("keypress", function(e) {
 });
 
 $("#contraceña2").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,16}$/,
-        $(this), $("#scontraceña2"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  8-16 caracteres");
+    validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
+        $(this), $("#scontraceña2"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  8-10 caracteres");
 });
 $("#contraceña3").on("keypress", function(e) {
     validarkeypress(/^[0-9A-Za-z\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]$/, e);
 });
 
 $("#contraceña3").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,16}$/,
-        $(this), $("#scontraceña3"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  8-16 caracteres");
+    validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
+        $(this), $("#scontraceña3"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  8-10 caracteres");
 });
 
 
+const input1 = document.getElementById("nombre1");
+    const input2 = document.getElementById("correo1");
+    const input3 = document.getElementById("contraceña2");
+    const input4 = document.getElementById("contraceña3");
+
+
+    const input5 = document.getElementById("nombre");
+
+    const input6 = document.getElementById("correo");
+    const input7 = document.getElementById("contraceña");
+    const input8 = document.getElementById("contraceña1");
+
+
+
+ // Función para limitar la longitud del valor
+ const limitarLongitud = (input, maxLength) => {
+    if (input.value.length > maxLength) {
+      input.value = input.value.slice(0, maxLength); // Limita el valor al máximo permitido
+    }
+  };
+  
+  input1.addEventListener("input", () => {
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input1, maxLength);
+  });
+    
+  input2.addEventListener("input", () => {
+      const maxLength = 26; // Cambia este valor al límite máximo deseado
+      limitarLongitud(input2, maxLength);
+  });
+  input3.addEventListener("input", () => {
+      const maxLength = 10; // Cambia este valor al límite máximo deseado
+      limitarLongitud(input3, maxLength);
+    });
+      
+  input4.addEventListener("input", () => {
+      const maxLength = 10; // Cambia este valor al límite máximo deseado
+      limitarLongitud(input4, maxLength);
+  });
+
+
+     
+  input5.addEventListener("input", () => {
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input5, maxLength);
+  });
+
+
+
+  input6.addEventListener("input", () => {
+    const maxLength = 26; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input6, maxLength);
+  });
+    
+input7.addEventListener("input", () => {
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input7, maxLength);
+});
+
+input8.addEventListener("input", () => {
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input8, maxLength);
+  });
 
 
 

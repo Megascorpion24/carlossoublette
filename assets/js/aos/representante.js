@@ -107,7 +107,7 @@ $(document).ready(function() {
     });
 
     $("#cedula").on("keyup", function() {
-        validarkeyup(/^[0-9]{6,8}$/,
+        validarkeyup(/^[0-9]{6,10}$/,
         $(this), $("#scedula"), "La Cedula debe ser en el siguiente formato 00000000");
     });
 
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
     $("#nombre1").on("keyup", function() {
         validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#snombre1"), "El formato puede ser A-Z a-z 8-20");
+            $(this), $("#snombre1"), "El formato puede ser A-Z a-z 8-26");
     });
 
     $("#apellido1").on("keypress", function(e) {
@@ -128,7 +128,7 @@ $(document).ready(function() {
 
     $("#apellido1").on("keyup", function() {
         validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#sapellido1"), "El formato puede ser A-Z a-z 8-20");
+            $(this), $("#sapellido1"), "El formato puede ser A-Z a-z 8-26");
     });
     
     $("#nombre2").on("keypress", function(e) {
@@ -138,7 +138,7 @@ $(document).ready(function() {
 
     $("#nombre2").on("keyup", function() {
         validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#snombre2"), "El formato puede ser A-Z a-z 8-20");
+            $(this), $("#snombre2"), "El formato puede ser A-Z a-z 8-26");
     });
 
 
@@ -149,7 +149,7 @@ $(document).ready(function() {
 
     $("#apellido2").on("keyup", function() {
         validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#sapellido2"), "El formato puede ser A-Z a-z 8-20");
+            $(this), $("#sapellido2"), "El formato puede ser A-Z a-z 8-26");
     });
 
     $("#telefono").on("keypress", function(e) {
@@ -209,7 +209,7 @@ $("#cedula1").on("keypress", function(e) {
 });
 
 $("#cedula1").on("keyup", function() {
-    validarkeyup(/^[0-9]{6,8}$/,
+    validarkeyup(/^[0-9]{6,10}$/,
     $(this), $("#scedula1"), "La Cedula debe ser en el siguiente formato 00000000");
 });
 
@@ -219,8 +219,8 @@ $("#nombre11").on("keypress", function(e) {
 });
 
 $("#nombre11").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#snombre11"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#snombre11"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#nombre21").on("keypress", function(e) {
@@ -229,8 +229,8 @@ $("#nombre21").on("keypress", function(e) {
 });
 
 $("#nombre21").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#snombre21"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#snombre21"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#apellido11").on("keypress", function(e) {
@@ -239,8 +239,8 @@ $("#apellido11").on("keypress", function(e) {
 });
 
 $("#apellido11").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#sapellido11"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#sapellido11"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#apellido21").on("keypress", function(e) {
@@ -249,8 +249,8 @@ $("#apellido21").on("keypress", function(e) {
 });
 
 $("#apellido21").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#sapellido21"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#sapellido21"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#telefono1").on("keypress", function(e) {
@@ -458,39 +458,39 @@ function modificar(id){
 
 
     function validarenvio() {
-        if (validarkeyup(/^[0-9]{6,8}$/,
+        if (validarkeyup(/^[0-9]{6,10}$/,
         $("#cedula"), $("#scedula"), "La Cedula debe ser en el siguiente formato 00000000") == 0) {
             mensaje("<p>La Cedula debe ser en el siguiente formato 00000000");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre1"), $("#snombre1"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre1"), $("#snombre1"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido1"), $("#sapellido1"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido1"), $("#sapellido1"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre2"), $("#snombre2"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre2"), $("#snombre2"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido2"), $("#sapellido2"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido2"), $("#sapellido2"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
         } else if (validarkeyup(/^[0-9]{11}$/,
-         $("#telefono"), $("#stelefono"), "Solo numeros 0-9 en el formato 0000-0000000s ") == 0) {
-            mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
+         $("#telefono"), $("#stelefono"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>Solo numeros 0-9 en el formato 00000000</p>");
             return false;
     
         } else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
         $("#correo"), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio</p>");
+            mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }else if (validarkeyup(/^[0-9]{11}$/,
-        $("#contacto_emer"), $("#scontacto_emer"), "Solo numeros 0-9 en el formato 0000-0000000") == 0) {
+        $("#contacto_emer"), $("#scontacto_emer"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }
@@ -507,31 +507,31 @@ function modificar(id){
 
 
     function validarenvio1() {
-        if (validarkeyup(/^[0-9]{6,8}$/,
+        if (validarkeyup(/^[0-9]{6,10}$/,
         $("#cedula1"), $("#scedula1"), "La Cedula debe ser en el siguiente formato 00000000") == 0) {
             mensaje("<p>La Cedula debe ser en el siguiente formato 00000000");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre11"), $("#snombre11"), "El formato puede ser A-Z a-z 8-20") == 0) {
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre11"), $("#snombre11"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido11"), $("#sapellido11"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido11"), $("#sapellido11"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre21"), $("#snombre21"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre21"), $("#snombre21"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido21"), $("#sapellido21"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido21"), $("#sapellido21"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
         } else if (validarkeyup(/^[0-9]{11}$/,
-         $("#telefono1"), $("#stelefono1"), "Solo numeros 0-9 en el formato 0000-0000000</p>") == 0) {
-            mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
+         $("#telefono1"), $("#stelefono1"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>Solo numeros 0-9 en el formato 00000000</p>");
             return false;
     
         } else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
@@ -539,7 +539,7 @@ function modificar(id){
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }else if (validarkeyup(/^[0-9]{11}$/,
-        $("#contacto_emer1"), $("#scontacto_emer1"), "Solo numeros 0-9 en el formato 0000-0000000</p>") == 0) {
+        $("#contacto_emer1"), $("#scontacto_emer1"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }

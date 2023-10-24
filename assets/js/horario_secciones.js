@@ -1,4 +1,21 @@
 $(document).ready(function() { 
+    
+    
+    console.log(location.href);
+    
+
+  $('#ano').select2({
+    dropdownParent: $('#addEmployeeModal')
+  });
+  $('#clase').select2({
+    dropdownParent: $('#addEmployeeModal')
+  });
+  $('#cedula_profesor').select2({
+    dropdownParent: $('#addEmployeeModal')
+  });
+  
+  
+
 
 
 
@@ -6,25 +23,29 @@ $(document).ready(function() {
 
 
     $("#registrar").on("click", function() {
+        
         if (validarenvio()) {
-          
             enviaAjax($("#f"));
             $('#addEmployeeModal').modal('hide');
+         
             $('#f').trigger('reset');
-       }
-        
+       
+        }
 
     });
 
     $("#registrar2").on("click", function() {
-        if (validarenvio1()) {
+        
           
             enviaAjax($("#f2"));
+       
             $('#editEmployeeModal').modal('hide');
-       }
+            location.reload();
+       
    
 
     });
+    
     
 
 
@@ -35,35 +56,7 @@ $(document).ready(function() {
 /*validaciones para registrar*/
 
 
-    $("#clase").on("keypress", function(e) {
-        validarkeypress(/^[A-Za-z0-9-\b]*$/, e);
-
-    });
-
-    $("#clase").on("keyup", function() {
-        validarkeyup(/^[A-Za-z0-9]{2,50}$/,
-        $(this), $("#sclase"), "La clase debe contener almenos 2 caracters");
-    });
-
-    $("#cedula_profesor").on("keypress", function(e) {
-        validarkeypress(/^[0-9]$/, e);
-
-    });
-
-    $("#cedula_profesor").on("keyup", function() {
-        validarkeyup(/^[0-9]{8,9}$/,
-            $(this), $("#scedula_profesor"), "El formato puede ser 00000000");
-    });
-
-    $("#seccion").on("keypress", function(e) {
-        validarkeypress(/^[A-Za-z0-9]$/, e);
-
-    });
-
-    $("#seccion").on("keyup", function() {
-        validarkeyup(/^[A-Za-z0-9]{2,50}$/,
-            $(this), $("#sseccion"), "El formato debe tener al menos 2 caracteres");
-    });
+    
    
 
    
@@ -91,37 +84,7 @@ $(document).ready(function() {
 
 
 /*validaciones para editar*/
-$("#clase1").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z\b]*$/, e);
 
-});
-
-$("#clase1").on("keyup", function() {
-    validarkeyup(/^[A-Za-z0-9]{6,10}$/,
-    $(this), $("#sclase1"), "La clase debe ser en el siguiente formato 00000000");
-});
-
-$("#cedula_profesor1").on("keypress", function(e) {
-    validarkeypress(/^[0-9]$/, e);
-
-});
-
-$("#cedula_profesor1").on("keyup", function() {
-    validarkeyup(/^[0-9]{4,26}$/,
-        $(this), $("#scedula_profesor1"), "El formato puede ser A-Z a-z 8-26");
-});
-
-
-
-$("#seccion1").on("keypress", function(e) {
-    validarkeypress(/^[A-Za-z0-9]$/, e);
-
-});
-
-$("#seccion1").on("keyup", function() {
-    validarkeyup(/^[A-Za-z0-9]{4,26}$/,
-        $(this), $("#sseccion1"), "El formato puede ser A-Z a-z 8-26");
-});
 
 
 
@@ -144,10 +107,6 @@ $("#seccion1").on("keyup", function() {
         
             if(id == $(this).find("th:eq(0)").text()){
                 $("#id").val($(this).find("th:eq(0)").text());
-                
-                $("#clase1").val($(this).find("th:eq(1)").text());
-                $("#cedula_profesor1").val($(this).find("th:eq(2)").text());
-                $("#seccion1").val($(this).find("th:eq(3)").text());
                 $("#dia1").val($(this).find("th:eq(4)").text());
                 $("#clase_inicia1").val($(this).find("th:eq(5)").text());
                 $("#clase_termina1").val($(this).find("th:eq(6)").text());
@@ -174,8 +133,43 @@ $("#seccion1").on("keyup", function() {
 
     }
 
+    function añadir(valor){
+        if (valor=='#clase') {
+            $('#clase').prepend($(valor).val());
+        }else{
+            $('#clase').append($(valor).val()); 
+        }
+        
+       
 
 
+    }
+
+
+    function añadir2(valor){
+        if (valor=='#ano') {
+            $('#ano').prepend($(valor).val());
+        }else{
+            $('#ano').append($(valor).val()); 
+        }
+        
+       
+
+
+    }
+
+    function añadir3(valor){
+        if (valor=='#cedula_profesor') {
+            $('#cedula_profesor').prepend($(valor).val());
+        }else{
+            $('#cedula_profesor').append($(valor).val()); 
+        }
+        
+       
+
+
+    }
+    
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
@@ -191,7 +185,7 @@ $("#seccion1").on("keyup", function() {
                 },
                 
                 success: function(respuesta) {
-                 //$("#clase").val(respuesta);
+                 alert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
                    
@@ -300,25 +294,176 @@ $("#seccion1").on("keyup", function() {
 
 
 
-
-    function validarenvio() {
-        if (validarkeyup(/^[A-Za-z0-9]{2,50}$/,
-        $("#clase"), $("#sclase"), "La clase debe tener al menos 2 caracteres") == 0) {
-            mensaje("<p>La clase debe tener al menos 2 caracters");
-            return false;
-        } else if (validarkeyup(/^[0-9]{8,9}$/,
-        $("#cedula_profesor"), $("#scedula_profesor"), "El formato debe ser 00000000") == 0) {
-            mensaje("<p>El formato debe ser 00000000</p>");
-            return false;
+function validarenvio() {
+        
     
-        } else if (validarkeyup(/^[A-Za-z0-9]{2,50}$/,
-        $("#seccion"), $("#sseccion"), "El formato puede ser A-Z a-z 2-50") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 2-50</p>");
-            return false;
-        }
+    if (valclase($('#clase').val(),$("#sclase")) == 0) {
+        mensaje("<p >Debe de seleccionar una materia</p>");
+        return false;
+    }else if (valprof($('#cedula_profesor').val(),$("#scedula_profesor")) == 0) {
+        mensaje("<p>Debe de seleccionar una materia</p>");
+        return false;
+    }else if (valseccion($('#ano').val(),$("#sano")) == 0) {
+        mensaje("<p>Debe de seleccionar una materia</p>");
+        return false;
+    }else if (valdia($('#dia').val(),$("#sdia")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }else if (valhora($('#clase_inicia').val(),$("#sclase_inicia")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }else if (valhora($('#clase_termina').val(),$("#sclase_termina")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }else if (valrango($('#inicio').val(),$("#sinicio")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }else if (valrango($('#fin').val(),$("#sfin")) == 0) {
+        mensaje("<p>Debe de seleccionar un dia</p>");
+        return false;
+    }
+    
         
         return true;
     }
+    
+    function validarenvio2() {
+            
+        if (valdia($('#dia1').val(),$("#sdia1")) == 0) {
+            mensaje("<p>Debe de seleccionar un dia</p>");
+            return false;
+        }else if (valhora($('#clase_inicia1').val(),$("#sclase_inicia1")) == 0) {
+            mensaje("<p>Debe de seleccionar un dia</p>");
+            return false;
+        }else if (valhora($('#clase_termina1').val(),$("#sclase_termina1")) == 0) {
+            mensaje("<p>Debe de seleccionar un dia</p>");
+            return false;
+        }else if (valrango($('#inicio1').val(),$("#sinicio1")) == 0) {
+            mensaje("<p>Debe de seleccionar un dia</p>");
+            return false;
+        }else if (valrango($('#fin1').val(),$("#sfin1")) == 0) {
+            mensaje("<p>Debe de seleccionar un dia</p>");
+            return false;
+        }
+        
+            
+            return true;
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    function valprof(cedula_profesor,scedula_profesor) {
+        
+    
+        if (cedula_profesor != 'seleccionar') {
+            
+            return true;
+        } else {
+            scedula_profesor.text("seleccione a un profesor")
+            setTimeout(function() {
+                scedula_profesor.fadeOut();
+            }, 3000);
+            return false;
+        }
+    
+    
+    
+    }
+    function valclase(clase,sclase) {
+        
+    
+        if (clase != 'seleccionar') {
+            
+            return true;
+        } else {
+            sclase.text("seleccione una materia")
+            setTimeout(function() {
+                sclase.fadeOut();
+            }, 3000);
+            return false;
+        }
+    
+    
+    
+    }
+    function valseccion(ano,sano) {
+        
+    
+        if (ano != 'seleccionar') {
+            
+            return true;
+        } else {
+            sano.text("seleccione una seccion")
+            setTimeout(function() {
+                sano.fadeOut();
+            }, 3000);
+            return false;
+        }
+    
+    
+    
+    }
+    
+    
+    function valdia(dia,sdia) {
+        
+    
+        if (dia != 0) {
+            
+            return true;
+        } else {
+            sdia.text("seleccione un dia")
+            setTimeout(function() {
+                sdia.fadeOut();
+            }, 3000);
+            return false;
+        }
+    
+    
+    
+    }
+    function valhora(clase_inicia,sclase_inicia) {
+        
+    
+        if (clase_inicia != 0) {
+            
+            return true;
+        } else {
+            sclase_inicia.text("seleccione una hora")
+            setTimeout(function() {
+                sclase_inicia.fadeOut();
+            }, 3000);
+            return false;
+        }
+    
+    
+    
+    }
+    function valrango(inicia,sinicia) {
+        
+    
+        if (inicia != 0) {
+            
+            return true;
+        } else {
+            sinicia.text("seleccione una fecha")
+            setTimeout(function() {
+                sinicia.fadeOut();
+            }, 3000);
+            return false;
+        }
+    
+    
+    
+    }
+    
+    
+   
 
 
 
@@ -329,23 +474,7 @@ $("#seccion1").on("keyup", function() {
 
 
 
-    function validarenvio1() {
-        if (validarkeyup(/^[A-Za-z0-90-9]{2,50}$/,
-        $("#clase1"), $("#sclase1"), "La clase debe ser en el siguiente formato 00000000") == 0) {
-            mensaje("<p>La clase debe ser en el siguiente formato 00000000");
-            return false;
-        } else if (validarkeyup(/^[0-9]{8,9}$/,
-        $("#cedula_profesor1"), $("#scedula_profesor1"), "El formato puede ser A-Z a-z 8-26") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
-            return false;
-    
-        } else if (validarkeyup(/^[A-Za-z0-9A-Za-z]{2,50}$/,
-        $("#seccion1"), $("#sseccion1"), "El formato puede ser A-Z a-z 8-26") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
-            return false;
-        } 
-        return true;
-    }
+   
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 

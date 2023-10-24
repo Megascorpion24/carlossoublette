@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2023 a las 22:28:05
+-- Tiempo de generación: 19-10-2023 a las 23:19:03
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -161,7 +161,9 @@ INSERT INTO `bitacora` (`id`, `fecha`, `accion`, `modulo`, `id_usuario`) VALUES
 (1011, '2023-10-14', 'se elimino un pago', 'docentes', 27),
 (1012, '2023-10-14', 'se modifico un pago', 'docentes', 27),
 (1013, '2023-10-14', 'se modifico un pago', 'docentes', 27),
-(1014, '2023-10-19', 'se elimino un representante', 'representantes', 27);
+(1014, '2023-10-19', 'se elimino un representante', 'representantes', 27),
+(1015, '2023-10-19', 'se modifico un pago', 'docentes', 27),
+(1016, '2023-10-19', 'se modifico un pago', 'docentes', 27);
 
 -- --------------------------------------------------------
 
@@ -184,7 +186,7 @@ CREATE TABLE `deudas` (
 --
 
 INSERT INTO `deudas` (`id`, `id_estudiante`, `monto`, `concepto`, `fecha`, `estado`, `estado_deudas`) VALUES
-(1, '30019081', '20', 'inscripcion', '2023-09-24', 1, 0),
+(1, '30019081', '20', 'inscripcion', '2023-09-24', 1, 1),
 (2, '30019081', '20', 'mensualidad', '2023-09-28', 1, 0),
 (3, '30019081', '20', 'mensualidad', '2023-09-28', 1, 0),
 (4, '30019081', '20', 'mensualidad', '2023-09-28', 1, 0),
@@ -538,7 +540,7 @@ CREATE TABLE `pagos` (
   `concepto` varchar(20) NOT NULL,
   `forma` varchar(20) NOT NULL,
   `meses` int(2) NOT NULL,
-  `estado` varchar(1) NOT NULL,
+  `estado` varchar(20) NOT NULL,
   `estado_pagos` int(1) NOT NULL,
   `estatus` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -548,7 +550,7 @@ CREATE TABLE `pagos` (
 --
 
 INSERT INTO `pagos` (`id`, `id_deudas`, `identificador`, `fecha`, `concepto`, `forma`, `meses`, `estado`, `estado_pagos`, `estatus`) VALUES
-(2, 5, '2342', '2024-01-14', 'mensualidad', 'Pago Movil', 3, 'C', 0, 1);
+(2, 5, '2342', '2024-01-14', 'mensualidad', 'Pago Movil', 3, 'CONFIRMADO', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1113,7 +1115,7 @@ ALTER TABLE `años_materias`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1015;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1017;
 
 --
 -- AUTO_INCREMENT de la tabla `deudas`

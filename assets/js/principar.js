@@ -1,70 +1,9 @@
 $(document).ready(function() { 
-   
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    $("#tablas").DataTable({
-    
-        responsive: true,   
 
-      
-        lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
-        columnDefs: [
-          { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },
-          { orderable: false, targets: [2] },
-          { searchable: false, targets: [1] },
-          { width: '20%', targets: [1] },   
-          
-        ],
-    
-        columnDefs: [
-          {
-            responsivePriority: 1,
-            targets: 0
-          },
-          {
-            responsivePriority: 2,
-            targets: -1
-          }
-        ],
-        pageLength: 5,
-        destroy: true,
-        language: {
-        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-          processing: 'Procesando...',
-          lengthMenu: 'Mostrar _MENU_ registros',
-          zeroRecords: 'No se encontraron resultados',
-          emptyTable: 'Ningún dato disponible en esta tabla',
-          infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-          infoFiltered: '(filtrado de un total de _MAX_ registros)',
-          search: 'Buscar:',
-          infoThousands: ',',
-          loadingRecords: 'Cargando...',
-          paginate: {
-            first: 'Primero',
-            last: 'Último',
-            next: 'Sig',
-            previous: 'Ant',
-          },
-          aria: {
-            sortAscending: ': Activar para ordenar la columna de manera ascendente',
-            sortDescending: ': Activar para ordenar la columna de manera descendente',
-          },
-        }
-        
-        
-      });
 
-    
-      $(".dataTables_filter input")
-        .attr("placeholder", "Buscar...")
-    
-    
-      $('[data-toggle="tooltip"]').tooltip();
-    
-      window.addEventListener('load', async () => {
-        await initDataTable();
-      });
- 
+
+
 
     $("#registrar").on("click", function() {
         if (validarenvio()) {
@@ -107,7 +46,7 @@ $(document).ready(function() {
     });
 
     $("#cedula").on("keyup", function() {
-        validarkeyup(/^[0-9]{6,8}$/,
+        validarkeyup(/^[0-9]{6,10}$/,
         $(this), $("#scedula"), "La Cedula debe ser en el siguiente formato 00000000");
     });
 
@@ -117,8 +56,8 @@ $(document).ready(function() {
     });
 
     $("#nombre1").on("keyup", function() {
-        validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#snombre1"), "El formato puede ser A-Z a-z 8-20");
+        validarkeyup(/^[A-Za-z]{4,26}$/,
+            $(this), $("#snombre1"), "El formato puede ser A-Z a-z 8-26");
     });
 
     $("#apellido1").on("keypress", function(e) {
@@ -127,8 +66,8 @@ $(document).ready(function() {
     });
 
     $("#apellido1").on("keyup", function() {
-        validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#sapellido1"), "El formato puede ser A-Z a-z 8-20");
+        validarkeyup(/^[A-Za-z]{4,26}$/,
+            $(this), $("#sapellido1"), "El formato puede ser A-Z a-z 8-26");
     });
     
     $("#nombre2").on("keypress", function(e) {
@@ -137,8 +76,8 @@ $(document).ready(function() {
     });
 
     $("#nombre2").on("keyup", function() {
-        validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#snombre2"), "El formato puede ser A-Z a-z 8-20");
+        validarkeyup(/^[A-Za-z]{4,26}$/,
+            $(this), $("#snombre2"), "El formato puede ser A-Z a-z 8-26");
     });
 
 
@@ -148,8 +87,8 @@ $(document).ready(function() {
     });
 
     $("#apellido2").on("keyup", function() {
-        validarkeyup(/^[A-Za-z]{4,20}$/,
-            $(this), $("#sapellido2"), "El formato puede ser A-Z a-z 8-20");
+        validarkeyup(/^[A-Za-z]{4,26}$/,
+            $(this), $("#sapellido2"), "El formato puede ser A-Z a-z 8-26");
     });
 
     $("#telefono").on("keypress", function(e) {
@@ -168,7 +107,7 @@ $(document).ready(function() {
     });
 
     $("#correo").on("keyup", function() {
-        validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,20}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
             $(this), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari@servidor.dominio");
     });
 
@@ -209,7 +148,7 @@ $("#cedula1").on("keypress", function(e) {
 });
 
 $("#cedula1").on("keyup", function() {
-    validarkeyup(/^[0-9]{6,8}$/,
+    validarkeyup(/^[0-9]{6,10}$/,
     $(this), $("#scedula1"), "La Cedula debe ser en el siguiente formato 00000000");
 });
 
@@ -219,8 +158,8 @@ $("#nombre11").on("keypress", function(e) {
 });
 
 $("#nombre11").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#snombre11"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#snombre11"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#nombre21").on("keypress", function(e) {
@@ -229,8 +168,8 @@ $("#nombre21").on("keypress", function(e) {
 });
 
 $("#nombre21").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#snombre21"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#snombre21"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#apellido11").on("keypress", function(e) {
@@ -239,8 +178,8 @@ $("#apellido11").on("keypress", function(e) {
 });
 
 $("#apellido11").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#sapellido11"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#sapellido11"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#apellido21").on("keypress", function(e) {
@@ -249,8 +188,8 @@ $("#apellido21").on("keypress", function(e) {
 });
 
 $("#apellido21").on("keyup", function() {
-    validarkeyup(/^[A-Za-z]{4,20}$/,
-        $(this), $("#sapellido21"), "El formato puede ser A-Z a-z 8-20");
+    validarkeyup(/^[A-Za-z]{4,26}$/,
+        $(this), $("#sapellido21"), "El formato puede ser A-Z a-z 8-26");
 });
 
 $("#telefono1").on("keypress", function(e) {
@@ -409,7 +348,9 @@ function modificar(id){
 
 
 
-
+function funcion_estado(){
+    enviaAjax($("#r"));
+}
 
     function validarkeyup(er, etiqueta, etiquetamensaje,
         mensaje) {
@@ -458,39 +399,39 @@ function modificar(id){
 
 
     function validarenvio() {
-        if (validarkeyup(/^[0-9]{6,8}$/,
+        if (validarkeyup(/^[0-9]{6,10}$/,
         $("#cedula"), $("#scedula"), "La Cedula debe ser en el siguiente formato 00000000") == 0) {
             mensaje("<p>La Cedula debe ser en el siguiente formato 00000000");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre1"), $("#snombre1"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre1"), $("#snombre1"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido1"), $("#sapellido1"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido1"), $("#sapellido1"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre2"), $("#snombre2"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre2"), $("#snombre2"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido2"), $("#sapellido2"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido2"), $("#sapellido2"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
         } else if (validarkeyup(/^[0-9]{11}$/,
-         $("#telefono"), $("#stelefono"), "Solo numeros 0-9 en el formato 0000-0000000s ") == 0) {
-            mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
+         $("#telefono"), $("#stelefono"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>Solo numeros 0-9 en el formato 00000000</p>");
             return false;
     
         } else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
         $("#correo"), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio</p>");
+            mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }else if (validarkeyup(/^[0-9]{11}$/,
-        $("#contacto_emer"), $("#scontacto_emer"), "Solo numeros 0-9 en el formato 0000-0000000") == 0) {
+        $("#contacto_emer"), $("#scontacto_emer"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }
@@ -507,31 +448,31 @@ function modificar(id){
 
 
     function validarenvio1() {
-        if (validarkeyup(/^[0-9]{6,8}$/,
+        if (validarkeyup(/^[0-9]{6,10}$/,
         $("#cedula1"), $("#scedula1"), "La Cedula debe ser en el siguiente formato 00000000") == 0) {
             mensaje("<p>La Cedula debe ser en el siguiente formato 00000000");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre11"), $("#snombre11"), "El formato puede ser A-Z a-z 8-20") == 0) {
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre11"), $("#snombre11"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido11"), $("#sapellido11"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido11"), $("#sapellido11"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#nombre21"), $("#snombre21"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#nombre21"), $("#snombre21"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#apellido21"), $("#sapellido21"), "El formato puede ser A-Z a-z 8-20") == 0) {
-            mensaje("<p>El formato puede ser A-Z a-z 8-20</p>");
+        } else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        $("#apellido21"), $("#sapellido21"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
         } else if (validarkeyup(/^[0-9]{11}$/,
-         $("#telefono1"), $("#stelefono1"), "Solo numeros 0-9 en el formato 0000-0000000</p>") == 0) {
-            mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
+         $("#telefono1"), $("#stelefono1"), "El formato puede ser A-Z a-z 8-26") == 0) {
+            mensaje("<p>Solo numeros 0-9 en el formato 00000000</p>");
             return false;
     
         } else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
@@ -539,7 +480,7 @@ function modificar(id){
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }else if (validarkeyup(/^[0-9]{11}$/,
-        $("#contacto_emer1"), $("#scontacto_emer1"), "Solo numeros 0-9 en el formato 0000-0000000</p>") == 0) {
+        $("#contacto_emer1"), $("#scontacto_emer1"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
         }
@@ -550,103 +491,4 @@ function modificar(id){
 
     
     
-const input1 = document.getElementById("cedula");
-const input2 = document.getElementById("nombre1");
-const input3 = document.getElementById("nombre2");
-const input4 = document.getElementById("apellido1");
-const input5 = document.getElementById("apellido2");
-const input6 = document.getElementById("telefono");
-const input7 = document.getElementById("correo");
-const input8 = document.getElementById("contacto_emer");
-/////////////////////////////////////////////////////////////////////
-const input9 = document.getElementById("cedula1");
-const input10 = document.getElementById("nombre11");
-const input11 = document.getElementById("nombre21");
-const input12 = document.getElementById("apellido11");
-const input13 = document.getElementById("apellido21");
-const input14 = document.getElementById("telefono1");
-const input15 = document.getElementById("correo1");
-const input16 = document.getElementById("contacto_emer1");
-
-// Función para limitar la longitud del valor
-const limitarLongitud = (input, maxLength) => {
-  if (input.value.length > maxLength) {
-    input.value = input.value.slice(0, maxLength); // Limita el valor al máximo permitido
-  }
-};
-
-input1.addEventListener("input", () => {
-  const maxLength = 8; // Cambia este valor al límite máximo deseado
-  limitarLongitud(input1, maxLength);
-});
-  
-input2.addEventListener("input", () => {
-    const maxLength = 20; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input2, maxLength);
-});
-input3.addEventListener("input", () => {
-    const maxLength = 20; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input3, maxLength);
-  });
     
-input4.addEventListener("input", () => {
-    const maxLength = 20; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input4, maxLength);
-});
-
-input5.addEventListener("input", () => {
-    const maxLength = 20; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input5, maxLength);
-  });
-  input6.addEventListener("input", () => {
-    const maxLength = 11; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input6, maxLength);
-  });
-    
-input7.addEventListener("input", () => {
-    const maxLength = 32; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input7, maxLength);
-});
-
-input8.addEventListener("input", () => {
-    const maxLength = 11; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input8, maxLength);
-  });
-////////////////////////////////////////////////////////////////////////////////////////////
-input9.addEventListener("input", () => {
-    const maxLength = 8; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input9, maxLength);
-  });
-    
-  input10.addEventListener("input", () => {
-      const maxLength = 20; // Cambia este valor al límite máximo deseado
-      limitarLongitud(input10, maxLength);
-  });
-  input11.addEventListener("input", () => {
-      const maxLength = 20; // Cambia este valor al límite máximo deseado
-      limitarLongitud(input11, maxLength);
-    });
-      
-  input12.addEventListener("input", () => {
-      const maxLength = 20; // Cambia este valor al límite máximo deseado
-      limitarLongitud(input12, maxLength);
-  });
-  
-  input13.addEventListener("input", () => {
-      const maxLength = 20; // Cambia este valor al límite máximo deseado
-      limitarLongitud(input13, maxLength);
-    });
-    input14.addEventListener("input", () => {
-      const maxLength = 11; // Cambia este valor al límite máximo deseado
-      limitarLongitud(input14, maxLength);
-    });
-      
-  input15.addEventListener("input", () => {
-      const maxLength = 32; // Cambia este valor al límite máximo deseado
-      limitarLongitud(input15, maxLength);
-  });
-  
-  input16.addEventListener("input", () => {
-      const maxLength = 11; // Cambia este valor al límite máximo deseado
-      limitarLongitud(input16, maxLength);
-    });

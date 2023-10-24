@@ -11,6 +11,8 @@ class pagos extends datos{
     private $forma;
 	private $fecha;
 	private $estado;
+    private $estado_pagos;
+    private $estatus;
     private $meses;
     private $nivel;
 
@@ -37,6 +39,12 @@ class pagos extends datos{
 	}
 	public function set_estado($valor){
 		$this->estado = $valor; 
+	} 
+    public function set_estado_pagos($valor){
+		$this->estado_pagos = $valor; 
+	} 
+    public function set_estatus($valor){
+		$this->estatus = $valor; 
 	} 
     public function set_meses($valor){
 		$this->meses = $valor; 
@@ -88,11 +96,11 @@ class pagos extends datos{
             try{
 
                 
-                $r= $co->prepare("INSERT INTO pagos( id, id_deudas, identificador, concepto, forma, fecha,meses, estado, estado_pagos,estatus )
-                                             VALUES(:id,:id_deudas,:identificador,:concepto, :forma, :fecha, :meses, :estado ,:estado_pagos,:estatus)");
+                $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha,meses, estado, estado_pagos,estatus )
+                                             VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :meses, :estado ,:estado_pagos,:estatus)");
                 $estado_pagos=1;
                 $estatus=1;
-                $r->bindParam(':id',$this->id);	
+     
                 $r->bindParam(':id_deudas',$this->id_deudas);	
                 $r->bindParam(':identificador',$this->identificador);	
                 $r->bindParam(':concepto',$this->concepto);	
@@ -152,12 +160,12 @@ class pagos extends datos{
             if(!$this->existe($this->id)){
                 try{
 
-                    $r= $co->prepare("INSERT INTO pagos( id, id_deudas, identificador,concepto, forma, fecha, meses,estado, estado_pagos, estatus)
-                                                 VALUES(:idr,:id_deudasr,:identificadorr,:conceptor, :formar, :fechar, :mesesr, :estador,:estado_pagosr,:estatusr )");
+                    $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador,concepto, forma, fecha, meses,estado, estado_pagos, estatus)
+                                                 VALUES(:id_deudasr,:identificadorr,:conceptor, :formar, :fechar, :mesesr, :estador,:estado_pagosr,:estatusr )");
     
                     $estado_pagos=1;
                     $estatus=1;
-                    $r->bindParam(':idr',$this->id);	
+                    	
                     $r->bindParam(':id_deudasr',$this->id_deudas);	
                     $r->bindParam(':identificadorr',$this->identificador);	
                     $r->bindParam(':conceptor',$this->concepto);
@@ -175,7 +183,7 @@ class pagos extends datos{
                     $r->bindParam(':id_deudasr',$this->id_deudas);
                     $r->execute();
     
-                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudas AND d.concepto = 'inscripcion'");  
+                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudasr AND d.concepto = 'inscripcion'");  
                     $r->bindParam(':id_deudasr',$this->id_deudas);	                
                     $r->execute();
     
@@ -281,10 +289,17 @@ public function consultar($nivel1){
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{			
 			$resultado = $co->prepare("SELECT p.*, e.nombre, e.cedula FROM pagos p, deudas d,estudiantes e WHERE p.id_deudas = d.id  AND d.id_estudiante = e.cedula  AND p.estatus=1");
-			$resultado->execute();
-        
-
-     
+	
+            //<!--SELECT pagos.*, estudiantes.nombre,estudiantes.cedula 
+            //<!--FROM pagos 
+            //<!--INNER JOIN deudas on pagos.id_deudas=deudas.id 
+            //<!--INNER JOIN estudiantes on estudiantes.cedula=deudas.id_estudiante 
+            //<!--INNER JOIN estudiantes_tutor on estudiantes_tutor.id_tutor= 312312131  
+            //<!--WHERE pagos.estatus=1;
+    
+    
+    
+            $resultado->execute(); 
            $respuesta="";
             foreach($resultado as $r){
                 $respuesta= $respuesta.'<tr>';
@@ -337,6 +352,7 @@ public function consultar2(){
 			
 			
             $resultado = $co->prepare("SELECT * from deudas WHERE estado_deudas = 1");
+            //<!----------SELECT * from deudas WHERE estado_deudas = 1-------------------->
 			$resultado->execute();
            $respuesta="";
            $respuesta2="";
@@ -389,7 +405,19 @@ public function consultarr(){
         try{
 			
 			
-            $resultado = $co->prepare("SELECT * from deudas WHERE estado_deudas = 1");
+            //<!--    $resultado = $co->prepare("SELECT * from deudas                    
+            //<!--   INNER JOIN estudiantes    
+            //<!--    ON deudas.id_estudiante = estudiantes.cedula       
+            //<!--   INNER JOIN estudiantes_tutor        
+            //<!--   ON estudiantes.cedula = estudiantes_tutor.id_estudiantes       
+            //<!--    WHERE estado_deudas = 1 AND  estudiantes_tutor.id_tutor = 123123123");
+      //<!-----      SELECT * from deudas WHERE estado_deudas = 1------>
+
+
+
+      $resultado = $co->prepare("SELECT * from deudas WHERE estado_deudas = 1");
+
+
 			$resultado->execute();
            $respuesta="";
            $respuesta2="";
@@ -468,10 +496,14 @@ private function eliminar1(){
                 $r=$co->prepare("UPDATE pagos SET estatus = 0 WHERE id=:id");
                 $r->bindParam(':id',$this->id);
                 $r->execute();$r->execute();
+
+
+
                 $this->bitacora("se elimino un pago", "docentes",$this->nivel);
                 return "Registro Eliminado";
                 
         } catch(Exception $e) {
+            
             return $e->getMessage();
         }
         

@@ -19,25 +19,22 @@
 		  </li>
 		  <!-------2 PAGINA------------>
 		  <li class="">
-		  <a href="?pagina=usuarios"><img class="pr-3" src="assets/icon/comment-user.png" />Usuarios </a>
+		  <a href="?pagina=usuarios"><img class="pr-3 " src="assets/icon/comment-user.png" />Usuarios </a>
 		  </li>	
 		<!-------3 PAGINA------------>
-		  <li class="dropdown">
-		  <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <img class="pr-3" src="assets/icon/users-alt.png"/>Docentes
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-		     <li><a href="?pagina=docente"><img class="pr-3" src="assets/icon/user.png"/>Docentes</a></li>
-			 <li><a href="#"><img class="pr-3" src="assets/icon/user-add.png"/>Docentes Guias</a></li>
-		  </ul>
-		  </li>
+		<li class="">
+		  <a href="?pagina=docente"><img class="pr-3" src="assets/icon/usuario.png"/>Docentes</a>
+		  </li>	
   		<!-------4 PAGINA------------>	
 		  <li class="">
 		  <a href="?pagina=representante" ><img class="pr-3" src="assets/icon/users.png"/>Representantes </a>
 		  </li>	
 		<!-------5 PAGINA------------>	
-		<li class="">
+	      <li class="">
+		  <a href="?pagina=inscripciones" class=""><img class="pr-3" src="assets/icon/comprobacion-de-comentarios.png"/>Inscripciones </a>
+		  </li>	
+		  	<!-------6 PAGINA------------>
+		  <li class="">
 		  <a href="?pagina=pagos"><img class="pr-3" src="assets/icon/coins.png"/>Pagos </a>
 		  </li>	
 		<!-------6 PAGINA------------>
@@ -50,17 +47,9 @@
 		  <a href="?pagina=secciones" ><img class="pr-3" src="assets/icon/usuario-de-pizarra.png"/>Secciones</a>
 		  </li>
 		  <!-------8 PAGINA------------>
-		  <li class="dropdown">
-		  <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <img class="pr-3" src="assets/icon/calculadora.png"/>Años
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu3">
-		     <li><a href="?pagina=años"><img class="pr-3" src="assets/icon/calendario-reloj.png"/>Años </a></li>
-			 <li><a href="?pagina=ano_academico"><img class="pr-3" src="assets/icon/chequeo-de-tiempo.png"/>Año Academico</a></li>
-		  </ul>
+		  <li class="">
+		  <a href="?pagina=ano_academico" ><img class="pr-3" src="assets/icon/calculadora.png"/>Año Academico</a>
 		  </li>
-
 
 
 		<!-------9 PAGINA------------>	
@@ -72,32 +61,32 @@
 		  </a>
 		  <ul class="collapse list-unstyled menu" id="homeSubmenu2">
 		     <li><a href="?pagina=horario_docente"><img class="pr-3" src="assets/icon/calendario2.png"/>Horarios Docentes</a>
-			 <li><a href="#"><img class="pr-3" src="assets/icon/calendario.png"/>Horarios Secciones</a></li>
+			 <li><a href="?pagina=horario_secciones"><img class="pr-3" src="assets/icon/calendario.png"/>Horarios Secciones</a></li>
 		  </ul>
 		  </li>
-		
-		<!-------10 PAGINA------------>	
 
-		 <li class="">
-		  <a href="?pagina=inscripciones" class=""><img class="pr-3" src="assets/icon/comprobacion-de-comentarios.png"/>Inscripciones </a>
-		  </li>	
 		  <!-------11 PAGINA------------>	
 		 <li class="">
 		  <a href="?pagina=seguridad" class=""><img class="pr-3" src="assets/icon/layout-fluid.png"/>seguridad </a>
 		  </li>	
 
 		   <!-------12 PAGINA------------>	
-		 <li class="">
-		  <a href="?pagina=reporte_ingreso" class=""><img class="pr-3" src="assets/icon/layout-fluid.png"/>reporte de ingresos </a>
-		  </li>	
-		   <!-------12 PAGINA------------>	
-		 <li class="">
-		  <a href="?pagina=reporte_egresos" class=""><img class="pr-3" src="assets/icon/layout-fluid.png"/>reporte de egresos </a>
-		  </li>	
+
+		   <li class="dropdown">
+		  <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <img class="pr-3" src="assets/icon/grafico.png"/>Reportes
+		  </a>
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu3">
+		     <li><a href="?pagina=reporte_ingreso" class=""><img class="pr-3" src="assets/icon/grafico-simple.png"/>reporte de ingresos </a></li>
+			 <li><a href="?pagina=reporte_egresos" class=""><img class="pr-3" src="assets/icon/grafico-simple-horizontal.png"/>reporte de egresos </a></li>
+		  </ul>
+		  </li>
+
 
 <!-------13 PAGINA------------>	
-<li class="">
-		  <a href="?pagina=bitacora" class=""><img class="pr-3" src="assets/icon/layout-fluid.png"/>bitacora</a>
+		<li class="">
+		  <a href="?pagina=bitacora" class=""><img class="pr-3" src="assets/icon/ajustes.png"/>bitacora</a>
 		  </li>			  
 			
 		
@@ -128,20 +117,19 @@
 
 			<!------NOTIFICACIONES-----------> 						 
 					 
-					 <div class="col-10 col-md-6 col-lg-11 order-1 order-md-3">
+			<div class="col-10 col-md-6 col-lg-11 order-1 order-md-3">
 					     <div class="xp-profilebar text-right">
 						    <nav class="navbar p-0">
 							   <ul class="nav navbar-nav flex-row ml-auto">
 							   <li class="dropdown nav-item active">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
 								 <img class="pt-1 pb-1" style="Width:30px; height:42px;" src="assets/icon/bookmark.png" />
-								  <span class="notification">4</span>
+								  <span class="notification"><?php if(!empty($_SESSION['cantidad'])){echo $_SESSION['cantidad'];} ?></span>
 								 </a>
 								  <ul class="dropdown-menu">
-								     <li><a href="#">Notificacion de Prueba</a></li>
-									 <li><a href="#">Notificacion de Prueba</a></li>
-									 <li><a href="#">Notificacion de Prueba</a></li>
-									 <li><a href="#">Notificacion de Prueba</a></li>
+									<form id="r" class="">
+								 <?php if(!empty($_SESSION['notificaciones'])){echo $_SESSION['notificaciones'];} ?>
+								 </form>
 								  </ul>
 							   </li>
 							   
@@ -149,7 +137,7 @@
 							   
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
-								  <img src="assets/img/user.jpeg" style="width:40px; border-radius:50%;"/>
+								  <img src="assets/img/user.png" style="width:40px; border-radius:50%;"/>
 								  <span class="xp-user-live"></span>
 								 </a>
 								  <ul class="dropdown-menu small-menu">

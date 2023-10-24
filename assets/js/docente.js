@@ -230,18 +230,18 @@ $("#direccion1").on("keyup", function() {
     function modificar(id){
         $("#tabla tr").each(function(){
         
-            if(id == $(this).find("th:eq(1)").text()){
-                $("#cedula1").val($(this).find("th:eq(1)").text());
-                $("#nombre1").val($(this).find("th:eq(2)").text());
-                $("#apellido1").val($(this).find("th:eq(3)").text());
-                $("#categoria1").val($(this).find("th:eq(4)").text());
-                $("#fecha1").val($(this).find("th:eq(5)").text());
-                $("#especializacion1").val($(this).find("th:eq(6)").text());
-                $("#profecion1").val($(this).find("th:eq(7)").text());
-                $("#edad1").val($(this).find("th:eq(8)").text());
-                $("#años1").val($(this).find("th:eq(9)").text());
-                $("#correo1").val($(this).find("th:eq(10)").text());
-                $("#direccion1").val($(this).find("th:eq(11)").text());
+            if(id == $(this).find("th:eq(0)").text()){
+                $("#cedula1").val($(this).find("th:eq(0)").text());
+                $("#nombre1").val($(this).find("th:eq(1)").text());
+                $("#apellido1").val($(this).find("th:eq(2)").text());
+                $("#categoria1").val($(this).find("th:eq(3)").text());
+                $("#fecha1").val($(this).find("th:eq(4)").text());
+                $("#especializacion1").val($(this).find("th:eq(5)").text());
+                $("#profecion1").val($(this).find("th:eq(6)").text());
+                $("#edad1").val($(this).find("th:eq(7)").text());
+                $("#años1").val($(this).find("th:eq(8)").text());
+                $("#correo1").val($(this).find("th:eq(9)").text());
+                $("#direccion1").val($(this).find("th:eq(10)").text());
                
                 
 

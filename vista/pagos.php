@@ -30,7 +30,7 @@
 
 			<div class="head-title pt-3  mx-auto" style="width: 400px;  ">
 				<div class="left">
-					<h1 >REGISTRO DE PAGOS </h1>
+					<h1 >GESTION DE PAGOS </h1>
 				</div>
 			</div>
 
@@ -45,20 +45,20 @@
 							<div class="table-title  mb-3">
 								<div class="row ">
 										<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-											<h2 class="ml-lg-2">Registro de Pagos</h2>
+											<h2 class="ml-lg-2">Información de Pagos</h2>
 										</div>
 										<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 										<?PHP if (in_array("registrar docente", $nivel1)) {?>
 											<a href="#addpago" class="btn btn-success" data-toggle="modal">
 												<i class="material-icons " style="width:100%" title="registrar"></i>
-												<span>Registrar</span>
+												<span>Realizar Pago</span>
 											</a>
 
 											<?php } ?>
 											<?PHP if (in_array("registrar pagos_tutor", $nivel1)) {?>
 											<a href="#addpagorepre" class="btn btn-success" data-toggle="modal">
 												<i class="material-icons " style="width:100%" title="registrar"></i>
-												<span>Registrar Tutor</span>
+												<span>Realizar Pago ( Tutor )</span>
 											</a>
 											<?php } ?>
 											
@@ -83,7 +83,7 @@
 									<th>Estudiante</th>
 									<th>Estado</th>
 							
-									<th>Actions</th>
+									<th>Acción</th>
 									</tr>
 								</thead>
 								<?PHP if (in_array("consultar pagos", $nivel1)) {?>
@@ -156,17 +156,12 @@
 
 
 					<div class="form-row">
-						<div class="form-group col-md-2">
-							<label>ID</label>
-								<span id="sid"></span>
-								<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
-							<input type="text" class="form-control" name="id" id="id" required placeholder="0000">
-						</div>
-	
-						<div class="form-group col-md-2">
+					
+						<div class="form-group col-md-4">
 							<label>N° Deuda</label>	
 								<span id="sid_deudas"></span>
-							<input type="text" class="form-control"  name="id_deudas" id="id_deudas" required>
+								<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
+							<input type="text" class="form-control" readonly="true" name="id_deudas" id="id_deudas" required>
 						</div>
 
 						<div class="form-group col-md-4">
@@ -198,13 +193,17 @@
 									<option value="Pago Movil">Pago Movil</option>
 									<option value="Efectivo">Efectivo</option>																		
 							</select>
-						</div>
-		
+						</div>				
 						<div class="form-group col-md-4">
 							<label>Estado</label>
-								<span id="sestado"></span>
-							<input type="text" class="form-control" readonly="true" value="CONFIRMADO" value="0" name="estado" id="estado" required placeholder="Activo">
+								<span id="sestadoM"></span>		
+							
+							<select type="text" class="form-control" name="estado" id="estado" required >																
+									<option value="CONFIRMADO">CONFIRMAR</option>
+									<option value="PENDIENTE">PENDIENTE</option>																									
+							</select>
 						</div>
+						
 						<div class="form-group col-md-2 ocultar" id="ocult">
 							<label>Meses</label>
 								<span id="smeses"></span>
@@ -475,17 +474,13 @@
 				<hr>
 
 					<div class="form-row">
-						<div class="form-group col-md-2">
-							<label>ID</label>
-								<span id="sidr"></span>
-								<input type="text" class="form-control" style="display: none;"  name="accionr" value="accionr" required>
-							<input type="text" class="form-control" name="idr" id="idr" required placeholder="0000">
-						</div>
+		
 	
-						<div class="form-group col-md-2">
+						<div class="form-group col-md-4">
 							<label>N° Deuda</label>	
 								<span id="sid_deudasr"></span>
-							<input type="text" class="form-control" name="id_deudasr" id="id_deudasr" required>
+								<input type="text" class="form-control" style="display: none;"  name="accionr" value="accionr" required>
+							<input type="text" class="form-control" readonly="true" name="id_deudasr" id="id_deudasr" required>
 						</div>
 						<div class="form-group col-md-4">
 							<label>Concepto</label>

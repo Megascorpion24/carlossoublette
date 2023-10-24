@@ -301,9 +301,10 @@
 			
 		<div class="form-group col-md-4">
 		
-		    <label>Cedula</label>
+		    <label id="laveC">Cedula </label>
 			<br>
 			<span id="scedulae"></span>
+			<span id="scedulae2"></span>
 			<input type="text" class="form-control" name="cedulae" id="cedulae" required>
 		</div>
 		<div class="form-group col-md-4">

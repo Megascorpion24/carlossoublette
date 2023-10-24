@@ -276,7 +276,7 @@ function validarenvio() {
         
     
 if (valclase($('#clase').val(),$("#sclase")) == 0) {
-    mensaje("<p>Debe de seleccionar una materia</p>");
+    mensaje("<p >Debe de seleccionar una materia</p>");
     return false;
 }else if (valprof($('#cedula_profesor').val(),$("#scedula_profesor")) == 0) {
     mensaje("<p>Debe de seleccionar una materia</p>");

@@ -98,7 +98,7 @@ $('#mibuscador2').select2({
             enviaAjax($("#f"));
             $('#addpago').modal('hide');
             $('#f').trigger('reset');          
-           
+            $('#tablas').DataTable().ajax.reload();
        }
         
 
@@ -149,7 +149,7 @@ $('#mibuscador2').select2({
     });
 
     $("#identificador").on("keyup", function() {
-        validarkeyup(/^[0-9]{4,10}$/,
+        validarkeyup(/^[0-9]{4,20}$/,
             $(this), $("#sidentificador"), "El formato puede ser 0000");
     });
 
@@ -223,7 +223,7 @@ $("#identificadorr").on("keypress", function(e) {
 });
 
 $("#identificadorr").on("keyup", function() {
-    validarkeyup(/^[0-9]{4,10}$/,
+    validarkeyup(/^[0-9]{4,20}$/,
         $(this), $("#sidentificadorr"), "El formato puede ser 0000");
 });
 $("#conceptor").on("keypress", function(e) {
@@ -296,7 +296,7 @@ $("#identificadorM").on("keypress", function(e) {
 });
 
 $("#identificadorM").on("keyup", function() {
-    validarkeyup(/^[0-9]{4,10}$/,
+    validarkeyup(/^[0-9]{4,20}$/,
         $(this), $("#sidentificadorM"), "El formato puede ser 0000.00");
 });
 $("#conceptoM").on("keypress", function(e) {
@@ -552,7 +552,7 @@ function validarkeypress(er, e) {
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
     function validarenvio() {
-        if (validarkeyup(/^[0-9]{1,5}$/,
+        if (validarkeyup(/^[0-9]{1,20}$/,
         $("#id_deudas"), $("#sid_deudas"), "La ID debe ser en el siguiente formato 0000") == 0) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
@@ -562,22 +562,22 @@ function validarkeypress(er, e) {
             mensaje("El formato puede ser 0000");
             return false;
 
-        }  else if (validarkeyup(/^[A-Za-z]{4,20}$/,
+        }  else if (validarkeyup(/^[A-Za-z]{4,26}$/,
         $("#concepto"), $("#sconcepto"), "El formato debe ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        } else if (validarkeyup(/^[A-Za-z\s]{4,26}$/,
         $("#forma"), $("#sforma"), "El formato debe ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        } else if (validarkeyup(/^[A-Za-z\s]{4,26}$/,
         $("#estado"), $("#sestado"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{1,2}$/,
+        } else if (validarkeyup(/^[0-9]{1,6}$/,
         $("#meses"), $("#smeses"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
@@ -613,7 +613,7 @@ function validarkeypress(er, e) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{4,10}$/,
+        } else if (validarkeyup(/^[0-9]{4,20}$/,
         $("#identificadorr"), $("#sidentificadorr"), "El formato puede ser 0000") == 0) {
             mensaje("El formato puede ser 0000");
             return false;
@@ -642,32 +642,32 @@ function validarkeypress(er, e) {
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
     function validarenvio1() {
-        if (validarkeyup(/^[0-9]{1,5}$/,
+        if (validarkeyup(/^[0-9]{1,4}$/,
         $("#id_deudasM"), $("#sid_deudasM"), "La ID debe ser en el siguiente formato 0000") == 0) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
     
-        } else if (validarkeyup(/^[0-9]{4,10}$/,
+        } else if (validarkeyup(/^[0-9]{4,20}$/,
         $("#identificadorM"), $("#sidentificadorM"), "El formato puede ser 0000.00") == 0) {
             mensaje("El formato puede ser 0000");
             return false;
 
-        }  else if (validarkeyup(/^[A-Za-z]{4,20}$/,
+        }  else if (validarkeyup(/^[A-Za-z]{4,26}$/,
         $("#conceptoM"), $("#sconceptoM"), "El formato debe ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        } else if (validarkeyup(/^[A-Za-z\s]{4,26}$/,
         $("#formaM"), $("#sformaM"), "El formato debe ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        } else if (validarkeyup(/^[A-Za-z\s]{4,26}$/,
         $("#estadoM"), $("#sestadoM"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{1,2}$/,
+        } else if (validarkeyup(/^[0-9]{1,6}$/,
         $("#mesesM"), $("#smesesM"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;

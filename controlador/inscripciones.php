@@ -1,10 +1,13 @@
 <?php 
 
 
+/*require 'vendor/autoload.php';
  //archivo de conecion para que funciuone 
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-
+*/
 
 
 if (!is_file("modelo/".$pagina.".php")){

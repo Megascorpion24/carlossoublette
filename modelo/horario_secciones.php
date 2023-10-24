@@ -6,7 +6,6 @@ class horario_secciones extends datos{
 
     private $id;
 	private $clase;
-    private $cedula_profesor;
     private $ano;
     private $seccion;
     private $dia;
@@ -26,9 +25,7 @@ class horario_secciones extends datos{
 	public function set_clase($valor){
 		$this->clase = $valor; 
 	}
-    public function set_cedula_profesor($valor){
-		$this->cedula_profesor = $valor; 
-	}
+  
     public function set_ano($valor){
 		$this->ano = $valor; 
 	}
@@ -63,6 +60,9 @@ class horario_secciones extends datos{
         $this->eliminar1();
     }
 	
+    public function set_nivel($valor){
+		$this->nivel = $valor; 
+	}
 	
   
     
@@ -148,39 +148,22 @@ private function registrar1(){
                 $lid = $co->lastInsertId();
                         
 
-                
-                $r= $co->prepare("Insert into docente_horario(
-                    
-                    id_docente,
-                    id_horario_docente
-                    )
-            
-
-                    Values(
-                    :id_docente,
-                    :id_horario_docente
-                    
-                    
-                    )");
-                $r->bindParam(':id_docente',$this->cedula_profesor);	
-                $r->bindParam(':id_horario_docente',$lid);	
-                $r->execute();
 
                 $r= $co->prepare("Insert into materia_horario_secciones(
                     
                     id_materias,
-                    id_horario_docente
+                    id_horario_secciones
                     )
             
 
                     Values(
                     :id_materias,
-                    :id_horario_docente
+                    :id_horario_secciones
                     
                     
                     )");
                 $r->bindParam(':id_materias',$this->clase);	
-                $r->bindParam(':id_horario_docente',$lid);	
+                $r->bindParam(':id_horario_secciones',$lid);	
                 $r->execute();
 
 
@@ -307,19 +290,16 @@ private function modificar1(){
         try{
 			
 			
-			$resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,' ', docentes.cedula) as cedula
-            FROM horario_docente
-            
-            INNER JOIN docente_horario
-            ON horario_docente.id = docente_horario.id_horario_docente 
-            INNER JOIN docentes
-            ON docente_horario.id_docente = docentes.cedula
+			$resultado = $co->prepare("SELECT horario_secciones.*,materias.nombre as clase,concat(docentes.nombre ,' ', docentes.cedula) as cedula
+            FROM horario_secciones
             
             
-            INNER JOIN materia_horario_docente
-            ON horario_secciones.id= materia_horario_secciones.id_horario_docente
+            
+            
+            INNER JOIN materia_horario_secciones
+            ON horario_secciones.id= materia_horario_secciones.id_horario_secciones
             INNER JOIN materias
-            ON materia_horario_docente.id_materias = materias.id
+            ON materia_horario_secciones.id_materias = materias.id
             
             
             
@@ -328,50 +308,46 @@ private function modificar1(){
 
             WHERE horario_secciones.estado = 1
 
-            ORDER BY `horario_docente`.`id` ASC;");
+            ORDER BY `horario_secciones`.`id` ASC;");
 			$resultado->execute();
            $respuesta="";
 
-            foreach($resultado as $r){
-                $respuesta= $respuesta.'<tr>';
-                $respuesta=$respuesta."<th>".$r['id']."</th>";
-                $respuesta=$respuesta."<th>".$r['clase']."</th>";
-                $respuesta=$respuesta."<th>".$r['cedula']."</th>";
-                $respuesta=$respuesta."<th>".$r['id_ano_seccion']."</th>";
-                $respuesta=$respuesta."<th>".$r['dia']."</th>";
-                $respuesta=$respuesta."<th>".$r['clase_inicia']."</th>";
-                $respuesta=$respuesta."<th>".$r['clase_termina']."</th>";
-                $respuesta=$respuesta."<th>".$r['inicio']."</th>";
-                $respuesta=$respuesta."<th>".$r['fin']."</th>";
-                $respuesta=$respuesta.'<th>
-            <a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
-               <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-               </a>
-               
-               <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
-               <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-               </a>
+            foreach ($resultado as $r) {
+                $respuesta = $respuesta . '<tr>';
+                $respuesta = $respuesta . "<th>" . $r['id'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['clase'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['cedula'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['seccion'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['dia'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['clase_inicia'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['clase_termina'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['inicio'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['fin'] . "</th>";
+                $respuesta = $respuesta . '<th>';
+                if (in_array("modificar horario_secciones", $nivel1)) {
+                    # code...
 
-        
-             </th>';
-             $respuesta= $respuesta.'</tr>';
-                
+
+                    $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['id'] . '`)">
+                <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
+               </a>';
+                }
+                if (in_array("eliminar horario_secciones", $nivel1)) {
+                    $respuesta = $respuesta . '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['id'] . '`)">
+               <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
+               </a>';
+                }
+                $respuesta = $respuesta . '</th>';
+                $respuesta = $respuesta . '</tr>';
             }
 
-           
+
             return $respuesta;
-         
-							
-							
+        } catch (Exception $e) {
 
-
-			
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-}
+            return false;
+        }
+    }
 //<!---------------------------------fin funcion consultar------------------------------------------------------------------>
 
 public function consultar2(){
@@ -460,44 +436,37 @@ public function consultar3(){
 
 
 
-public function consultar4(){
-    $co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        try{
-			
-			
-			$resultado = $co->prepare("SELECT * from secciones");
-			$resultado->execute();
-           $respuesta="";
-           $respuesta2="";
-           $respuesta2 =$respuesta2.'<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+public function consultar4()
+    {
+        $co = $this->conecta();
 
-            foreach($resultado as $r){
-                $respuesta2 =$respuesta2.'<option value="'.$r['id'].'"  >'.$r['secciones'].'</option>';
-               
-             
-               
-             $respuesta= $respuesta.'</tr>';
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
 
+
+            $resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id ORDER by  años.anos, secciones.secciones AND secciones.estado=1 and años.estado=1");
+            $resultado->execute();
+            $respuesta = "";
+            $respuesta2 = "";
+            $respuesta2 = $respuesta2 . '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+
+            foreach ($resultado as $r) {
+                $respuesta2 = $respuesta2 . '<option value="' . $r['id'] . '"  >' . $r['anos'] . " - " . $r['secciones'] . '</option>';
+
+
+
+                $respuesta = $respuesta . '</tr>';
             }
 
-            
 
-           
+
+
             return $respuesta2;
-         
-							
-							
+        } catch (Exception $e) {
 
-
-			
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-}
+            return false;
+        }
+    }
 
 
 public function consultar5(){
@@ -665,7 +634,7 @@ private function existe($id){
     try{
         
         
-        $resultado = $co->prepare("SELECT * FROM `horario_docente` WHERE id= :id; ");
+        $resultado = $co->prepare("SELECT * FROM `horario_secciones` WHERE id= :id; ");
         
         $resultado->bindParam(':id',$id);
         $resultado->execute();
@@ -717,7 +686,7 @@ private function eliminar1(){
     
 
         try {
-                $r=$co->prepare("UPDATE `horario_docente` SET `estado`= 0 WHERE id=:id");
+                $r=$co->prepare("UPDATE `horario_secciones` SET `estado`= 0 WHERE id=:id");
                 $r->bindParam(':id',$this->id);
                 $r->execute();
                 return "Registro Eliminado";

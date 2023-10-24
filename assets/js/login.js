@@ -37,8 +37,8 @@ $(document).ready(function() {
       });
   
       $("#user").on("keyup", function() {
-          validarkeyup(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}$/,
-              $(this), $("#suser"), "El formato puede ser A-Z a-z (.)(#)(@)(*) 8-26");
+          validarkeyup(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,10}$/,
+              $(this), $("#suser"), "El formato puede ser A-Z a-z (.)(#)(@)(*) 4-10");
       });
   
       $("#password").on("keypress", function(e) {
@@ -46,8 +46,8 @@ $(document).ready(function() {
       });
   
       $("#password").on("keyup", function() {
-          validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,16}$/,
-              $(this), $("#spassword"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  8-16 caracteres ");
+          validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
+              $(this), $("#spassword"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  4-10 caracteres ");
       });
   
   
@@ -59,10 +59,30 @@ $(document).ready(function() {
   
           }
       });
+      const input1 = document.getElementById("password");
+      const input2 = document.getElementById("user");
   
   
-  
-  
+    
+    // Función para limitar la longitud del valor
+    const limitarLongitud = (input, maxLength) => {
+        if (input.value.length > maxLength) {
+          input.value = input.value.slice(0, maxLength); // Limita el valor al máximo permitido
+        }
+      };
+      
+      input1.addEventListener("input", () => {
+        const maxLength = 10; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input1, maxLength);
+      });
+        
+      input2.addEventListener("input", () => {
+          const maxLength = 10; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input2, maxLength);
+      });
+
+
+
   
   });
   

@@ -101,7 +101,7 @@ class horario_docente extends datos
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
+     if(!$this->existe_clase($this->dia,$this->clase_inicia,$this->clase_termina,$this->ano)){
         try {
 
 
@@ -213,7 +213,11 @@ class horario_docente extends datos
         } catch (Exception $e) {
             return $e->getMessage();
         }
-    }
+  }
+else{
+        return "Esta seccion ya tiene una clase en ese dia y hora, por favor eliga un dia o hora diferentes";
+ };
+
 
     //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
 
@@ -395,7 +399,7 @@ class horario_docente extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT * from materias");
+            $resultado = $co->prepare("SELECT * from materias where estado = 1");
             $resultado->execute();
             $respuesta = "";
             $respuesta2 = "";
@@ -432,7 +436,7 @@ class horario_docente extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT * from docentes");
+            $resultado = $co->prepare("SELECT * from docentes where estado = 1");
             $resultado->execute();
             $respuesta = "";
             $respuesta2 = "";
@@ -626,6 +630,47 @@ class horario_docente extends datos
     }
 
     //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
+
+ //<!---------------------------------funcion existe clase------------------------------------------------------------------>
+
+ private function existe_clase($dia,$clase_inicia,$clase_termina,$ano)
+ {
+
+     $co = $this->conecta();
+
+     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+     try {
+
+
+         $resultado = $co->prepare("SELECT * FROM `horario_docente` WHERE 
+         dia = :dia,
+         and clase_inicia = :clase_inicia,
+         and clase_termina = :clase_termina,
+         and id_ano_seccion = :id_ano_seccion
+         ;");
+
+         $resultado->bindParam(':dia', $dia);
+         $resultado->bindParam(':clase_inicia', $clase_inicia);
+         $resultado->bindParam(':clase_temina', $clase_termina);
+         $resultado->bindParam(':id_ano_seccion', $ano);
+         $resultado->execute();
+         $fila = $resultado->fetchAll(PDO::FETCH_BOTH);
+         if ($fila) {
+
+             return true;
+         } else {
+
+             return false;
+         }
+     } catch (Exception $e) {
+
+         return false;
+     }
+ }
+
+ //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
 
 
