@@ -110,8 +110,8 @@ class horario_docente extends datos{
 
             $estado = 1;
 
-            // Validate if there is already a horario with the same data
-    $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado";
+            
+    $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion  AND estado = :estado";
     $stmt = $co->prepare($sql);
 
     
@@ -123,7 +123,7 @@ class horario_docente extends datos{
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
-        return "Ya existe un horario con los mismos datos";
+        return "Ya existe una clase con los mismos datos";
     }
 
 
