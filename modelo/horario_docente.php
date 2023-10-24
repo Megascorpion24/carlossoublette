@@ -1,8 +1,7 @@
 <?php
 
 require_once('modelo/conexion.php');
-class horario_docente extends datos
-{
+class horario_docente extends datos{
 
 
     private $id;
@@ -100,17 +99,32 @@ class horario_docente extends datos
 
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
 
-     if(!$this->existe_clase($this->dia,$this->clase_inicia,$this->clase_termina,$this->ano)){
+        
         try {
 
 
-
+            
 
 
             $estado = 1;
 
+            // Validate if there is already a horario with the same data
+    $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado";
+    $stmt = $co->prepare($sql);
 
+    
+    $stmt->bindParam(':dia', $this->dia);
+  
+    $stmt->bindParam(':id_ano_seccion', $this->ano);
+    $stmt->bindParam(':estado', $estado);
+
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        return "Ya existe un horario con los mismos datos";
+    }
 
 
 
@@ -213,12 +227,10 @@ class horario_docente extends datos
         } catch (Exception $e) {
             return $e->getMessage();
         }
-  }
-else{
-        return "Esta seccion ya tiene una clase en ese dia y hora, por favor eliga un dia o hora diferentes";
- };
+  
 
 
+    }
     //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
 
 
@@ -366,7 +378,7 @@ else{
                 $respuesta = $respuesta . "<th>" . $r['fin'] . "</th>";
                 $respuesta = $respuesta . '<th>';
                 if (in_array("modificar horario_docente", $nivel1)) {
-                    # code...
+                    
 
 
                     $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['id'] . '`)">
@@ -633,7 +645,7 @@ else{
 
  //<!---------------------------------funcion existe clase------------------------------------------------------------------>
 
- private function existe_clase($dia,$clase_inicia,$clase_termina,$ano)
+ private function existe_clase($dia,$ano)
  {
 
      $co = $this->conecta();
@@ -646,14 +658,11 @@ else{
 
          $resultado = $co->prepare("SELECT * FROM `horario_docente` WHERE 
          dia = :dia,
-         and clase_inicia = :clase_inicia,
-         and clase_termina = :clase_termina,
          and id_ano_seccion = :id_ano_seccion
          ;");
 
          $resultado->bindParam(':dia', $dia);
-         $resultado->bindParam(':clase_inicia', $clase_inicia);
-         $resultado->bindParam(':clase_temina', $clase_termina);
+        
          $resultado->bindParam(':id_ano_seccion', $ano);
          $resultado->execute();
          $fila = $resultado->fetchAll(PDO::FETCH_BOTH);
