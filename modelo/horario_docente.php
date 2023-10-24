@@ -111,11 +111,17 @@ class horario_docente extends datos{
             $estado = 1;
 
             
-    $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion  AND estado = :estado";
+    $sql = "SELECT *
+    FROM horario_docente
+    WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND 
+          clase_inicia >= :clase_inicia_time AND clase_inicia <= :clase_termina_time AND 
+          NOW() NOT BETWEEN clase_inicia AND clase_termina;";
     $stmt = $co->prepare($sql);
 
     
     $stmt->bindParam(':dia', $this->dia);
+    $stmt->bindParam(':clase_inicia_time', $this->clase_inicia);
+$stmt->bindParam(':clase_termina_time', $this->clase_termina);
   
     $stmt->bindParam(':id_ano_seccion', $this->ano);
     $stmt->bindParam(':estado', $estado);
