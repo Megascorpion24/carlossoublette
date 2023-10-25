@@ -112,20 +112,19 @@ class horario_docente extends datos
             $estado = 1;
 
 
-            $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
-            $stmt = $co->prepare($sql);
+            $consulta = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
+            $r = $co->prepare($consulta);
 
 
-            $stmt->bindParam(':dia', $this->dia);
-            $stmt->bindParam(':clase_inicia', $this->clase_inicia);
-            $stmt->bindParam(':clase_termina', $this->clase_termina);
+            $r->bindParam(':dia', $this->dia);
+            $r->bindParam(':clase_inicia', $this->clase_inicia);
+            $r->bindParam(':clase_termina', $this->clase_termina);
+            $r->bindParam(':id_ano_seccion', $this->ano);
+            $r->bindParam(':estado', $estado);
 
-            $stmt->bindParam(':id_ano_seccion', $this->ano);
-            $stmt->bindParam(':estado', $estado);
+            $r->execute();
 
-            $stmt->execute();
-
-            if ($stmt->rowCount() > 0) {
+            if ($r->rowCount() > 0) {
                 return "Ya existe una clase con los mismos datos";
             }
 
@@ -258,20 +257,20 @@ class horario_docente extends datos
         if ($this->existe($this->id)) {
             try {
 
-                $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = 1 AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
-                $stmt = $co->prepare($sql);
+                $consulta = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = 1 AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
+                $r = $co->prepare($consulta);
     
     
-                $stmt->bindParam(':dia', $this->dia);
-                $stmt->bindParam(':clase_inicia', $this->clase_inicia);
-                $stmt->bindParam(':clase_termina', $this->clase_termina);
+                $r->bindParam(':dia', $this->dia);
+                $r->bindParam(':clase_inicia', $this->clase_inicia);
+                $r->bindParam(':clase_termina', $this->clase_termina);
     
-                $stmt->bindParam(':id_ano_seccion', $this->ano);
+                $r->bindParam(':id_ano_seccion', $this->ano);
                
     
-                $stmt->execute();
+                $r->execute();
     
-                if ($stmt->rowCount() > 0) {
+                if ($r->rowCount() > 0) {
                     return "Ya existe una clase con los mismos datos";
                 }
 
