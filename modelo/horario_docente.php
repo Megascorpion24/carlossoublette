@@ -125,7 +125,7 @@ class horario_docente extends datos
             $r->execute();
 
             if ($r->rowCount() > 0) {
-                return "Ya existe una clase con los mismos datos";
+                return "Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
             }
 
 
@@ -259,19 +259,18 @@ class horario_docente extends datos
 
                 $consulta = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = 1 AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
                 $r = $co->prepare($consulta);
-    
-    
+
+
                 $r->bindParam(':dia', $this->dia);
                 $r->bindParam(':clase_inicia', $this->clase_inicia);
                 $r->bindParam(':clase_termina', $this->clase_termina);
-    
                 $r->bindParam(':id_ano_seccion', $this->ano);
-               
-    
+
+
                 $r->execute();
-    
+
                 if ($r->rowCount() > 0) {
-                    return "Ya existe una clase con los mismos datos";
+                    return "Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
                 }
 
 
@@ -663,7 +662,7 @@ class horario_docente extends datos
 
     //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
-   
+
 
 
 
