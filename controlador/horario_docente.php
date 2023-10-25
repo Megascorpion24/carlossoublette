@@ -92,6 +92,10 @@ require_once("modelo/".$pagina.".php");
 			}
 			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $_POST['fin1'])) {
 				$o->set_fin($_POST['fin1']);
+	
+			}
+			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['ano1'])) {
+				$o->set_ano($_POST['ano1']);
 			}
 			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['dia1'])) {
 				$o->set_dia($_POST['dia1']);
@@ -105,6 +109,7 @@ require_once("modelo/".$pagina.".php");
 			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['inicio1'])) {
 				$o->set_inicio($_POST['inicio1']);
 			}
+			
 			$o->set_nivel($nivel);
 			$mensaje = $o->modificar();		
 			echo $mensaje;

@@ -1,7 +1,8 @@
 <?php
 
 require_once('modelo/conexion.php');
-class horario_docente extends datos{
+class horario_docente extends datos
+{
 
 
     private $id;
@@ -99,38 +100,38 @@ class horario_docente extends datos{
 
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
 
-        
+
+
         try {
 
 
-            
+
 
 
             $estado = 1;
 
-            
-    $sql = "SELECT *
+
+            $sql = "SELECT *
     FROM horario_docente
     WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND 
           clase_inicia >= :clase_inicia_time AND clase_inicia <= :clase_termina_time AND 
           NOW() NOT BETWEEN clase_inicia AND clase_termina;";
-    $stmt = $co->prepare($sql);
+            $stmt = $co->prepare($sql);
 
-    
-    $stmt->bindParam(':dia', $this->dia);
-    $stmt->bindParam(':clase_inicia_time', $this->clase_inicia);
-$stmt->bindParam(':clase_termina_time', $this->clase_termina);
-  
-    $stmt->bindParam(':id_ano_seccion', $this->ano);
-    $stmt->bindParam(':estado', $estado);
 
-    $stmt->execute();
+            $stmt->bindParam(':dia', $this->dia);
+            $stmt->bindParam(':clase_inicia_time', $this->clase_inicia);
+            $stmt->bindParam(':clase_termina_time', $this->clase_termina);
 
-    if ($stmt->rowCount() > 0) {
-        return "Ya existe una clase con los mismos datos";
-    }
+            $stmt->bindParam(':id_ano_seccion', $this->ano);
+            $stmt->bindParam(':estado', $estado);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                return "Ya existe una clase con los mismos datos";
+            }
 
 
 
@@ -233,9 +234,6 @@ $stmt->bindParam(':clase_termina_time', $this->clase_termina);
         } catch (Exception $e) {
             return $e->getMessage();
         }
-  
-
-
     }
     //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
 
@@ -264,6 +262,28 @@ $stmt->bindParam(':clase_termina_time', $this->clase_termina);
         if ($this->existe($this->id)) {
             try {
 
+                $sql = "SELECT *
+                FROM horario_docente
+                WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND 
+                      clase_inicia >= :clase_inicia_time AND clase_inicia <= :clase_termina_time AND 
+                      NOW() NOT BETWEEN clase_inicia AND clase_termina;";
+                $stmt = $co->prepare($sql);
+
+
+                $stmt->bindParam(':dia', $this->dia);
+                $stmt->bindParam(':clase_inicia_time', $this->clase_inicia);
+                $stmt->bindParam(':clase_termina_time', $this->clase_termina);
+                $stmt->bindParam(':id_ano_seccion', $this->ano);
+                $stmt->bindParam(':estado', $estado);
+
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    return "Ya existe una clase con los mismos datos";
+                }
+
+
+
 
 
 
@@ -273,7 +293,8 @@ $stmt->bindParam(':clase_termina_time', $this->clase_termina);
              clase_termina=:clase_termina,
              dia=:dia,
              inicio=:inicio,
-             fin=:fin
+             fin=:fin,
+             id_ano_seccion=:id_ano_seccion
             
              WHERE 
              id=:id
@@ -284,6 +305,7 @@ $stmt->bindParam(':clase_termina_time', $this->clase_termina);
                 $r->bindParam(':id', $this->id);
                 $r->bindParam(':clase_inicia', $this->clase_inicia);
                 $r->bindParam(':clase_termina', $this->clase_termina);
+                $r->bindParam(':id_ano_seccion', $this->ano);
                 $r->bindParam(':dia', $this->dia);
                 $r->bindParam(':inicio', $this->inicio);
                 $r->bindParam(':fin', $this->fin);
@@ -384,7 +406,7 @@ $stmt->bindParam(':clase_termina_time', $this->clase_termina);
                 $respuesta = $respuesta . "<th>" . $r['fin'] . "</th>";
                 $respuesta = $respuesta . '<th>';
                 if (in_array("modificar horario_docente", $nivel1)) {
-                    
+
 
 
                     $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['id'] . '`)">
@@ -649,43 +671,43 @@ $stmt->bindParam(':clase_termina_time', $this->clase_termina);
 
     //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
- //<!---------------------------------funcion existe clase------------------------------------------------------------------>
+    //<!---------------------------------funcion existe clase------------------------------------------------------------------>
 
- private function existe_clase($dia,$ano)
- {
+    private function existe_clase($dia, $ano)
+    {
 
-     $co = $this->conecta();
+        $co = $this->conecta();
 
-     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-     try {
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-         $resultado = $co->prepare("SELECT * FROM `horario_docente` WHERE 
+        try {
+
+
+            $resultado = $co->prepare("SELECT * FROM `horario_docente` WHERE 
          dia = :dia,
          and id_ano_seccion = :id_ano_seccion
          ;");
 
-         $resultado->bindParam(':dia', $dia);
-        
-         $resultado->bindParam(':id_ano_seccion', $ano);
-         $resultado->execute();
-         $fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-         if ($fila) {
+            $resultado->bindParam(':dia', $dia);
 
-             return true;
-         } else {
+            $resultado->bindParam(':id_ano_seccion', $ano);
+            $resultado->execute();
+            $fila = $resultado->fetchAll(PDO::FETCH_BOTH);
+            if ($fila) {
 
-             return false;
-         }
-     } catch (Exception $e) {
+                return true;
+            } else {
 
-         return false;
-     }
- }
+                return false;
+            }
+        } catch (Exception $e) {
 
- //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
+            return false;
+        }
+    }
+
+    //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
 
 

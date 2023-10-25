@@ -7,6 +7,9 @@ $(document).ready(function() {
   $('#ano').select2({
     dropdownParent: $('#addEmployeeModal')
   });
+  $('#ano1').select2({
+    dropdownParent: $('#editEmployeeModal')
+  });
   $('#clase').select2({
     dropdownParent: $('#addEmployeeModal')
   });
@@ -35,13 +38,13 @@ $(document).ready(function() {
     });
 
     $("#registrar2").on("click", function() {
-        
+        if (validarenvio2()) {
           
             enviaAjax($("#f2"));
        
             $('#editEmployeeModal').modal('hide');
-            
-       
+            $('#f2').trigger('reset');
+        }
    
 
     });
@@ -93,6 +96,7 @@ $(document).ready(function() {
                 $("#clase_termina1").val($(this).find("th:eq(6)").text());
                 $("#inicio1").val($(this).find("th:eq(7)").text());
                 $("#fin1").val($(this).find("th:eq(8)").text());
+                
                
                 
 
@@ -282,7 +286,7 @@ if (valclase($('#clase').val(),$("#sclase")) == 0) {
     mensaje("<p>Debe de seleccionar una materia</p>");
     return false;
 }else if (valseccion($('#ano').val(),$("#sano")) == 0) {
-    mensaje("<p>Debe de seleccionar una materia</p>");
+    mensaje("<p>Debe de seleccionar una seccion</p>");
     return false;
 }else if (valdia($('#dia').val(),$("#sdia")) == 0) {
     mensaje("<p>Debe de seleccionar un dia</p>");
@@ -322,8 +326,10 @@ function validarenvio2() {
     }else if (valrango($('#fin1').val(),$("#sfin1")) == 0) {
         mensaje("<p>Debe de seleccionar un dia</p>");
         return false;
+    }else if (valseccion($('#ano1').val(),$("#sano1")) == 0) {
+    mensaje("<p>Debe de seleccionar una seccion</p>");
+    return false;
     }
-    
         
         return true;
     }
