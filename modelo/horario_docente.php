@@ -112,17 +112,13 @@ class horario_docente extends datos
             $estado = 1;
 
 
-            $sql = "SELECT *
-    FROM horario_docente
-    WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND 
-          clase_inicia >= :clase_inicia_time AND clase_inicia <= :clase_termina_time AND 
-          NOW() NOT BETWEEN clase_inicia AND clase_termina;";
+            $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
             $stmt = $co->prepare($sql);
 
 
             $stmt->bindParam(':dia', $this->dia);
-            $stmt->bindParam(':clase_inicia_time', $this->clase_inicia);
-            $stmt->bindParam(':clase_termina_time', $this->clase_termina);
+            $stmt->bindParam(':clase_inicia', $this->clase_inicia);
+            $stmt->bindParam(':clase_termina', $this->clase_termina);
 
             $stmt->bindParam(':id_ano_seccion', $this->ano);
             $stmt->bindParam(':estado', $estado);
@@ -262,22 +258,19 @@ class horario_docente extends datos
         if ($this->existe($this->id)) {
             try {
 
-                $sql = "SELECT *
-                FROM horario_docente
-                WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND 
-                      clase_inicia >= :clase_inicia_time AND clase_inicia <= :clase_termina_time AND 
-                      NOW() NOT BETWEEN clase_inicia AND clase_termina;";
+                $sql = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = 1 AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
                 $stmt = $co->prepare($sql);
-
-
+    
+    
                 $stmt->bindParam(':dia', $this->dia);
-                $stmt->bindParam(':clase_inicia_time', $this->clase_inicia);
-                $stmt->bindParam(':clase_termina_time', $this->clase_termina);
+                $stmt->bindParam(':clase_inicia', $this->clase_inicia);
+                $stmt->bindParam(':clase_termina', $this->clase_termina);
+    
                 $stmt->bindParam(':id_ano_seccion', $this->ano);
-                $stmt->bindParam(':estado', $estado);
-
+               
+    
                 $stmt->execute();
-
+    
                 if ($stmt->rowCount() > 0) {
                     return "Ya existe una clase con los mismos datos";
                 }
@@ -671,46 +664,7 @@ class horario_docente extends datos
 
     //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
-    //<!---------------------------------funcion existe clase------------------------------------------------------------------>
-
-    private function existe_clase($dia, $ano)
-    {
-
-        $co = $this->conecta();
-
-        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-        try {
-
-
-            $resultado = $co->prepare("SELECT * FROM `horario_docente` WHERE 
-         dia = :dia,
-         and id_ano_seccion = :id_ano_seccion
-         ;");
-
-            $resultado->bindParam(':dia', $dia);
-
-            $resultado->bindParam(':id_ano_seccion', $ano);
-            $resultado->execute();
-            $fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-            if ($fila) {
-
-                return true;
-            } else {
-
-                return false;
-            }
-        } catch (Exception $e) {
-
-            return false;
-        }
-    }
-
-    //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
-
-
-
+   
 
 
 
