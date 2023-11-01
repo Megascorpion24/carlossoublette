@@ -175,7 +175,7 @@ $("#ano academico1").on("keyup", function() {
                 },
                 
                 success: function(respuesta) {
-                 //$("#id").val(respuesta);
+                 alert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
                    

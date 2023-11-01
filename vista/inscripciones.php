@@ -329,7 +329,7 @@
 		    <label>Solvencia</label>
 			<br>
 			<span id="smateriae"></span>
-			<select name="materiae" id="materiae" class="form-control" >
+			<select name="materiae" id="materiae" class="form-control" onchange="valida()" >
 				<option value="aprobado">aprobado</option>
 				<option value="reprovado">reprovado</option>
 			</select>
@@ -674,6 +674,29 @@
 						  
 					      
 					   </table>
+					   
+					   <table class="table table-striped table-hover ocultar">
+					      <thead>
+						 
+						  </thead>
+						  
+						  <tbody id="consulta_estudiantes2">
+						      
+						  <?php
+    				if(!empty($consuta54[0])){
+        				echo $consuta54[0];
+   					}
+	       		 ?>
+							 
+							 
+						  </tbody>
+						  
+					      
+					   </table>
+
+
+
+					  
 
 
 					   
@@ -690,7 +713,24 @@
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
-
+	<table class="table table-striped table-hover ocultar">
+					      <thead>
+						 
+						  </thead>
+						  
+						  <tbody id="morocidad">
+						      
+						  <?php
+    				if(!empty($consuta5)){
+        				echo $consuta5;
+   					}
+	       		 ?>
+							 
+							 
+						  </tbody>
+						  
+					      
+					   </table>
 
 	<?php require_once('comunes/footer.php') ?> 
     <script src="assets/js/script.js"></script>

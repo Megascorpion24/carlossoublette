@@ -280,10 +280,10 @@ overflow:auto;
 	 
 	 input[type="search"]{
 		 background-color:hsl(0, 0%, 100%);
-		 color:#fff;
+		 color:rgb(84, 83, 83);
 		 padding-left:20px;
 		 border:#2fb4a6;
-		 border-radius:50px 0px 0px 50px;
+		 border-radius:50px 50px 50px 50px;
 		 margin-right: 10px;
 	 }
 	 

@@ -10,6 +10,14 @@ class secciones extends datos{
     private $cedula_profesor;
     private $ano_academico;
     private $cantidad;
+    private $nivel;
+
+   /* private $idr;
+    private $seccionesr;
+
+    private $ida;
+    private $anoa;
+    private $turnoa;*/
     
 
 
@@ -31,6 +39,30 @@ class secciones extends datos{
     public function set_ano_academico($valor){
         $this->ano_academico = $valor; 
     }
+    public function set_nivel($valor){
+        $this->nivel = $valor; 
+    }
+
+
+
+   /* public function set_idr($valor){
+        $this->idr = $valor; 
+    }
+    public function set_seccionesr($valor){
+        $this->seccionesr = $valor; 
+    }
+
+    
+    public function set_ida($valor){
+        $this->ida = $valor; 
+    }
+    public function set_anoa($valor){
+        $this->anoa = $valor; 
+    }
+    public function set_turnoa($valor){
+        $this->turnoa = $valor; 
+    }*/
+
 
 
 
@@ -39,6 +71,16 @@ class secciones extends datos{
         echo $val;
     }
 
+    public function registrars(){
+        $val=$this->registrars1();
+        echo $val;
+    }
+
+    public function registrara(){
+        $val=$this->registrara1();
+        echo $val;
+    }
+    
     public function modificar(){
         $val=$this->modificar1();
         echo $val;
@@ -142,7 +184,7 @@ class secciones extends datos{
                 $r->execute();
 
 
-
+            $this->bitacora("se registro una seccion", "secciones_años", $this->nivel);
          
                 return "Registro incluido"; 
             
@@ -160,6 +202,78 @@ class secciones extends datos{
  //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
         
 
+
+       /* private function registrars1(){
+
+
+            $co = $this->conecta();
+            $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            if(!$this->existe($this->id)){
+                try{
+
+                    $r= $co->prepare("INSERT INTO secciones( id, secciones, estado)
+
+                                     VALUES(:idr,:seccionesr,estador)");
+    
+                    $estador=1;
+                        
+                    $r->bindParam(':idr',$this->idr);  
+                    $r->bindParam(':seccionesr',$this->seccionesr);   
+                    $r->bindParam(':estador',$estador);    
+                    $r->execute();
+                   
+    
+                    //$this->bitacora("se registro una seccion", "docentes",$this->nivel);
+                       // return "Registro incluido"; 
+                    
+                }catch(Exception $e){
+                    return $e->getMessage();
+                }
+                    
+                }
+                else{
+                    return "seccion registrada";
+                }
+
+            }*/
+
+
+
+
+        /*    private function registrara1(){
+
+
+            $co = $this->conecta();
+            $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            if(!$this->existe($this->id)){
+                try{
+
+                    $r= $co->prepare("INSERT INTO años( id, anos, turnos, estado)
+
+                                     VALUES(:ida,:anoa, turnoa, estadoa)");
+    
+                    $estadoa=1;
+                        
+                    $r->bindParam(':ida',$this->ida);  
+                    $r->bindParam(':anoa',$this->anoa); 
+                    $r->bindParam(':turnoa',$this->turnoa);  
+                    $r->bindParam(':estadoa',$estadoa);    
+                    $r->execute();
+                   
+    
+                    //$this->bitacora("se registro una seccion", "docentes",$this->nivel);
+                       // return "Registro incluido"; 
+                    
+                }catch(Exception $e){
+                    return $e->getMessage();
+                }
+                    
+                }
+                else{
+                    return "año registrado";
+                }
+
+            } */
 
 
 
@@ -205,7 +319,8 @@ private function modificar1(){
         $r->execute();
 
         
-         
+        $this->bitacora("se modifico una seccion", "secciones_años", $this->nivel);
+
                 return "Registro modificado";   
             
             }catch(Exception $e){
@@ -237,14 +352,13 @@ private function modificar1(){
 
 
   //<!---------------------------------funcion consultar------------------------------------------------------------------>          
-public function consultar(){
+public function consultar($nivel1){
     $co = $this->conecta();
         
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
-            
-            
-           $resultado = $co->prepare("SELECT sa.id,se.secciones,sa.cantidad,a.anos,a.turnos, concat(de.nombre,'-',de.cedula) as docente_guia, am.ano_academico
+               
+           $resultado = $co->prepare("SELECT sa.id,se.secciones,sa.cantidad,a.anos as año, a.turnos, concat(de.nombre,' ',de.apellido) as docente_guia, am.ano_academico
 
            FROM secciones_años sa 
 
@@ -252,7 +366,7 @@ public function consultar(){
             ON sa.id_secciones = se.id
 
             INNER JOIN años a 
-            ON sa.id_anos = a.anos
+            ON sa.id_anos = a.id
 		
         	INNER JOIN docente_guia d
             ON sa.id = d.id_ano_seccion
@@ -275,40 +389,41 @@ public function consultar(){
             foreach($resultado as $r){
                 $respuesta= $respuesta.'<tr>';
                 $respuesta=$respuesta."<th>".$r['id']."</th>";
-                $respuesta=$respuesta."<th>".$r['secciones']."</th>";
-                $respuesta=$respuesta."<th>".$r['anos']."</th>";
+                $respuesta=$respuesta.'<th> <span class="h6 font-weight-bold">'.$r['secciones']."</th>";
+                $respuesta=$respuesta.'<th> <span class="h6 font-weight-bold">'.$r['año']."</th>";
                 $respuesta=$respuesta."<th>".$r['cantidad']."</th>";
                 $respuesta=$respuesta."<th>".$r['turnos']."</th>";
                 $respuesta=$respuesta."<th>".$r['docente_guia']."</th>";
                 $respuesta=$respuesta."<th>".$r['ano_academico']."</th>";
                 $respuesta=$respuesta.'<th>';
             
-
+                if (in_array("modificar secciones", $nivel1)) {
+                    # code...
                 $respuesta=$respuesta.'<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
                 <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
                </a>';
-            
-            
+                }
+
+             if (in_array("eliminar secciones", $nivel1)) {
                $respuesta=$respuesta.'<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
                <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
                </a>';
-               
+            }
             
             $respuesta=$respuesta.'</th>';
              $respuesta= $respuesta.'</tr>';
                 
             }
-
            
             return $respuesta;
          
-                            
-            
+                                     
         }catch(Exception $e){
             
             return false;
         }
 }
+
 //<!---------------------------------fin funcion consultar------------------------------------------------------------------>
 
 public function consultar1(){
@@ -473,7 +588,7 @@ public function consultar4(){
 		try{
 			
 			
-			$resultado = $co->prepare("Select * from secciones_años where id=:id");
+			$resultado = $co->prepare("SELECT * from `secciones_años` where id=:id");
 			
 			$resultado->bindParam(':id',$id);
 			$resultado->execute();
@@ -527,6 +642,8 @@ private function eliminar1(){
             $r=$co->prepare("UPDATE `secciones_años` SET `estado`= 0 WHERE id=:id");
             $r->bindParam(':id',$this->id);
             $r->execute();
+
+        $this->bitacora("se elimino una seccion", "año_academico", $this->nivel);
            
             return "Registro Eliminado";
                 

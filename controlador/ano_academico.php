@@ -18,14 +18,31 @@ require_once("modelo/".$pagina.".php");
 		$o = new ano_academico();
 		if(!empty($_POST['accion'])){
 		
-			$o->set_id($_POST['id']);
-			$o->set_fecha_ini($_POST['fecha_ini']);
-			$o->set_fecha_cierr($_POST['fecha_cierr']);
-			$o->set_lapso($_POST['lapso']);
-			$o->set_ano_academico($_POST['ano_academico']);
+			$valor=true;
+			$retorno="";
+			
+			$validacion[1]=$o->set_fecha_ini($_POST['fecha_ini']);
+			$dato[1]="error en la validacion del fecha_ini";
+			$validacion[2]=$o->set_fecha_cierr($_POST['fecha_cierr']);
+			$dato[2]="error en la validacion del fecha_cierr";
+			$validacion[3]=$o->set_lapso($_POST['lapso']);
+			$dato[3]="error en la validacion del lapso";
+			$validacion[4]=$o->set_ano_academico($_POST['ano_academico']);
+			$dato[4]="error en la validacion del ano_academico";
+			for ($i=1; $i <= 3 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
 
-			$mensaje = $o->registrar();
-			echo $mensaje;
+			if ($valor==true) {
+				$mensaje = $o->registrar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
 			exit;			
 		  }
 
@@ -37,26 +54,64 @@ require_once("modelo/".$pagina.".php");
 		  
 		  if(!empty($_POST['accion1'])){
 		
-			$o->set_id($_POST['id1']);
-			$o->set_fecha_ini($_POST['fecha_ini1']);
-			$o->set_fecha_cierr($_POST['fecha_cierr1']);
-			$o->set_lapso($_POST['lapso1']);
-			$o->set_ano_academico($_POST['ano_academico1']);
+			$valor=true;
+			$retorno="";
+			
+			$validacion[1]=$o->set_fecha_ini($_POST['fecha_ini1']);
+			$dato[1]="error en la validacion del fecha_ini";
+			$validacion[2]=$o->set_fecha_cierr($_POST['fecha_cierr1']);
+			$dato[2]="error en la validacion del fecha_cierr";
+			$validacion[3]=$o->set_lapso($_POST['lapso1']);
+			$dato[3]="error en la validacion del lapso";
+			$validacion[4]=$o->set_ano_academico($_POST['ano_academico1']);
+			$dato[4]="error en la validacion del ano_academico";
+			$validacion[5]=$o->set_id($_POST['id1']);
+			$dato[5]="error en la validacion del id";
+			for ($i=1; $i <= 5 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
 
-			$mensaje = $o->modificar();		
-			echo $mensaje;
+			if ($valor==true) {
+				$mensaje = $o->modificar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
 			exit;		
+
 		  }
 
 		  
 
 
 		  if(!empty($_POST['accion3'])){
-	
-			$o->set_id($_POST['id2']);			
-			$mensaje = $o->eliminar();			
-			echo $mensaje;
-			exit;			
+			$valor=true;
+			$retorno="";
+			$validacion[1]=$o->set_id($_POST['id2']);
+			$dato[1]="error en la validacion del id";
+			
+			for ($i=1; $i <= 1 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->eliminar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;		
+
+
+					
 		  }
 
 

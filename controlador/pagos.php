@@ -35,44 +35,45 @@ require_once("modelo/".$pagina.".php");
 		
 		$o = new pagos();
 		if(!empty($_POST['accion'])){
-
-			if (preg_match("/^[a-zA-Z0-9\s]{1,5}+$/", $_POST['id_deudas'])) {
-				$o->set_id_deudas($_POST['id_deudas']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['identificador'])) {
-				$o->set_identificador($_POST['identificador']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['concepto'])) {
-				$o->set_concepto($_POST['concepto']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['forma'])) {
-				$o->set_forma($_POST['forma']);
-			}
-
-			if (preg_match("/^\d{4}-\d{2}-\d{2}$/",$_POST['fecha'])) {
-				$fecha = DateTime::createFromFormat('Y-m-d', $_POST['fecha']);
-				$r=$_POST['meses'];
-				$fecha->modify("+$r months");
-				$val= $fecha->format('Y-m-d');
-				$o->set_fecha($val);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['meses'])) {
-				$o->set_meses($_POST['meses']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['estado'])) {
-				$o->set_estado($_POST['estado']);
-			}
-
-
-
-			
-			
-			
-			
+	
+			$valor=true;
+			$retorno="";
+	
+			$validacion[0]=$o->set_id_deudas($_POST['id_deudas']);
+			$dato[0]="error en la validacion del id_deudas";
+			$validacion[1]=$o->set_identificador($_POST['identificador']);
+			$dato[1]="error en la validacion del identificador";
+			$validacion[2]=$o->set_concepto($_POST['concepto']);
+			$dato[2]="error en la validacion del concepto";
+			$validacion[3]=$o->set_forma($_POST['forma']);
+			$dato[3]="error en la validacion del forma";
+			$validacion[4]=$o->set_fecha( $_POST['fecha']);				
+			$dato[4]="error en la validacion del fecha";
+			$validacion[5]=$o->set_monto($_POST['monto']);
+			$dato[5]="error en la validacion del monto";
+			$validacion[6]=$o->set_estado($_POST['estado']);
+			$dato[6]="error en la validacion del estado";
 			$o->set_nivel($nivel);
-			$mensaje = $o->registrar();
-			echo $mensaje;
-			exit;			
+
+			for ($i=0; $i <= 6 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->registrar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;	
+			
+			
+			
+		
 		  }
 		
 	
@@ -91,22 +92,18 @@ require_once("modelo/".$pagina.".php");
 				$o->set_forma($_POST['formar']);
 			}
 			if (preg_match("/^\d{4}-\d{2}-\d{2}$/",$_POST['fechar'])) {
-				$fecha = DateTime::createFromFormat('Y-m-d', $_POST['fechar']);
-				$r=$_POST['mesesr'];
-				$fecha->modify("+$r months");
-				$val= $fecha->format('Y-m-d');
-				$o->set_fecha($val);
+				$o->set_fecha( $_POST['fechar']);		
 			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['mesesr'])) {
-				$o->set_meses($_POST['mesesr']);
+			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['montor'])) {
+				$o->set_monto($_POST['montor']);
 			}
 			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['estador'])) {
 				$o->set_estado($_POST['estador']);
 			}
 		
 
-  
-			  $mensaje = $o->registrar();
+			$o->set_nivel($nivel);
+			  $mensaje = $o->registrarr();
 			  echo $mensaje;
 			  exit;			
 			}
@@ -118,35 +115,41 @@ require_once("modelo/".$pagina.".php");
 		  if(!empty($_POST['accion1'])){
 
 		
-			if (preg_match("/^[0-9]{1,5}$/",$_POST['idM'] )) {
-				$o->set_id($_POST['idM']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['id_deudasM'])) {
-				$o->set_id_deudas($_POST['id_deudasM']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['identificadorM'])) {
-				$o->set_identificador($_POST['identificadorM']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['conceptoM'])) {
-				$o->set_concepto($_POST['conceptoM']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['formaM'])) {
-				$o->set_forma($_POST['formaM']);
-			}
-			if (preg_match("/^\d{4}-\d{2}-\d{2}$/",$_POST['fechaM'])) {
-				$o->set_fecha($_POST['fechaM']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['mesesM'])) {
-				$o->set_meses($_POST['mesesM']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['estadoM'])) {
-				$o->set_estado($_POST['estadoM']);
+			$valor=true;
+			$retorno="";
+	
+			$validacion[0]=$o->set_id_deudas($_POST['id_deudasM']);
+			$dato[0]="error en la validacion del id_deudasM";
+			$validacion[1]=$o->set_identificador($_POST['identificadorM']);
+			$dato[1]="error en la validacion del identificadorM";
+			$validacion[2]=$o->set_concepto($_POST['conceptoM']);
+			$dato[2]="error en la validacion del conceptoM";
+			$validacion[3]=$o->set_forma($_POST['formaM']);
+			$dato[3]="error en la validacion del formaM";
+			$validacion[4]=$o->set_fecha( $_POST['fechaM']);				
+			$dato[4]="error en la validacion del fechaM";
+			$validacion[5]=$o->set_monto($_POST['montoM']);
+			$dato[5]="error en la validacion del montoM";
+			$validacion[6]=$o->set_estado($_POST['estadoM']);
+			$dato[6]="error en la validacion del estadoM";
+			$validacion[7]=$o->set_id($_POST['idM']);
+			$dato[6]="error en la validacion del idM";
+			$o->set_nivel($nivel);
+
+			for ($i=0; $i <= 6 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
 			}
 
-			$o->set_nivel($nivel);
-			$mensaje = $o->modificar();
-		
-			echo $mensaje;
+			if ($valor==true) {
+				$mensaje = $o->modificar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
 			exit;			
 		  }
 		  
@@ -157,13 +160,26 @@ require_once("modelo/".$pagina.".php");
 
 
 		  if(!empty($_POST['accion3'])){
-			if (preg_match("/^[0-9]{1,5}$/",$_POST['idE'] )) {
-				$o->set_id($_POST['idE']);	
+			$valor=true;
+			$retorno="";
+	
+			$validacion[0]=$o->set_id($_POST['idE']);	
+			$dato[0]="error en la validacion del idE";
+			
+			for ($i=0; $i <= 0 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->eliminar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
 			}
 			
-			$o->set_nivel($nivel);		
-			$mensaje = $o->eliminar();			
-			echo $mensaje;
 			exit;			
 		  }
 
@@ -184,23 +200,28 @@ require_once("modelo/".$pagina.".php");
 			 }
 			
 
-			$consulta=$o->consultar($nivel1);
-			echo $consulta;
+			$consuta=$o->consultar($nivel1);
+			echo $consuta;
 			exit;
 		  }
 	
 
 
 
-		  
-		  $consuta=$o->consultar($nivel1);
+		  	/* aqui estan las cosas del tutor*/ 
+		  if($_SESSION["rol"]=="1"){
+			$consutar=$o->consultarr($_SESSION["usuario"]);
+
+			$consutat=$o->consultart($_SESSION["usuario"]);
+			}else{/* aqui estan las cosas del super usuario*/ 
+				$consuta=$o->consultar($nivel1);
+		
+				$consuta2=$o->consultar2();
+			}
 	
-		$consuta2=$o->consultar2();
-		$consutar=$o->consultarr();
-
-		require_once("vista/".$pagina.".php");
-
-
-	}
-
-?>
+			require_once("vista/".$pagina.".php");
+	
+	
+		}
+	
+	?>

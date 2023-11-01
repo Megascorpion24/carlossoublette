@@ -36,31 +36,27 @@ require_once("modelo/".$pagina.".php");
 		$o = new horario_docente();
 		if(!empty($_POST['accion'])){
 			
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['clase'] )) {
-				$o->set_clase($_POST['clase']);
-			}
-			if (preg_match("/^[0-9]{3,8}$/", $_POST['cedula_profesor'])) {
-				$o->set_cedula_profesor($_POST['cedula_profesor']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['fin'])) {
-				$o->set_fin($_POST['fin']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['ano'] )) {
-				$o->set_ano($_POST['ano']);
-			}
+		
+		
+			$valor=true;
+			$retorno="";
 			
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['dia'])) {
-				$o->set_dia($_POST['dia']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['clase_inicia'] )) {
-				$o->set_clase_inicia($_POST['clase_inicia']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $_POST['clase_termina'])) {
-				$o->set_clase_termina($_POST['clase_termina']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['inicio'])) {
-				$o->set_inicio($_POST['inicio']);
-			}
+			$validacion[0]=$o->set_cedula_profesor($_POST['cedula_profesor']);
+			$dato[0]="error en la validacion del cedula_profesor";
+			$validacion[1]=$o->set_fin($_POST['fin']);
+			$dato[1]="error en la validacion del fin";
+			$validacion[2]=$o->set_ano($_POST['ano']);
+			$dato[2]="error en la validacion del ano";
+			$validacion[3]=$o->set_dia($_POST['dia']);
+			$dato[3]="error en la validacion del fecha_ini";
+			$validacion[4]=$o->set_clase_inicia($_POST['clase_inicia']);
+			$dato[4]="error en la validacion del clase_inicia";
+			$validacion[5]=$o->set_clase_termina($_POST['clase_termina']);
+			$dato[5]="error en la validacion del clase_termina";
+			$validacion[6]=$o->set_inicio($_POST['inicio']);
+			$dato[6]="error en la validacion del inicio";
+			$validacion[7]=$o->set_clase($_POST['clase']);
+			$dato[7]="error en la validacion del clase";
 
 			
 			
@@ -74,8 +70,20 @@ require_once("modelo/".$pagina.".php");
 			$o->set_nivel($nivel);
 
 
-			$mensaje = $o->registrar();
-			echo $mensaje;
+			for ($i=0; $i <= 6 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->registrar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
 			exit;			
 		  }
 
@@ -87,33 +95,42 @@ require_once("modelo/".$pagina.".php");
 		  
 		  if(!empty($_POST['accion1'])){
 			
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['id'] )) {
-				$o->set_id($_POST['id']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $_POST['fin1'])) {
-				$o->set_fin($_POST['fin1']);
-	
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['ano1'])) {
-				$o->set_ano($_POST['ano1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['dia1'])) {
-				$o->set_dia($_POST['dia1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['clase_inicia1'] )) {
-				$o->set_clase_inicia($_POST['clase_inicia1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $_POST['clase_termina1'])) {
-				$o->set_clase_termina($_POST['clase_termina1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$_POST['inicio1'])) {
-				$o->set_inicio($_POST['inicio1']);
-			}
+			$valor=true;
+			$retorno="";
+			$validacion[0]=$o->set_id($_POST['id']);
+			$dato[0]="error en la validacion del id";
+			$validacion[1]=$o->set_fin($_POST['fin1']);
+			$dato[1]="error en la validacion del fin1";
+			$validacion[2]=$o->set_ano($_POST['ano1']);
+			$dato[2]="error en la validacion del ano1";
+			$validacion[3]=$o->set_dia($_POST['dia1']);
+			$dato[3]="error en la validacion del dia1";
+			$validacion[4]=$o->set_clase_inicia($_POST['clase_inicia1']);
+			$dato[4]="error en la validacion del clase_inicia1";
+			$validacion[5]=$o->set_clase_termina($_POST['clase_termina1']);
+			$dato[5]="error en la validacion del clase_termina1";
+			$validacion[6]=$o->set_inicio($_POST['inicio1']);
+			$dato[6]="error en la validacion del inicio1";
 			
 			$o->set_nivel($nivel);
-			$mensaje = $o->modificar();		
-			echo $mensaje;
-			exit;		
+
+			for ($i=0; $i <= 6 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->modificar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;
+
+	
 		  }
 
 		  

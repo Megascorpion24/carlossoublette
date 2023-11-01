@@ -12,7 +12,7 @@ public function consultar(){
         try{
 			
 			
-			$resultado = $co->prepare("SELECT * FROM bitacora");
+			$resultado = $co->prepare("SELECT * FROM bitacora ORDER BY fecha DESC");
 			$resultado->execute();
            $respuesta="";
 

@@ -1,3 +1,18 @@
+<?php
+
+
+if (empty($_SESSION)) {
+	session_start();
+}
+
+if (isset($_SESSION['permisos'])) {
+	$nivel1 = $_SESSION['permisos'];
+} else {
+	$nivel1 = "";
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,10 +50,23 @@
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 
+
+							 		<?PHP if (in_array("registrar secciones", $nivel1)) { ?>
 							    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
-									<i class="material-icons">&#xE147;</i>
+									<i class="material-icons" style="width:100%" title="registrar"></i>
 									<span>Registrar</span>
 							    </a>
+							    <?php } ?>
+
+							    <a href="#addEmployeeModalS" class="btn btn-success" data-toggle="modal">
+									<i class="material-icons " style="width:100%" title="registrar"></i>
+									<span>Registrar Secciones</span>
+									</a>
+
+									<a href="#addEmployeeModalA" class="btn btn-success" data-toggle="modal">
+									<i class="material-icons " style="width:100%" title="registrar"></i>
+									<span>Registrar Años</span>
+									</a>
 
 					
 
@@ -60,7 +88,7 @@
 							 <th>Acciones</th>
 							 </tr>
 						  </thead>
-						  
+						  <?PHP if (in_array("consultar secciones", $nivel1)) {?>
 						  <tbody id="tabla">
 						  		
 								
@@ -70,7 +98,8 @@
 									}
 								?>   
 							 
-						  </tbody>   
+						  </tbody> 
+						  <?php } ?>  
 					   </table>
 					   
 					   </div>
@@ -126,7 +155,7 @@
 
 	  	<div class="form-group col-md-4">
 					<label>Secciones</label>
-							<span id="ssecciones"></span>
+							<span style="color:#FF0000" id="ssecciones"></span>
 							<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
 
 						<div class="form-group col-md-4">
@@ -144,8 +173,7 @@
 
 			<div class="form-group col-md-4">
 					<label>Años</label>
-							<span id="sano"></span>
-							<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
+							<span style="color:#FF0000" id="sano"></span>
 
 						<div class="form-group col-md-4">
 
@@ -162,6 +190,7 @@
 
 				 <div class="form-group col-md-4">
 						<label>Docente Guia</label>
+							<span style="color:#FF0000" id="scedula_profesor"></span>
 
 							<div class="form-group col-md-4">
 
@@ -177,6 +206,7 @@
 
 				<div class="form-group col-md-4">
 						<label>Año Academico</label>
+							<span style="color:#FF0000" id="sano_academico"></span>
 
 							<div class="form-group col-md-4">
 
@@ -203,8 +233,8 @@
 
 			<div class="form-group col-md-4">
 				<label>Cantidad</label>
-				<span id="scantidad"></span>
-				<input type="text" class="form-control" name="cantidad" id="cantidad" required placeholder="10">
+				<span style="color:#FF0000" id="scantidad"></span>
+				<input type="text" class="form-control" name="cantidad" id="cantidad" required placeholder="Ejemplo: 10">
 			</div>
 
 		</div>
@@ -274,7 +304,7 @@
 			<div class="form-group col-md-4">
 				<label>Cantidad</label>
 				<br>
-				<span id="scantidad1"></span>			
+				<span style="color:#FF0000" id="scantidad1"></span>			
 				<input type="text" class="form-control" name="cantidad1" id="cantidad1" required >
 			</div>
 
@@ -342,6 +372,111 @@
 </div>
 
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
+
+
+<!-----------------------------------------------------------------MODAL REGISTRO SECCIONES------------------------------------------------------------------>
+<div class="modal fade" tabindex="-1" id="addEmployeeModalS" role="dialog">
+  	<div class="modal-dialog " role="document">
+    	<div class="modal-content">
+				<div class="modal-header">
+				<form id="fs">
+					<h5 class="modal-title">Registro de Secciones</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+      		<div class="modal-body">
+
+
+				<h5 class="modal-title">Secciones</h5>
+				<hr>
+
+					<div class="form-row">
+						<div class="form-group col-md-4 " style="display: none;">
+							<label>ID</label>
+								<span id="sidr"></span>
+								<input type="text" class="form-control" style="display: none;"  name="accions" value="accions" required>
+							<input type="text" class="form-control" name="ids" id="ids" required placeholder="0000">
+						</div>
+	
+						<div class="form-group col-md-4">
+							<label>Seccion</label>	
+								<span id="sseccionesr"></span>
+							<input type="text" class="form-control" name="seccionesr" id="seccionesr" required>
+						</div>
+
+					</div>
+			
+			</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-success" id="registrars">Registrar</button>
+					</div>
+			</form>
+    	</div>
+  	</div>
+</div>
+
+<!----------------------------------------------------------FIN MODAL REGISTRO SECCIONES----------------------------------------------------------------->
+					  
+
+
+
+<!-----------------------------------------------------------------MODAL REGISTRO SECCIONES------------------------------------------------------------------>
+<div class="modal fade" tabindex="-1" id="addEmployeeModalA" role="dialog">
+  	<div class="modal-dialog " role="document">
+    	<div class="modal-content">
+				<div class="modal-header">
+				<form id="fa">
+					<h5 class="modal-title">Registro de Años</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+      		<div class="modal-body">
+
+		<hr>
+
+
+				<h5 class="modal-title">Años</h5>
+				<hr>
+
+					<div class="form-row">
+
+						<div class="form-group col-md-4" style="display: none;">
+							<label>ID</label>
+								<span id="sida"></span>
+								<input type="text" class="form-control" style="display: none;"  name="acciona" value="acciona" required>
+							<input type="text" class="form-control" name="ida" id="ida" required placeholder="0000">
+						</div>
+	
+						<div class="form-group col-md-4">
+							<label>Año</label>	
+								<span id="sanoa"></span>
+							<input type="text" class="form-control" name="anoa" id="anoa" required>
+						</div>
+						<div class="form-group col-md-4">
+							<label>Turno</label>
+								<span id="sturnoa"></span>
+							<input type="text" class="form-control" name="turnoa"  id="turnoa" required >
+						</div>
+
+					</div>
+				
+				
+			</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-success" id="registrara">Registrar</button>
+					</div>
+			</form>
+    	</div>
+  	</div>
+</div>
+
+<!----------------------------------------------------------FIN MODAL REGISTRO ------->
 					   
 					
 					

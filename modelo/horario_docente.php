@@ -21,42 +21,89 @@ class horario_docente extends datos
 
 
     public function set_id($valor)
+    
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->id = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
 
     public function set_clase($valor)
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->clase = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
     public function set_cedula_profesor($valor)
     {
+
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->cedula_profesor = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
     public function set_ano($valor)
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->ano = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
 
     public function set_dia($valor)
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->dia = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
     public function set_clase_inicia($valor)
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->clase_inicia = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
     public function set_clase_termina($valor)
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->clase_termina = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
     public function set_inicio($valor)
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->inicio = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
     public function set_fin($valor)
     {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
         $this->fin = $valor;
+        return true;
+        }else{
+            return false;
+        }
     }
 
     public function registrar()

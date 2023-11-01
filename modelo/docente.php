@@ -16,40 +16,98 @@ class docente extends datos{
     private $nivel;
 
     public function set_cedula($valor){
+        if (preg_match("/^[0-9]{7,8}$/", $valor)) {
 		$this->cedula = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_nombre($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->nombre = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_apellido($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->apellido = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_categoria($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->categoria = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_fecha($valor){
+        if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $valor)) {
 		$this->fecha = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_especializacion($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->especializacion = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_profecion($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->profecion = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_edad($valor){
+        if (preg_match("/^[0-9]{2}$/", $valor)) {
 		$this->edad = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_años($valor){
+        if (preg_match("/^[0-9]{1,2}$/", $valor)) {
 		$this->anos = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_correo($valor){
+        if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $valor)) {
 		$this->correo = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_direccion($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->direccion = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_nivel($valor){
+        
 		$this->nivel = $valor; 
+        return true;
+     
 	}
 
     public function registrar(){

@@ -12,19 +12,45 @@ class ano_academico extends datos{
 
 
     public function set_id($valor){
+        if (preg_match("/^[0-9]{1,5}$/", $valor)) {
 		$this->id = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_fecha_ini($valor){
+        if (preg_match("/^\d{4}-\d{2}-\d{2}$/",$valor )) {
 		$this->fecha_ini = $valor; 
+        return true;
+    }else{
+        return false;
+    }
+        
 	}
     public function set_fecha_cierr($valor){
+        if (preg_match("/^\d{4}-\d{2}-\d{2}$/",$valor )) {
 		$this->fecha_cierr = $valor; 
+        return true;
+    }else{
+        return false;
+    }
 	}
     public function set_lapso($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/",$valor )) {
         $this->lapso = $valor; 
+        return true;
+    }else{
+        return false;
+    }
     }
 	public function set_ano_academico($valor){
+        if (preg_match("/^\d{4}-\d{4}$/",$valor )) {
 		$this->ano_academico = $valor; 
+        return true;
+    }else{
+        return false;
+    }
 	}
 	
    

@@ -1,7 +1,8 @@
+var seleccione='<?php if(!empty($consuta1)){echo $consuta1;}?>';
 $(document).ready(function () {
 
 
-    
+
 
     $('#mibuscador').select2({
         dropdownParent: $('#addEmployeeModal')
@@ -336,7 +337,22 @@ $(document).ready(function () {
 
     $("#cedulae").on("keyup",function(){
         var codigo = $(this).val();
+
+        if(codigo != $(this).find("th:eq(0)").text()){
+            $("#laveC").text("cedula");
+            $("#nombree").removeAttr("readonly");
+            $("#apellidoe").removeAttr("readonly");
+            $("#edade").removeAttr("readonly");
+            $("#materiae").removeAttr("readonly");
+            $("#observacionese").removeAttr("readonly");
+            morocidad("#cedulae");
+        }
+
+        
         $("#tabla tr").each(function(){
+
+
+
             if(codigo == $(this).find("th:eq(0)").text()){
                 $("#laveC").append(" registrada");
                 $("#nombree").attr("readonly","readonly");
@@ -345,17 +361,16 @@ $(document).ready(function () {
                 $("#materiae").attr("readonly","readonly");
                 $("#observacionese").attr("readonly","readonly");
 
+
                 
-            }else{
-                $("#laveC").text("cedula");
-                $("#nombree").removeAttr("readonly");
-                $("#apellidoe").removeAttr("readonly");
-                $("#edade").removeAttr("readonly");
-                $("#materiae").removeAttr("readonly");
-                $("#observacionese").removeAttr("readonly");
-           
+
+                
             }
+
+           
         });
+
+        
     }); 
 
     
@@ -547,7 +562,7 @@ $(document).ready(function () {
 });
 function modificar(id, id2) {
 
-    $("#consulta_estudiantes tr").each(function () {
+    $("#consulta_estudiantes2 tr").each(function () {
 
         if (id == $(this).find("th:eq(0)").text()) {
             $("#cedula1").val($(this).find("th:eq(0)").text());
@@ -575,6 +590,23 @@ function modificar(id, id2) {
     });
 
 }
+function morocidad(valu) {
+    id = $(valu).val();
+    $("#morocidad tr").each(function () {
+
+        if (id == $(this).find("th:eq(0)").text()) {
+           alert("no se puede inscribir a este alumno con cedula "+id+" debido a una deuda pendiente");
+
+
+
+
+
+        }
+    });
+
+
+}
+
 
 function eliminar(id) {
     $("#cedula3").val(id);
@@ -598,7 +630,7 @@ function añadir() {
             $("#pago_inscrip").val($(this).find("th:eq(7)").text());
             $("#telefono").html($(this).find("th:eq(5)").text());
             $("#correo").html($(this).find("th:eq(6)").text());
-
+            morocidad("#mibuscador");
 
 
         }
@@ -628,10 +660,35 @@ function añadir3(valor) {
 
 function añadir2() {
     id = $("#mibuscador2").val();
+    var numero=0;
+    
     $("#consulta_estudiantes tr").each(function () {
 
         if (id == $(this).find("th:eq(0)").text()) {
+            $("#materiae").val($(this).find("th:eq(5)").text());
+            if( $("#materiae").val()=="aprobado"){
             $("#cedulae").val($(this).find("th:eq(0)").text());
+            $("#nombree").val($(this).find("th:eq(1)").text());
+            $("#apellidoe").val($(this).find("th:eq(2)").text());
+            $("#edade").val($(this).find("th:eq(3)").text());
+            
+            $("#observacionese").val($(this).find("th:eq(4)").text());
+
+            $("#tratamiento").val($(this).find("th:eq(6)").text());
+            $("#alerias").val($(this).find("th:eq(7)").text());
+            $("#medicamentos").val($(this).find("th:eq(8)").text());
+            $("#enfermedades").val($(this).find("th:eq(9)").text());
+            $("#operaciones").val($(this).find("th:eq(10)").text());
+            $("#vacunas").val($(this).find("th:eq(11)").text());
+
+            $("#sangre").val($(this).find("th:eq(12)").text());
+            $("#condicion").val($(this).find("th:eq(13)").text());
+            numero = parseInt($(this).find("th:eq(14)").text());
+           
+                suma=numero+1;
+        }
+            else{
+                $("#cedulae").val($(this).find("th:eq(0)").text());
             $("#nombree").val($(this).find("th:eq(1)").text());
             $("#apellidoe").val($(this).find("th:eq(2)").text());
             $("#edade").val($(this).find("th:eq(3)").text());
@@ -647,13 +704,30 @@ function añadir2() {
 
             $("#sangre").val($(this).find("th:eq(12)").text());
             $("#condicion").val($(this).find("th:eq(13)").text());
+            numero = parseInt($(this).find("th:eq(14)").text());
+                suma=numero;
+            }
+
+
 
 
 
 
 
         }
+
+       
+
     });
+
+    var opciones = $("#mibuscador3 option");
+var opcionesFiltradas = opciones.filter(function() {
+  return this.text.startsWith(suma+" -");
+});
+$("#mibuscador3").empty().append(opcionesFiltradas);
+$("#mibuscador3").prepend('<option value="seleccionar" selected hidden>-Seleccionar-</option>');
+
+
 
     $("#registrar").removeClass("btn-light");
     $("#registrar").addClass("btn-success");
@@ -662,6 +736,9 @@ function añadir2() {
     $("#siguiente2").addClass("btn-success");
     $("#siguiente2").attr("validado","true");
 }
+
+
+
 
 
 function siguiente() {
@@ -928,6 +1005,7 @@ function chect(valo) {
     }
 
     $("#mibuscador2").attr("disabled", "disabled");
+    $("#materiae").removeAttr("disabled");
     $("#cedulae").removeAttr("disabled");
     if (valo == 0) {
         $("#cedulae").val("");
@@ -945,6 +1023,7 @@ function chect(valo) {
                 $("#alerias").val("");
                 $("#tratamiento").val("");
                 $("#condicion").val("");
+                $("#mibuscador3").load(location.href + " #mibuscador3>*", "");
     }
                 
 
@@ -959,7 +1038,7 @@ function chect2(valo) {
         $("#estudiante").val("0")
     }
 
-
+    $("#materiae").attr("disabled","disabled");
     $("#mibuscador2").removeAttr("disabled");
 
     $("#cedulae").attr("disabled", "disabled");

@@ -12,20 +12,45 @@ class usuarios extends datos{
 
 
 	public function set_nombre($valor){
+        if (preg_match("/^[a-zA-Z'-]+$/", $valor)) {
 		$this->nombre = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_id($valor){
+        if (preg_match("/^[0-9]{1,5}$/", $valor)) {
 		$this->id = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	
     public function set_correo($valor){
+        if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $valor)) {
 		$this->correo = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_contraceña($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->contraceña = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_rol($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->rol = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_nivel($valor){
 		$this->nivel = $valor; 

@@ -242,8 +242,7 @@ input8.addEventListener("input", () => {
                 
                 success: function(respuesta) {
                  alert(respuesta);
-                 $("#consulta").val("consulta");
-                 enviaAjax2($("#f4"));
+                 $("#tabla").load(location.href + " #tabla>*", "");
                    
                 },
                 error: function(request, status, err){

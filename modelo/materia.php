@@ -10,10 +10,20 @@ class materias extends datos{
     
 
     public function set_id($valor){
+        if (preg_match("/^[0-9]{1,5}$/", $valor)) {
 		$this->id = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_nombre($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->nombre = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	
     public function registrar(){

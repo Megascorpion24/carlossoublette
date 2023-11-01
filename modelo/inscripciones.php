@@ -23,69 +23,153 @@ class inscripciones extends datos{
     private $nivel;
 
 
-    //para excel
-
-   private $fullname;
-   private $email;
-   private $phone;
-   private $course;
    
    
 
 
     public function set_cedula_repre($valor){
+        if (preg_match("/^[0-9]{7,8}$/", $valor)) {
 		$this->cedula_repre = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_estudiante($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->estudiante = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_cedula_estudiante($valor){
+        if (preg_match("/^[0-9]{7,8}$/", $valor)) {
 		$this->cedula_estudiante = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_nombre_estudiante($valor){
-		$this->nombre_estudiante = $valor; 
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+		$this->nombre_estudiante = $valor;
+        return true;
+        }else{
+            return false;
+        } 
 	}
 	public function set_apellido_estudiante($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->apellido_estudiante = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_edad_estudiante($valor){
+        if (preg_match("/^[0-9]{1,2}$/", $valor)) {
 		$this->edad_estudiante = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_materia($valor){
-		$this->materia = $valor; 
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+		$this->materia = $valor;
+        return true;
+        }else{
+            return false;
+        } 
 	}
     public function set_observaciones($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->observaciones = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_sangre($valor){
-		$this->sangre = $valor; 
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+		$this->sangre = $valor;
+        return true;
+        }else{
+            return false;
+        } 
 	}
     public function set_vacunas($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->vacunas = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_operaciones($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->operaciones = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_enfermedades($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->enfermedades = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_medicamentos($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->medicamentos = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_alerias($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->alergias = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_condicion($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->condicion = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_tratamiento($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->tratamientos = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_ano($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->ano = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_seccion($valor){
+        if (preg_match("/^[0-9]{1,5}$/", $valor)) {
 		$this->seccion = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 
     public function set_nivel($valor){
@@ -97,21 +181,7 @@ class inscripciones extends datos{
 
 
 
-    //set del excel
-
-    public function set_fullname($valor){
-		$this->fullname = $valor; 
-	}
-	public function set_email($valor){
-		$this->email = $valor; 
-	}
-	public function set_phone($valor){
-		$this->phone = $valor; 
-	}
-	public function set_course($valor){
-		$this->course = $valor; 
-    }
-
+   
 
 
 
@@ -125,11 +195,13 @@ class inscripciones extends datos{
     }
 
     public function modificar(){
-        $this->modificar1();
+        $var=$this->modificar1();
+        echo $var;
     }
 
     public function eliminar(){
-        $this->eliminar1();
+        $var=$this->eliminar1();
+        echo $var;
     }
 
     private function registrar1(){
@@ -812,13 +884,24 @@ public function consultar2(){
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
 			
+            $resultado2 = $co->prepare("SELECT * from  ano_academico");
 			
-			$resultado = $co->prepare("SELECT * FROM estudiante_ficha,estudiantes,ficha_medica WHERE estudiantes.cedula=estudiante_ficha.id_estudiantes and estudiante_ficha.id_ficha=ficha_medica.id and estudiantes.estado='1'");
+    
+    
+            $resultado2->execute();
+            $respuesta2="";
+
+            foreach($resultado2 as $r){
+               
+                $respuesta2=$r["id"];
+            }
+			
+			$resultado = $co->prepare("SELECT * FROM estudiantes INNER JOIN estudiante_ficha ON estudiante_ficha.id_estudiantes=estudiantes.cedula INNER JOIN ficha_medica on ficha_medica.id=estudiante_ficha.id_ficha INNER JOIN secciones_años on secciones_años.id= estudiantes.id_anos_secciones WHERE estudiantes.estado='0'");
 			$resultado->execute();
            $respuesta="";
            $respuesta2="";
            $respuesta2 =$respuesta2.'<option value="seleccionar" selected hidden>-Seleccionar-</option>';
-
+           $respuesta45="";
             foreach($resultado as $r){
                 $respuesta2 =$respuesta2.'<option value="'.$r['cedula'].'"  >'.$r['cedula'].' -- '.$r['nombre'].'</option>';
                 $respuesta= $respuesta.'<tr>';
@@ -841,14 +924,103 @@ public function consultar2(){
                 $respuesta=$respuesta."<th>".$r['vacunas']."</th>";
                 $respuesta=$respuesta."<th>".$r['tipo_de_sangre']."</th>";
                 $respuesta=$respuesta."<th>".$r['condicion_medica']."</th>";
+                $respuesta=$respuesta."<th>".$r['id_anos']."</th>";
+            
+
+                 
   
              
                
              $respuesta= $respuesta.'</tr>';
 
+
+
             }
 
-            $fila= array($respuesta,$respuesta2);
+
+
+
+            $fila= array($respuesta,$respuesta2,$respuesta45);
+
+           
+            return $fila;
+         
+							
+							
+
+
+			
+			
+		}catch(Exception $e){
+			
+			return false;
+		}
+}
+
+
+public function consultar54(){
+    $co = $this->conecta();
+		
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+			
+            $resultado2 = $co->prepare("SELECT * from  ano_academico");
+			
+    
+    
+            $resultado2->execute();
+            $respuesta2="";
+
+            foreach($resultado2 as $r){
+               
+                $respuesta2=$r["id"];
+            }
+			
+			$resultado = $co->prepare("SELECT * FROM estudiantes INNER JOIN estudiante_ficha ON estudiante_ficha.id_estudiantes=estudiantes.cedula INNER JOIN ficha_medica on ficha_medica.id=estudiante_ficha.id_ficha INNER JOIN secciones_años on secciones_años.id= estudiantes.id_anos_secciones WHERE estudiantes.estado='1'");
+			$resultado->execute();
+           $respuesta="";
+           $respuesta2="";
+           $respuesta2 =$respuesta2.'<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+           $respuesta45="";
+            foreach($resultado as $r){
+                $respuesta2 =$respuesta2.'<option value="'.$r['cedula'].'"  >'.$r['cedula'].' -- '.$r['nombre'].'</option>';
+                $respuesta= $respuesta.'<tr>';
+                $respuesta=$respuesta."<th>".$r['cedula']."</th>";
+                $respuesta=$respuesta."<th>".$r['nombre']."</th>";
+                $respuesta=$respuesta."<th>".$r['apellido']."</th>";
+                $respuesta=$respuesta."<th>".$r['edad']."</th>";
+                $respuesta=$respuesta."<th>".$r['observaciones']."</th>";
+
+
+
+                $respuesta=$respuesta."<th>".$r['materias_pendientes']."</th>";
+
+
+                $respuesta=$respuesta."<th>".$r['tratamientos']."</th>";
+                $respuesta=$respuesta."<th>".$r['alergias']."</th>";
+                $respuesta=$respuesta."<th>".$r['medicamentos']."</th>";
+                $respuesta=$respuesta."<th>".$r['enfermedades']."</th>";
+                $respuesta=$respuesta."<th>".$r['operaciones']."</th>";
+                $respuesta=$respuesta."<th>".$r['vacunas']."</th>";
+                $respuesta=$respuesta."<th>".$r['tipo_de_sangre']."</th>";
+                $respuesta=$respuesta."<th>".$r['condicion_medica']."</th>";
+                $respuesta=$respuesta."<th>".$r['id_anos']."</th>";
+            
+
+                 
+  
+             
+               
+             $respuesta= $respuesta.'</tr>';
+
+
+
+            }
+
+
+
+
+            $fila= array($respuesta,$respuesta2,$respuesta45);
 
            
             return $fila;
@@ -883,7 +1055,7 @@ public function consultar3(){
                
              
                
-             $respuesta= $respuesta.'</tr>';
+       
 
             }
 
@@ -903,6 +1075,46 @@ public function consultar3(){
 			return false;
 		}
 }
+
+
+public function consulta5(){
+    $co = $this->conecta();
+		
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+			
+			
+			$resultado = $co->prepare("SELECT * FROM `deudas` INNER JOIN estudiantes on estudiantes.cedula=deudas.id_estudiante WHERE estado_deudas=1 and concepto='mensualidad' AND estudiantes.estado=0");
+			$resultado->execute();
+           $respuesta="";
+
+
+            foreach($resultado as $r){
+                $respuesta= $respuesta.'<tr>';
+                $respuesta=$respuesta."<th>".$r['id_estudiante']."</th>";
+              
+               
+             $respuesta= $respuesta.'</tr>';
+
+            }
+
+            
+
+           
+            return $respuesta;
+         
+							
+							
+
+
+			
+			
+		}catch(Exception $e){
+			
+			return false;
+		}
+}
+
 
 
 public function consultar4(){

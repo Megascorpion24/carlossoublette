@@ -81,7 +81,6 @@ $('#mibuscador').select2({
     dropdownParent: $('#addpago')
 });
 
-
 $('#mibuscador2').select2({
     dropdownParent: $('#addpagorepre')
 });
@@ -179,13 +178,13 @@ $('#mibuscador2').select2({
         validarkeyup(/^[A-Za-z\s]{4,10}$/,
             $(this), $("#sestado"), "El formato puede ser valido");
     });
-    $("#meses").on("keypress", function(e) {
+    $("#monto").on("keypress", function(e) {
         validarkeypress(/^[0-9]$/, e);
     });
 
-    $("#meses").on("keyup", function() {
-        validarkeyup(/^[0-9]{1,2}$/,
-            $(this), $("#smeses"), "El formato puede ser valido");
+    $("#monto").on("keyup", function() {
+        validarkeyup(/^[0-9]{2,10}$/,
+            $(this), $("#smonto"), "El formato puede ser valido");
     });
 
 
@@ -253,13 +252,13 @@ $("#estador").on("keyup", function() {
         $(this), $("#sestador"), "El formato puede ser valido");
 });
 
-$("#mesesr").on("keypress", function(e) {
+$("#montor").on("keypress", function(e) {
     validarkeypress(/^[0-9]$/, e);
 });
 
-$("#meses").on("keyup", function() {
-    validarkeyup(/^[0-9]{1,2}$/,
-        $(this), $("#smesesr"), "El formato puede ser valido");
+$("#montor").on("keyup", function() {
+    validarkeyup(/^[0-9]{2,10}$/,
+        $(this), $("#smontor"), "El formato puede ser valido");
 });
 
 
@@ -325,13 +324,13 @@ $("#estadoM").on("keyup", function() {
     validarkeyup(/^[A-Za-z\s]{4,20}$/,
         $(this), $("#sestadoM"), "El formato puede ser valido");
 });
-$("#mesesM").on("keypress", function(e) {
+$("#montosM").on("keypress", function(e) {
     validarkeypress(/^[0-9]$/, e);
 });
 
-$("#mesesM").on("keyup", function() {
-    validarkeyup(/^[0-9]{1,2}$/,
-        $(this), $("#smesesM"), "El formato puede ser valido");
+$("#montoM").on("keyup", function() {
+    validarkeyup(/^[0-9]{2,10}$/,
+        $(this), $("#smontoM"), "El formato puede ser valido");
 });
 
 
@@ -358,7 +357,7 @@ $("#mesesM").on("keyup", function() {
                 $("#conceptoM").val($(this).find("th:eq(3)").text());               
                 $("#formaM").val($(this).find("th:eq(4)").text());
                 $("#fechaM").val($(this).find("th:eq(5)").text());               
-                $("#mesesM").val($(this).find("th:eq(6)").text());
+                $("#montoM").val($(this).find("th:eq(6)").text());
                 $("#cedulaM").val($(this).find("th:eq(7)").text());
                 $("#nombreM").val($(this).find("th:eq(8)").text());         
                 $("#estadoM").val($(this).find("th:eq(9)").text());
@@ -404,13 +403,9 @@ function añadir2() {
             $("#id_deudas").val($(this).find("th:eq(0)").text());
             $("#concepto").val($(this).find("th:eq(3)").text());
             $("#fecha").val($(this).find("th:eq(4)").text());
+            $("#monto").val($(this).find("th:eq(2)").text());
 
-            if ($(this).find("th:eq(3)").text()=="mensualidad") {
-                $("#ocult").removeClass("ocultar");
-                
-            }else{
-                $("#ocult").addClass("ocultar");
-            }
+
 
           
         }  
@@ -425,14 +420,7 @@ function añadir2() {
             $("#id_deudasr").val($(this).find("th:eq(0)").text());
             $("#conceptor").val($(this).find("th:eq(3)").text());
             $("#fechar").val($(this).find("th:eq(4)").text());
-        
-            if ($(this).find("th:eq(3)").text()=="mensualidad") {
-                $("#ocult2").removeClass("ocultar");
-                
-            }else{
-                $("#ocult2").addClass("ocultar");
-            }
-
+            $("#montor").val($(this).find("th:eq(2)").text());
 
         }  
         
@@ -470,7 +458,7 @@ function enviaAjax(datos){
             beforeSend: function(){            
             },            
             success: function(respuesta) {
-             alert(respuesta);            
+                alert(respuesta);       
              $("#consulta").val("consulta");            
              enviaAjax2($("#f4"));  
              window.location.reload();
@@ -480,7 +468,7 @@ function enviaAjax(datos){
                 if (status == "timeout") {
                     mensaje("Servidor ocupado, intente de nuevo");
                 } else {
-                    mensaje("ERROR: <br/>" + request + status + err);
+                    /*mensaje("ERROR: <br/>" + request + status + err);*/
                 }
             },
             complete: function(){               
@@ -495,8 +483,7 @@ function enviaAjax2(datos){
             data: datos.serialize(),
             beforeSend: function(){     
             },           
-            success: function(respuesta) {    
-                            
+            success: function(respuesta) {                                
              $("#tabla").html(respuesta); 
                           
             },
@@ -504,7 +491,7 @@ function enviaAjax2(datos){
                 if (status == "timeout") {
                     mensaje("Servidor ocupado, intente de nuevo");
                 } else {
-                    mensaje("ERROR: <br/>" + request + status + err);
+                    /*mensaje("ERROR: <br/>" + request + status + err);*/
                 }
             },
             complete: function(){    
@@ -512,6 +499,13 @@ function enviaAjax2(datos){
             }           
     });  
 }
+
+
+
+
+
+
+
 //<!---------------------------------------------------------------------------------------------------------------------------->
 function validarkeyup(er, etiqueta, etiquetamensaje,
     mensaje) {
@@ -577,8 +571,8 @@ function validarkeypress(er, e) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{1,2}$/,
-        $("#meses"), $("#smeses"), "El formato puede ser valido") == 0) {
+        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        $("#monto"), $("#smonto"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
 
@@ -623,8 +617,8 @@ function validarkeypress(er, e) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{1,2}$/,
-        $("#meses"), $("#smeses"), "El formato puede ser valido") == 0) {
+        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        $("#montor"), $("#smontor"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
             
@@ -667,9 +661,9 @@ function validarkeypress(er, e) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{1,2}$/,
-        $("#mesesM"), $("#smesesM"), "El formato puede ser valido") == 0) {
-            mensaje("El formato puede ser valido");
+        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        $("#montoM"), $("#smontoM"), "El formato puede ser valido") == 0) {
+            mensaje("El formato debe ser valido");
             return false;
 
         }
@@ -681,10 +675,11 @@ function validarkeypress(er, e) {
 
 
 const input1 = document.getElementById("identificador");
-const input2 = document.getElementById("meses");
+const input2 = document.getElementById("monto");
 const input3 = document.getElementById("identificadorr");
-const input4 = document.getElementById("mesesr");
+const input4 = document.getElementById("montor");
 const input5 = document.getElementById("identificadorM");
+const input6 = document.getElementById("montoM");
 
 // Función para limitar la longitud del valor
 const limitarLongitud = (input, maxLength) => {
@@ -699,7 +694,7 @@ input1.addEventListener("input", () => {
 });
   
 input2.addEventListener("input", () => {
-    const maxLength = 2; // Cambia este valor al límite máximo deseado
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
     limitarLongitud(input2, maxLength);
 });
 input3.addEventListener("input", () => {
@@ -708,11 +703,16 @@ input3.addEventListener("input", () => {
   });
     
 input4.addEventListener("input", () => {
-    const maxLength = 2; // Cambia este valor al límite máximo deseado
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
     limitarLongitud(input4, maxLength);
 });
 
 input5.addEventListener("input", () => {
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input5, maxLength);
+  });
+
+  input6.addEventListener("input", () => {
     const maxLength = 10; // Cambia este valor al límite máximo deseado
     limitarLongitud(input5, maxLength);
   });

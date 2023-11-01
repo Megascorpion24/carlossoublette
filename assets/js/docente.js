@@ -216,12 +216,12 @@ $("#correo1").on("keyup", function() {
 });
 
 $("#direccion1").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z]$/, e);
+    validarkeypress(/^[0-9A-Za-z_]$/, e);
 
 });
 
 $("#direccion1").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z]{4,26}$/,
+    validarkeyup(/^[0-9A-Za-z_]{4,26}$/,
         $(this), $("#sdireccion1"), "El formato puede ser A-Z a-z 4-26");
 });
 
@@ -450,7 +450,7 @@ $("#direccion1").on("keyup", function() {
         $("#correo1"), $("#scorreo1"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
-        }else if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        }else if (validarkeyup(/^[A-Za-z0-9]{4,26}$/,
         $("#direccion1"), $("#sdireccion1"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;

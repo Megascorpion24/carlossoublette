@@ -57,7 +57,7 @@
 											<?php } ?>
 											<?PHP if (in_array("registrar pagos_tutor", $nivel1)) {?>
 											<a href="#addpagorepre" class="btn btn-success" data-toggle="modal">
-												<i class="material-icons " style="width:100%" title="registrar"></i>
+												<i class="material-icons " style="width:100%" title="registrarr"></i>
 												<span>Realizar Pago ( Tutor )</span>
 											</a>
 											<?php } ?>
@@ -77,12 +77,11 @@
 									<th>Identificador</th>
 									<th>Concepto</th>
 									<th>F/P</th>
-									<th>Pago Vence</th>
-									<th>Meses</th>
-									<th>ID Estudiante</th>
+									<th>Fecha Deuda</th>
+									<th>Monto Bs</th>
+									<th>C.I Estudiante</th>
 									<th>Estudiante</th>
-									<th>Estado</th>
-							
+									<th>Estado</th>							
 									<th>Acción</th>
 									</tr>
 								</thead>
@@ -95,6 +94,16 @@
 										?>   							 
 								</tbody>
 								<?php } ?>
+								<?PHP if (in_array("consultar pagos_tutor", $nivel1)) {?>
+								<tbody id="tabla">						  						
+										<?php
+											if(!empty($consutat)){
+												echo $consutat;
+											}
+										?>   							 
+								</tbody>
+								<?php } ?>
+		
 																				
 							</table>					   
 						</div>
@@ -134,9 +143,15 @@
 
 
 
+			
 		<div class="form-row">
 			<div class="form-group col-md-4">
-			<h5 class="modal-title  mb-3">Inscripciones pagadas</h5>			
+				<h5 class="modal-title  mb-3">Inscripciones pagadas</h5>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">						
 				<select type="text" class="form-control" name="mibuscador" id="mibuscador" onchange="añadir2()">
 				<?php
     				if(!empty($consuta2[1])){
@@ -145,12 +160,28 @@
 	       		 ?>
 				</select>
 			</div>	
+			<div class="form-group col-md-6">
+				<span style="color: green">Seleccionar la deuda que desea cancelar</span>
+			</div>
 		</div>
+
+	
+	
+		
+
+
+	
+
+
+
+
+
+
 		<hr>
 
 
 
-				<h5 class="modal-title">Pago</h5>
+				<h5 class="modal-title"> Datos del Pago</h5>
 				<hr>
 
 
@@ -159,20 +190,20 @@
 					
 						<div class="form-group col-md-4">
 							<label>N° Deuda</label>	
-								<span id="sid_deudas"></span>
+								<span style="color:#FF0000" id="sid_deudas"></span>
 								<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
 							<input type="text" class="form-control" readonly="true" name="id_deudas" id="id_deudas" required>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label>Concepto</label>
-								<span id="sconcepto"></span>
+								<span style="color:#FF0000" id="sconcepto"></span>
 							<input type="text" class="form-control" readonly="true" name="concepto"  id="concepto" required   >
 						</div>
 						<!--------------------------------->
 						<div class="form-group col-md-4">
 							<label>Deuda Generada</label>
-								<span id="sfecha"></span>
+								<span style="color:#FF0000" id="sfecha"></span>
 							<input type="date" class="form-control "  readonly="true" name="fecha" id="fecha"required  >							
 						</div>
 						<!--------------------------------->
@@ -181,12 +212,12 @@
 					<div class="form-row">
 						<div class="form-group col-md-2">
 							<label>Identificador</label>
-								<span id="sidentificador"></span>
+								<span style="color:#FF0000" id="sidentificador"></span>
 							<input type="text" class="form-control" name="identificador" id="identificador" required placeholder="0000">
 						</div>
 						<div class="form-group col-md-4">
 							<label>Forma de pago</label>
-								<span id="sforma"></span>				
+								<span style="color:#FF0000" id="sforma"></span>				
 							<select type="text" class="form-control" name="forma" id="forma" required >
 									<option value="" selected>- Seleccionar -</option>
 									<option value="Transferencia">Trasferencia</option>
@@ -196,7 +227,7 @@
 						</div>				
 						<div class="form-group col-md-4">
 							<label>Estado</label>
-								<span id="sestadoM"></span>		
+								<span style="color:#FF0000" id="sestado"></span>		
 							
 							<select type="text" class="form-control" name="estado" id="estado" required >																
 									<option value="CONFIRMADO">CONFIRMAR</option>
@@ -204,10 +235,10 @@
 							</select>
 						</div>
 						
-						<div class="form-group col-md-2 ocultar" id="ocult">
-							<label>Meses</label>
-								<span id="smeses"></span>
-							<input type="text" class="form-control"  name="meses" value="0" id="meses" required placeholder="0000">
+						<div class="form-group col-md-2 " >
+							<label>Monto</label>
+								<span style="color:#FF0000" id="smonto"></span>
+							<input type="text" class="form-control" readonly="true"  name="monto" value="0" id="monto" required placeholder="000.00">
 							
 						</div>
 				
@@ -272,19 +303,19 @@
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label>ID</label>
-								<span id="sidM"></span>
+								<span style="color:#FF0000" id="sidM"></span>
 								<input type="text" class="form-control" style="display: none;"  name="accion1" value="accion1" required>
 							<input type="text" class="form-control " readonly="true" name="idM" id="idM" required >
 						</div>
 						<div class="form-group col-md-4">
 							<label>N° Deuda</label>
 							<br>
-								<span id="scuposM"></span>			
+								<span style="color:#FF0000" id="scuposM"></span>			
 							<input type="text" class="form-control" readonly="true" name="id_deudasM" id="id_deudasM" required >
 						</div>
 						<div class="form-group col-md-4">
 							<label>Identificador</label>
-								<span id="sidentificadorM"></span>			
+								<span style="color:#FF0000" id="sidentificadorM"></span>			
 							<input type="text" class="form-control"name="identificadorM" id="identificadorM" required >
 						</div>
 					</div>
@@ -292,22 +323,22 @@
 					<div class="form-row">
 						<div class="form-group col-md-3">
 							<label>Concepto</label>
-								<span id="sconceptM"></span>
+								<span style="color:#FF0000" id="sconceptM"></span>
 							<input type="text" class="form-control" readonly="true"name="conceptoM" id="conceptoM" required >
 						</div>
 						<div class="form-group col-md-3">
 							<label>Fecha</label>
-								<span id="sfechaM"></span>			
+								<span style="color:#FF0000" id="sfechaM"></span>			
 							<input type="text" class="form-control"readonly="true" name="fechaM" id="fechaM" required >
 						</div>
 						<div class="form-group col-md-3">
-							<label>Meses</label>
-								<span id="smesesM"></span>
-							<input type="text" class="form-control" readonly name="mesesM" value="0" id="mesesM" required placeholder="0000">
+							<label>Monto</label>
+								<span style="color:#FF0000" id="smontoM"></span>
+							<input type="text" class="form-control" readonly name="montoM"  id="montoM" required placeholder="0000">
 						</div>
 						<div class="form-group col-md-3">
 							<label>Forma De pago</label>
-								<span id="sformaM"></span>
+								<span style="color:#FF0000" id="sformaM"></span>
 							<input type="text" class="form-control" readonly="true"name="formaM" id="formaM" required >
 						</div>
 						
@@ -316,17 +347,17 @@
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label>Cedula</label>
-								<span id="scedulaM"></span>			
+								<span style="color:#FF0000" id="scedulaM"></span>			
 							<input type="text" class="form-control" disabled type="text" name="cedulaM" id="cedulaM" required >
 						</div>
 						<div class="form-group col-md-4">
 							<label>Estudiante</label>
-								<span id="snombreM"></span>			
+								<span style="color:#FF0000" id="snombreM"></span>			
 							<input type="text" class="form-control" disabled type="text" name="nombreM" id="nombreM" required >
 						</div>
 						<div class="form-group col-md-4">
 							<label>Estado</label>
-								<span id="sestadoM"></span>		
+								<span style="color:#FF0000" id="sestadoM"></span>		
 							
 							<select type="text" class="form-control" name="estadoM" id="estadoM" required >																
 									<option value="CONFIRMADO">CONFIRMAR</option>
@@ -454,10 +485,15 @@
       		<div class="modal-body">
 
 
-
+			
 		<div class="form-row">
 			<div class="form-group col-md-4">
-			<h5 class="modal-title  mb-3">Inscripciones pagadas</h5>			
+				<h5 class="modal-title  mb-3">Inscripciones pagadas</h5>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">						
 				<select type="text" class="form-control" name="mibuscador2" id="mibuscador2" onchange="añadirr()">
 				<?php
     				if(!empty($consutar[1])){
@@ -466,7 +502,17 @@
 	       		 ?>
 				</select>
 			</div>	
+			<div class="form-group col-md-6">
+				<span style="color: green">Seleccionar la deuda que desea cancelar</span>
+			</div>
 		</div>
+
+	
+	
+		
+
+
+
 		<hr>
 
 
@@ -478,19 +524,19 @@
 	
 						<div class="form-group col-md-4">
 							<label>N° Deuda</label>	
-								<span id="sid_deudasr"></span>
+								<span style="color:#FF0000" id="sid_deudasr"></span>
 								<input type="text" class="form-control" style="display: none;"  name="accionr" value="accionr" required>
 							<input type="text" class="form-control" readonly="true" name="id_deudasr" id="id_deudasr" required>
 						</div>
 						<div class="form-group col-md-4">
 							<label>Concepto</label>
-								<span id="sconceptor"></span>
-							<input type="text" class="form-control" readonly="true" name="conceptor"  id="conceptor" required  onkeyup="checkInput2()" >
+								<span style="color:#FF0000" id="sconceptor"></span>
+							<input type="text" class="form-control" readonly="true" name="conceptor"  id="conceptor" required  >
 						</div>
 						<!--------------------------------->
 						<div class="form-group col-md-4 ">
 							<label>Fecha</label>
-								<span id="sfechar"></span>
+								<span style="color:#FF0000" id="sfechar"></span>
 								<input type="date" class="form-control "  readonly="true" name="fechar" id="fechar"required >
 						</div>
 						<!--------------------------------->
@@ -500,12 +546,12 @@
 					<div class="form-row">
 					<div class="form-group col-md-2">
 							<label>Identificador</label>
-								<span id="sidentificadorr"></span>
+								<span style="color:#FF0000" id="sidentificadorr"></span>
 							<input type="text" class="form-control" name="identificadorr" id="identificadorr" required placeholder="0000">
 						</div>
 						<div class="form-group col-md-4">
 							<label>Forma de pago</label>
-								<span id="sformar"></span>				
+								<span style="color:#FF0000" id="sformar"></span>				
 							<select type="text" class="form-control" name="formar" id="formar" required >
 									<option value="" selected>- Seleccionar -</option>
 									<option value="Transferencia">Trasferencia</option>
@@ -516,13 +562,13 @@
 
 						<div class="form-group col-md-4">
 							<label>Estado</label>
-								<span id="sestador"></span>
+								<span style="color:#FF0000" id="sestador"></span>
 							<input type="text" class="form-control"  readonly="true" value="PENDIENTE" name="estador" id="estador" required placeholder="Activo">
 						</div>
-						<div class="form-group col-md-2 ocultar" id="ocult2">
-							<label>Meses</label>
-								<span id="smesesr"></span>
-							<input type="text" class="form-control"  name="mesesr" value="0" id="mesesr" required placeholder="0000">
+						<div class="form-group col-md-2 " >
+							<label>Monto</label>
+								<span style="color:#FF0000" id="smontor"></span>
+							<input type="text" class="form-control" readonly="true"  name="montor" value="0" id="montor" required placeholder="0000">
 						</div>
 					</div>
 		

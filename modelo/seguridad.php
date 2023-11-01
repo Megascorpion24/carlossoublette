@@ -15,16 +15,34 @@ class seguridad extends datos{
 
 
     public function set_id($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->id = $valor; 
+        return true;
+    }else{
+        return false;
+    }
+ 
 	}
 	public function set_permiso($valor){
+
 		$this->permiso = $valor; 
+   
 	}
 	public function set_rol($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->rol = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
 	public function set_descripcion($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->descripcion = $valor; 
+        return true;
+        }else{
+            return false;
+        }
 	}
     public function set_nivel($valor){
 		$this->nivel = $valor; 

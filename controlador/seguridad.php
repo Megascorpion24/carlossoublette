@@ -86,20 +86,32 @@ require_once("modelo/".$pagina.".php");
 
 		  
 		  if(!empty($_POST['accion8'])){
-		
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['descripcion'])) {
-				$o->set_descripcion($_POST['descripcion']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['rol'])) {
-				$o->set_rol($_POST['rol']);
-			}
+			$valor=true;
+			$retorno="";
+
+			$validacion[0]=$o->set_descripcion($_POST['descripcion']);
+			$dato[0]="error en la validacion del descripcion";
+			$validacion[1]=$o->set_rol($_POST['rol']);
+			$dato[1]="error en la validacion del rol";
 
 			
 			
 			$o->set_nivel($nivel);
 			
-			$mensaje = $o->registrar1();		
-			echo $mensaje;
+			for ($i=0; $i <= 1 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->registrar1();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
 			exit;		
 		  }
 
@@ -107,17 +119,33 @@ require_once("modelo/".$pagina.".php");
 		  if(!empty($_POST['accion2'])){
 		
 	
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['descripcion1'])) {
-				$o->set_descripcion($_POST['descripcion1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['rol1'])) {
-				$o->set_rol($_POST['rol1']);
-			}
+			$valor=true;
+			$retorno="";
+
+			$validacion[0]=$o->set_descripcion($_POST['descripcion1']);
+			$dato[0]="error en la validacion del descripcion1";
+			$validacion[1]=$o->set_rol($_POST['rol1']);
+			$dato[1]="error en la validacion del rol1";
+
+			
+			
 			$o->set_nivel($nivel);
 			
-			$mensaje = $o->modificar();		
-			echo $mensaje;
-			exit;		
+			for ($i=0; $i <= 1 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->modificar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;			
 		  }
 
 		  
@@ -125,13 +153,32 @@ require_once("modelo/".$pagina.".php");
 
 		  if(!empty($_POST['accion3'])){
 		
-				$o->set_id($_POST['cedula2']);
-	
+			$valor=true;
+			$retorno="";
+
+			$validacion[0]=$o->set_id($_POST['cedula2']);
+			$dato[0]="error en la validacion del cedula2";
 			
-			$o->set_nivel($nivel);			
-			$mensaje = $o->eliminar();			
-			echo $mensaje;
-			exit;			
+
+			
+			
+			$o->set_nivel($nivel);
+			
+			for ($i=0; $i <= 0 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->eliminar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;					
 		  }
 
 

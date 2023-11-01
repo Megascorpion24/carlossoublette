@@ -31,103 +31,108 @@ require_once("modelo/".$pagina.".php");
 
 		$o = new docente();
 		if(!empty($_POST['accion'])){
-			if (preg_match("/^[0-9]{7,8}$/",$_POST['cedula'] )) {
-				$o->set_cedula($_POST['cedula']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['nombre'])) {
-				$o->set_nombre($_POST['nombre']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['apellido'])) {
-				$o->set_apellido($_POST['apellido']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['categoria'] )) {
-				$o->set_categoria($_POST['categoria']);
-			}
-			if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $_POST['fecha'])) {
-				$o->set_fecha($_POST['fecha']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['especializacion'])) {
-				$o->set_especializacion($_POST['especializacion']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['profecion'] )) {
-				$o->set_profecion($_POST['profecion']);
-			}
-			if (preg_match("/^[0-9]{2}$/", $_POST['edad'])) {
-				$o->set_edad($_POST['edad']);
-			}
-			if (preg_match("/^[0-9]{2}$/",$_POST['años'])) {
-				$o->set_años($_POST['años']);
-			}
-			if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/",$_POST['correo'] )) {
-				$o->set_correo($_POST['correo']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['direccion'])) {
-				$o->set_direccion($_POST['direccion']);
-			}
-	
+			$valor=true;
+			$retorno="";
 
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			$validacion[0]=$o->set_cedula($_POST['cedula']);
+			$dato[0]="error en la validacion del cedula";
+			$validacion[1]=$o->set_nombre($_POST['nombre']);
+			$dato[1]="error en la validacion del nombre";
+			$validacion[2]=$o->set_apellido($_POST['apellido']);
+			$dato[2]="error en la validacion del apellido";
+			$validacion[3]=$o->set_categoria($_POST['categoria']);
+			$dato[3]="error en la validacion del categoria";
+			$validacion[4]=$o->set_fecha($_POST['fecha']);
+			$dato[4]="error en la validacion del fecha";
+			$validacion[5]=$o->set_especializacion($_POST['especializacion']);
+			$dato[5]="error en la validacion del especializacion";
+			$validacion[6]=$o->set_profecion($_POST['profecion']);
+			$dato[6]="error en la validacion del profecion";
+			$validacion[7]=$o->set_edad($_POST['edad']);
+			$dato[7]="error en la validacion del edad";
+			$validacion[8]=$o->set_años($_POST['años']);
+			$dato[8]="error en la validacion del años";
+			$validacion[9]=$o->set_correo($_POST['correo']);
+			$dato[9]="error en la validacion del correo";
+			$validacion[10]=$o->set_direccion($_POST['direccion']);
+			$dato[10]="error en la validacion del direccion";
+
+
 			
 			
 			
 			$o->set_nivel($nivel);
-			$mensaje = $o->registrar();
+			for ($i=0; $i <= 10 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
 
-			echo $mensaje;
-			exit;
+			if ($valor==true) {
+				$mensaje = $o->registrar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;	
 			
 			
 		  }
 		  if(!empty($_POST['accion1'])){
 
 		
-			if (preg_match("/^[0-9]{7,8}$/",$_POST['cedula1'] )) {
-				$o->set_cedula($_POST['cedula1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['nombre1'])) {
-				$o->set_nombre($_POST['nombre1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['apellido1'])) {
-				$o->set_apellido($_POST['apellido1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['categoria1'] )) {
-				$o->set_categoria($_POST['categoria1']);
-			}
-			if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $_POST['fecha1'])) {
-				$o->set_fecha($_POST['fecha1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['especializacion1'])) {
-				$o->set_especializacion($_POST['especializacion1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['profecion1'] )) {
-				$o->set_profecion($_POST['profecion1']);
-			}
-			if (preg_match("/^[0-9]{2}$/", $_POST['edad1'])) {
-				$o->set_edad($_POST['edad1']);
-			}
-			if (preg_match("/^[0-9]{2}$/",$_POST['años1'])) {
-				$o->set_años($_POST['años1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/",$_POST['correo1'] )) {
-				$o->set_correo($_POST['correo1']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['direccion1'])) {
-				$o->set_direccion($_POST['direccion1']);
-			}
+			$valor=true;
+			$retorno="";
+
+			$validacion[0]=$o->set_cedula($_POST['cedula1']);
+			$dato[0]="error en la validacion del cedula";
+			$validacion[1]=$o->set_nombre($_POST['nombre1']);
+			$dato[1]="error en la validacion del nombre";
+			$validacion[2]=$o->set_apellido($_POST['apellido1']);
+			$dato[2]="error en la validacion del apellido";
+			$validacion[3]=$o->set_categoria($_POST['categoria1']);
+			$dato[3]="error en la validacion del categoria";
+			$validacion[4]=$o->set_fecha($_POST['fecha1']);
+			$dato[4]="error en la validacion del fecha";
+			$validacion[5]=$o->set_especializacion($_POST['especializacion1']);
+			$dato[5]="error en la validacion del especializacion";
+			$validacion[6]=$o->set_profecion($_POST['profecion1']);
+			$dato[6]="error en la validacion del profecion";
+			$validacion[7]=$o->set_edad($_POST['edad1']);
+			$dato[7]="error en la validacion del edad";
+			$validacion[8]=$o->set_años($_POST['años1']);
+			$dato[8]="error en la validacion del años";
+			$validacion[9]=$o->set_correo($_POST['correo1']);
+			$dato[9]="error en la validacion del correo";
+			$validacion[10]=$o->set_direccion($_POST['direccion1']);
+			$dato[10]="error en la validacion del direccion";
+
+
+			
+			
+			
 			$o->set_nivel($nivel);
-			$mensaje = $o->modificar();
+			for ($i=0; $i <= 10 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->modificar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;	
+			
+			
 		
-			echo $mensaje;
-			exit;
+		
 			
 			
 		  }

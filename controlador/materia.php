@@ -39,35 +39,58 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
         
         //Registro (f)
 		if(!empty($_POST['accion'])){
-			if (preg_match("/^[0-9]{1,3}$/",$_POST['id'] )) {
-				$o->set_id($_POST['id']);
-			}
-			if (preg_match("/^[a-zA-Z0-9_]+$/", $_POST['nombre'])) {
-				$o->set_nombre($_POST['nombre']);
-			}
-			
+			$valor=true;
+			$retorno="";
+			$validacion[0]=$o->set_id($_POST['id']);
+			$dato[0]="error en la validacion del id";
+				$validacion[1]=$o->set_nombre($_POST['nombre']);
+				$dato[1]="error en la validacion del nombre";
 			
 			
 			$o->set_nivel($nivel);
-			$mensaje = $o->registrar();
-			echo $mensaje;
-			exit;			
+			for ($i=1; $i <= 1 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->registrar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;					
 		  }
 
 
 		  //Editar (f2)
 		  if(!empty($_POST['id_edit'])){
 		
-			if (preg_match("/^[0-9]$/",$_POST['id1'] )) {
-				$o->set_id($_POST['id1']);
+			$valor=true;
+			$retorno="";
+			$validacion[0]=$o->set_id($_POST['id1']);
+			$dato[0]="error en la validacion del id1";
+			$validacion[1]=$o->set_nombre($_POST['nombre1']);
+			$dato[1]="error en la validacion del nombre1";
+		
+			$o->set_nivel($nivel);
+			for ($i=1; $i <= 1 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
 			}
-			if (preg_match("/^[a-zA-Z0-9_]+$/", $_POST['nombre1'])) {
-				$o->set_nombre($_POST['nombre1']);
+
+			if ($valor==true) {
+				$mensaje = $o->modificar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
 			}
 			
-			$o->set_nivel($nivel);
-			$mensaje = $o->modificar();		
-			echo $mensaje;
 			exit;		
 		  }
 
@@ -83,13 +106,27 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
 
 		if(!empty($_POST['accion3'])){
 	
-			if (preg_match("/^[a-zA-Z0-9_]+$/",$_POST['id2'] )) {
-				$o->set_id($_POST['id2']);
-			}	
-			$o->set_nivel($nivel);		
-			$mensaje = $o->eliminar();			
-			echo $mensaje;
-			exit;			
+			$valor=true;
+			$retorno="";
+			$validacion[0]=$o->set_id($_POST['id2']);
+			$dato[0]="error en la validacion del id2";
+			
+			$o->set_nivel($nivel);
+			for ($i=1; $i <= 0 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->eliminar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;				
 		  }
 
           //Consulta (f4)
