@@ -10,7 +10,7 @@
 	 
 	 <div id="sidebar">
 	    <div class="sidebar-header">
-		   <h3><img src="assets/img/logo.jpeg" class="img-fluid"/><span>Sistema Admvo</span></h3>
+		   <h3><img src="assets/img/logo.jpeg" class="img-fluid"/><span>Sistema GPUECCS</span></h3>
 		</div>
 		<ul class="list-unstyled component m-0">
 		<!-------1 PAGINA------------>
@@ -54,16 +54,9 @@
 
 		<!-------9 PAGINA------------>	
 
-		<li class="dropdown">
-		  <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <img class="pr-3" src="assets/icon/editar.png"/>Horarios
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-		     <li><a href="?pagina=horario_docente"><img class="pr-3" src="assets/icon/calendario2.png"/>Horarios Docentes</a>
-			 <li><a href="?pagina=horario_secciones"><img class="pr-3" src="assets/icon/calendario.png"/>Horarios Secciones</a></li>
-		  </ul>
-		  </li>
+		<li class="">
+		<a href="?pagina=horario_docente"><img class="pr-3" src="assets/icon/editar.png"/>Horarios</a>
+		</li>
 
 		  <!-------11 PAGINA------------>	
 		 <li class="">

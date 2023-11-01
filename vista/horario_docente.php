@@ -36,7 +36,7 @@ if (isset($_SESSION['permisos'])) {
 	<main>
 		<div class="head-title pt-3  mx-auto" style="width: 200px;  ">
 			<div class="left">
-				<h1>Horario de Docentes</h1>
+				<h1>Gestión de Horarios</h1>
 			</div>
 		</div>
 
@@ -54,7 +54,7 @@ if (isset($_SESSION['permisos'])) {
 						<div class="table-title  mb-3">
 							<div class="row ">
 								<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-									<h2 class="ml-lg-2">Registro de eventos</h2>
+									<h2 class="ml-lg-2">Registro de clases</h2>
 								</div>
 								<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 									<?PHP if (in_array("registrar horario_docente", $nivel1)) { ?>
@@ -81,7 +81,7 @@ if (isset($_SESSION['permisos'])) {
 
 								<!-- Tab panes -->
 								<?PHP if (in_array("consultar horario_docente", $nivel1)) { ?>
-									<div class="tab-content">
+									<div id="body2" class="tab-content">
 										<div class="tab-pane container active" id="home">
 
 

@@ -173,6 +173,7 @@ $(document).ready(function() {
                  alert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
+                 window.location.reload();
                  
                 
                 },
