@@ -33,7 +33,7 @@ require_once("modelo/".$pagina.".php");
 				}
 
 		
-		$o = new horario_docente();
+		$o = new horario();
 		if(!empty($_POST['accion'])){
 			
 		

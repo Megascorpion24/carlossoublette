@@ -1,7 +1,7 @@
 <?php
 
 require_once('modelo/conexion.php');
-class horario_docente extends datos
+class horario extends datos
 {
 
 
@@ -399,7 +399,15 @@ class horario_docente extends datos
 
 
             $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,'-', docentes.cedula) as cedula,
-            concat(años.anos,'-',secciones.secciones) as seccion  FROM horario_docente
+            concat(años.anos,'-',secciones.secciones) as seccion, case
+         when dia = 1 then 'Lunes'
+         when dia = 2 then 'Martes'
+          when dia = 3 then 'Miercoles'
+           when dia = 4 then 'Jueves'
+            when dia = 5 then 'Viernes'
+       end as dia2
+       FROM horario_docente
+                                                
             
             INNER JOIN docente_horario
             ON horario_docente.id = docente_horario.id_horario_docente 
@@ -427,7 +435,7 @@ class horario_docente extends datos
 
             WHERE horario_docente.estado = 1
 
-            ORDER BY `horario_docente`.`id` ASC;");
+            ORDER BY `horario_docente`.`id` DESC;");
             $resultado->execute();
             $respuesta = "";
 
@@ -437,7 +445,7 @@ class horario_docente extends datos
                 $respuesta = $respuesta . "<th>" . $r['clase'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['cedula'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['seccion'] . "</th>";
-                $respuesta = $respuesta . "<th>" . $r['dia'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['dia2'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['clase_inicia'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['clase_termina'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['inicio'] . "</th>";
