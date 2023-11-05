@@ -557,7 +557,7 @@ class horario extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id ORDER by  años.anos, secciones.secciones AND secciones.estado=1 and años.estado=1");
+            $resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones, secciones_años.estado FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id WHERE secciones_años.estado=1;");
             $resultado->execute();
             $respuesta = "";
             $respuesta2 = "";
@@ -591,29 +591,34 @@ class horario extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,' ', docentes.cedula) as cedula
-            FROM horario_docente
+            $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,' ', docentes.cedula) as cedula,
+            concat(años.anos,'-',secciones.secciones) as seccion
+                        FROM horario_docente
+                        
+                        INNER JOIN docente_horario
+                        ON horario_docente.id = docente_horario.id_horario_docente 
+                        INNER JOIN docentes
+                        ON docente_horario.id_docente = docentes.cedula
+                        
+                        
+                        INNER JOIN materia_horario_docente
+                        ON horario_docente.id= materia_horario_docente.id_horario_docente
+                        INNER JOIN materias
+                        ON materia_horario_docente.id_materias = materias.id
+                        
+                        
+                        
+                        INNER JOIN secciones_años
+                        ON horario_docente.id_ano_seccion = secciones_años.id  
+                        
+                         INNER JOIN años
+                     on secciones_años.id_anos=años.id 
+                     INNER JOIN secciones 
+                     on secciones_años.id_secciones=secciones.id 
+                        
             
-            INNER JOIN docente_horario
-            ON horario_docente.id = docente_horario.id_horario_docente 
-            INNER JOIN docentes
-            ON docente_horario.id_docente = docentes.cedula
-            
-            
-            INNER JOIN materia_horario_docente
-            ON horario_docente.id= materia_horario_docente.id_horario_docente
-            INNER JOIN materias
-            ON materia_horario_docente.id_materias = materias.id
-            
-            
-            
-            INNER JOIN secciones_años
-            ON horario_docente.id_ano_seccion = secciones_años.id  
-
-            WHERE horario_docente.estado = 1
-
-
-            ORDER BY `horario_docente`.`id` ASC;");
+                        WHERE horario_docente.estado = 1  
+            ORDER BY `horario_docente`.`id_ano_seccion` DESC;");
             $resultado->execute();
 
             $evento = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -645,8 +650,7 @@ class horario extends datos
             
             INNER JOIN materia_horario_docente
             ON horario_docente.id= materia_horario_docente.id_horario_docente
-            INNER JOIN materias
-            ON materia_horario_docente.id_materias = materias.id
+            
             
             
             
@@ -657,6 +661,37 @@ class horario extends datos
 
 
             ORDER BY `horario_docente`.`id` ASC;");
+            $resultado->execute();
+
+            $evento = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+            return $evento;
+        } catch (Exception $e) {
+
+            return false;
+        }
+    }
+    public function eventos_selector2()
+    {
+        $co = $this->conecta();
+
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+
+
+            $resultado = $co->prepare("SELECT DISTINCT   horario_docente.id_ano_seccion as seccion,concat(años.anos ,' ', secciones.secciones) as nombre
+            FROM horario_docente
+            
+            
+            INNER JOIN secciones_años
+            ON horario_docente.id_ano_seccion = secciones_años.id  
+            
+             INNER JOIN años
+         	on secciones_años.id_anos=años.id 
+        	 INNER JOIN secciones 
+        	 on secciones_años.id_secciones=secciones.id 
+
+            WHERE horario_docente.estado = 1;");
             $resultado->execute();
 
             $evento = $resultado->fetchAll(PDO::FETCH_ASSOC);

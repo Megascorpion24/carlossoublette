@@ -97,6 +97,19 @@ if (isset($_SESSION['permisos'])) {
 											</select>
 
 
+											<select class="form-control col-md-4" id="selector2">
+												<option value="todos">todos</option>
+												<?php
+												foreach ($selector2 as $r) {
+												?>
+													<option><?php echo $r['seccion']; ?> </option>
+												<?php
+												}
+												?>
+											</select>
+
+
+
 											<div id='calendar'></div>
 
 
@@ -104,6 +117,7 @@ if (isset($_SESSION['permisos'])) {
 												document.addEventListener('DOMContentLoaded', function() {
 
 													let selector = document.querySelector("#selector");
+													let selector2 = document.querySelector("#selector2");
 													let calendarEl = document.getElementById('calendar');
 
 													let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -140,13 +154,19 @@ if (isset($_SESSION['permisos'])) {
 																arg.el.style.display = "none";
 															}
 														},
+														eventDidMount: function(arg) {
+															let val = selector2.value;
+															if (!(val == arg.event.extendedProps.seccion || val == "todos")) {
+																arg.el.style.display = "none";
+															}
+														},
 														events: function(fetchInfo, successCallback, failureCallback) {
 															successCallback([<?php
 																				foreach ($evento as $r) {
 																				?> {
 																		id: "<?php echo $r["id"]; ?>",
 																		title: "<?php echo $r["clase"]; ?>",
-
+																		seccion:"<?php echo $r["seccion"]; ?>",		
 																		profe: "<?php echo $r["cedula"]; ?>",
 																		daysOfWeek: "<?php echo $r["dia"]; ?>",
 																		startTime: "<?php echo $r["clase_inicia"]; ?>",
@@ -190,7 +210,12 @@ if (isset($_SESSION['permisos'])) {
 
 													selector.addEventListener('change', function() {
 														calendar.refetchEvents();
-													});
+													}
+													);
+													selector2.addEventListener('change', function() {
+														calendar.refetchEvents();
+													}
+													);
 													$('#addEmployeeModal').on('hidden.bs.modal', function() {
 														calendar.render();
 													});

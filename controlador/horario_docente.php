@@ -184,6 +184,7 @@ require_once("modelo/".$pagina.".php");
 		  }
 		  $evento=$o->eventos();
 		  $selector=$o->eventos_selector();
+		  $selector2=$o->eventos_selector2();
 		  
 		require_once("vista/".$pagina.".php");
 
