@@ -106,7 +106,37 @@ class reporte_ingreso extends datos{
 		
 	}
 
-
+	public function consultar_ano(){
+		$co = $this->conecta();
+			
+			$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			try{
+	
+	
+				$resultado = $co->prepare("SELECT ano_academico.ano_academico FROM ano_academico, (SELECT max(ano_academico.id) id FROM ano_academico) m WHERE m.id=ano_academico.id");
+				$resultado->execute();
+			   $ano="";
+	
+				foreach($resultado as $r){
+					$ano=$r['ano_academico'];
+				}
+				
+	
+	
+			   
+				return $ano;
+			 
+								
+								
+	
+	
+				
+				
+			}catch(Exception $e){
+				
+				return false;
+			}
+	}
 
 public function consultar1(){
     $co = $this->conecta();

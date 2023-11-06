@@ -538,6 +538,38 @@
 
 
 
+<div class="form-group col-md-4">
+<h5 class="modal-title">reportes</h5>
+	    <hr>
+		<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="112" name="exampleRadios[]" id="51"  >
+  <label class="form-check-label" for="51">
+	 consultar ingresos
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="114" name="exampleRadios[]" id="52" >
+  <label class="form-check-label" for="52"  >
+    consultar egresos
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="113" name="exampleRadios[]" id="53" >
+  <label class="form-check-label" for="53"  >
+    generar reporte de ingresos
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="115" name="exampleRadios[]" id="54" >
+  <label class="form-check-label" for="54"  >
+    generar reportes de egresos
+  </label>
+</div>
+
+
+</div> 
+
+
 		
       </div>
       </div>

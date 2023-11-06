@@ -7,7 +7,7 @@ class ano_academico extends datos{
     private $id;
 	private $fecha_ini;
     private $fecha_cierr;
-    private $lapso;
+    private $evento;
     private $ano_academico;
 
 
@@ -36,9 +36,9 @@ class ano_academico extends datos{
         return false;
     }
 	}
-    public function set_lapso($valor){
-        if (preg_match("/^[a-zA-Z0-9\s]+$/",$valor )) {
-        $this->lapso = $valor; 
+    public function set_evento($valor){
+        if (preg_match("/^[a-zA-Z\s]+$/",$valor )) {
+        $this->evento = $valor; 
         return true;
     }else{
         return false;
@@ -52,6 +52,25 @@ class ano_academico extends datos{
         return false;
     }
 	}
+
+
+    public function registrar()
+    {
+        $val = $this->registrar1();
+        echo $val;
+    }
+
+    public function modificar()
+    {
+        $val = $this->modificar1();
+        echo $val;
+    }
+
+    public function eliminar()
+    {
+        $val = $this->eliminar1();
+        echo $val;
+    }
 	
    
 
@@ -61,37 +80,45 @@ class ano_academico extends datos{
 
 
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
-    public function registrar(){
+    private function registrar1(){
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if(!$this->existe($this->id)){
             try{
+
+                $estado = 1;
+
                 $r= $co->prepare("Insert into ano_academico(
 						
                             id,
                             fecha_ini,
                             fecha_cierr,
-                            lapso,
-                            ano_academico
+                            evento,
+                            ano_academico,
+                            estado
                             )
             
                     Values( :id,
                             :fecha_ini,
                             :fecha_cierr,
-                            :lapso,
-                            :ano_academico
+                            :evento,
+                            :ano_academico,
+                            :estado
                     )"
                 );
 
                 $r->bindParam(':id',$this->id);	
                 $r->bindParam(':fecha_ini',$this->fecha_ini);
                 $r->bindParam(':fecha_cierr',$this->fecha_cierr);
-                $r->bindParam(':lapso',$this->lapso);
+                $r->bindParam(':evento',$this->evento);
                 $r->bindParam(':ano_academico',$this->ano_academico);
+                $r->bindParam(':estado', $estado);
             
              
                 $r->execute();
+
+                $this->bitacora("se registro un año academico", "ano_academico", $this->nivel);
 
              
                     return "Registro Incluido";	
@@ -123,7 +150,7 @@ class ano_academico extends datos{
 
 
 //<!---------------------------------funcion modificar------------------------------------------------------------------>
-        public function modificar(){
+        private function modificar1(){
 
 
             $co = $this->conecta();
@@ -135,7 +162,7 @@ class ano_academico extends datos{
                        
                         fecha_ini=:fecha_ini,
                         fecha_cierr=:fecha_cierr,
-                        lapso=:lapso,
+                        evento=:evento,
                         ano_academico=:ano_academico
                         where
 						id =:id
@@ -148,11 +175,13 @@ class ano_academico extends datos{
                     $r->bindParam(':id',$this->id);	
                     $r->bindParam(':fecha_ini',$this->fecha_ini);	
                     $r->bindParam(':fecha_cierr',$this->fecha_cierr);
-                    $r->bindParam(':lapso',$this->lapso);
+                    $r->bindParam(':evento',$this->evento);
                     $r->bindParam(':ano_academico',$this->ano_academico); 
                 
                  
                     $r->execute();
+
+                    $this->bitacora("se modifico un año academico", "ano_academico", $this->nivel);
     
                  
                         return "Registro modificado";	
@@ -197,7 +226,12 @@ public function consultar(){
         try{
 			
 			
-			$resultado = $co->prepare("Select * from ano_academico");
+			$resultado = $co->prepare("SELECT * from ano_academico 
+
+            WHERE ano_academico.estado = 1
+
+            ORDER BY `ano_academico`.`id` ASC ");
+
 			$resultado->execute();
            $respuesta="";
 
@@ -206,7 +240,7 @@ public function consultar(){
                 $respuesta=$respuesta."<th>".$r['id']."</th>";
                 $respuesta=$respuesta."<th>".$r['fecha_ini']."</th>";
                 $respuesta=$respuesta."<th>".$r['fecha_cierr']."</th>";
-                $respuesta=$respuesta."<th>".$r['lapso']."</th>";
+                $respuesta=$respuesta."<th>".$r['evento']."</th>";
                 $respuesta=$respuesta."<th>".$r['ano_academico']."</th>";
                 $respuesta=$respuesta.'<th>
                 
@@ -345,19 +379,21 @@ public function eventos(){
 
 
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
-public function eliminar(){
+private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe($this->id)){
     
 
         try {
-               $r=$co->prepare("Delete from ano_academico 
-                    where
-                    id= :id
-                    ");
+        
+               $r=$co->prepare("UPDATE `ano_academico` SET `estado`= 0 WHERE id=:id");
                 $r->bindParam(':id',$this->id);
                 $r->execute();
+
+                $this->bitacora("se elimino un año academico", "ano_academico", $this->nivel);
+                return "Registro Eliminado";
+
                 return "Registro Eliminado";
                 
         } catch(Exception $e) {
@@ -371,6 +407,19 @@ public function eliminar(){
         return "Año no registrado";
     }
 }
+
+
+ private function bitacora($accion, $modulo, $id)
+    {
+        try {
+            $co = $this->conecta();
+            $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            parent::registrar_bitacora($accion, $modulo, $id);;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 
 }
 //<!---------------------------------Fin de funcion eliminar------------------------------------------------------------------>

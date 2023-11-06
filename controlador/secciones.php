@@ -58,7 +58,7 @@ else{
 		  }
 
 
-		  if(!empty($_POST['accions'])){
+		  /*if(!empty($_POST['accions'])){
 		
 			$o->set_idr($_POST['idr']);
 			$o->set_seccionesr($_POST['seccionesr']);
@@ -68,18 +68,7 @@ else{
 			$mensaje = $o->registrar();
 			echo $mensaje;
 			exit;			
-		  }
-
-		   if(!empty($_POST['acciona'])){
-		
-			$o->set_ida($_POST['ida']);
-			$o->set_anoa($_POST['anoa']);
-			$o->set_turnoa($_POST['turnoa']);
-
-			$mensaje = $o->registrar();
-			echo $mensaje;
-			exit;			
-		  }
+		  }*/
 
 
 

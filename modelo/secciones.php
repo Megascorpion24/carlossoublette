@@ -13,11 +13,7 @@ class secciones extends datos{
     private $nivel;
 
    /* private $idr;
-    private $seccionesr;
-
-    private $ida;
-    private $anoa;
-    private $turnoa;*/
+    private $seccionesr;*/
     
 
 
@@ -50,17 +46,6 @@ class secciones extends datos{
     }
     public function set_seccionesr($valor){
         $this->seccionesr = $valor; 
-    }
-
-    
-    public function set_ida($valor){
-        $this->ida = $valor; 
-    }
-    public function set_anoa($valor){
-        $this->anoa = $valor; 
-    }
-    public function set_turnoa($valor){
-        $this->turnoa = $valor; 
     }*/
 
 
@@ -236,55 +221,6 @@ class secciones extends datos{
                 }
 
             }*/
-
-
-
-
-        /*    private function registrara1(){
-
-
-            $co = $this->conecta();
-            $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if(!$this->existe($this->id)){
-                try{
-
-                    $r= $co->prepare("INSERT INTO años( id, anos, turnos, estado)
-
-                                     VALUES(:ida,:anoa, turnoa, estadoa)");
-    
-                    $estadoa=1;
-                        
-                    $r->bindParam(':ida',$this->ida);  
-                    $r->bindParam(':anoa',$this->anoa); 
-                    $r->bindParam(':turnoa',$this->turnoa);  
-                    $r->bindParam(':estadoa',$estadoa);    
-                    $r->execute();
-                   
-    
-                    //$this->bitacora("se registro una seccion", "docentes",$this->nivel);
-                       // return "Registro incluido"; 
-                    
-                }catch(Exception $e){
-                    return $e->getMessage();
-                }
-                    
-                }
-                else{
-                    return "año registrado";
-                }
-
-            } */
-
-
-
-
-
-
-
- 
-
-
-
 
 
 

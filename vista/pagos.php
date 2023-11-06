@@ -48,7 +48,7 @@
 											<h2 class="ml-lg-2">Información de Pagos</h2>
 										</div>
 										<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-										<?PHP if (in_array("registrar docente", $nivel1)) {?>
+										<?PHP if (in_array("registrar pagos", $nivel1)) {?>
 											<a href="#addpago" class="btn btn-success" data-toggle="modal">
 												<i class="material-icons " style="width:100%" title="registrar"></i>
 												<span>Realizar Pago</span>
@@ -77,8 +77,9 @@
 									<th>Identificador</th>
 									<th>Concepto</th>
 									<th>F/P</th>
-									<th>Fecha Deuda</th>
+									<th>Fecha Pago</th>
 									<th>Monto Bs</th>
+									<th>Meses Pagos</th>
 									<th>C.I Estudiante</th>
 									<th>Estudiante</th>
 									<th>Estado</th>							
@@ -160,22 +161,15 @@
 	       		 ?>
 				</select>
 			</div>	
+			<div class="form-group col-md-2 ocultar "  id="ocult2" >					
+				<input type="text" class="form-control"  id="total_deuda" readonly >							
+			</div>
 			<div class="form-group col-md-6">
 				<span style="color: green">Seleccionar la deuda que desea cancelar</span>
 			</div>
 		</div>
 
 	
-	
-		
-
-
-	
-
-
-
-
-
 
 		<hr>
 
@@ -188,7 +182,7 @@
 
 					<div class="form-row">
 					
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-2">
 							<label>N° Deuda</label>	
 								<span style="color:#FF0000" id="sid_deudas"></span>
 								<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
@@ -205,6 +199,12 @@
 							<label>Deuda Generada</label>
 								<span style="color:#FF0000" id="sfecha"></span>
 							<input type="date" class="form-control "  readonly="true" name="fecha" id="fecha"required  >							
+						</div>
+						<div class="form-group col-md-2 " >
+							<label>Monto</label>
+								<span style="color:#FF0000" id="smonto"></span>
+							<input type="text" class="form-control"   name="monto"   id="monto" required placeholder="000.00">
+							
 						</div>
 						<!--------------------------------->
 					</div>
@@ -235,12 +235,12 @@
 							</select>
 						</div>
 						
-						<div class="form-group col-md-2 " >
-							<label>Monto</label>
-								<span style="color:#FF0000" id="smonto"></span>
-							<input type="text" class="form-control" readonly="true"  name="monto" value="0" id="monto" required placeholder="000.00">
-							
+						<div class="form-group col-md-2 ocultar" id="ocult">
+							<label>Meses</label>
+								<span id="smeses"></span>
+							<input type="text" class="form-control"  name="meses" value="1" id="meses" required placeholder="0000">							
 						</div>
+						
 				
 					</div>
 
@@ -282,6 +282,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					   
 
 <!-------------------------------------------------------------MODAL EDITAR------------------------------------------------------------------>
@@ -301,22 +316,28 @@
 						<hr>
 
 					<div class="form-row">
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-3">
 							<label>ID</label>
 								<span style="color:#FF0000" id="sidM"></span>
 								<input type="text" class="form-control" style="display: none;"  name="accion1" value="accion1" required>
 							<input type="text" class="form-control " readonly="true" name="idM" id="idM" required >
 						</div>
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-3">
 							<label>N° Deuda</label>
 							<br>
 								<span style="color:#FF0000" id="scuposM"></span>			
 							<input type="text" class="form-control" readonly="true" name="id_deudasM" id="id_deudasM" required >
 						</div>
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-3">
 							<label>Identificador</label>
 								<span style="color:#FF0000" id="sidentificadorM"></span>			
 							<input type="text" class="form-control"name="identificadorM" id="identificadorM" required >
+						</div>
+												
+						<div class="form-group col-md-3 " >
+							<label>Meses</label>
+								<span id="smesesM"></span>
+							<input type="text" class="form-control" readonly="true" name="mesesM"  id="mesesM" required placeholder="0000">							
 						</div>
 					</div>
 					
@@ -337,10 +358,15 @@
 							<input type="text" class="form-control" readonly name="montoM"  id="montoM" required placeholder="0000">
 						</div>
 						<div class="form-group col-md-3">
-							<label>Forma De pago</label>
-								<span style="color:#FF0000" id="sformaM"></span>
-							<input type="text" class="form-control" readonly="true"name="formaM" id="formaM" required >
-						</div>
+							<label>Forma de pago</label>
+								<span style="color:#FF0000" id="sformaM"></span>				
+							<select type="text" class="form-control" name="formaM" id="formaM" required >
+									<option value="" selected>- Seleccionar -</option>
+									<option value="Transferencia">Trasferencia</option>
+									<option value="Pago Movil">Pago Movil</option>
+									<option value="Efectivo">Efectivo</option>																		
+							</select>
+						</div>	
 						
 
 					</div>
@@ -424,7 +450,33 @@
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 
 
+<!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
+<div class="modal fade" tabindex="-1" id="deletepago2" role="dialog">
+  	<div class="modal-dialog" role="document">
+   	 	<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Retornar Pago Registrado</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+				<form id="f5">
+					<input style="display: none;" type="text" name="idE2" id="idE2">
+					<input style="display: none;" type="text" name="accion4" id="accion4" value="accion4">
+				</form>
+				<div class="modal-body">
+					<p>Estas seguro de querer retornar este registro ?</p>
+					<p class="text-warning"><small>Esta Accion no es reversible y llevara la deuda a un punto anterior al pago retornado </small></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-success" id="borrar2">Si, Borrar</button>
+				</div>
+    	</div>
+ 	</div>
+</div>
 
+<!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 
 
 
@@ -502,27 +554,26 @@
 	       		 ?>
 				</select>
 			</div>	
+			<div class="form-group col-md-2 ocultar "  id="ocult4" >					
+				<input type="text" class="form-control"  id="total_deudar" readonly >							
+			</div>
 			<div class="form-group col-md-6">
 				<span style="color: green">Seleccionar la deuda que desea cancelar</span>
 			</div>
 		</div>
-
-	
 	
 		
+		
+			<hr>
+			<h5 class="modal-title"> Datos del Pago</h5>
+			<hr>
 
 
-
-		<hr>
-
-
-				<h5 class="modal-title">Pago</h5>
-				<hr>
 
 					<div class="form-row">
 		
 	
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-2">
 							<label>N° Deuda</label>	
 								<span style="color:#FF0000" id="sid_deudasr"></span>
 								<input type="text" class="form-control" style="display: none;"  name="accionr" value="accionr" required>
@@ -538,6 +589,12 @@
 							<label>Fecha</label>
 								<span style="color:#FF0000" id="sfechar"></span>
 								<input type="date" class="form-control "  readonly="true" name="fechar" id="fechar"required >
+						</div>
+						<div class="form-group col-md-2 " >
+							<label>Monto</label>
+								<span style="color:#FF0000" id="smontor"></span>
+							<input type="text" class="form-control"   name="montor"  id="montor" required placeholder="000.00">
+							
 						</div>
 						<!--------------------------------->
 
@@ -565,10 +622,10 @@
 								<span style="color:#FF0000" id="sestador"></span>
 							<input type="text" class="form-control"  readonly="true" value="PENDIENTE" name="estador" id="estador" required placeholder="Activo">
 						</div>
-						<div class="form-group col-md-2 " >
-							<label>Monto</label>
-								<span style="color:#FF0000" id="smontor"></span>
-							<input type="text" class="form-control" readonly="true"  name="montor" value="0" id="montor" required placeholder="0000">
+						<div class="form-group col-md-2 ocultar" id="ocult3">
+							<label>Meses</label>
+								<span id="smesesr"></span>
+							<input type="text" class="form-control"  name="mesesr" value="1" id="mesesr" required placeholder="0000">
 						</div>
 					</div>
 		

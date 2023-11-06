@@ -47,19 +47,24 @@ require_once("modelo/".$pagina.".php");
 			$dato[2]="error en la validacion del concepto";
 			$validacion[3]=$o->set_forma($_POST['forma']);
 			$dato[3]="error en la validacion del forma";
-			$validacion[4]=$o->set_fecha( $_POST['fecha']);				
+			$fecha_actual = date("Y-m-d");
+			$validacion[4]=$o->set_fecha($fecha_actual);		
 			$dato[4]="error en la validacion del fecha";
 			$validacion[5]=$o->set_monto($_POST['monto']);
 			$dato[5]="error en la validacion del monto";
-			$validacion[6]=$o->set_estado($_POST['estado']);
-			$dato[6]="error en la validacion del estado";
+			$validacion[6]=$o->set_meses($_POST['meses']);
+			$dato[6]="error en la validacion del meses";
+			$validacion[7]=$o->set_estado($_POST['estado']);
+			$dato[7]="error en la validacion del estado";
+			
 			$o->set_nivel($nivel);
 
-			for ($i=0; $i <= 6 ; $i++) { 
+			for ($i=0; $i <= 7 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
 				}
+
 			}
 
 			if ($valor==true) {
@@ -78,34 +83,49 @@ require_once("modelo/".$pagina.".php");
 		
 	
 		  if(!empty($_POST['accionr'])){
-		  
-			if (preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['id_deudasr'])) {
-				$o->set_id_deudas($_POST['id_deudasr']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['identificadorr'])) {
-				$o->set_identificador($_POST['identificadorr']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['conceptor'])) {
-				$o->set_concepto($_POST['conceptor']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['formar'])) {
-				$o->set_forma($_POST['formar']);
-			}
-			if (preg_match("/^\d{4}-\d{2}-\d{2}$/",$_POST['fechar'])) {
-				$o->set_fecha( $_POST['fechar']);		
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['montor'])) {
-				$o->set_monto($_POST['montor']);
-			}
-			if (preg_match("/^[a-zA-Z0-9\s]+$/",$_POST['estador'])) {
-				$o->set_estado($_POST['estador']);
-			}
+			$valor=true;
+			$retorno="";
+		
+			$validacion[0]=$o->set_id_deudas($_POST['id_deudasr']);
+			$dato[0]="error en la validacion del id_deudasr";
+			$validacion[1]=$o->set_identificador($_POST['identificadorr']);
+			$dato[1]="error en la validacion del identificadorr";
+			$validacion[2]=$o->set_concepto($_POST['conceptor']);
+			$dato[2]="error en la validacion del conceptor";
+			$validacion[3]=$o->set_forma($_POST['formar']);
+			$dato[3]="error en la validacion del formar";
+			$fecha_actual = date("Y-m-d");
+			$validacion[4]=$o->set_fecha($fecha_actual);			
+			$dato[4]="error en la validacion del fechar";
+			$validacion[5]=$o->set_monto($_POST['montor']);
+			$dato[5]="error en la validacion del montor";
+			$validacion[6]=$o->set_meses($_POST['mesesr']);
+			$dato[6]="error en la validacion del mesesr";
+			$validacion[7]=$o->set_estado($_POST['estador']);
+			$dato[7]="error en la validacion del id_deudasr";
 		
 
 			$o->set_nivel($nivel);
-			  $mensaje = $o->registrarr();
-			  echo $mensaje;
-			  exit;			
+
+			
+			for ($i=0; $i <= 7 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->registrarr();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;		
+
+		
 			}
 
 
@@ -130,13 +150,15 @@ require_once("modelo/".$pagina.".php");
 			$dato[4]="error en la validacion del fechaM";
 			$validacion[5]=$o->set_monto($_POST['montoM']);
 			$dato[5]="error en la validacion del montoM";
-			$validacion[6]=$o->set_estado($_POST['estadoM']);
-			$dato[6]="error en la validacion del estadoM";
-			$validacion[7]=$o->set_id($_POST['idM']);
-			$dato[6]="error en la validacion del idM";
+			$validacion[6]=$o->set_meses($_POST['mesesM']);
+			$dato[6]="error en la validacion del mesesM";
+			$validacion[7]=$o->set_estado($_POST['estadoM']);
+			$dato[7]="error en la validacion del estadoM";
+			$validacion[8]=$o->set_id($_POST['idM']);
+			$dato[8]="error en la validacion del idM";
 			$o->set_nivel($nivel);
 
-			for ($i=0; $i <= 6 ; $i++) { 
+			for ($i=0; $i <= 8 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
@@ -175,6 +197,32 @@ require_once("modelo/".$pagina.".php");
 
 			if ($valor==true) {
 				$mensaje = $o->eliminar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;			
+		  }
+
+
+		  if(!empty($_POST['accion4'])){
+			$valor=true;
+			$retorno="";
+	
+			$validacion[0]=$o->set_id($_POST['idE2']);	
+			$dato[0]="error en la validacion del idE2";
+			
+			for ($i=0; $i <= 0 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+				
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->eliminarr();
 				echo $mensaje;
 			}else{
 				echo $retorno;

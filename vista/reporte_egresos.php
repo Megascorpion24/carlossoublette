@@ -35,10 +35,10 @@
 			<div class="table-title  mb-3">
 					     <div class="row ">
 						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-							    <h2 class="ml-lg-2">Registro de Materia</h2>
+							    <h2 class="ml-lg-2">consultar reportes</h2>
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-							 <?PHP if (in_array("registrar materias", $nivel1)) {?>
+							 <?PHP if (in_array("generar_reporte_egresos", $nivel1)) {?>
 							    <button href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" type="submit">
 									<i class="material-icons">&#xE147;</i>
 									<span>Registrar</span>
@@ -50,8 +50,10 @@
 					     </div>
 					   </div>
 
-					   </form>	   
+					   </form>	  
+					   <?PHP if (in_array("consultar_reporte_egresos", $nivel1)) {?> 
         <canvas id="myChart" width="100" height="100"></canvas>
+		<?php } ?>
     </body>
 	<script src="assets/js/chart.min.js"></script>
     <script>

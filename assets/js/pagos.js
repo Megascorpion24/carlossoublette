@@ -186,7 +186,14 @@ $('#mibuscador2').select2({
         validarkeyup(/^[0-9]{2,10}$/,
             $(this), $("#smonto"), "El formato puede ser valido");
     });
+    $("#meses").on("keypress", function(e) {
+        validarkeypress(/^[1-9]$/, e);
+    });
 
+    $("#meses").on("keyup", function() {
+        validarkeyup(/^[1-9]{1,2}$/,
+            $(this), $("#smeses"), "El formato puede ser valido");
+    });
 
 
 
@@ -260,7 +267,14 @@ $("#montor").on("keyup", function() {
     validarkeyup(/^[0-9]{2,10}$/,
         $(this), $("#smontor"), "El formato puede ser valido");
 });
+$("#mesesr").on("keypress", function(e) {
+    validarkeypress(/^[1-9]$/, e);
+});
 
+$("#mesesr").on("keyup", function() {
+    validarkeyup(/^[1-9]{1,2}$/,
+        $(this), $("#smesesr"), "El formato puede ser valido");
+});
 
 
 
@@ -333,6 +347,14 @@ $("#montoM").on("keyup", function() {
         $(this), $("#smontoM"), "El formato puede ser valido");
 });
 
+$("#mesesM").on("keypress", function(e) {
+    validarkeypress(/^[1-9]$/, e);
+});
+
+$("#mesesM").on("keyup", function() {
+    validarkeyup(/^[1-9]{1,2}$/,
+        $(this), $("#smesesM"), "El formato puede ser valido");
+});
 
 
 });
@@ -358,9 +380,10 @@ $("#montoM").on("keyup", function() {
                 $("#formaM").val($(this).find("th:eq(4)").text());
                 $("#fechaM").val($(this).find("th:eq(5)").text());               
                 $("#montoM").val($(this).find("th:eq(6)").text());
-                $("#cedulaM").val($(this).find("th:eq(7)").text());
-                $("#nombreM").val($(this).find("th:eq(8)").text());         
-                $("#estadoM").val($(this).find("th:eq(9)").text());
+                $("#mesesM").val($(this).find("th:eq(7)").text());
+                $("#cedulaM").val($(this).find("th:eq(8)").text());
+                $("#nombreM").val($(this).find("th:eq(9)").text());         
+                $("#estadoM").val($(this).find("th:eq(10)").text());
             
 
             }
@@ -388,6 +411,16 @@ function eliminar(id){
     });
 
 }
+
+function eliminarr(id){
+    $("#idE2").val(id);
+    $("#borrar2").on("click", function(){
+       
+    enviaAjax($("#f5"));
+    $('#deletepago2').modal('hide');
+    });
+
+}
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
@@ -398,17 +431,26 @@ function eliminar(id){
 function añadir2() {
     id = $("#mibuscador").val();
     $("#select tr").each(function () {
-
         if (id == $(this).find("th:eq(0)").text()) {
             $("#id_deudas").val($(this).find("th:eq(0)").text());
-            $("#concepto").val($(this).find("th:eq(3)").text());
-            $("#fecha").val($(this).find("th:eq(4)").text());
-            $("#monto").val($(this).find("th:eq(2)").text());
+            $("#concepto").val($(this).find("th:eq(2)").text());
+            $("#fecha").val($(this).find("th:eq(3)").text());
 
+            var fechaActual = new Date();
+            var fechaDeuda = new Date($(this).find("th:eq(3)").text());
+            var diferencia = fechaActual.getTime() - fechaDeuda.getTime();
+            var mes = Math.floor(diferencia / (30 * 24 * 60 * 60 * 1000)); // 30 días en milisegundos
+            $("#total_deuda").val(mes);
 
+            if ($(this).find("th:eq(2)").text() == "mensualidad") {
+                $("#ocult").removeClass("ocultar");
+                $("#ocult2").removeClass("ocultar");
+            } else {
+                $("#ocult").addClass("ocultar");
+                $("#ocult2").addClass("ocultar");
+            }
 
-          
-        }  
+        }
     });
 }
 
@@ -418,17 +460,27 @@ function añadir2() {
 
         if (id == $(this).find("th:eq(0)").text()) {
             $("#id_deudasr").val($(this).find("th:eq(0)").text());
-            $("#conceptor").val($(this).find("th:eq(3)").text());
-            $("#fechar").val($(this).find("th:eq(4)").text());
-            $("#montor").val($(this).find("th:eq(2)").text());
+            $("#conceptor").val($(this).find("th:eq(2)").text());
+            $("#fechar").val($(this).find("th:eq(3)").text());
 
-        }  
-        
+           
+            var fechaActual = new Date();
+            var fechaDeuda = new Date($(this).find("th:eq(3)").text());
+            var diferencia = fechaActual.getTime() - fechaDeuda.getTime();
+            var mes = Math.floor(diferencia / (30 * 24 * 60 * 60 * 1000)); // 30 días en milisegundos
+            $("#total_deudar").val(mes);
+
+            if ($(this).find("th:eq(2)").text() == "mensualidad") {
+                $("#ocult3").removeClass("ocultar");
+                $("#ocult4").removeClass("ocultar");
+            } else {
+                $("#ocult3").addClass("ocultar");
+                $("#ocult4").addClass("ocultar");
+            }
+
+        }
     });
 }
-
-
-
 
 
 
@@ -551,6 +603,11 @@ function validarkeypress(er, e) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
     
+        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        $("#monto"), $("#smonto"), "El formato puede ser valido") == 0) {
+            mensaje("El formato puede ser valido");
+            return false;
+
         } else if (validarkeyup(/^[0-9]{4,10}$/,
         $("#identificador"), $("#sidentificador"), "El formato puede ser 0000") == 0) {
             mensaje("El formato puede ser 0000");
@@ -571,8 +628,8 @@ function validarkeypress(er, e) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{2,10}$/,
-        $("#monto"), $("#smonto"), "El formato puede ser valido") == 0) {
+        }  else if (validarkeyup(/^[1-9]{1,2}$/,
+        $("#meses"), $("#smeses"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
 
@@ -607,6 +664,11 @@ function validarkeypress(er, e) {
             mensaje("El formato debe ser valido");
             return false;
 
+        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        $("#montor"), $("#smontor"), "El formato puede ser valido") == 0) {
+            mensaje("El formato puede ser valido");
+            return false;
+            
         } else if (validarkeyup(/^[0-9]{4,10}$/,
         $("#identificadorr"), $("#sidentificadorr"), "El formato puede ser 0000") == 0) {
             mensaje("El formato puede ser 0000");
@@ -617,8 +679,8 @@ function validarkeypress(er, e) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{2,10}$/,
-        $("#montor"), $("#smontor"), "El formato puede ser valido") == 0) {
+        }  else if (validarkeyup(/^[1-9]{1,2}$/,
+        $("#mesesr"), $("#smesesr"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
             
@@ -641,6 +703,11 @@ function validarkeypress(er, e) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
     
+        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        $("#montoM"), $("#smontoM"), "El formato puede ser valido") == 0) {
+            mensaje("El formato debe ser valido");
+            return false;
+
         } else if (validarkeyup(/^[0-9]{4,10}$/,
         $("#identificadorM"), $("#sidentificadorM"), "El formato puede ser 0000.00") == 0) {
             mensaje("El formato puede ser 0000");
@@ -661,9 +728,9 @@ function validarkeypress(er, e) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{2,10}$/,
-        $("#montoM"), $("#smontoM"), "El formato puede ser valido") == 0) {
-            mensaje("El formato debe ser valido");
+        }  else if (validarkeyup(/^[1-9]{1,2}$/,
+        $("#mesesM"), $("#smesesM"), "El formato puede ser valido") == 0) {
+            mensaje("El formato puede ser valido");
             return false;
 
         }
@@ -676,10 +743,13 @@ function validarkeypress(er, e) {
 
 const input1 = document.getElementById("identificador");
 const input2 = document.getElementById("monto");
-const input3 = document.getElementById("identificadorr");
-const input4 = document.getElementById("montor");
-const input5 = document.getElementById("identificadorM");
-const input6 = document.getElementById("montoM");
+const input3 = document.getElementById("meses");
+const input4 = document.getElementById("identificadorr");
+const input5 = document.getElementById("montor");
+const input6 = document.getElementById("mesesr");
+const input7 = document.getElementById("identificadorM");
+const input8 = document.getElementById("montoM");
+const input9 = document.getElementById("mesesM");
 
 // Función para limitar la longitud del valor
 const limitarLongitud = (input, maxLength) => {
@@ -698,7 +768,7 @@ input2.addEventListener("input", () => {
     limitarLongitud(input2, maxLength);
 });
 input3.addEventListener("input", () => {
-    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    const maxLength = 2; // Cambia este valor al límite máximo deseado
     limitarLongitud(input3, maxLength);
   });
     
@@ -713,8 +783,23 @@ input5.addEventListener("input", () => {
   });
 
   input6.addEventListener("input", () => {
+    const maxLength = 2; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input6, maxLength);
+  });
+
+  input7.addEventListener("input", () => {
     const maxLength = 10; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input5, maxLength);
+    limitarLongitud(input7, maxLength);
+  });
+
+  input8.addEventListener("input", () => {
+    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input8, maxLength);
+  });
+
+  input9.addEventListener("input", () => {
+    const maxLength = 2; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input9, maxLength);
   });
 
 

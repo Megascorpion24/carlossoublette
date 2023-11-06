@@ -58,15 +58,10 @@ if (isset($_SESSION['permisos'])) {
 							    </a>
 							    <?php } ?>
 
-							    <a href="#addEmployeeModalS" class="btn btn-success" data-toggle="modal">
+							    <!---<a href="#addEmployeeModalS" class="btn btn-success" data-toggle="modal">
 									<i class="material-icons " style="width:100%" title="registrar"></i>
 									<span>Registrar Secciones</span>
-									</a>
-
-									<a href="#addEmployeeModalA" class="btn btn-success" data-toggle="modal">
-									<i class="material-icons " style="width:100%" title="registrar"></i>
-									<span>Registrar Años</span>
-									</a>
+									</a>----->
 
 					
 
@@ -375,7 +370,7 @@ if (isset($_SESSION['permisos'])) {
 
 
 <!-----------------------------------------------------------------MODAL REGISTRO SECCIONES------------------------------------------------------------------>
-<div class="modal fade" tabindex="-1" id="addEmployeeModalS" role="dialog">
+<!--<div class="modal fade" tabindex="-1" id="addEmployeeModalS" role="dialog">
   	<div class="modal-dialog " role="document">
     	<div class="modal-content">
 				<div class="modal-header">
@@ -416,69 +411,13 @@ if (isset($_SESSION['permisos'])) {
 			</form>
     	</div>
   	</div>
-</div>
+</div>-->
 
 <!----------------------------------------------------------FIN MODAL REGISTRO SECCIONES----------------------------------------------------------------->
 					  
 
-
-
-<!-----------------------------------------------------------------MODAL REGISTRO SECCIONES------------------------------------------------------------------>
-<div class="modal fade" tabindex="-1" id="addEmployeeModalA" role="dialog">
-  	<div class="modal-dialog " role="document">
-    	<div class="modal-content">
-				<div class="modal-header">
-				<form id="fa">
-					<h5 class="modal-title">Registro de Años</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-      		<div class="modal-body">
-
-		<hr>
-
-
-				<h5 class="modal-title">Años</h5>
-				<hr>
-
-					<div class="form-row">
-
-						<div class="form-group col-md-4" style="display: none;">
-							<label>ID</label>
-								<span id="sida"></span>
-								<input type="text" class="form-control" style="display: none;"  name="acciona" value="acciona" required>
-							<input type="text" class="form-control" name="ida" id="ida" required placeholder="0000">
-						</div>
-	
-						<div class="form-group col-md-4">
-							<label>Año</label>	
-								<span id="sanoa"></span>
-							<input type="text" class="form-control" name="anoa" id="anoa" required>
-						</div>
-						<div class="form-group col-md-4">
-							<label>Turno</label>
-								<span id="sturnoa"></span>
-							<input type="text" class="form-control" name="turnoa"  id="turnoa" required >
-						</div>
-
-					</div>
-				
-				
-			</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-success" id="registrara">Registrar</button>
-					</div>
-			</form>
-    	</div>
-  	</div>
-</div>
-
-<!----------------------------------------------------------FIN MODAL REGISTRO ------->
-					   
-					
+		
+						
 					
 				 
 			    </div>

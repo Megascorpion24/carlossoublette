@@ -38,6 +38,7 @@ require_once("modelo/".$pagina.".php");
 
 		# code...
 	}
+	$consutaa=$o->consultar_ano();
 		  $consuta1=$o->consultar1();
 		  $consuta2=$o->consultar2();
 		  $consuta3=$o->consultar3();

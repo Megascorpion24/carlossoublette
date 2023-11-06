@@ -313,6 +313,13 @@ $("#descripcion1").on("keyup", function() {
             check("consultar seguridad", "#48");
             check("permisos seguridad", "#49");
             check("registrar pagos_tutor", "#50");
+
+            check("consultar_reporte_ingresos", "#51");
+            check("consultar_reporte_egresos", "#52");
+            check("generar_reporte_ingresos", "#53");
+            check("generar_reporte_egresos", "#54");
+
+
         }, 500);
         
 

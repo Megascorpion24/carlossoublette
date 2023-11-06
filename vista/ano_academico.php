@@ -37,7 +37,7 @@
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 
 							    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
-									<i class="material-icons">&#xE147;</i>
+									<i class="material-icons" style="width:100%" title="registrar"></i>
 									<span>Registrar</span>
 							    </a>
 
@@ -142,7 +142,7 @@
 														<th>ID</th>				
 														<th>Fecha Inicio</th>		
 														<th>Fecha Cierre</th>
-														<th>Lapso</th>
+														<th>Evento</th>
 														<th>Año Academico</th>
 														<th>Acciones</th>
 													</tr>
@@ -220,25 +220,25 @@
 
 			<div class="form-group col-md-4">
 				<label>Fecha Inicio</label>
-				<span id="sfecha_ini"></span>
+				<span style="color:#FF0000" id="sfecha_ini"></span>
 				<input type="date" class="form-control" name="fecha_ini" id="fecha_ini" required placeholder="3">
 			</div>
 
 			<div class="form-group col-md-4">
 				<label>Fecha Cierre</label>
-				<span id="sfecha_cierr"></span>
+				<span style="color:#FF0000" id="sfecha_cierr"></span>
 				<input type="date" class="form-control" name="fecha_cierr" id="fecha_cierr" required placeholder="Tarde">
 			</div>
 
 			<div class="form-group col-md-4">
-				<label>Lapso</label>
-				<span id="slapso"></span>
-				<input type="text" class="form-control" name="lapso" id="lapso" required placeholder="Lapso 1">
+				<label>Evento</label>
+				<span style="color:#FF0000" id="sevento"></span>
+				<input type="text" class="form-control" name="evento" id="evento" required placeholder="Ejemplo:Lapso 1">
 			</div>
 
 			<div class="form-group col-md-4">
 				<label>Año Academico</label>
-				<span id="sano_academico"></span>
+				<span style="color:#FF0000" id="sano_academico"></span>
 				<input type="text" class="form-control" name="ano_academico" id="ano_academico" required placeholder="0000-0000">
 			</div>
 
@@ -298,25 +298,25 @@
 			<div class="form-group col-md-4">
 				<label>Fecha Inicio</label>
 				<br>
-				<span id="sfecha_ini1"></span>			
+				<span style="color:#FF0000" id="sfecha_ini1"></span>			
 				<input type="date" class="form-control" name="fecha_ini1" id="fecha_ini1" required >
 			</div>
 
 			<div class="form-group col-md-4">
 				<label>Fecha Cierre</label>
-				<span id="sfecha_cierr1"></span>			
+				<span style="color:#FF0000" id="sfecha_cierr1"></span>			
 				<input type="date" class="form-control" name="fecha_cierr1" id="fecha_cierr1" required >
 			</div>
 
 			<div class="form-group col-md-4">
-				<label>Lapso</label>
-				<span id="slapso1"></span>			
-				<input type="text" class="form-control" name="lapso1" id="lapso1" required >
+				<label>Evento</label>
+				<span style="color:#FF0000" id="sevento1"></span>			
+				<input type="text" class="form-control" name="evento1" id="evento1" required >
 			</div>
 
 			<div class="form-group col-md-4">
 				<label>Año Academico</label>
-				<span id="sano_academico1"></span>			
+				<span style="color:#FF0000" id="sano_academico1"></span>			
 				<input type="text" class="form-control" name="ano_academico1" id="ano_academico1" required >
 			</div>
 
