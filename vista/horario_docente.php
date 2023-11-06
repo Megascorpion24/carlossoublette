@@ -157,13 +157,13 @@ if (isset($_SESSION['permisos'])) {
 															let val = selector.value;
 															if (!(val == arg.event.extendedProps.profe || val == "todos")) {
 																arg.el.style.display = "none";
-
-																
-																let val = selector2.value;
-															if (!(val == arg.event.extendedProps.seccion || val == "todos")) {
+															
+															}
+																let val2 = selector2.value;
+															if (!(val2 == arg.event.extendedProps.seccion || val2 == "todos")) {
 																arg.el.style.display = "none";
 															}
-															}
+														
 														},
 														
 														events: function(fetchInfo, successCallback, failureCallback) {

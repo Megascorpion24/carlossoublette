@@ -592,7 +592,7 @@ class horario extends datos
 
 
             $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,' ', docentes.cedula) as cedula,
-            concat(años.anos,'-',secciones.secciones) as seccion
+            id_ano_seccion as seccion
                         FROM horario_docente
                         
                         INNER JOIN docente_horario
@@ -679,17 +679,13 @@ class horario extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT DISTINCT   horario_docente.id_ano_seccion as seccion,concat(años.anos ,' ', secciones.secciones) as nombre
+            $resultado = $co->prepare("SELECT DISTINCT   horario_docente.id_ano_seccion as seccion
             FROM horario_docente
             
             
             INNER JOIN secciones_años
             ON horario_docente.id_ano_seccion = secciones_años.id  
-            
-             INNER JOIN años
-         	on secciones_años.id_anos=años.id 
-        	 INNER JOIN secciones 
-        	 on secciones_años.id_secciones=secciones.id 
+           
 
             WHERE horario_docente.estado = 1;");
             $resultado->execute();
