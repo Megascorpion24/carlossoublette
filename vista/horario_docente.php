@@ -152,14 +152,15 @@ if (isset($_SESSION['permisos'])) {
 															let val = selector.value;
 															if (!(val == arg.event.extendedProps.profe || val == "todos")) {
 																arg.el.style.display = "none";
-															}
-														},
-														eventDidMount: function(arg) {
-															let val = selector2.value;
+
+																
+																let val = selector2.value;
 															if (!(val == arg.event.extendedProps.seccion || val == "todos")) {
 																arg.el.style.display = "none";
 															}
+															}
 														},
+														
 														events: function(fetchInfo, successCallback, failureCallback) {
 															successCallback([<?php
 																				foreach ($evento as $r) {
