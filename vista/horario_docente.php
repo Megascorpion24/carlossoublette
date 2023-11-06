@@ -83,9 +83,11 @@ if (isset($_SESSION['permisos'])) {
 								<?PHP if (in_array("consultar horario_docente", $nivel1)) { ?>
 									<div id="body2" class="tab-content">
 										<div class="tab-pane container active" id="home">
-
-
-											<select class="form-control col-md-4" id="selector">
+									
+										<div class="form-row">
+										<div class="form-group col-md-4">
+											<label >docente</label>
+											<select  class="form-control col-md-4" id="selector">
 												<option value="todos">todos</option>
 												<?php
 												foreach ($selector as $r) {
@@ -95,8 +97,11 @@ if (isset($_SESSION['permisos'])) {
 												}
 												?>
 											</select>
+										</div>
 
-
+										<div class="form-group col-md-4">
+											<label for="">seccion</label>
+												
 											<select class="form-control col-md-4" id="selector2">
 												<option value="todos">todos</option>
 												<?php
@@ -107,8 +112,8 @@ if (isset($_SESSION['permisos'])) {
 												}
 												?>
 											</select>
-
-
+										</div>
+										</div>
 
 											<div id='calendar'></div>
 
@@ -351,7 +356,7 @@ if (isset($_SESSION['permisos'])) {
 											<div class="form-group col-md-4">
 												<div class="form-group col-md-4">
 													<div class="form-group col-md-4">
-														<label>Seleccionar sección:</label>
+														<label>Sección:</label>
 														<span style="color:#FF0000" id="sano"></span>
 														<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
 														<select name="ano" id="ano" onchange="añadir3('#ano')">
