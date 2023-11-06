@@ -87,7 +87,7 @@ if (isset($_SESSION['permisos'])) {
 										<div class="form-row">
 										<div class="form-group col-md-4">
 											<label >docente</label>
-											<select  class="form-control col-md-4" id="selector">
+											<select  class="form-control" id="selector">
 												<option value="todos">todos</option>
 												<?php
 												foreach ($selector as $r) {
@@ -102,7 +102,7 @@ if (isset($_SESSION['permisos'])) {
 										<div class="form-group col-md-4">
 											<label for="">seccion</label>
 												
-											<select class="form-control col-md-4" id="selector2">
+											<select class="form-control" id="selector2">
 												<option value="todos">todos</option>
 												<?php
 												foreach ($selector2 as $r) {
