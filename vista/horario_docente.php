@@ -87,7 +87,7 @@ if (isset($_SESSION['permisos'])) {
 										<div class="form-row">
 										<div class="form-group col-md-4">
 											<label >docente</label>
-											<select  class="form-control" id="selector">
+											<select  class="form-control col-md-4" id="selector">
 												<option value="todos">todos</option>
 												<?php
 												foreach ($selector as $r) {
@@ -100,9 +100,9 @@ if (isset($_SESSION['permisos'])) {
 										</div>
 
 										<div class="form-group col-md-4">
-											<label for="">seccion</label>
+											<label for="">sección</label>
 												
-											<select class="form-control" id="selector2">
+											<select class="form-control col-md-4" id="selector2">
 												<option value="todos">todos</option>
 												<?php
 												foreach ($selector2 as $r) {
@@ -165,6 +165,7 @@ if (isset($_SESSION['permisos'])) {
 															}
 														
 														},
+														
 														
 														events: function(fetchInfo, successCallback, failureCallback) {
 															successCallback([<?php
@@ -353,8 +354,8 @@ if (isset($_SESSION['permisos'])) {
 											</div>
 
 
-											<div class="form-group col-md-4">
-												<div class="form-group col-md-4">
+										
+												
 													<div class="form-group col-md-4">
 														<label>Sección:</label>
 														<span style="color:#FF0000" id="sano"></span>
@@ -367,14 +368,14 @@ if (isset($_SESSION['permisos'])) {
 															?>
 														</select>
 													</div>
-												</div>
-											</div>
+										
+											
 
 
 
-										</div>
+										
 
-										<div class="form-row">
+										
 
 											<div class="form-group col-md-4">
 												<label>dia</label>
@@ -399,8 +400,8 @@ if (isset($_SESSION['permisos'])) {
 												<span style="color:#FF0000" id="sclase_termina"></span>
 												<input type="time" class="form-control" name="clase_termina" id="clase_termina" required>
 											</div>
-										</div>
-										<div class="form-row">
+										
+										
 											<div class="form-group col-md-4">
 												<label>Hora de inicio</label>
 												<span style="color:#FF0000" id="sinicio"></span>
@@ -416,13 +417,13 @@ if (isset($_SESSION['permisos'])) {
 
 
 										</div>
-										<div class="form-row">
+										
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 												<button type="button" class="btn btn-success" id="registrar">Registrar</button>
 											</div>
 											</form>
-										</div>
+										
 									</div>
 								</div>
 							</div>
@@ -505,7 +506,24 @@ if (isset($_SESSION['permisos'])) {
 												<option value="5">viernes</option>
 											</select>
 										</div>
+										
+											<div class="form-group col-md-4">
+												<div class="form-group col-md-4">
+													<label>sección:</label>
+													<span style="color:#FF0000" id="sano1"></span>
 
+													<select class="form-control" name="ano1" id="ano1" onchange="añadir3('#ano')">
+														<?php
+														if (!empty($consuta4)) {
+															echo $consuta4;
+														}
+														?>
+													</select>
+												</div>
+											</div>
+										
+									
+									
 										<div class="form-group col-md-4">
 											<label>inicio de la clase</label>
 											<span style="color:#FF0000" id="sclase_inicia1"></span>
@@ -516,8 +534,7 @@ if (isset($_SESSION['permisos'])) {
 											<span style="color:#FF0000" id="sclase_termina1"></span>
 											<input type="time" class="form-control" name="clase_termina1" id="clase_termina1" required>
 										</div>
-									</div>
-									<div class="form-row">
+									
 										<div class="form-group col-md-4">
 											<label>Hora de início</label>
 											<span style="color:#FF0000" id="sinicio1"></span>
@@ -528,24 +545,6 @@ if (isset($_SESSION['permisos'])) {
 											<span style="color:#FF0000" id="sfin1"></span>
 											<input type="date" class="form-control" name="fin1" id="fin1" required>
 										</div>
-										<div class="form-group col-md-4">
-											<div class="form-group col-md-4">
-												<div class="form-group col-md-4">
-													<label>Seleccionar sección:</label>
-													<span style="color:#FF0000" id="sano1"></span>
-
-													<select name="ano1" id="ano1" onchange="añadir3('#ano')">
-														<?php
-														if (!empty($consuta4)) {
-															echo $consuta4;
-														}
-														?>
-													</select>
-												</div>
-											</div>
-										</div>
-
-
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
