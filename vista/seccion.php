@@ -1,0 +1,374 @@
+<?php
+
+
+		  if(empty($_SESSION)){
+		  session_start();
+		  }
+
+	  	  if(isset($_SESSION['permisos'])){
+			 $nivel1 = $_SESSION['permisos'];
+		
+		  }
+		  else{
+			  $nivel1 = "";
+		  }
+	    ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<?php  require_once('comunes/header.php');?>
+    <?php require_once('comunes/menu.php'); ?>
+
+	<link rel="stylesheet" href="assets/css/modal.css">
+
+</head>
+<body> 
+   
+	    
+ 
+							<!-- MAIN -->
+			<main>
+			<div class="head-title pt-3  mx-auto" style="width: 200px;  ">
+				<div class="left">
+					<h1>SECCCIÓN</h1>
+				</div>
+			</div>
+ 
+
+   
+
+							<!--TABLA -->	
+<!--------------------------------------------------main-content-start------------------------------------------------------------> 
+		     
+           <div class="main-content">
+			     <div class="row">
+				    <div class="col-md-12">
+					   <div class="table">
+					     
+					   <div class="table-title  mb-3">
+					     <div class="row ">
+						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+							    <h2 class="ml-lg-2">Registro de Secciones</h2>
+							 </div>
+							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+
+							 <?PHP if (in_array("registrar secciones", $nivel1)) {?>
+
+							    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+									<i class="material-icons">&#xE147;</i>
+									<span>Registrar</span>
+							    </a>
+							<?php } ?>
+					
+
+							 </div>
+					     </div>
+					   </div>
+					 
+					   <table id="tablas" style="width:100%" class="table table-striped table-hover">
+					      <thead>
+							 <th>ID</th>
+							 <th>NOMBRE</th>
+							 <th>AÑO</th>
+							 <th>TURNO</th>
+							 <th>DOCENTE GUIA</th>
+							 <th>CANTIDAD MAX</th>
+							 <th>AÑO ACADEMICO</th>
+
+	
+							 <th>ACCIONES</th>
+							 </tr>
+						  </thead> 
+						  
+						  <tbody id="tabla">
+						  <?PHP if (in_array("consultar secciones", $nivel1)) {?>
+						
+								<?php
+									if(!empty($consulta)){
+										echo $consulta;
+									}
+								?>   
+
+							<?php } ?>
+
+							 
+						  </tbody>
+						  
+					      
+					   </table>
+					   
+
+
+					   </div>
+					</div>
+
+
+
+<!------------------------------------------FINAL DE LA TABLA -------------------------------------------------->
+
+<form id="f4" style="display: none;">
+
+<input type="text" name="consulta" id="consulta">
+</form>
+
+
+<form id="f5" style="display: none;">
+<input type="text" name="consulta_M" id="consulta_M" value="consulta_M">
+<input type="text" class="form-control sm" name="id5" id="id5">
+<input type="number" class="form-control " name="ident" id="ident" value="4">
+
+</form>
+
+<!------------------------------------------------MODAL REGISTRO------------------------------------------------->
+
+<!-- .... -->
+<div class="modal modal-user fade" tabindex="-1" id="addEmployeeModal" role="dialog">
+  <div class="modal-dialog" role="document">
+	<form id="f" class="form modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title">Registro Sección</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body row">
+
+
+	
+			<div class="col-1" style="display:none;">
+				<label class="form-label">Id</label>
+				<span id="id_v"></span>
+				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" >
+				<input type="text" class="form-control sm" name="id" id="id" placeholder="0000000">
+			</div>
+		
+			  <div class="col-2 mb-3">
+   			 <label for="exampleFormControlSelect1">Identificacion</label>
+   				 <select class="form-control" id="secciones" name="secciones">
+										<?php
+									if (!empty($abc)) {
+											echo $abc;
+									}
+								?>
+   				 </select>
+  			</div>
+			
+
+			<div class="col-6 mb-3" id="form_radio"> 
+			<label class="form-label ml-4">Año:</label>
+			<br>
+		<div class="form-check form-check-inline" id="año">
+					<?php
+					
+						if (!empty($Año)) {
+								echo $Año;
+						}
+					?>
+		</div>
+		
+		     </div>
+
+			 <div class="col-4 md-3">
+					<label>Docente Guia</label>
+					<select class="form-control" name="Doc_Guia" id="Doc_Guia">
+								<?php
+									if (!empty($Doc_Guia)) {
+											echo $Doc_Guia;
+									}
+								?>
+						</select>
+					
+				</div>
+
+				<div class=""  style="display: none;">
+											<?php
+											if (!empty($academico)) {
+														echo $academico;
+												}
+												?>
+				</div>
+
+			<div class="form-group col-md-4">
+				<label>Cantidad de Alumnos:</label>
+				<span id="cantidad_msj"></span>
+				<input type="text" class="form-control" name="cantidad" id="cantidad" required placeholder="00" maxlength="2">
+			</div>
+	  
+       
+      </div>
+      <div class="modal-footer">
+	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" id="registrar">Registrar</button>
+      </div>
+	  </form>
+    
+  </div>
+</div>
+
+<!--------------------------------------FIN MODAL REGISTRO-------------------------------------------------->
+								   
+					   
+<!---------------------------------MODAL EDITAR------------------------------------------------------------------>
+ <div class="modal modal-user fade" tabindex="-1" id="editEmployeeModal" role="dialog">
+  <div class="modal-dialog" role="document">
+   
+	<form id="f2" class="form modal-content">
+      <div class="modal-header">
+		
+        <h5 class="modal-title">Editar Seccion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body row">
+
+			<div class="col-1" style="display:none;">
+				<label class="form-label">Id</label>
+				<span id="id_v"></span>
+				<input type="text" class="form-control" style="display: none;"  name="id_edit" value="id_edit" >
+				<input type="text" class="form-control sm" name="id1" id="id1">
+			</div>
+			
+			<div class="col-5 mb-3">
+   			 <label for="exampleFormControlSelect2">Nombre Actual: <span id="id_ac" class="text-primary"></span></label>
+   				 <select class="form-control" id="secciones1" name="secciones1">
+								<?php
+									if (!empty($abc)) {
+											echo $abc;
+									}
+								?>
+						
+   				 </select>
+  			</div>
+
+			<div class="col-5 mb-3">
+   			 <label for="exampleFormControlSelect3">Año Actual: <span  id="id_año" class="text-primary"></span> </label>
+   				 <select class="form-control" id="año1" name="año1">
+								<?php
+									if (!empty($Edit_Año)) {
+											echo $Edit_Año;
+									}
+								?>
+   				 </select>
+  			</div> 
+
+			  <div class="col-4 md-3">
+					<label>Docente Guia</label>
+					
+
+					<select class="form-control" name="Doc_Guia1" id="E_Guia">
+								<?php
+									if (!empty($Doc_Guia)) {
+											echo $Doc_Guia;
+									}
+								?>
+						</select>
+					
+				</div>
+
+			<div class="form-group col-md-4">
+				<label>Cantidad de Alumnos:</label>
+				<span id="cantidad_msj"></span>
+				<input type="text" class="form-control" name="cantidad_e" id="cantidad_e" required maxlength="2">
+			</div>
+	
+	
+		</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" id="editar">Actualizar</button>
+      </div>
+	  </form>
+    
+  </div>
+</div> 
+
+<!---------------------------------------------FIN MODAL EDITAR------------------------------------------------->	
+    
+					   	 
+				 
+			    </div>
+			</div>
+		</main>
+<!-- MAIN -->
+	</section>
+<!-- CONTENT -->
+
+
+<!-- Modal: Informacion  -->
+<div class="modal fade bd-example-modal-lg" id="info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Seccion # Año #</h5>
+        </div>
+
+		 <div class="modal-body" >
+		 <table id="example" style="width:100%" class="table table-striped table-hover  tabla_estudiantes">
+                <thead>
+                   <th>CEDULA</th>
+                   <th>NOMBRE</th>
+                   <th>APELLIDO</th>
+                   <th>EDAD</th>
+                   <th>OBSERBACIONES</th>
+                   </tr>
+                </thead> 
+                
+                <tbody id="tabla_estudiantes">
+                
+                </tbody>     
+             </table>
+		</div>
+	</div>
+
+    <!-- </div> -->
+  </div>
+</div>
+
+
+<!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
+
+<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Borrar Año Registrado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form id="f3">
+
+		<input style="display: none;" type="text" name="id2" id="id2">
+		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
+
+	</form>
+      <div class="modal-body">
+        <p>Estas seguro de querer eliminar este registro ?</p>
+		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" id="borrar">Si, Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+	<?php require_once('comunes/footer.php') ?> 
+    <script src="assets/js/seccion.js"></script>
+    <!-- <script src="assets/js/tabla.js"></script> -->
+
+
+
+
+
+	<!--<script  src="assets/js/script.js"></script>-->
+</body>
+</html>

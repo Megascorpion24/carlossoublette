@@ -44,7 +44,7 @@
 
 		  <!-------7 PAGINA------------>
 		  <li class="">
-		  <a href="?pagina=secciones" ><img class="pr-3" src="assets/icon/usuario-de-pizarra.png"/>Secciones</a>
+		  <a href="?pagina=seccion" ><img class="pr-3" src="assets/icon/usuario-de-pizarra.png"/>Secciones</a>
 		  </li>
 		  <!-------8 PAGINA------------>
 		  <li class="">

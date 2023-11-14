@@ -11,6 +11,27 @@ require_once("modelo/".$pagina.".php");
 	if(is_file("vista/".$pagina.".php")){
 
 
+		if(empty($_SESSION)){
+			session_start();
+			}
+  
+			  if(isset($_SESSION['usuario'])){
+			   $nivel = $_SESSION['usuario'];
+			}
+			else{
+				$nivel = "";
+			}
+			
+	  
+				  if(isset($_SESSION['permisos'])){
+				   $nivel1 = $_SESSION['permisos'];
+			  
+				}
+				else{
+					$nivel1 = "";
+				}
+
+
 
 
 
@@ -29,6 +50,11 @@ require_once("modelo/".$pagina.".php");
 			$dato[3]="error en la validacion del evento";
 			$validacion[4]=$o->set_ano_academico($_POST['ano_academico']);
 			$dato[4]="error en la validacion del ano_academico";
+
+
+			$o->set_nivel($nivel);
+
+
 			for ($i=1; $i <= 3 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
@@ -67,6 +93,11 @@ require_once("modelo/".$pagina.".php");
 			$dato[4]="error en la validacion del ano_academico";
 			$validacion[5]=$o->set_id($_POST['id1']);
 			$dato[5]="error en la validacion del id";
+
+
+			$o->set_nivel($nivel);
+
+
 			for ($i=1; $i <= 5 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
@@ -93,6 +124,10 @@ require_once("modelo/".$pagina.".php");
 			$retorno="";
 			$validacion[1]=$o->set_id($_POST['id2']);
 			$dato[1]="error en la validacion del id";
+
+
+			$o->set_nivel($nivel);
+
 			
 			for ($i=1; $i <= 1 ; $i++) { 
 				if ($validacion[$i]== false) {
@@ -119,14 +154,37 @@ require_once("modelo/".$pagina.".php");
 
 
 		  if(!empty($_POST['consulta'])){
+
+		  	if(isset($_SESSION['permisos'])){
+				$nivel1 = $_SESSION['permisos'];
+		   
+			 }
+			 else{
+				 $nivel1 = "";
+			 }
+
 	
-			$consuta=$o->consultar();
+			$consuta=$o->consultar($nivel1);
+			
 			echo $consuta;
 			exit;
 		  }
 
+		  $consuta=$o->consultar($nivel1);
 
-		$consuta=$o->consultar();
+
+
+		  /*if(!empty($_POST['consulta'])){
+
+	
+			$consuta1=$o->consultar2($nivel1);
+			
+			echo $consuta1;
+			exit;
+		  }*/
+
+
+		//$consuta1=$o->consultar2($nivel1);
 
 
 		if(!empty($_POST['eventos'])){

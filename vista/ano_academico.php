@@ -1,3 +1,19 @@
+<?php
+
+
+if (empty($_SESSION)) {
+	session_start();
+}
+
+if (isset($_SESSION['permisos'])) {
+	$nivel1 = $_SESSION['permisos'];
+} else {
+	$nivel1 = "";
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -36,14 +52,20 @@
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 
+							 		<?PHP if (in_array("registrar ano_academico", $nivel1)) { ?>
+
 							    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
 									<i class="material-icons" style="width:100%" title="registrar"></i>
 									<span>Registrar</span>
 							    </a>
-
-					
+							  
+							    <?php } ?>
 
 							 </div>
+
+
+
+
 					     </div>
 
 					     <div>
@@ -55,9 +77,13 @@
 										<li class="nav-item">
 											<a class="nav-link" data-toggle="tab" href="#menu1">Tabla de registros</a>
 										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#menu2">Docentes</a>
+										</li>
 									</ul>
 
 									<!-- Tab panes -->
+									<?PHP if (in_array("consultar ano_academico", $nivel1)) { ?>
 									<div class="tab-content">
 										<div class="tab-pane container active" id="home">
 
@@ -79,9 +105,18 @@
 														right: 'dayGridMonth'
 													},
 
+													buttonText: {
+															prev: 'Ant',
+															next: 'Sig',
+															today: 'Hoy',
+															year: 'Año',
+															month: 'Mes',
+															week: 'Semana',
+															day: 'Día',
+															list: 'Agenda',
+														},
+
 													
-
-
 													events: function(fetchInfo, successCallback, failureCallback) {
 													successCallback([<?php
 																		foreach ($evento as $r) {
@@ -162,7 +197,12 @@
 											</table>
 
 										</div>
+
+
+
+
 									</div>
+									<?php } ?>
 								</div>
 
 					   	</div>

@@ -9,6 +9,8 @@ class ano_academico extends datos{
     private $fecha_cierr;
     private $evento;
     private $ano_academico;
+    private $nivel;
+    private $estado;
 
 
     public function set_id($valor){
@@ -53,6 +55,10 @@ class ano_academico extends datos{
     }
 	}
 
+    public function set_estado($valor){
+        $this->estado = $valor; 
+    }
+
 
     public function registrar()
     {
@@ -70,6 +76,11 @@ class ano_academico extends datos{
     {
         $val = $this->eliminar1();
         echo $val;
+    }
+
+    public function set_nivel($valor)
+    {
+        $this->nivel = $valor;
     }
 	
    
@@ -218,40 +229,35 @@ class ano_academico extends datos{
 
 
 
-  //<!---------------------------------funcion consultar------------------------------------------------------------------>          
-public function consultar(){
+  //<!---------------------------------funcion consultar------------------------------------------------------------------> 
+
+/*public function consultar2($nivel1){
     $co = $this->conecta();
 		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
 			
 			
-			$resultado = $co->prepare("SELECT * from ano_academico 
+			$resultado = $co->prepare("SELECT doc.cedula,doc.nombre,doc.apellido,doc.categoria, doc.especializacion
 
-            WHERE ano_academico.estado = 1
-
-            ORDER BY `ano_academico`.`id` ASC ");
+           FROM docentes doc
+            
+            ORDER BY doc.cedula;");
 
 			$resultado->execute();
            $respuesta="";
 
             foreach($resultado as $r){
                 $respuesta= $respuesta.'<tr>';
-                $respuesta=$respuesta."<th>".$r['id']."</th>";
-                $respuesta=$respuesta."<th>".$r['fecha_ini']."</th>";
-                $respuesta=$respuesta."<th>".$r['fecha_cierr']."</th>";
-                $respuesta=$respuesta."<th>".$r['evento']."</th>";
-                $respuesta=$respuesta."<th>".$r['ano_academico']."</th>";
-                $respuesta=$respuesta.'<th>
-                
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
-               <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
-               </a>
-               
-               <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
-               <i class="material-icons" title="BORRAR"><img src="assets/icon/trashh.png"/></i>
-               </a>
-             </th>';
+                $respuesta=$respuesta."<th>".$r['cedula']."</th>";
+                $respuesta=$respuesta."<th>".$r['nombre']."</th>";
+                $respuesta=$respuesta."<th>".$r['apellido']."</th>";
+                $respuesta=$respuesta."<th>".$r['categoria']."</th>";
+                $respuesta=$respuesta."<th>".$r['especializacion']."</th>";
+                $respuesta=$respuesta.'<th>';
+
+
+             $respuesta=$respuesta.'</th>';
              $respuesta= $respuesta.'</tr>';
 
             }
@@ -269,6 +275,69 @@ public function consultar(){
 			
 			return false;
 		}
+}*/
+
+
+
+public function consultar($nivel1){
+    $co = $this->conecta();
+        
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+            
+            
+            $resultado = $co->prepare("SELECT * from ano_academico 
+
+            WHERE ano_academico.estado = 1
+
+            ORDER BY `ano_academico`.`id` ASC ");
+
+            $resultado->execute();
+           $respuesta="";
+
+            foreach($resultado as $r){
+                $respuesta= $respuesta.'<tr>';
+                $respuesta=$respuesta."<th>".$r['id']."</th>";
+                $respuesta=$respuesta."<th>".$r['fecha_ini']."</th>";
+                $respuesta=$respuesta."<th>".$r['fecha_cierr']."</th>";
+                $respuesta=$respuesta."<th>".$r['evento']."</th>";
+                $respuesta=$respuesta."<th>".$r['ano_academico']."</th>";
+                $respuesta=$respuesta.'<th>';
+
+                if (in_array("modificar ano_academico", $nivel1)) {
+                    # code...
+                
+                $respuesta=$respuesta. '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
+               <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
+               </a>';
+               }
+               
+                if (in_array("eliminar ano_academico", $nivel1)) {
+                    # code...
+                    
+               $respuesta=$respuesta. '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
+               <i class="material-icons" title="BORRAR"><img src="assets/icon/trashh.png"/></i>
+               </a>';
+               }
+
+             $respuesta=$respuesta.'</th>';
+             $respuesta= $respuesta.'</tr>';
+
+            }
+
+           
+            return $respuesta;
+         
+                            
+                            
+
+
+            
+            
+        }catch(Exception $e){
+            
+            return false;
+        }
 }
 //<!---------------------------------fin funcion consultar------------------------------------------------------------------>
 
@@ -382,13 +451,23 @@ public function eventos(){
 private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
+    if($this->existe($this->id)) {
     
 
         try {
         
-               $r=$co->prepare("UPDATE `ano_academico` SET `estado`= 0 WHERE id=:id");
-                $r->bindParam(':id',$this->id);
+                $r=$co->prepare("UPDATE ano_academico 
+
+                INNER JOIN ano_estudiantes 
+                ON  ano_estudiantes.id_ano  = ano_academico.id
+
+                INNER JOIN estudiantes 
+                ON ano_estudiantes.id_estudiantes = estudiantes.cedula 
+
+                SET ano_academico.estado = 0, estudiantes.estado = 0 
+                WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 ;");
+                
+
                 $r->execute();
 
                 $this->bitacora("se elimino un año academico", "ano_academico", $this->nivel);
