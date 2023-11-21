@@ -293,10 +293,10 @@ if (valclase($('#clase').val(),$("#sclase")) == 0) {
     mensaje("<p>Debe de seleccionar un dia</p>");
     return false;
 }else if (valhora($('#clase_inicia').val(),$("#sclase_inicia")) == 0) {
-    mensaje("<p>Debe de seleccionar un dia</p>");
+    mensaje("<p>Debe de seleccionar una hora</p>");
     return false;
-}else if (valhora($('#clase_termina').val(),$("#sclase_termina")) == 0) {
-    mensaje("<p>Debe de seleccionar un dia</p>");
+}else if (valhora2($('#clase_termina').val(),$("#sclase_termina")) == 0) {
+    mensaje("<p>Debe de seleccionar una hora</p>");
     return false;
 }else if (valrango($('#inicio').val(),$("#sinicio")) == 0) {
     mensaje("<p>Debe de seleccionar un dia</p>");
@@ -318,7 +318,7 @@ function validarenvio2() {
     }else if (valhora($('#clase_inicia1').val(),$("#sclase_inicia1")) == 0) {
         mensaje("<p>Debe de seleccionar un dia</p>");
         return false;
-    }else if (valhora($('#clase_termina1').val(),$("#sclase_termina1")) == 0) {
+    }else if (valhora2($('#clase_termina1').val(),$("#sclase_termina1")) == 0) {
         mensaje("<p>Debe de seleccionar un dia</p>");
         return false;
     }else if (valrango($('#inicio1').val(),$("#sinicio1")) == 0) {
@@ -414,21 +414,56 @@ function valdia(dia,sdia) {
 }
 function valhora(clase_inicia,sclase_inicia) {
     
+ // Validar que la hora inicia no sea menor a 6am
+ if (clase_inicia < "06:00:00") {
+    sclase_inicia.text("Seleccione una hora válida.");
+    setTimeout(function() {
+      sclase_inicia.fadeOut();
+    }, 3000);
+    return false;
+  }
 
-    if (clase_inicia != 0) {
-        
-        return true;
-    } else {
-        sclase_inicia.text("seleccione una hora")
-        setTimeout(function() {
-            sclase_inicia.fadeOut();
-        }, 3000);
-        return false;
-    }
+  // Validar que la hora inicia no sea mayor a 6pm
+  if (clase_inicia > "18:00:00") {
+    sclase_inicia.text("Seleccione una hora válida.");
+    setTimeout(function() {
+      sclase_inicia.fadeOut();
+    }, 3000);
+    return false;
+  }
+
+  // Si la hora inicia es válida, regresar true
+  return true;
 
 
 
 }
+function valhora2(clase_termina,sclase_termina) {
+    
+    // Validar que la hora inicia no sea menor a 6am
+    if (clase_termina < "06:00:00") {
+       sclase_termina.text("Seleccione una hora válida.");
+       setTimeout(function() {
+         sclase_termina.fadeOut();
+       }, 3000);
+       return false;
+     }
+   
+     // Validar que la hora inicia no sea mayor a 6pm
+     if (clase_termina > "18:00:00") {
+       sclase_termina.text("Seleccione una hora válida.");
+       setTimeout(function() {
+         sclase_termina.fadeOut();
+       }, 3000);
+       return false;
+     }
+   
+     // Si la hora inicia es válida, regresar true
+     return true;
+   
+   
+   
+   }
 function valrango(inicia,sinicia) {
     
 

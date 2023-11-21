@@ -403,12 +403,12 @@ if (isset($_SESSION['permisos'])) {
 										
 										
 											<div class="form-group col-md-4">
-												<label>Hora de inicio</label>
+												<label>fecha de inicio</label>
 												<span style="color:#FF0000" id="sinicio"></span>
 												<input type="date" class="form-control" name="inicio" id="inicio" required>
 											</div>
 											<div class="form-group col-md-4">
-												<label>Hora de finalización</label>
+												<label>fecha de finalización</label>
 												<span style="color:#FF0000" id="sfin"></span>
 												<input type="date" class="form-control" name="fin" id="fin" required>
 											</div>

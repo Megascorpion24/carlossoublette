@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-11-2023 a las 05:41:34
+-- Tiempo de generación: 08-11-2023 a las 05:53:48
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -88,6 +88,13 @@ CREATE TABLE `ano_secciones` (
   `id_secciones` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `ano_secciones`
+--
+
+INSERT INTO `ano_secciones` (`id`, `id_anos`, `id_secciones`) VALUES
+(1, 1, 29);
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +131,15 @@ CREATE TABLE `años_materias` (
   `id_anos` int(11) NOT NULL,
   `id_materias` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `años_materias`
+--
+
+INSERT INTO `años_materias` (`id`, `cantidad`, `id_anos`, `id_materias`) VALUES
+(1, 0, 1, 13),
+(2, 0, 3, 14),
+(3, 0, 4, 15);
 
 -- --------------------------------------------------------
 
@@ -307,7 +323,14 @@ INSERT INTO `bitacora` (`id`, `fecha`, `accion`, `modulo`, `id_usuario`) VALUES
 (1162, '2023-11-05', 'se modifico un pago', 'docentes', 27),
 (1163, '2023-11-05', 'se modifico un pago', 'docentes', 27),
 (1164, '2023-11-05', 'se modifico un pago', 'docentes', 27),
-(1165, '2023-11-05', 'se modifico un pago', 'docentes', 27);
+(1165, '2023-11-05', 'se modifico un pago', 'docentes', 27),
+(1166, '2023-11-05', 'se registró una materia', 'materias', 27),
+(1167, '2023-11-05', 'se registró una materia', 'materias', 27),
+(1168, '2023-11-05', 'se elimino una materia', 'materias', 27),
+(1169, '2023-11-05', 'se registró una materia', 'materias', 27),
+(1170, '2023-11-05', 'se registro una seccion', 'secciones', 27),
+(1171, '2023-11-05', 'se modifico datos adicionales de una seccion', 'secciones', 27),
+(1172, '2023-11-05', 'se elimino una seccion', 'seccion', 27);
 
 -- --------------------------------------------------------
 
@@ -361,8 +384,14 @@ CREATE TABLE `docentes` (
 
 INSERT INTO `docentes` (`cedula`, `nombre`, `apellido`, `categoria`, `fecha_nacimiento`, `especializacion`, `profecion`, `edad`, `anos_trabajo`, `correo`, `direccion`, `estado`) VALUES
 ('000033', 'qweqwe', 'qweqwe', 'qweqwe', '2023-07-20', 'qweqwe', 'qweqwe', '12', '12', 'dejesus2018@gmail.com', 'ElCercado', 0),
+('000101', 'María', 'Rodríguez', 'Docente', '1981-06-12', 'Historia', 'Licenciada', '41', '19', 'maria.rodriguez@example.com', 'Calle 101', 1),
+('000102', 'Pedro', 'García', 'Docente', '1974-09-25', 'Geografía', 'Licenciado', '48', '21', 'pedro.garcia@example.com', 'Calle 102', 1),
+('000103', 'Laura', 'Martínez', 'Docente', '1987-02-18', 'Biología', 'Licenciada', '35', '13', 'laura.martinez@example.com', 'Calle 103', 1),
+('000104', 'Carlos', 'Fernández', 'Docente', '1978-12-05', 'Química', 'Licenciado', '44', '17', 'carlos.fernandez@example.com', 'Calle 104', 1),
+('000105', 'Sofía', 'Hernández', 'Docente', '1983-04-30', 'Arte', 'Licenciada', '39', '16', 'sofia.hernandez@example.com', 'Calle 105', 1),
+('000106', 'Antonio', 'Gómez', 'Docente', '1979-10-15', 'Educación Física', 'Licenciado', '43', '18', 'antonio.gomez@example.com', 'Calle 106', 1),
 ('300190123', 'santiago', 'casamayor', 'docente', '2023-09-13', 'programacion', 'docevec', '23', '3', 'santiagocasamayor@gmail.com', 'sdaddas', 0),
-('30019081', 'santiago', 'casamayor', 'matematicas', '2002', 'fisica', 'programador', '21', '2', 'santiagocasamayor14@gmail.com', 'calle51a entre 18 y 19', 1),
+('30019081', 'Luis', 'Perez', 'matematicas', '2002', 'fisica', 'programador', '21', '2', 'santiagocasamayor14@gmail.com', 'calle51a entre 18 y 19', 1),
 ('30019082', 'santiago', 'casamayor', 'docente', '2023-09-13', 'programacion', 'docevec', '23', '3', 'santiagocasamayor@gmail.com', 'sdaddas', 1);
 
 -- --------------------------------------------------------
@@ -376,6 +405,13 @@ CREATE TABLE `docente_guia` (
   `id_docente` varchar(50) NOT NULL,
   `id_ano_seccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `docente_guia`
+--
+
+INSERT INTO `docente_guia` (`id`, `id_docente`, `id_ano_seccion`) VALUES
+(1, '000033', 29);
 
 -- --------------------------------------------------------
 
@@ -600,7 +636,10 @@ INSERT INTO `materias` (`id`, `nombre`, `estado`) VALUES
 (9, 'ddddddddddddd', 0),
 (10, 'ssssssss', 0),
 (11, 'xzxzxzxzxzx', 0),
-(12, 'asdasddd', 0);
+(12, 'asdasddd', 0),
+(13, 'MATEMATICA', 1),
+(14, 'INGLES', 0),
+(15, 'INGLES', 1);
 
 -- --------------------------------------------------------
 
@@ -610,10 +649,24 @@ INSERT INTO `materias` (`id`, `nombre`, `estado`) VALUES
 
 CREATE TABLE `materias_docentes` (
   `id` int(11) NOT NULL,
-  `disponibilidad` varchar(250) NOT NULL,
+  `estado` int(2) NOT NULL,
   `id_materias` int(11) NOT NULL,
   `id_docente` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `materias_docentes`
+--
+
+INSERT INTO `materias_docentes` (`id`, `estado`, `id_materias`, `id_docente`) VALUES
+(1, 1, 13, '30019082'),
+(2, 1, 14, '000102'),
+(3, 1, 14, '000104'),
+(4, 0, 14, '30019081'),
+(5, 1, 15, '000104'),
+(6, 1, 15, '000105'),
+(7, 1, 15, '30019081'),
+(8, 1, 15, '30019082');
 
 -- --------------------------------------------------------
 
@@ -947,7 +1000,8 @@ INSERT INTO `secciones_años` (`id`, `cantidad`, `id_secciones`, `id_anos`, `est
 (25, 20, 5, 2, 0),
 (26, 20, 5, 3, 0),
 (27, 20, 5, 5, 0),
-(28, 20, 5, 4, 0);
+(28, 20, 5, 4, 0),
+(29, 19, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1278,7 +1332,7 @@ ALTER TABLE `ano_horario`
 -- AUTO_INCREMENT de la tabla `ano_secciones`
 --
 ALTER TABLE `ano_secciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `años`
@@ -1290,13 +1344,13 @@ ALTER TABLE `años`
 -- AUTO_INCREMENT de la tabla `años_materias`
 --
 ALTER TABLE `años_materias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1166;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1173;
 
 --
 -- AUTO_INCREMENT de la tabla `deudas`
@@ -1308,7 +1362,7 @@ ALTER TABLE `deudas`
 -- AUTO_INCREMENT de la tabla `docente_guia`
 --
 ALTER TABLE `docente_guia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `docente_horario`
@@ -1356,13 +1410,13 @@ ALTER TABLE `horario_secciones`
 -- AUTO_INCREMENT de la tabla `materias`
 --
 ALTER TABLE `materias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `materias_docentes`
 --
 ALTER TABLE `materias_docentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `materia_horario_docente`
@@ -1416,7 +1470,7 @@ ALTER TABLE `secciones`
 -- AUTO_INCREMENT de la tabla `secciones_años`
 --
 ALTER TABLE `secciones_años`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
