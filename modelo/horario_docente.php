@@ -316,7 +316,7 @@ class horario extends datos
 
                 $r->execute();
 
-                if ($r->rowCount() > 0) {
+                if ($r->rowCount() >1) {
                     return "Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
                 }
 
