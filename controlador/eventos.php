@@ -36,7 +36,7 @@ require_once("modelo/".$pagina.".php");
 
 
 		
-		$o = new ano_academico();
+		$o = new eventos();
 		if(!empty($_POST['accion'])){
 		
 			$valor=true;
@@ -46,14 +46,16 @@ require_once("modelo/".$pagina.".php");
 			$dato[1]="error en la validacion del fecha_ini";
 			$validacion[2]=$o->set_fecha_cierr($_POST['fecha_cierr']);
 			$dato[2]="error en la validacion del fecha_cierr";
-			$validacion[3]=$o->set_ano_academico($_POST['ano_academico']);
-			$dato[3]="error en la validacion del ano_academico";
+			$validacion[3]=$o->set_evento($_POST['evento']);
+			$dato[3]="error en la validacion del evento";
+			$validacion[4]=$o->set_ano_academico($_POST['ano_academico']);
+			$dato[4]="error en la validacion del ano_academico";
 
 
 			$o->set_nivel($nivel);
 
 
-			for ($i=1; $i <= 2 ; $i++) { 
+			for ($i=1; $i <= 4 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
@@ -85,8 +87,8 @@ require_once("modelo/".$pagina.".php");
 			$dato[1]="error en la validacion del fecha_ini";
 			$validacion[2]=$o->set_fecha_cierr($_POST['fecha_cierr1']);
 			$dato[2]="error en la validacion del fecha_cierr";
-			$validacion[3]=$o->set_ano_academico($_POST['ano_academico1']);
-			$dato[3]="error en la validacion del ano_academico";
+			$validacion[3]=$o->set_evento($_POST['evento1']);
+			$dato[3]="error en la validacion del evento";
 			$validacion[4]=$o->set_id($_POST['id1']);
 			$dato[4]="error en la validacion del id";
 
@@ -94,7 +96,7 @@ require_once("modelo/".$pagina.".php");
 			$o->set_nivel($nivel);
 
 
-			for ($i=1; $i <= 4 ; $i++) { 
+			for ($i=1; $i <= 4; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
@@ -179,6 +181,7 @@ require_once("modelo/".$pagina.".php");
 
 		  
 		  $evento=$o->eventos();
+		  $ano_academico=$o->ano_academico();
 
 
 		require_once("vista/".$pagina.".php");

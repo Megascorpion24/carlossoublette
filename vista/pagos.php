@@ -123,10 +123,31 @@
 
 
 
+
+
+
+
+
+
+
+
 <!-------------------------------------------------------------------------MODALES ---------------------------------------------------------------------------------->
 <form id="f4" style="display: none;">
 <input type="text" name="consulta" id="consulta">
 </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-----------------------------------------------------------------MODAL REGISTRO------------------------------------------------------------------>
 <div class="modal fade" tabindex="-1" id="addpago" role="dialog">
@@ -195,12 +216,12 @@
 							<input type="text" class="form-control" readonly="true" name="concepto"  id="concepto" required   >
 						</div>
 						<!--------------------------------->
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-3">
 							<label>Deuda Generada</label>
 								<span style="color:#FF0000" id="sfecha"></span>
 							<input type="date" class="form-control "  readonly="true" name="fecha" id="fecha"required  >							
 						</div>
-						<div class="form-group col-md-2 " >
+						<div class="form-group col-md-3 " >
 							<label>Monto</label>
 								<span style="color:#FF0000" id="smonto"></span>
 							<input type="text" class="form-control"   name="monto"   id="monto" required placeholder="000.00">
@@ -210,7 +231,7 @@
 					</div>
 					
 					<div class="form-row">
-						<div class="form-group col-md-2">
+						<div class="form-group col-md-3">
 							<label>Identificador</label>
 								<span style="color:#FF0000" id="sidentificador"></span>
 							<input type="text" class="form-control" name="identificador" id="identificador" required placeholder="0000">
@@ -222,10 +243,17 @@
 									<option value="" selected>- Seleccionar -</option>
 									<option value="Transferencia">Trasferencia</option>
 									<option value="Pago Movil">Pago Movil</option>
-									<option value="Efectivo">Efectivo</option>																		
+									<option value="Efectivo">Efectivo</option>	
+									<option value="Transf - PMV">Transf - PMV</option>
+									<option value="Transf - Efec">Transf - Efec</option>
+									<option value="PMV - Transf">PMV - Transf</option>
+									<option value="PMV - Efec">PMV - Efec</option>
+									<option value="Efec - Transf">Efec - Transf</option>
+									<option value="Efec - PMV">Efec - PMV</option>		
+									<option value="Otro">Otro</option>																			
 							</select>
 						</div>				
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-3">
 							<label>Estado</label>
 								<span style="color:#FF0000" id="sestado"></span>		
 							
@@ -257,12 +285,6 @@
 </div>
 
 <!----------------------------------------------------------FIN MODAL REGISTRO----------------------------------------------------------------->
-					   
-					   
-
-
-					   
-
 
 <!----------------------------------------------------------TABLA OCULTA----------------------------------------------------------------->
 <table class="table table-striped table-hover ocultar">
@@ -355,7 +377,7 @@
 						<div class="form-group col-md-3">
 							<label>Monto</label>
 								<span style="color:#FF0000" id="smontoM"></span>
-							<input type="text" class="form-control" readonly name="montoM"  id="montoM" required placeholder="0000">
+							<input type="text" class="form-control"  name="montoM"  id="montoM" required placeholder="000 / 000-000">
 						</div>
 						<div class="form-group col-md-3">
 							<label>Forma de pago</label>
@@ -364,7 +386,14 @@
 									<option value="" selected>- Seleccionar -</option>
 									<option value="Transferencia">Trasferencia</option>
 									<option value="Pago Movil">Pago Movil</option>
-									<option value="Efectivo">Efectivo</option>																		
+									<option value="Efectivo">Efectivo</option>	
+									<option value="Transf - PMV">Transf - PMV</option>
+									<option value="Transf - Efec">Transf - Efec</option>
+									<option value="PMV - Transf">PMV - Transf</option>
+									<option value="PMV - Efec">PMV - Efec</option>
+									<option value="Efec - Transf">Efec - Transf</option>
+									<option value="Efec - PMV">Efec - PMV</option>		
+									<option value="Otro">Otro</option>																		
 							</select>
 						</div>	
 						
@@ -406,7 +435,13 @@
 
 <!---------------------------------------------FIN MODAL EDITAR------------------------------------------------->	   
   
-					   
+	
+
+
+
+
+
+
 
 
 
@@ -450,7 +485,28 @@
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 
 
-<!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----------------------------------------------MODAL RETORNAR------------------------------------------------------>
 <div class="modal fade" tabindex="-1" id="deletepago2" role="dialog">
   	<div class="modal-dialog" role="document">
    	 	<div class="modal-content">
@@ -476,7 +532,7 @@
  	</div>
 </div>
 
-<!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
+<!-----------------------------------------------FIN MODAL RETORNAR------------------------------------------------------>   
 
 
 
@@ -522,7 +578,7 @@
 
 
 
-<!-----------------------------------------------------------------MODAL REGISTRO repre------------------------------------------------------------------>
+<!-----------------------------------------------------------------MODAL REGISTRO REPRESENTANTES------------------------------------------------------------------>
 <div class="modal fade" tabindex="-1" id="addpagorepre" role="dialog">
   	<div class="modal-dialog " role="document">
     	<div class="modal-content">
@@ -585,12 +641,12 @@
 							<input type="text" class="form-control" readonly="true" name="conceptor"  id="conceptor" required  >
 						</div>
 						<!--------------------------------->
-						<div class="form-group col-md-4 ">
+						<div class="form-group col-md-3 ">
 							<label>Fecha</label>
 								<span style="color:#FF0000" id="sfechar"></span>
 								<input type="date" class="form-control "  readonly="true" name="fechar" id="fechar"required >
 						</div>
-						<div class="form-group col-md-2 " >
+						<div class="form-group col-md-3 " >
 							<label>Monto</label>
 								<span style="color:#FF0000" id="smontor"></span>
 							<input type="text" class="form-control"   name="montor"  id="montor" required placeholder="000.00">
@@ -606,18 +662,25 @@
 								<span style="color:#FF0000" id="sidentificadorr"></span>
 							<input type="text" class="form-control" name="identificadorr" id="identificadorr" required placeholder="0000">
 						</div>
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-3">
 							<label>Forma de pago</label>
 								<span style="color:#FF0000" id="sformar"></span>				
 							<select type="text" class="form-control" name="formar" id="formar" required >
 									<option value="" selected>- Seleccionar -</option>
 									<option value="Transferencia">Trasferencia</option>
 									<option value="Pago Movil">Pago Movil</option>
-									<option value="Efectivo">Efectivo</option>									
+									<option value="Efectivo">Efectivo</option>	
+									<option value="Transf - PMV">Transf - PMV</option>
+									<option value="Transf - Efec">Transf - Efec</option>
+									<option value="PMV - Transf">PMV - Transf</option>
+									<option value="PMV - Efec">PMV - Efec</option>
+									<option value="Efec - Transf">Efec - Transf</option>
+									<option value="Efec - PMV">Efec - PMV</option>		
+									<option value="Otro">Otro</option>											
 							</select>
 						</div>
 
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-3">
 							<label>Estado</label>
 								<span style="color:#FF0000" id="sestador"></span>
 							<input type="text" class="form-control"  readonly="true" value="PENDIENTE" name="estador" id="estador" required placeholder="Activo">
@@ -643,9 +706,6 @@
 
 <!----------------------------------------------------------FIN MODAL REGISTRO REPRESENTANTES----------------------------------------------------------------->
 
-
-
-
 <!----------------------------------------------------------TABLA OCULTA----------------------------------------------------------------->
 <table class="table table-striped table-hover ocultar">
 			<thead>						 
@@ -656,6 +716,11 @@
 	</tbody>
 </table>
 <!----------------------------------------------------------TABLA OCULTA----------------------------------------------------------------->
+
+
+
+
+
 
 
 

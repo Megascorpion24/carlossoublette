@@ -30,7 +30,7 @@ if (isset($_SESSION['permisos'])) {
 	<main>
 			<div class="head-title pt-3  mx-auto" style="width: 200px;  ">
 				<div class="left">
-					<h1>AÑO ACADEMICO</h1>
+					<h1>EVENTOS</h1>
 				</div>
 			</div>
 
@@ -48,7 +48,7 @@ if (isset($_SESSION['permisos'])) {
 					   <div class="table-title  mb-3">
 					     <div class="row ">
 						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-							    <h2 class="ml-lg-2">Registro de Años Academicos</h2>
+							    <h2 class="ml-lg-2">Registro de Eventos</h2>
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 
@@ -72,7 +72,7 @@ if (isset($_SESSION['permisos'])) {
 									<!-- Nav tabs -->
 									<ul class="nav nav-tabs">
 										<li class="nav-item">
-											<a class="nav-link active" data-toggle="tab" href="#home">Año Academico</a>
+											<a class="nav-link active" data-toggle="tab" href="#home">Eventos</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" data-toggle="tab" href="#menu1">Tabla de registros</a>
@@ -123,7 +123,7 @@ if (isset($_SESSION['permisos'])) {
 																		foreach ($evento as $r) {
 																		?> {
 																id: "<?php echo $r["id"]; ?>",
-																title: "<?php echo $r["ano_academico"]; ?>",
+																title: "<?php echo $r["evento"]; ?>",
 																start: "<?php echo $r["fecha_ini"]; ?>",
 																end: "<?php echo $r["fecha_cierr"]; ?>",
 
@@ -178,7 +178,7 @@ if (isset($_SESSION['permisos'])) {
 														<th>ID</th>				
 														<th>Fecha Inicio</th>		
 														<th>Fecha Cierre</th>
-														<th>Año Academico</th>
+														<th>Evento</th>
 														<th>Acciones</th>
 													</tr>
 												</thead>
@@ -189,37 +189,6 @@ if (isset($_SESSION['permisos'])) {
 													<?php
 													if (!empty($consuta)) {
 														echo $consuta;
-													}
-													?>
-
-												</tbody>
-
-											</table>
-
-										</div>
-
-
-										<div class="tab-pane container fade" id="menu2">
-									
-											<table id="tablas" style="width:100%; color:black;" class="table table-hover table-dark">
-											
-											<thead>
-													<tr>
-														<th>Cedula</th>				
-														<th>Nombre</th>		
-														<th>Apellido</th>
-														<th>Categoria</th>
-														<th>Especializacion</th>
-														<th>Acciones</th>
-													</tr>
-												</thead>
-
-												<tbody id="tabla">
-
-
-													<?php
-													if (!empty($consuta1)) {
-														echo $consuta1;
 													}
 													?>
 
@@ -270,7 +239,7 @@ if (isset($_SESSION['permisos'])) {
     <div class="modal-content">
       <div class="modal-header">
 	  <form id="f">
-        <h5 class="modal-title">Registrar Años Academicos</h5>
+        <h5 class="modal-title">Registrar Eventos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -278,7 +247,7 @@ if (isset($_SESSION['permisos'])) {
       <div class="modal-body">
 
 
-	  <h5 class="modal-title">Año Academico</h5>
+	  <h5 class="modal-title">Eventos</h5>
 	    <hr>
 		<div class="form-row">
 
@@ -302,12 +271,23 @@ if (isset($_SESSION['permisos'])) {
 			</div>
 
 			<div class="form-group col-md-4">
-				<label>Año Academico</label>
-				<span style="color:#FF0000" id="sano_academico"></span>
-				<input type="text" class="form-control" name="ano_academico" id="ano_academico" required placeholder="0000-0000">
+				<label>Evento</label>
+				<span style="color:#FF0000" id="sevento"></span>
+				<input type="text" class="form-control" name="evento" id="evento" required placeholder="Ejemplo:Lapso 1">
 			</div>
 
+			<br>
+				<div class="ml-3 mt-4">
+					<?php
+						if (!empty($ano_academico)) {
+								echo $ano_academico;
+							}
+					?>
+				</div>
+
 		</div>
+
+
 		
 
 		
@@ -341,14 +321,14 @@ if (isset($_SESSION['permisos'])) {
     <div class="modal-content">
       <div class="modal-header">
 	  <form id="f2">
-        <h5 class="modal-title">Editar Año Academico</h5>
+        <h5 class="modal-title">Editar Eventos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
 
-	  <h5 class="modal-title">Año Academico</h5>
+	  <h5 class="modal-title">Eventos</h5>
 	    <hr>
 
 		<div class="form-row">
@@ -374,9 +354,9 @@ if (isset($_SESSION['permisos'])) {
 			</div>
 
 			<div class="form-group col-md-4">
-				<label>Año Academico</label>
-				<span style="color:#FF0000" id="sano_academico1"></span>			
-				<input type="text" class="form-control" name="ano_academico1" id="ano_academico1" required >
+				<label>Evento</label>
+				<span style="color:#FF0000" id="sevento1"></span>			
+				<input type="text" class="form-control" name="evento1" id="evento1" required >
 			</div>
 
 		</div>
@@ -414,7 +394,7 @@ if (isset($_SESSION['permisos'])) {
     <div class="modal-content">
       <div class="modal-header">
 
-        <h5 class="modal-title">Borrar Año Academico Registrado</h5>
+        <h5 class="modal-title">Borrar Evento Registrado</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -442,43 +422,6 @@ if (isset($_SESSION['permisos'])) {
   </div>
 </div>
 
-<!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>  
-
-
-
-<!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
-<div class="modal fade" tabindex="-1" id="updateDoc" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-
-        <h5 class="modal-title">Actualizar el estado del Docente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-
-      </div>
-	  <form id="f3">
-
-		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
-
-	</form>
-      <div class="modal-body">
-
-        <p>Estas seguro de querer eliminar este registro ?</p>
-		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
-
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" id="update">Si, Actualizar</button>
-
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 					   
 					
@@ -494,7 +437,7 @@ if (isset($_SESSION['permisos'])) {
 
 		<?php require_once('comunes/footer.php') ?> 
 
-    <script src="assets/js/ano_academico.js"></script>
+    <script src="assets/js/eventos_academico.js"></script>
     <script  src="assets/js/script.js"></script>
 
 </body>

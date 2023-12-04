@@ -9,8 +9,8 @@ if (is_file("modelo/".$pagina.".php")){
 }
 else{ echo "Falta definir la clase ".$pagina;  exit; }
  
-
-  
+ 
+   
 
 //Carga de Vista
 	if(is_file("vista/".$pagina.".php")){
@@ -39,56 +39,127 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
         
         // Registro (f)
 		if(!empty($_POST['accion'])){
+			$valor=true;
+			$retorno="";
+				 // Validación de id
+			$validacion[0]=$o->set_id($_POST['id']);
+			$dato[0]="error en la validacion de id";
+				 // Validación de seccion
+			$validacion[1]=$o->set_secciones($_POST['secciones']);
+			$dato[1]="error en la validacion de seciones";
+				 // Validación de año
+			$validacion[2]=$o->set_ano($_POST['año']);
+			$dato[2]="error en la validacion del año";
+				 // Validación de Docente Guia
+			$validacion[3]=$o->set_cedula_profesor($_POST['Doc_Guia']);	
+			$dato[3]="error en la validacion de profesor Guia";
+				 // Validación de Cantidad
+			$validacion[4]=$o->set_cantidad($_POST['cantidad']);
+			$dato[4]="error en la validacion de cantidad";
 
-			
-			$o->set_id($_POST['id']);
-			$o->set_secciones($_POST['secciones']);
-			$o->set_ano($_POST['año']);
-			$o->set_cedula_profesor($_POST['Doc_Guia']);				
-			$o->set_ano_academico($_POST['ano_academico']);
-			$o->set_cantidad($_POST['cantidad']);
+				 // Validación de año academico
+			$validacion[5]=$o->set_ano_academico($_POST['ano_academico']);
+			$dato[5]="error en la validacion del año academico";
 
+			for ($i=0; $i < 5 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					echo $dato[$i];
+					$valor=false;
+				}
+			}
 
 			$o->set_nivel($nivel);
-			$mensaje = $o->registrar();
-			echo $mensaje;
+
+			if ($valor==true) {
+				$mensaje = $o->registrar();	
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+
 			exit;			
 		  }
 
-		
+		 
 
  
 		  // Editar (f2)
 if (!empty($_POST['id_edit'])) {
-	$o->set_id($_POST['id1']);
-	$o->set_secciones($_POST['secciones1']);
-	$o->set_ano($_POST['año1']);
-	$o->set_cedula_profesor($_POST['Doc_Guia1']);
-	$o->set_cantidad($_POST['cantidad_e']);
+	
+			$valor=true;
+			$retorno="";
+				 // Validación de id
+			$validacion[0]=$o->set_id($_POST['id1']);
+			$dato[0]="error en la validacion de id";
+				 // Validación de seccion
+			$validacion[1]=$o->set_secciones($_POST['secciones1']);
+			$dato[1]="error en la validacion de seciones";
+				 // Validación de año
+			$validacion[2]=$o->set_ano($_POST['año1']);
+			$dato[2]="error en la validacion del año";
+				 // Validación de Docente Guia
+			$validacion[3]=$o->set_cedula_profesor($_POST['Doc_Guia1']);	
+			$dato[3]="error en la validacion de profesor Guia";
+				 // Validación de Cantidad
+			$validacion[4]=$o->set_cantidad($_POST['cantidad_e']);
+			$dato[4]="error en la validacion de cantidad";
+			// Validación de año academico
+			$validacion[5]=$o->set_ano_academico($_POST['acd']);
+			$dato[5]="error en la validacion del año academico";
 
-   
-		$o->set_nivel($nivel);
-    $mensaje = $o->modificar();
-    echo $mensaje;
-    exit;
+
+			for ($i=0; $i < 5 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					echo $dato[$i];
+					$valor=false;
+				}
+			}
+
+			$o->set_nivel($nivel);
+
+			if ($valor==true) {
+				$mensaje = $o->modificar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+
+			exit;			
 }
 
 
 
 
-		if(!empty($_POST['accion3'])){
+		 //Eliminar
+		 if(!empty($_POST['accion3'])){
+			$valor=true;
+			$retorno="";
 	
-			if (preg_match("/^[0-9]{1,5}$/",$_POST['id2'] )) {
-				$o->set_id($_POST['id2']);
-					
-			}			
-			$o->set_nivel($nivel);
-			$mensaje = $o->eliminar();			
-			echo $mensaje;
-			exit;			
-		  }
-		 
+			$validacion[0]=$o->set_id($_POST['id2']);	
+			$dato[0]="error en la validacion del id2";
+			
+			for ($i=0; $i < 0 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
 
+			$o->set_nivel($nivel);
+
+			if ($valor==true) {
+				$mensaje = $o->eliminar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;				
+		  } 
+		 
+ 
            //Consulta (f4)
 		  if(!empty($_POST['consulta'])){
 
@@ -105,12 +176,73 @@ if (!empty($_POST['id_edit'])) {
 			echo $consulta;
 			exit;
 		  }
-	 
+		  	// ----------------
 
+
+			if (isset($_POST['sec'])) {
+				$valor=true;
+				$retorno="";
+
+				$secciones = $_POST['sec'];
+			
+				// Asegúrate de tener al menos 1 registro y como máximo 12
+				$secciones = array_slice($secciones, 0, 12);
+				
+				
+				//no esta vacio
+				if (!empty($secciones)) {
+					
+					$validacion2 = $o->validarAbecedarioFormulario($secciones);
+					if ($validacion2 == false) {
+					   // echo"falso";
+					   $validacion[0]=false;
+					   $dato[0]= "Los Abecedarios no son válidos.";
+					}
+					else{
+						// echo "validacion exitosa";
+						// Procesar los registros
+						foreach ($secciones as $key => $s) {
+							$o->setSec($key + 1, $s);
+						}
+					}
+
+
+
+				} else {
+					echo "Al menos un registro es obligatorio.";
+					$validacion[0]=false;
+				}
+
+
+				
+
+				$o->set_nivel($nivel);
+					for ($i=0; $i < 0 ; $i++) { 
+						if ($validacion[$i]== false) {
+							$retorno=$retorno.$dato[$i]."<br>";
+							echo $dato[$i];
+							$valor=false;
+						}
+					}
+
+					if ($valor==true) {
+						$mensaje = $o->Asig_Seccion();
+						echo $mensaje;
+					}else{
+						echo $retorno;
+					}
+		
+				exit;
+			} 
+			
+
+
+
+		//   ------------------
 		$consulta=$o->consultar($nivel1);
-		  $abc=$o->abc();//A,B,C
 		  $Año=$o->Año();
 		  $Doc_Guia=$o->Doc_Guia();
+		  $Doc_Guia_Edit=$o->Doc_Guia_Edit();
 		  $academico=$o->academico();
 		  $Edit_Año=$o->Edit_Año();
 

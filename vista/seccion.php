@@ -29,14 +29,13 @@
  
 							<!-- MAIN -->
 			<main>
-			<div class="head-title pt-3  mx-auto" style="width: 200px;  ">
-				<div class="left">
-					<h1>SECCCIÓN</h1>
+			<div class="head-title pt-3 mx-auto">
+				<div class="left text-center">
+					<h1>GESTIONAR SECCCIONES</h1>
 				</div>
 			</div>
- 
 
-   
+
 
 							<!--TABLA -->	
 <!--------------------------------------------------main-content-start------------------------------------------------------------> 
@@ -45,7 +44,7 @@
 			     <div class="row">
 				    <div class="col-md-12">
 					   <div class="table">
-					     
+					      
 					   <div class="table-title  mb-3">
 					     <div class="row ">
 						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
@@ -54,9 +53,14 @@
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 
 							 <?PHP if (in_array("registrar secciones", $nivel1)) {?>
+								<!-- Button trigger modal -->
+								<a href="#exampleModalCenter" id="G_sec" class="btn btn-success" data-toggle="modal">
+									<i><img  src="assets/icon/bloque-abc1.png"/></i>
+									<span>Abecedario</span>
+							    </a>
 
 							    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
-									<i class="material-icons">&#xE147;</i>
+									<i><img style="width: 18px; margin-top:-10px; margin-button:-15px;" src="assets/icon/add(1).png"/></i>
 									<span>Registrar</span>
 							    </a>
 							<?php } ?>
@@ -74,6 +78,7 @@
 							 <th>TURNO</th>
 							 <th>DOCENTE GUIA</th>
 							 <th>CANTIDAD MAX</th>
+							 <th>EST. REGISTRADOS</th>
 							 <th>AÑO ACADEMICO</th>
 
 	
@@ -126,7 +131,7 @@
 <div class="modal modal-user fade" tabindex="-1" id="addEmployeeModal" role="dialog">
   <div class="modal-dialog" role="document">
 	<form id="f" class="form modal-content">
-
+ 
       <div class="modal-header">
 
         <h5 class="modal-title">Registro Sección</h5>
@@ -144,20 +149,23 @@
 				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" >
 				<input type="text" class="form-control sm" name="id" id="id" placeholder="0000000">
 			</div>
+
 		
 			  <div class="col-2 mb-3">
-   			 <label for="exampleFormControlSelect1">Identificacion</label>
+   			 <label for="exampleFormControlSelect1">Ident.Abecedario</label>
    				 <select class="form-control" id="secciones" name="secciones">
-										<?php
-									if (!empty($abc)) {
-											echo $abc;
-									}
-								?>
+								<!-- <?php
+									// if (!empty($abc)) {
+											// echo $abc; 
+									// }
+								?> -->
    				 </select>
   			</div>
 			
+ 
 
-			<div class="col-6 mb-3" id="form_radio"> 
+
+	<div class="col-6 mb-3" id="form_radio"> 
 			<label class="form-label ml-4">Año:</label>
 			<br>
 		<div class="form-check form-check-inline" id="año">
@@ -168,9 +176,11 @@
 						}
 					?>
 		</div>
-		
-		     </div>
-
+		<br>
+		<span id="año_msj"></span>
+	</div>
+		   
+					
 			 <div class="col-4 md-3">
 					<label>Docente Guia</label>
 					<select class="form-control" name="Doc_Guia" id="Doc_Guia">
@@ -180,23 +190,30 @@
 									}
 								?>
 						</select>
-					
+					<br>
+				<span id="dg_msj"></span>
 				</div>
 
-				<div class=""  style="display: none;">
-											<?php
-											if (!empty($academico)) {
-														echo $academico;
-												}
-												?>
-				</div>
+<div class="container mb-3">
+	 <span id="existe_msj" class="text-end text-warning  mb-2"></span>
+ </div>
+
 
 			<div class="form-group col-md-4">
 				<label>Cantidad de Alumnos:</label>
-				<span id="cantidad_msj"></span>
-				<input type="text" class="form-control" name="cantidad" id="cantidad" required placeholder="00" maxlength="2">
+				<input type="text" class="form-control" name="cantidad" id="cantidad" required placeholder="">
+		<span id="cantidad_msj"></span>
 			</div>
-	  
+				
+			<br>
+				<div class="ml-3 mt-4">
+					<?php
+						if (!empty($academico)) {
+								echo $academico;
+							}
+					?>
+				</div>
+
        
       </div>
       <div class="modal-footer">
@@ -233,14 +250,10 @@
 			</div>
 			
 			<div class="col-5 mb-3">
-   			 <label for="exampleFormControlSelect2">Nombre Actual: <span id="id_ac" class="text-primary"></span></label>
+   			 <label for="exampleFormControlSelect2">Seccion Actual: <span id="id_ac" class="text-primary"></span></label>
    				 <select class="form-control" id="secciones1" name="secciones1">
-								<?php
-									if (!empty($abc)) {
-											echo $abc;
-									}
-								?>
-						
+								
+						<!-- ...INFORMACION -->
    				 </select>
   			</div>
 
@@ -251,9 +264,14 @@
 									if (!empty($Edit_Año)) {
 											echo $Edit_Año;
 									}
-								?>
+								?> 
    				 </select>
   			</div> 
+
+<div class="container text-center">
+  <span id="existe_msj2" class="text-end text-warning  mb-2"></span>
+  <span id="existe_msj3" class="text-end text-primary  mb-2"></span>
+</div>
 
 			  <div class="col-4 md-3">
 					<label>Docente Guia</label>
@@ -261,21 +279,26 @@
 
 					<select class="form-control" name="Doc_Guia1" id="E_Guia">
 								<?php
-									if (!empty($Doc_Guia)) {
-											echo $Doc_Guia;
+									if (!empty($Doc_Guia_Edit)) {
+											echo $Doc_Guia_Edit;
 									}
 								?>
 						</select>
 					
 				</div>
 
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-4"> 
 				<label>Cantidad de Alumnos:</label>
-				<span id="cantidad_msj"></span>
-				<input type="text" class="form-control" name="cantidad_e" id="cantidad_e" required maxlength="2">
+				<input type="text" class="form-control" name="cantidad_e" id="cantidad_e">
+		<span id="cantidad_msj2"></span>
 			</div>
-	
-	
+			
+			<div class="ml-3 mt-4">
+				<p class="p-1 mb-2 border border-secondary text-secondary rounded" id="año_acd"></p>
+				<input type="text" class="form-control" name="acd" id="value_acd" style="display:none;">
+			</div>	
+			
+			
 		</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -298,45 +321,15 @@
 <!-- CONTENT -->
 
 
-<!-- Modal: Informacion  -->
-<div class="modal fade bd-example-modal-lg" id="info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-
-    <div class="modal-content">
-		<div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Seccion # Año #</h5>
-        </div>
-
-		 <div class="modal-body" >
-		 <table id="example" style="width:100%" class="table table-striped table-hover  tabla_estudiantes">
-                <thead>
-                   <th>CEDULA</th>
-                   <th>NOMBRE</th>
-                   <th>APELLIDO</th>
-                   <th>EDAD</th>
-                   <th>OBSERBACIONES</th>
-                   </tr>
-                </thead> 
-                
-                <tbody id="tabla_estudiantes">
-                
-                </tbody>     
-             </table>
-		</div>
-	</div>
-
-    <!-- </div> -->
-  </div>
-</div>
-
+<!-- ------------------------------------------------------------------------------- -->
 
 <!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
 
-<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+<div class="modal modal-user fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Borrar Año Registrado</h5>
+        <h5 class="modal-title">Borrar Seccion: "<span class="text-danger" id="seccion_b"></span>" <span id="año_b" class="text-danger"></span> Año</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -363,12 +356,82 @@
 
 	<?php require_once('comunes/footer.php') ?> 
     <script src="assets/js/seccion.js"></script>
+
+
     <!-- <script src="assets/js/tabla.js"></script> -->
-
-
-
-
-
 	<!--<script  src="assets/js/script.js"></script>-->
 </body>
 </html>
+
+
+<!-- Modal: Informacion  -->
+<div class="modal fade bd-example-modal-lg" id="info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+		<div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Seccion <span id="s_M" class="font-weight-bold"></span>
+			 Año <span id="a_M" class="font-weight-bold"></span></h5>
+			<!-- <input type="text" id="filtroEstudiantes" placeholder="Buscar estudiantes"> -->
+        </div>
+
+		 <div class="modal-body">
+		
+<table id="tablas" style="width:100%" class="table table-striped table-hover  tabla_estudiantes">
+                <thead>
+                   <th>CEDULA</th>
+                   <th>NOMBRE</th>
+                   <th>APELLIDO</th>
+                   <th>EDAD</th>
+                   <th>OBSERBACIONES</th> 
+                   </tr>
+                </thead> 
+                 
+                <tbody id="tabla_estudiantes">
+                    
+                </tbody>     
+</table>
+
+		</div>
+	</div>
+
+    <!-- </div> -->
+  </div>
+</div>
+
+ 
+
+<!-- Modal -->
+<div class="modal modal-user fade" id="exampleModalCenter" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLongTitle">Gestionar Abecedario de Secciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	<form id="f6">
+								
+									
+      <div class="col-12 md-3">
+							<select class="js-example-placeholder-multiple js-states form-control"  multiple="multiple" name="sec[]" id="sec" style=" width: 100%;">
+									
+							</select>
+		</div>
+			<br>
+			<span id="sec_msj"></span>			
+	</form>
+		
+	<p ><span class="font-weight-bold">NOTA: </span>Los cambios NO aplicaran a los datos registrados</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="act_sec">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>

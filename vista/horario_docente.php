@@ -252,11 +252,11 @@ if (isset($_SESSION['permisos'])) {
 														<th>Clase</th>
 														<th>Profesor</th>
 														<th>Seccion</th>
+														<th >ID dia</th>
 														<th>Dia</th>
 														<th>Clase inicia</th>
 														<th>Clase termina</th>
-														<th>inicio de clase</th>
-														<th>fin de clase</th>
+														<th>Año academico</th>
 														<th>Acciones</th>
 													</tr>
 												</thead>
@@ -398,21 +398,11 @@ if (isset($_SESSION['permisos'])) {
 											<div class="form-group col-md-4">
 												<label>Clase termina</label>
 												<span style="color:#FF0000" id="sclase_termina"></span>
-												<input type="time" class="form-control" name="clase_termina" id="clase_termina" required>
+												<input type="time" placeholder="hh/mm" class="form-control" name="clase_termina" id="clase_termina" required>
 											</div>
 										
 										
-											<div class="form-group col-md-4">
-												<label>fecha de inicio</label>
-												<span style="color:#FF0000" id="sinicio"></span>
-												<input type="date" class="form-control" name="inicio" id="inicio" required>
-											</div>
-											<div class="form-group col-md-4">
-												<label>fecha de finalización</label>
-												<span style="color:#FF0000" id="sfin"></span>
-												<input type="date" class="form-control" name="fin" id="fin" required>
-											</div>
-
+											
 
 
 
@@ -535,16 +525,6 @@ if (isset($_SESSION['permisos'])) {
 											<input type="time" class="form-control" name="clase_termina1" id="clase_termina1" required>
 										</div>
 									
-										<div class="form-group col-md-4">
-											<label>Hora de início</label>
-											<span style="color:#FF0000" id="sinicio1"></span>
-											<input type="date" class="form-control" name="inicio1" id="inicio1" required>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Hora de finalización</label>
-											<span style="color:#FF0000" id="sfin1"></span>
-											<input type="date" class="form-control" name="fin1" id="fin1" required>
-										</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -617,5 +597,12 @@ if (isset($_SESSION['permisos'])) {
 
 
 </body>
-
+<style>
+	* {
+		font-family: 'Poppins',sans-serif;
+                                                
+       }
+</style>
 </html>
+
+

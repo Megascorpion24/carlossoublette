@@ -47,8 +47,16 @@
 		  <a href="?pagina=seccion" ><img class="pr-3" src="assets/icon/usuario-de-pizarra.png"/>Secciones</a>
 		  </li>
 		  <!-------8 PAGINA------------>
-		  <li class="">
-		  <a href="?pagina=ano_academico" ><img class="pr-3" src="assets/icon/calculadora.png"/>Año Academico</a>
+
+		  <li class="dropdown">
+		  <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <img class="pr-3" src="assets/icon/calculadora.png"/>Lapso Academico
+		  </a>
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu2">
+		     <li><a href="?pagina=ano_academico"><img class="pr-3" src="assets/icon/calendario2.png"/>Año Academico</a>
+			 <li><a href="?pagina=eventos"><img class="pr-3" src="assets/icon/calendario.png"/>Eventos</a></li>
+		  </ul>
 		  </li>
 
 

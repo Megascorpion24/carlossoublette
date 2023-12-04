@@ -1,0 +1,121 @@
+.modal-content {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 10px !important;
+    box-shadow: 0 10px 50px -10px rgb(0 0 0 / 30%);
+    padding: 10px;
+	width: auto;
+	z-index: 100;
+
+}
+
+.modal-user .modal-header {
+	display: block;
+	text-align: center;
+	border: none;
+	z-index: 100;
+
+}
+
+.btn {
+    border: 1px solid transparent;
+    font-size: .9375rem;
+    line-height: 1.5;
+    padding: .35rem .7rem;
+	z-index: 100;
+}
+
+.btn-secondary{
+	border-radius: 5px !important; 
+}
+
+.btn-success{
+	border-radius: 5px !important; 
+}
+
+/* Estilo para resaltar el borde izquierdo de la columna "ID" */
+.id-column {
+    position: relative;
+  }
+  
+  .id-column::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -4px;
+    bottom: 0;
+    width: 1px;
+    background-color: transparent; /* Borde izquierdo transparente */
+  }
+  
+  /* Estilo cuando se pasa el mouse sobre la fila */
+  .studentDataRow:hover .id-column::before {
+    background-color: rgb(0, 0, 0); /* Cambiar el color del borde izquierdo a rojo */
+  }
+  
+  .modal-content-seccion{
+    margin-left: 200px;
+    width: 450px;
+    z-index: 100;
+  }
+
+  .circle2 {
+    background-color: #3498db;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Estilos para el círculo pequeño */
+  .small-circle2 {
+    background-color: #3498db;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+  top: -8px;
+  left: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Estilos para el texto inicial (nombre) */
+  .initial {
+    font-size: 24px;
+    color: white; /* Cambia el color del texto dentro del círculo */
+  }
+
+
+  /* ---------------MODAL------------- */
+  
+  /* Estilos para el año */
+  .year {
+    font-size: 16px; /* Cambia el tamaño del año si es necesario */
+    color: white; /* Cambia el color del texto dentro del círculo pequeño */
+  }
+  
+  /* Estilos para la información adicional */
+  .info {
+    margin-top: 20px; /* Espacio entre los círculos y la información */
+  }
+  
+  /* Estilos generales para el modal */
+  .modal-content-seccion {
+    background-color: #ffffff; /* Cambia el fondo del modal si es necesario */
+    border-radius: 10px; /* Cambia la forma del modal si es necesario */
+  }
+  
+  .circle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%; /* Esto asegura que el contenedor ocupe toda la altura del modal */
+  }
+  
+  

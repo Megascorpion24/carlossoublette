@@ -15,32 +15,74 @@ class tutor_legal extends datos{
     private $nivel;
 
     public function set_cedula($valor){
-		$this->cedula = $valor; 
-	}
+        if (preg_match("/^[0-9]{6,8}$/", $valor)) {
+            $this->cedula = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
 	public function set_nombre1($valor){
-		$this->nombre1 = $valor; 
-	}
+        if (preg_match("/^[A-Za-z]{4,20}$/", $valor)) {
+            $this->nombre1 = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
     public function set_nombre2($valor){
-		$this->nombre2 = $valor; 
-	}
+        if (preg_match("/^[A-Za-z]{4,20}$/", $valor)) {
+            $this->nombre2 = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
     public function set_apellido1($valor){
-		$this->apellido1 = $valor; 
-	}
+        if (preg_match("/^[A-Za-z]{4,20}$/", $valor)) {
+            $this->apellido1 = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
 	public function set_apellido2($valor){
-		$this->apellido2 = $valor; 
-	}
+        if (preg_match("/^[A-Za-z]{4,20}$/", $valor)) {
+            $this->apellido2 = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
 	public function set_telefono($valor){
-		$this->telefono = $valor; 
-	}
+        if (preg_match("/^[0-9]{11}$/", $valor)) {
+            $this->telefono = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
 	public function set_correo($valor){
-		$this->correo = $valor; 
-	}
+        if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $valor)) {
+            $this->correo = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
 	public function set_contacto_emer($valor){
-		$this->contacto_emer = $valor; 
-	}
-    public function set_nivel($valor){
-		$this->nivel = $valor; 
-	}
+        if (preg_match("/^[0-9]{11}$/", $valor)) {
+            $this->contacto_emer = $valor; 
+            return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function set_nivel($valor){
+            $this->nivel = $valor; 
+        }
+
 
     public function registrar(){
        $val= $this->registrar1();
@@ -109,55 +151,7 @@ class tutor_legal extends datos{
              
                 $r->execute();
 
-                $t="1";
-                $claveencr=password_hash($this->cedula, PASSWORD_DEFAULT, ['cost'=>10]);
-                $r= $co->prepare("Insert into usuarios(
-						
-                    
-                    nombre, 
-                    correo,
-                    clave,
-                    estado,
-                    id_rol
-                    )
-            
-
-                    Values(
-                        
-                        :nombre,
-                        :correo,
-                        :clave,
-                        :estado,
-                        1
-                    )");
-
-                $r->bindParam(':nombre',$this->nombre1);	
-               
-                $r->bindParam(':correo',$this->correo);	
-                $r->bindParam(':clave',$claveencr);	
-                $r->bindParam(':estado',$t);
-                
-                $r->execute();
-                $lid1 = $co->lastInsertId();
-
-                $r= $co->prepare("Insert into usuarios_tutor(
-						
-                    
-                    id_usuarios, 
-                    id_tutor
-                    )
-            
-
-                    Values(
-                        
-                        :id_usuarios,
-                        :id_tutor
-                    )");
-                    $r->bindParam(':id_usuarios', $lid1);	
-                    $r->bindParam(':id_tutor',$this->cedula);
-                    
-                    $r->execute();
-
+      
                 
                	
 
@@ -352,7 +346,7 @@ public function consultar($nivel1){
 		try{
 			
 			
-			$resultado = $co->prepare("Select * from tutor_legal where cedula=:cedula");
+			$resultado = $co->prepare("Select * from tutor_legal where cedula=:cedula and estado = '1'");
 			
 			$resultado->bindParam(':cedula',$cedula);
 			$resultado->execute();

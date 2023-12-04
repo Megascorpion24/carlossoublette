@@ -22,12 +22,12 @@ class pagos extends datos{
 
     public function set_id($valor){
         if (preg_match("/^[0-9]{1,5}$/", $valor)) {
-		$this->id = $valor; 
-        return true;
-        }else{
-            return false;
+            $this->id = $valor; 
+            return true;
+            }else{
+                return false;
+            }
         }
-	}
 	public function set_id_deudas($valor){
         if (preg_match("/^[a-zA-Z0-9\s]{1,5}+$/", $valor)) {
 		$this->id_deudas = $valor; 
@@ -37,7 +37,7 @@ class pagos extends datos{
         }
 	}
 	public function set_identificador($valor){
-        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9-\s]+$/", $valor)) {
 		$this->identificador = $valor; 
         return true;
         }else{
@@ -53,7 +53,7 @@ class pagos extends datos{
         }
 	}
     public function set_forma($valor){
-        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
+        if (preg_match("/^[-a-zA-Z0-9\s]+$/", $valor)) {
 		$this->forma = $valor; 
         return true;
         }else{
@@ -93,7 +93,7 @@ class pagos extends datos{
         }
 	} 
     public function set_monto($valor){
-        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
+        if (preg_match("/^[0-9-\s]+$/", $valor)) {
 		$this->monto = $valor; 
         return true;
         }else{
@@ -150,21 +150,19 @@ class pagos extends datos{
 
 
 	
-  //<!---------------------------------fin funcion registrar------------------------------------------------------------------> 
+  //<!--------------------------------FUNCION QUE USA EL ADMINISTRADOR PARA REGISTRAR UN PAGO------------------------------------------------------------------> 
     private function registrar1(){
-
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if(!$this->existe($this->id)){
             try{
-
-                
+              
                 $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha,monto, meses, estado, estado_pagos,estatus )
-                                             VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
+                                  VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
+
                 $estado_pagos=1;
-                $estatus=1;
-     
+                $estatus=1;    
                 $r->bindParam(':id_deudas',$this->id_deudas);	
                 $r->bindParam(':identificador',$this->identificador);	
                 $r->bindParam(':concepto',$this->concepto);	
@@ -175,44 +173,39 @@ class pagos extends datos{
                 $r->bindParam(':estado',$this->estado);
                 $r->bindParam(':estado_pagos',$estado_pagos);	
                 $r->bindParam(':estatus',$estatus);	
-                    $r->execute();
+                $r->execute();
     
-                
+//<!-----------------------------SE EJECUTA SI CONCEPTO ES MENSUALIDAD----------------------------------------------------------------------------------------------------------------------->               
                     $r= $co->prepare("UPDATE deudas d SET d.fecha = DATE_ADD(d.fecha, INTERVAL :meses MONTH) WHERE d.id = :id_deudas AND :concepto = 'mensualidad'");
                     $r->bindParam(':meses',$this->meses);	
                     $r->bindParam(':id_deudas',$this->id_deudas);
                     $r->bindParam(':concepto',$this->concepto);	 
                     $r->execute();
-    
-                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudas AND :concepto = 'inscripcion' ");                 
-                    $r->bindParam(':id_deudas',$this->id_deudas);	
-                    $r->bindParam(':concepto',$this->concepto);	                
-                    $r->execute();
-       
+
                     $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudas AND d.fecha >= CURRENT_DATE() AND :concepto = 'mensualidad'");                     
                     $r->bindParam(':id_deudas',$this->id_deudas);	
                     $r->bindParam(':concepto',$this->concepto);	                    
                     $r->execute();
-
-
+//<!-----------------------------SE EJECUTA SI CONCEPTO ES INSCRIPCION----------------------------------------------------------------------------------------------------------------------->    
+                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudas AND :concepto = 'inscripcion' ");                 
+                    $r->bindParam(':id_deudas',$this->id_deudas);	
+                    $r->bindParam(':concepto',$this->concepto);	                
+                    $r->execute();
 
                 $this->bitacora("se registro un pago", "docentes",$this->nivel);
-                return "Registro incluido";	
+                return "EL PAGO FUE REGISTRADO CON EXITO";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
             }
-                
             }
             else{
-                return "cedula registrada";
+                return "EL PAGO YA SE ENCUENTRA REGISTRADO";
             }
-    
-
-
         }
-  //<!---------------------------------fin funcion registrar------------------------------------------------------------------> 
-            
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -225,9 +218,13 @@ class pagos extends datos{
 
 
 
-  //<!---------------------------------fin funcion registrar------------------------------------------------------------------>  
+
+
+
+
+
+  //<!---------------------------------FUNCION QUE USA EL REPRESENTANTE PARA REGISTRAR UN PAGO------------------------------------------------------------------>  
         private function registrarr1(){
-
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -235,11 +232,10 @@ class pagos extends datos{
                 try{
 
                     $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador,concepto, forma, fecha, monto, meses,estado, estado_pagos, estatus)
-                                                 VALUES(:id_deudasr,:identificadorr,:conceptor, :formar, :fechar, :montor, :mesesr, :estador,:estado_pagosr,:estatusr )");
+                                     VALUES(:id_deudasr,:identificadorr,:conceptor, :formar, :fechar, :montor, :mesesr, :estador,:estado_pagosr,:estatusr )");
     
                     $estado_pagos=1;
-                    $estatus=1;
-                    	
+                    $estatus=1;                    	
                     $r->bindParam(':id_deudasr',$this->id_deudas);	
                     $r->bindParam(':identificadorr',$this->identificador);	
                     $r->bindParam(':conceptor',$this->concepto);
@@ -252,26 +248,26 @@ class pagos extends datos{
                     $r->bindParam(':estatusr',$estatus);	
                     $r->execute();
                 
-    
+//<!-----------------------------SE EJECUTA SI CONCEPTO ES MENSUALIDAD----------------------------------------------------------------------------------------------------------------------->      
                     $r= $co->prepare("UPDATE deudas d SET d.fecha = DATE_ADD(d.fecha, INTERVAL :mesesr MONTH) WHERE d.id = :id_deudasr AND :conceptor = 'mensualidad'");
                     $r->bindParam(':mesesr',$this->meses);	
                     $r->bindParam(':id_deudasr',$this->id_deudas);
                     $r->bindParam(':conceptor',$this->concepto);	 
                     $r->execute();
-    
-                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudasr AND :conceptor = 'inscripcion' ");                 
-                    $r->bindParam(':id_deudasr',$this->id_deudas);	
-                    $r->bindParam(':conceptor',$this->concepto);	                
-                    $r->execute();
-       
+
                     $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudasr AND d.fecha >= CURRENT_DATE() AND :conceptor = 'mensualidad'");                     
                     $r->bindParam(':id_deudasr',$this->id_deudas);	
                     $r->bindParam(':conceptor',$this->concepto);	                    
-                    $r->execute();
+                    $r->execute();   
 
-    
+//<!-----------------------------SE EJECUTA SI CONCEPTO ES INSCRIPCION----------------------------------------------------------------------------------------------------------------------->       
+                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudasr AND :conceptor = 'inscripcion' ");                 
+                    $r->bindParam(':id_deudasr',$this->id_deudas);	
+                    $r->bindParam(':conceptor',$this->concepto);	                
+                    $r->execute(); 
+   
                     $this->bitacora("se registro un pago", "docentes",$this->nivel);
-                    return "Registro incluido";	
+                    return "EL PAGO FUE REGISTRADO CON EXITO";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -279,11 +275,13 @@ class pagos extends datos{
                     
                 }
                 else{
-                    return "cedula registrada";
+                    return "EL PAGO YA SE ENCUENTRA REGISTRADO";
                 }
 
             }
-//<!---------------------------------fin funcion consultar------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -297,7 +295,10 @@ class pagos extends datos{
 
 
 
-//<!---------------------------------funcion modificar------------------------------------------------------------------>
+
+
+
+//<!---------------------------------FUNCION QUE SE USA PARA MODIFICAR LOS REGISTROS------------------------------------------------------------------>
 private function modificar1(){
 
 
@@ -307,7 +308,6 @@ private function modificar1(){
         try{
             $r= $co->prepare("UPDATE pagos SET 
                     
-
                 id_deudas=:id_deudas,
                 identificador=:identificador,
                 concepto=:concepto,
@@ -344,13 +344,15 @@ private function modificar1(){
             
         }
         else{
-            return "cedula no registrada";
+            return "Pago no registrado";
         }
 
 
     }
 
-//<!---------------------------------fin de funcion modificar------------------------------------------------------------------>  
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -368,17 +370,7 @@ private function modificar1(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-//<!---------------------------------funcion consultar------------------------------------------------------------------>          
+//<!---------------------------------FUNCION CONSULTAR DT ADMIN------------------------------------------------------------------>          
 public function consultar($nivel1){
     $co = $this->conecta();		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -425,26 +417,37 @@ public function consultar($nivel1){
 			return false;
 		}
 }
-//<!---------------------------------fin funcion consultar------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
 
 
-//<!---------------------------------funcion consultar hijos de tutres------------------------------------------------------------------>          
+
+
+
+
+
+
+
+
+
+
+
+//<!---------------------------------FUNCION CONSULTAR DT TURORES------------------------------------------------------------------>          
 public function consultart($var){
     $co = $this->conecta();		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{		
-            
-            
-
+                      
             $resultado1 = $co->prepare("SELECT usuarios_tutor.id_tutor FROM usuarios_tutor WHERE usuarios_tutor.id_usuarios = $var");
             $resultado1->execute();
             $var="";
             foreach($resultado1 as $r){
               $var=$r["id_tutor"];     
-          }
+            }
 
 			$resultado = $co->prepare("SELECT p.*, e.nombre, e.cedula 
             FROM pagos p 
@@ -478,7 +481,9 @@ public function consultart($var){
 			return false;
 		}
 }
-//<!---------------------------------fin funcion consultar hijos de tutores------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -494,25 +499,7 @@ public function consultart($var){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//<!---------------------------------fin funcion consultar------------------------------------------------------------------>
+//<!---------------------------------FUNCION CONSULTAR SELECT ADMIN------------------------------------------------------------------>
 public function consultar2(){
     $co = $this->conecta();
 		
@@ -536,16 +523,12 @@ public function consultar2(){
                 $respuesta=$respuesta."<th>".$r['fecha']."</th>";
                 $respuesta=$respuesta."<th>".$r['estado']."</th>";
                 $respuesta=$respuesta."<th>".$r['estado_deudas']."</th>";
-               
-
-               
-             $respuesta= $respuesta.'</tr>';
+                $respuesta= $respuesta.'</tr>';
 
             }
 
             $fila= array($respuesta,$respuesta2);
-
-           
+          
             return $fila;
 			
 		}catch(Exception $e){
@@ -553,7 +536,9 @@ public function consultar2(){
 			return false;
 		}
 }
-//<!---------------------------------fin funcion consultar------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -562,7 +547,16 @@ public function consultar2(){
 
 
 
-//<!---------------------------------fin funcion consultar- representantes----------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+//<!---------------------------------fUNCION CONSULTAR SELECT TUTORES----------------------------------------------------------------->
 public function consultarr($var){
     $co = $this->conecta();
 		
@@ -578,14 +572,14 @@ public function consultarr($var){
 
     }
       $resultado = $co->prepare("SELECT d.* from deudas d                    
-      INNER JOIN estudiantes e    
-         ON d.id_estudiante = e.cedula       
-         INNER JOIN estudiantes_tutor et       
-              ON e.cedula = et.id_estudiantes       
-                   WHERE d.estado_deudas = 1 AND et.id_tutor = $var");
+        INNER JOIN estudiantes e    
+        ON d.id_estudiante = e.cedula       
+        INNER JOIN estudiantes_tutor et       
+        ON e.cedula = et.id_estudiantes       
+        WHERE d.estado_deudas = 1 AND et.id_tutor = $var");
 
 
-			$resultado->execute();
+		$resultado->execute();
            $respuesta="";
            $respuesta2="";
            $respuesta2 =$respuesta2.'<option value="seleccionar" selected hidden>-Seleccionar-</option>';
@@ -605,8 +599,7 @@ public function consultarr($var){
             }
 
             $fila= array($respuesta,$respuesta2);
-
-           
+     
             return $fila;
 			
 		}catch(Exception $e){
@@ -614,6 +607,9 @@ public function consultarr($var){
 			return false;
 		}
 }
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -637,14 +633,13 @@ public function consultarr($var){
 
 
 
-
-//<!----------------------------------------------existe------------------------------------------------------------------>
+//<!----------------------------------------------FUNCION EXISTE ------------------------------------------------------------------>
     private function existe($id){		
 		$co = $this->conecta();		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		try{
-			$resultado = $co->prepare("Select * from pagos where id=:id");			
+			$resultado = $co->prepare("Select * from pagos where id=:id and estatus = '1'");			
 			$resultado->bindParam(':id',$id);
 			$resultado->execute();
 			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
@@ -658,7 +653,9 @@ public function consultarr($var){
 			return false;
 		}
 	}
-//<!----------------------------------------------existe------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -675,13 +672,14 @@ public function consultarr($var){
 
 
 
-//<!---------------------------------funcion eliminar------------------------------------------------------------------>
+
+
+//<!---------------------------------FUNCION ELIMINAR ------------------------------------------------------------------>
 private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe($this->id)){
     
-
         try {
                 $r=$co->prepare("UPDATE pagos SET estatus = 0 , estado = 'ELIMINADO' WHERE id=:id");
                 $r->bindParam(':id',$this->id);
@@ -691,7 +689,6 @@ private function eliminar1(){
                 $r->bindParam(':id',$this->id);
                 $r->execute();*/
                       
-
                 $this->bitacora("se elimino un pago", "docentes",$this->nivel);
                 return "Registro Eliminado";
                 
@@ -700,18 +697,34 @@ private function eliminar1(){
             return $e->getMessage();
         }
         
-    
-
     }
     else{
-        return "ID no registrada";
+        return "Pago no registrado";
     }
 }
-//<!---------------------------------Fin de funcion eliminar------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
-//<!---------------------------------funcion eliminar------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//<!---------------------------------FUNCION DESHACER PAGO------------------------------------------------------------------>
 private function eliminar2(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -742,10 +755,12 @@ private function eliminar2(){
 
     }
     else{
-        return "ID no registrada";
+        return "Pago no registrado";
     }
 }
-//<!---------------------------------Fin de funcion eliminar------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -762,7 +777,11 @@ private function eliminar2(){
 
 
 
-//<!----------------------------------------------bitacora------------------------------------------------------------------>
+
+
+
+
+//<!----------------------------------------------FUNCION BITACORA----------------------------------------------------------------->
 private function bitacora($accion, $modulo,$id){
     try {
         $co = $this->conecta();
@@ -778,6 +797,8 @@ private function bitacora($accion, $modulo,$id){
         }
     
 }
-//<!----------------------------------------------bitacora------------------------------------------------------------------>
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
     }
 ?>

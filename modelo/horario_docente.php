@@ -12,6 +12,7 @@ class horario extends datos
     private $dia;
     private $clase_inicia;
     private $clase_termina;
+    private $ano_academico;
     private $inicio;
     private $fin;
     private $nivel;
@@ -105,6 +106,15 @@ class horario extends datos
             return false;
         }
     }
+    public function set_ano_academico($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+		    $this->ano_academico = $valor;  
+            // $this->s;
+            return true;
+            }else{
+                return false;
+            }
+	}
 
     public function registrar()
     {
@@ -175,7 +185,26 @@ class horario extends datos
                 return "Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
             }
 
-
+            $resultado2 = $co->prepare("SELECT * from  ano_academico");
+			
+    
+    
+                    $resultado2->execute();
+                    $respuesta2="";
+                    $fecha_ini="";
+                    $fecha_cierr="";
+        
+                    foreach($resultado2 as $r){
+                       
+                        $respuesta2=$r["id"];
+                        $fecha_ini=$r["fecha_ini"];
+                        $fecha_cierr=$r["fecha_cierr"];
+                    }
+                  
+                  
+                  
+    
+            
 
 
 
@@ -209,13 +238,22 @@ class horario extends datos
             $r->bindParam(':clase_inicia', $this->clase_inicia);
             $r->bindParam(':clase_termina', $this->clase_termina);
             $r->bindParam(':dia', $this->dia);
-            $r->bindParam(':inicio', $this->inicio);
-            $r->bindParam(':fin', $this->fin);
+            $r->bindParam(':inicio', $fecha_ini);
+            $r->bindParam(':fin', $fecha_cierr);
             $r->bindParam(':id_ano_seccion', $this->ano);
             $r->bindParam(':estado', $estado);
 
+             // Validar que clase_inicio no sea mayor a clase_termina
+    if ($this->clase_inicia > $this->clase_termina) {
+        throw new Exception("La hora de inicio no puede ser mayor a la hora de término");
+    }
 
+    // Validar que clase_termina no sea menor a clase_inicio
+    if ($this->clase_termina < $this->clase_inicia) {
+        throw new Exception("La hora de término no puede ser menor a la hora de inicio");
+    }
 
+   
 
             $r->execute();
 
@@ -262,6 +300,26 @@ class horario extends datos
             $r->execute();
 
 
+            
+
+
+
+            $r= $co->prepare("Insert into horario_ano(
+						
+                id_ano,
+                id_horario
+                )
+        
+
+                Values(
+                :id_ano,
+                :id_horario
+                
+                
+                )");
+            $r->bindParam(':id_ano', $respuesta2);	
+            $r->bindParam(':id_horario',$lid);	
+            $r->execute();
 
 
 
@@ -330,8 +388,6 @@ class horario extends datos
              clase_inicia=:clase_inicia,
              clase_termina=:clase_termina,
              dia=:dia,
-             inicio=:inicio,
-             fin=:fin,
              id_ano_seccion=:id_ano_seccion
             
              WHERE 
@@ -345,10 +401,20 @@ class horario extends datos
                 $r->bindParam(':clase_termina', $this->clase_termina);
                 $r->bindParam(':id_ano_seccion', $this->ano);
                 $r->bindParam(':dia', $this->dia);
-                $r->bindParam(':inicio', $this->inicio);
-                $r->bindParam(':fin', $this->fin);
+               
 
 
+             // Validar que clase_inicio no sea mayor a clase_termina
+             if ($this->clase_inicia > $this->clase_termina) {
+                throw new Exception("La hora de inicio no puede ser mayor a la hora de término");
+            }
+        
+            // Validar que clase_termina no sea menor a clase_inicio
+            if ($this->clase_termina < $this->clase_inicia) {
+                throw new Exception("La hora de término no puede ser menor a la hora de inicio");
+            }
+            
+           
 
 
                 $r->execute();
@@ -399,7 +465,7 @@ class horario extends datos
 
 
             $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,'-', docentes.cedula) as cedula,
-            concat(años.anos,'-',secciones.secciones) as seccion, case
+            concat(años.anos,'-',secciones.secciones) as seccion, ano_academico.ano_academico as ano , case
          when dia = 1 then 'Lunes'
          when dia = 2 then 'Martes'
           when dia = 3 then 'Miercoles'
@@ -430,7 +496,10 @@ class horario extends datos
          INNER JOIN secciones 
          on secciones_años.id_secciones=secciones.id 
             
-            
+            INNER JOIN horario_ano
+            ON horario_docente.id = horario_ano.id_horario
+            INNER JOIN ano_academico
+            ON horario_ano.id_ano = ano_academico.id
             
 
             WHERE horario_docente.estado = 1
@@ -445,11 +514,11 @@ class horario extends datos
                 $respuesta = $respuesta . "<th>" . $r['clase'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['cedula'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['seccion'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['dia'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['dia2'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['clase_inicia'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['clase_termina'] . "</th>";
-                $respuesta = $respuesta . "<th>" . $r['inicio'] . "</th>";
-                $respuesta = $respuesta . "<th>" . $r['fin'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['ano'] . "</th>";
                 $respuesta = $respuesta . '<th>';
                 if (in_array("modificar horario_docente", $nivel1)) {
 
@@ -580,6 +649,10 @@ class horario extends datos
             return false;
         }
     }
+
+
+
+   
 
 
 

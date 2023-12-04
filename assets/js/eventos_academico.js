@@ -38,14 +38,14 @@ $(document).ready(function() {
 /*validaciones para registrar*/
 
 
-    $("#ano_academico").on("keypress", function(e) {
-        validarkeypress(/^[0-9\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
+    $("#evento").on("keypress", function(e) {
+        validarkeypress(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
 
     });
 
-    $("#ano_academico").on("keyup", function() {
-        validarkeyup(/^[0-9]{4}[\.-]{1}[0-9]{4}$/,
-            $(this), $("#sano_academico"), "Los años debe ser solamente numeros");
+    $("#evento").on("keyup", function() {
+        validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+            $(this), $("#sevento"), "Los Lapsos debe ser solamente letras");
     });
     
 /*aqui termina registrar*/
@@ -66,13 +66,14 @@ $(document).ready(function() {
 
 /*validaciones para editar*/
 
-$("#ano_academico1").on("keypress", function(e) {
-    validarkeypress(/^[0-9\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
+$("#evento1").on("keypress", function(e) {
+        validarkeypress(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
+
 });
 
-$("#ano academico1").on("keyup", function() {
-     validarkeyup(/^[0-9]{4}[\.-]{1}[0-9]{4}$/,
-        $(this), $("#sano_academico1"), "Los años debe ser solamente numeros");
+$("#evento1").on("keyup", function() {
+        validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+            $(this), $("#sevento1"), "Los eventos debe ser solamente Letras");
 });
 
 /*aqui termina editar*/    
@@ -95,7 +96,7 @@ $("#ano academico1").on("keyup", function() {
                 $("#id1").val($(this).find("th:eq(0)").text());
                 $("#fecha_ini1").val($(this).find("th:eq(1)").text());
                 $("#fecha_cierr1").val($(this).find("th:eq(2)").text());
-                $("#ano_academico1").val($(this).find("th:eq(3)").text());
+                $("#evento1").val($(this).find("th:eq(3)").text());
                
                 
 
@@ -253,12 +254,12 @@ $("#ano academico1").on("keyup", function() {
     }else if (valcierr($('#fecha_cierr').val(),$("#sfecha_cierr")) == 0) {
         mensaje("<p>Debe de seleccionar una fecha</p>");
         return false;
-    }else if (validarkeyup(/^[0-9]{4}[\.-]{1}[0-9]{4}$/,
-        $("#ano_academico"), $("#sano_academico"), "Los años debe ser solamente numeros") == 0) {
-        mensaje("<p>Solo numeros 0-9 en el formato 0000-0000</p>");
+    }else if (validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+        $("#evento"), $("#sevento"), "Los lapsos debe ser solamente letras") == 0) {
+        mensaje("<p>Solo letras de la A a la Z</p>");
         return false;
     
-        }
+    }
 
     return true; 
     }
@@ -280,9 +281,9 @@ $("#ano academico1").on("keyup", function() {
     }else if (valcierr($('#fecha_cierr1').val(),$("#sfecha_cierr1")) == 0) {
         mensaje("<p>Debe de seleccionar una fecha</p>");
         return false;
-    }else if (validarkeyup(/^[0-9]{4}[\.-]{1}[0-9]{4}$/,
-        $("#ano_academico1"), $("#sano_academico1"), "Los años debe ser solamente numeros") == 0) {
-        mensaje("<p>Solo numeros 0-9 en el formato 0000-0000</p>");
+    }else if (validarkeyup(/^[0-9A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+        $("#evento1"), $("#sevento1"), "Los lapsos debe ser solamente letras") == 0) {
+        mensaje("<p>Solo letras de la A a la Z</p>");
         return false;
     
     }
@@ -334,8 +335,8 @@ function valcierr(fecha_cierr,sfecha_cierr) {
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
-const input1 = document.getElementById("ano_academico");
-const input2 = document.getElementById("ano_academico1");
+const input1 = document.getElementById("evento");
+const input2 = document.getElementById("evento1");
 
 
 // Función para limitar la longitud del valor
@@ -345,14 +346,13 @@ const limitarLongitud = (input, maxLength) => {
   }
 };
 
-  
 input1.addEventListener("input", () => {
-    const maxLength = 9; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input1, maxLength);
+  const maxLength = 25; // Cambia este valor al límite máximo deseado
+  limitarLongitud(input1, maxLength);
 });
-    
+  
 input2.addEventListener("input", () => {
-    const maxLength = 9; // Cambia este valor al límite máximo deseado
+    const maxLength = 25; // Cambia este valor al límite máximo deseado
     limitarLongitud(input2, maxLength);
 });
 

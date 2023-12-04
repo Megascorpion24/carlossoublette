@@ -168,7 +168,7 @@ $(document).ready(function() {
     });
 
     $("#correo").on("keyup", function() {
-        validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,20}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
             $(this), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari@servidor.dominio");
     });
 
@@ -345,10 +345,12 @@ function modificar(id){
   
                 },
                 
+                
                 success: function(respuesta) {
-                 //$("#cedula").val(respuesta);
+                    alert(respuesta);   
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
+                 window.location.reload();
         
                    
                 },

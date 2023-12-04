@@ -66,14 +66,9 @@ $(document).ready(function() {
       });
  
       
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-       ///  $('#mibuscador2').select2({
-       ///      dropdownParent: $('#addpagorepre')
-       ///  });
-        /// $('#mibuscador').select2({
-        ///     dropdownParent: $('#addpago')
-        /// });
+
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
@@ -144,11 +139,11 @@ $('#mibuscador2').select2({
     });
 
     $("#identificador").on("keypress", function(e) {
-        validarkeypress(/^[0-9\u002E\b]*$/, e);
+        validarkeypress(/^[0-9-\u002E\b]*$/, e);
     });
 
     $("#identificador").on("keyup", function() {
-        validarkeyup(/^[0-9]{4,10}$/,
+        validarkeyup(/^[0-9-]{4,11}$/,
             $(this), $("#sidentificador"), "El formato puede ser 0000");
     });
 
@@ -162,11 +157,11 @@ $('#mibuscador2').select2({
     });
 
     $("#forma").on("keypress", function(e) {
-        validarkeypress(/^[A-Z a-z\s]$/, e);
+        validarkeypress(/^[-A-Z a-z\s]$/, e);
     });
 
     $("#forma").on("keyup", function() {
-        validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        validarkeyup(/^[-A-Za-z\s]{4,25}$/,
             $(this), $("#sforma"), "");
     });
 
@@ -179,11 +174,11 @@ $('#mibuscador2').select2({
             $(this), $("#sestado"), "El formato puede ser valido");
     });
     $("#monto").on("keypress", function(e) {
-        validarkeypress(/^[0-9]$/, e);
+        validarkeypress(/^[0-9-]$/, e);
     });
 
     $("#monto").on("keyup", function() {
-        validarkeyup(/^[0-9]{2,10}$/,
+        validarkeyup(/^[0-9-]{2,11}$/,
             $(this), $("#smonto"), "El formato puede ser valido");
     });
     $("#meses").on("keypress", function(e) {
@@ -229,7 +224,7 @@ $("#identificadorr").on("keypress", function(e) {
 });
 
 $("#identificadorr").on("keyup", function() {
-    validarkeyup(/^[0-9]{4,10}$/,
+    validarkeyup(/^[0-9]{4,11}$/,
         $(this), $("#sidentificadorr"), "El formato puede ser 0000");
 });
 $("#conceptor").on("keypress", function(e) {
@@ -242,11 +237,11 @@ $("#conceptor").on("keyup", function() {
 });
 
 $("#formar").on("keypress", function(e) {
-    validarkeypress(/^[A-Za-z\s]$/, e);
+    validarkeypress(/^[-A-Za-z\s]$/, e);
 });
 
 $("#formar").on("keyup", function() {
-    validarkeyup(/^[A-Za-z\s]{4,20}$/,
+    validarkeyup(/^[-A-Za-z\s]{4,25}$/,
         $(this), $("#sformar"), "");
 });
 
@@ -264,7 +259,7 @@ $("#montor").on("keypress", function(e) {
 });
 
 $("#montor").on("keyup", function() {
-    validarkeyup(/^[0-9]{2,10}$/,
+    validarkeyup(/^[0-9]{2,11}$/,
         $(this), $("#smontor"), "El formato puede ser valido");
 });
 $("#mesesr").on("keypress", function(e) {
@@ -305,11 +300,11 @@ $("#id_deudasM").on("keyup", function() {
 });
 
 $("#identificadorM").on("keypress", function(e) {
-    validarkeypress(/^[0-9]*$/, e);
+    validarkeypress(/^[0-9-]*$/, e);
 });
 
 $("#identificadorM").on("keyup", function() {
-    validarkeyup(/^[0-9]{4,10}$/,
+    validarkeyup(/^[0-9-]{4,11}$/,
         $(this), $("#sidentificadorM"), "El formato puede ser 0000.00");
 });
 $("#conceptoM").on("keypress", function(e) {
@@ -322,16 +317,16 @@ $("#conceptoM").on("keyup", function() {
 });
 
 $("#formaM").on("keypress", function(e) {
-    validarkeypress(/^[A-Za-z\s]$/, e);
+    validarkeypress(/^[-A-Za-z\s]$/, e);
 });
 
 $("#formaM").on("keyup", function() {
-    validarkeyup(/^[A-Za-z\s]{4,20}$/,
+    validarkeyup(/^[-A-Za-z\s]{4,25}$/,
         $(this), $("#sformaM"), "");
 });
 
 $("#estadoM").on("keypress", function(e) {
-    validarkeypress(/^[A-Z a-z\s]$/, e);
+    validarkeypress(/^[A-Za-z\s]$/, e);
 });
 
 $("#estadoM").on("keyup", function() {
@@ -339,11 +334,11 @@ $("#estadoM").on("keyup", function() {
         $(this), $("#sestadoM"), "El formato puede ser valido");
 });
 $("#montosM").on("keypress", function(e) {
-    validarkeypress(/^[0-9]$/, e);
+    validarkeypress(/^[0-9-]$/, e);
 });
 
 $("#montoM").on("keyup", function() {
-    validarkeyup(/^[0-9]{2,10}$/,
+    validarkeyup(/^[0-9-]{2,11}$/,
         $(this), $("#smontoM"), "El formato puede ser valido");
 });
 
@@ -520,7 +515,7 @@ function enviaAjax(datos){
                 if (status == "timeout") {
                     mensaje("Servidor ocupado, intente de nuevo");
                 } else {
-                    /*mensaje("ERROR: <br/>" + request + status + err);*/
+                    mensaje("ERROR: <br/>" + request + status + err);
                 }
             },
             complete: function(){               
@@ -543,7 +538,7 @@ function enviaAjax2(datos){
                 if (status == "timeout") {
                     mensaje("Servidor ocupado, intente de nuevo");
                 } else {
-                    /*mensaje("ERROR: <br/>" + request + status + err);*/
+                    mensaje("ERROR: <br/>" + request + status + err);
                 }
             },
             complete: function(){    
@@ -603,12 +598,12 @@ function validarkeypress(er, e) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
     
-        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        } else if (validarkeyup(/^[0-9-]{2,11}$/,
         $("#monto"), $("#smonto"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{4,10}$/,
+        } else if (validarkeyup(/^[0-9-]{4,11}$/,
         $("#identificador"), $("#sidentificador"), "El formato puede ser 0000") == 0) {
             mensaje("El formato puede ser 0000");
             return false;
@@ -618,7 +613,7 @@ function validarkeypress(er, e) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        } else if (validarkeyup(/^[-A-Za-z\s]{4,25}$/,
         $("#forma"), $("#sforma"), "El formato debe ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
@@ -659,17 +654,17 @@ function validarkeypress(er, e) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        } else if (validarkeyup(/^[-A-Za-z\s]{4,25}$/,
         $("#formar"), $("#sformar"), "El formato debe ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        } else if (validarkeyup(/^[0-9-]{2,11}$/,
         $("#montor"), $("#smontor"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
             
-        } else if (validarkeyup(/^[0-9]{4,10}$/,
+        } else if (validarkeyup(/^[0-9-]{4,11}$/,
         $("#identificadorr"), $("#sidentificadorr"), "El formato puede ser 0000") == 0) {
             mensaje("El formato puede ser 0000");
             return false;
@@ -703,12 +698,12 @@ function validarkeypress(er, e) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
     
-        } else if (validarkeyup(/^[0-9]{2,10}$/,
+        } else if (validarkeyup(/^[0-9-]{2,11}$/,
         $("#montoM"), $("#smontoM"), "El formato puede ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9]{4,10}$/,
+        } else if (validarkeyup(/^[0-9-]{4,11}$/,
         $("#identificadorM"), $("#sidentificadorM"), "El formato puede ser 0000.00") == 0) {
             mensaje("El formato puede ser 0000");
             return false;
@@ -718,7 +713,7 @@ function validarkeypress(er, e) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+        } else if (validarkeyup(/^[-A-Za-z\s]{4,25}$/,
         $("#formaM"), $("#sformaM"), "El formato debe ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
@@ -759,12 +754,12 @@ const limitarLongitud = (input, maxLength) => {
 };
 
 input1.addEventListener("input", () => {
-  const maxLength = 10; // Cambia este valor al límite máximo deseado
+  const maxLength = 11; // Cambia este valor al límite máximo deseado
   limitarLongitud(input1, maxLength);
 });
   
 input2.addEventListener("input", () => {
-    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input2, maxLength);
 });
 input3.addEventListener("input", () => {
@@ -773,12 +768,12 @@ input3.addEventListener("input", () => {
   });
     
 input4.addEventListener("input", () => {
-    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input4, maxLength);
 });
 
 input5.addEventListener("input", () => {
-    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input5, maxLength);
   });
 
@@ -788,12 +783,12 @@ input5.addEventListener("input", () => {
   });
 
   input7.addEventListener("input", () => {
-    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input7, maxLength);
   });
 
   input8.addEventListener("input", () => {
-    const maxLength = 10; // Cambia este valor al límite máximo deseado
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input8, maxLength);
   });
 
@@ -810,8 +805,6 @@ input5.addEventListener("input", () => {
 
 
  
-
-
 
 
 

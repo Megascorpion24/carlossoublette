@@ -91,11 +91,12 @@ $(document).ready(function() {
         
             if(id == $(this).find("th:eq(0)").text()){
                 $("#id").val($(this).find("th:eq(0)").text());
+                $("#ano1").val($(this).find("th:eq(3)").text());
                 $("#dia1").val($(this).find("th:eq(4)").text());
-                $("#clase_inicia1").val($(this).find("th:eq(5)").text());
-                $("#clase_termina1").val($(this).find("th:eq(6)").text());
-                $("#inicio1").val($(this).find("th:eq(7)").text());
-                $("#fin1").val($(this).find("th:eq(8)").text());
+                $("#clase_inicia1").val($(this).find("th:eq(6)").text());
+                $("#clase_termina1").val($(this).find("th:eq(7)").text());
+                $("#inicio1").val($(this).find("th:eq(8)").text());
+                $("#fin1").val($(this).find("th:eq(9)").text());
                 
                
                 

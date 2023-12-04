@@ -1,12 +1,13 @@
 <?php
 
 require_once('modelo/conexion.php');
-class ano_academico extends datos{
+class eventos extends datos{
 
 
     private $id;
 	private $fecha_ini;
     private $fecha_cierr;
+    private $evento;
     private $ano_academico;
     private $nivel;
     private $estado;
@@ -37,18 +38,34 @@ class ano_academico extends datos{
         return false;
     }
 	}
-	public function set_ano_academico($valor){
-        if (preg_match("/^\d{4}-\d{4}$/",$valor )) {
-		$this->ano_academico = $valor; 
+    public function set_evento($valor){
+        if (preg_match("/^[a-zA-Z\s]+$/",$valor )) {
+        $this->evento = $valor; 
         return true;
     }else{
         return false;
     }
-	}
+    }
+    public function set_ano_academico($valor){
+        if (preg_match("/^[0-9]{1,4}$/",$valor )) {
+        $this->ano_academico = $valor; 
+        return true;
+    }else{
+        return false;
+    }
+    return true;
+    }
+
 
     public function set_estado($valor){
         $this->estado = $valor; 
     }
+
+    public function set_nivel($valor)
+    {
+        $this->nivel = $valor;
+    }
+
 
 
     public function registrar()
@@ -69,10 +86,7 @@ class ano_academico extends datos{
         echo $val;
     }
 
-    public function set_nivel($valor)
-    {
-        $this->nivel = $valor;
-    }
+    
 	
    
 
@@ -91,19 +105,19 @@ class ano_academico extends datos{
 
                 $estado = 1;
 
-                $r= $co->prepare("Insert into ano_academico(
+                $r= $co->prepare("Insert into eventos(
 						
                             id,
                             fecha_ini,
                             fecha_cierr,
-                            ano_academico,
+                            evento,
                             estado
                             )
             
                     Values( :id,
                             :fecha_ini,
                             :fecha_cierr,
-                            :ano_academico,
+                            :evento,
                             :estado
                     )"
                 );
@@ -111,13 +125,36 @@ class ano_academico extends datos{
                 $r->bindParam(':id',$this->id);	
                 $r->bindParam(':fecha_ini',$this->fecha_ini);
                 $r->bindParam(':fecha_cierr',$this->fecha_cierr);
-                $r->bindParam(':ano_academico',$this->ano_academico);
+                $r->bindParam(':evento',$this->evento);
                 $r->bindParam(':estado', $estado);
             
              
                 $r->execute();
 
-                $this->bitacora("se registro un año academico", "ano_academico", $this->nivel);
+                $lid = $co->lastInsertId();
+
+                $r= $co->prepare("Insert into eventos_ano(
+
+                    id_evento,
+                    id_anos
+                    
+                    )
+            
+
+                    Values(
+
+                    :id_evento,
+                    :id_anos
+                    
+                    
+                    )");
+   
+                $r->bindParam(':id_evento',$lid);
+                $r->bindParam(':id_anos',$this->ano_academico);  
+                $r->execute();
+
+
+                $this->bitacora("se registro un evento", "eventos", $this->nivel);
 
              
                     return "Registro Incluido";	
@@ -127,21 +164,37 @@ class ano_academico extends datos{
             }
         }
             else{
-                return "Año Registrado";
+                return "Evento Registrado";
             }
   }
 
  //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
+
+
+public function ano_academico(){
+    $co = $this->conecta();
+    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try{
+        $resultado = $co->prepare("SELECT * FROM ano_academico WHERE estado = 1 ");
+        $resultado->execute();
+        $respuesta2 = '';
+
+        foreach($resultado as $r){
+            
+            $respuesta2 .= '<input type="text" class="form-control" name="ano_academico" style="display: none;" id="ano_academico" value="'.$r['id'].'">';
+            $respuesta2 .= '<p class="p-1 mb-2 border border-secondary text-secondary rounded">'.$r['ano_academico']."</p>";
+           
+
+        }
+
+        return $respuesta2;
+    } catch(Exception $e){
+        return false;
+    }
+}
         
 
 
-
-
-
-
-
-
- 
 
 
 
@@ -156,12 +209,12 @@ class ano_academico extends datos{
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if($this->existe($this->id)){
                 try{
-                    $r= $co->prepare("Update ano_academico set 
+                    $r= $co->prepare("Update eventos set 
                             
                        
                         fecha_ini=:fecha_ini,
                         fecha_cierr=:fecha_cierr,
-                        ano_academico=:ano_academico
+                        evento=:evento
                         where
 						id =:id
                         
@@ -173,12 +226,12 @@ class ano_academico extends datos{
                     $r->bindParam(':id',$this->id);	
                     $r->bindParam(':fecha_ini',$this->fecha_ini);	
                     $r->bindParam(':fecha_cierr',$this->fecha_cierr);
-                    $r->bindParam(':ano_academico',$this->ano_academico); 
+                    $r->bindParam(':evento',$this->evento);
                 
                  
                     $r->execute();
 
-                    $this->bitacora("se modifico un año academico", "ano_academico", $this->nivel);
+                    $this->bitacora("se modifico un evento", "eventos", $this->nivel);
     
                  
                         return "Registro modificado";	
@@ -189,7 +242,7 @@ class ano_academico extends datos{
                     
                 }
                 else{
-                    return "Año no registrado";
+                    return "Evento no registrado";
                 }
         
 
@@ -226,11 +279,11 @@ public function consultar($nivel1){
         try{
             
             
-            $resultado = $co->prepare("SELECT * from ano_academico 
+            $resultado = $co->prepare("SELECT * from eventos 
 
-            WHERE ano_academico.estado = 1
+            WHERE eventos.estado = 1
 
-            ORDER BY `ano_academico`.`id` ASC ");
+            ORDER BY `eventos`.`id` ASC ");
 
             $resultado->execute();
            $respuesta="";
@@ -240,7 +293,7 @@ public function consultar($nivel1){
                 $respuesta=$respuesta."<th>".$r['id']."</th>";
                 $respuesta=$respuesta."<th>".$r['fecha_ini']."</th>";
                 $respuesta=$respuesta."<th>".$r['fecha_cierr']."</th>";
-                $respuesta=$respuesta."<th>".$r['ano_academico']."</th>";
+                $respuesta=$respuesta."<th>".$r['evento']."</th>";
                 $respuesta=$respuesta.'<th>';
 
                 if (in_array("modificar ano_academico", $nivel1)) {
@@ -299,7 +352,7 @@ public function eventos(){
         try{
             
             
-            $resultado = $co->prepare("Select * from ano_academico");
+            $resultado = $co->prepare("Select * from eventos");
             $resultado->execute();
             
             $evento=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -343,7 +396,7 @@ public function eventos(){
 		try{
 			
 			
-			$resultado = $co->prepare("Select * from ano_academico where id=:id");
+			$resultado = $co->prepare("Select * from eventos where id=:id");
 			
 			$resultado->bindParam(':id',$id);
 			$resultado->execute();
@@ -395,35 +448,11 @@ private function eliminar1(){
 
         try {
         
-                $r=$co->prepare("UPDATE ano_academico 
-
-                INNER JOIN ano_estudiantes 
-                ON  ano_estudiantes.id_ano  = ano_academico.id
-
-                INNER JOIN estudiantes 
-                ON ano_estudiantes.id_estudiantes = estudiantes.cedula 
-
-                INNER JOIN eventos_ano
-                ON eventos_ano.id_anos = ano_academico.id
-
-                INNER JOIN eventos 
-                ON eventos_ano.id_evento = eventos.id
-
-                INNER JOIN horario_ano
-                ON horario_ano.id_ano = ano_academico.id
-
-                INNER JOIN horario_docente
-                ON horario_ano.id_horario = horario_docente.id
-
-
-
-                SET ano_academico.estado = 0, estudiantes.estado = 0 , eventos.estado = 0, horario_docente.estado = 0
-                WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND eventos.estado = 1 AND horario_docente.estado = 1 ;");
-                
-
+                $r=$co->prepare("UPDATE `eventos` SET `estado`= 0 WHERE id=:id");
+                $r->bindParam(':id', $this->id);
                 $r->execute();
 
-                $this->bitacora("se elimino un año academico", "ano_academico", $this->nivel);
+                $this->bitacora("se elimino un evento", "eventos", $this->nivel);
                 return "Registro Eliminado";
 
                 return "Registro Eliminado";
@@ -436,7 +465,7 @@ private function eliminar1(){
 
     }
     else{
-        return "Año no registrado";
+        return "Evento no registrado";
     }
 }
 

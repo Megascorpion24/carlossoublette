@@ -10,35 +10,49 @@ require_once("modelo/".$pagina.".php");
 
 	if(is_file("vista/".$pagina.".php")){
 
-
 		if(empty($_SESSION)){
 			session_start();
 			}
   
-			  if(isset($_SESSION['usuario'])){
-			   $nivel = $_SESSION['usuario'];
+
+			if(isset($_SESSION['usuario'])){
+			    $nivel = $_SESSION['usuario'];
 			}
 			else{
 				$nivel = "";
 			}
 			
 	  
-				  if(isset($_SESSION['permisos'])){
-				   $nivel1 = $_SESSION['permisos'];
-			  
-				}
-				else{
-					$nivel1 = "";
-				}
+			if(isset($_SESSION['permisos'])){
+				$nivel1 = $_SESSION['permisos'];			  
+			}
+			else{
+				$nivel1 = "";
+			}
+
+
+
 
 
 		
 		$o = new pagos();
+
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+
+
+
+
+
+
+
+
+
 		if(!empty($_POST['accion'])){
 	
 			$valor=true;
-			$retorno="";
-	
+			$retorno="";	
 			$validacion[0]=$o->set_id_deudas($_POST['id_deudas']);
 			$dato[0]="error en la validacion del id_deudas";
 			$validacion[1]=$o->set_identificador($_POST['identificador']);
@@ -48,15 +62,14 @@ require_once("modelo/".$pagina.".php");
 			$validacion[3]=$o->set_forma($_POST['forma']);
 			$dato[3]="error en la validacion del forma";
 			$fecha_actual = date("Y-m-d");
-			$validacion[4]=$o->set_fecha($fecha_actual);		
+			$validacion[4]=$o->set_fecha($fecha_actual);		 
 			$dato[4]="error en la validacion del fecha";
 			$validacion[5]=$o->set_monto($_POST['monto']);
 			$dato[5]="error en la validacion del monto";
 			$validacion[6]=$o->set_meses($_POST['meses']);
 			$dato[6]="error en la validacion del meses";
 			$validacion[7]=$o->set_estado($_POST['estado']);
-			$dato[7]="error en la validacion del estado";
-			
+			$dato[7]="error en la validacion del estado";			
 			$o->set_nivel($nivel);
 
 			for ($i=0; $i <= 7 ; $i++) { 
@@ -64,7 +77,6 @@ require_once("modelo/".$pagina.".php");
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
 				}
-
 			}
 
 			if ($valor==true) {
@@ -72,20 +84,28 @@ require_once("modelo/".$pagina.".php");
 				echo $mensaje;
 			}else{
 				echo $retorno;
-			}
-			
+			}			
 			exit;	
-			
-			
-			
-		
-		  }
-		
+		}
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 		
+
+
+
+
+
+
+
+
+
+
+
 	
 		  if(!empty($_POST['accionr'])){
+
 			$valor=true;
-			$retorno="";
-		
+			$retorno="";		
 			$validacion[0]=$o->set_id_deudas($_POST['id_deudasr']);
 			$dato[0]="error en la validacion del id_deudasr";
 			$validacion[1]=$o->set_identificador($_POST['identificadorr']);
@@ -103,41 +123,42 @@ require_once("modelo/".$pagina.".php");
 			$dato[6]="error en la validacion del mesesr";
 			$validacion[7]=$o->set_estado($_POST['estador']);
 			$dato[7]="error en la validacion del id_deudasr";
-		
-
 			$o->set_nivel($nivel);
-
 			
 			for ($i=0; $i <= 7 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
 				}
-
 			}
-
 			if ($valor==true) {
 				$mensaje = $o->registrarr();
 				echo $mensaje;
 			}else{
 				echo $retorno;
-			}
-			
+			}			
 			exit;		
+		}
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
-		
-			}
+
+
+
+
+
+
+
 
 
 
 
 
 		  if(!empty($_POST['accion1'])){
-
 		
 			$valor=true;
-			$retorno="";
-	
+			$retorno="";	
 			$validacion[0]=$o->set_id_deudas($_POST['id_deudasM']);
 			$dato[0]="error en la validacion del id_deudasM";
 			$validacion[1]=$o->set_identificador($_POST['identificadorM']);
@@ -155,7 +176,7 @@ require_once("modelo/".$pagina.".php");
 			$validacion[7]=$o->set_estado($_POST['estadoM']);
 			$dato[7]="error en la validacion del estadoM";
 			$validacion[8]=$o->set_id($_POST['idM']);
-			$dato[8]="error en la validacion del idM";
+			$dato[8]="error en la validacion del idM";			
 			$o->set_nivel($nivel);
 
 			for ($i=0; $i <= 8 ; $i++) { 
@@ -170,11 +191,17 @@ require_once("modelo/".$pagina.".php");
 				echo $mensaje;
 			}else{
 				echo $retorno;
-			}
-			
+			}			
 			exit;			
-		  }
-		  
+		}
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 		  
+
+
+
+
+
 
 
 
@@ -182,9 +209,9 @@ require_once("modelo/".$pagina.".php");
 
 
 		  if(!empty($_POST['accion3'])){
+
 			$valor=true;
-			$retorno="";
-	
+			$retorno="";	
 			$validacion[0]=$o->set_id($_POST['idE']);	
 			$dato[0]="error en la validacion del idE";
 			
@@ -200,16 +227,27 @@ require_once("modelo/".$pagina.".php");
 				echo $mensaje;
 			}else{
 				echo $retorno;
-			}
-			
+			}			
 			exit;			
-		  }
+		}
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+
+
+
+
+
+
+
+
+
 
 
 		  if(!empty($_POST['accion4'])){
+
 			$valor=true;
-			$retorno="";
-	
+			$retorno="";	
 			$validacion[0]=$o->set_id($_POST['idE2']);	
 			$dato[0]="error en la validacion del idE2";
 			
@@ -217,8 +255,7 @@ require_once("modelo/".$pagina.".php");
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
-				}
-				
+				}				
 			}
 
 			if ($valor==true) {
@@ -226,11 +263,12 @@ require_once("modelo/".$pagina.".php");
 				echo $mensaje;
 			}else{
 				echo $retorno;
-			}
-			
+			}			
 			exit;			
-		  }
-
+		}
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -240,14 +278,12 @@ require_once("modelo/".$pagina.".php");
 		  if(!empty($_POST['consulta'])){
 	
 			if(isset($_SESSION['permisos'])){
-				$nivel1 = $_SESSION['permisos'];
-		   
+				$nivel1 = $_SESSION['permisos'];		   
 			 }
 			 else{
 				 $nivel1 = "";
 			 }
 			
-
 			$consuta=$o->consultar($nivel1);
 			echo $consuta;
 			exit;
@@ -270,6 +306,6 @@ require_once("modelo/".$pagina.".php");
 			require_once("vista/".$pagina.".php");
 	
 	
-		}
+	}
 	
-	?>
+?>
