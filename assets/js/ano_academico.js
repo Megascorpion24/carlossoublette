@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-
-
+     console.log(location.href);
 
 
 
@@ -138,6 +137,7 @@ $("#ano academico1").on("keyup", function() {
                  alert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
+                 window.location.reload();
                    
                 },
                 error: function(request, status, err){

@@ -199,9 +199,9 @@
 		
 		<div class="form-row">
 			<div class="form-group col-md-4">
-				<label>Inscripciones pagadas</label>
+				<label>representantes</label>
 			
-				<select name="mibuscador" id="mibuscador" onchange="añadir()">
+				<select name="mibuscador" id="mibuscador" onchange="añadir()" >
 				<?php
     				if(!empty($consuta1[1])){
         				echo $consuta1[1];
@@ -294,6 +294,8 @@
 				</select>
 </div>
 		</div>
+
+	
 		<hr>
 		<h6 class="modal-title">Datos del Estudiante: </h6>
 		<hr>
@@ -341,7 +343,7 @@
 			<input class="form-control" name="observacionese" id="observacionese" required>
 		</div>
 		</div>
-
+<div id="medico">
 		<hr>
 		<h6 class="modal-title">Ficha medica de: </h6>
 		<hr>
@@ -353,13 +355,41 @@
 		    <label>Tipo de sangre</label>
 			<br>
 			<span id="ssangre"></span>
-			<input type="text" class="form-control" name="sangre" id="sangre" required>
+			<input type="text" name="sangre" class="ocultar" id="sangre">
+			<select class="form-control" id="sanggre" >
+			<option value="seleccionar" selected hidden>-seleccionar-</option>
+				<option value="ab+">ab+</option>
+				<option value="ab-">ab-</option>
+				<option value="a+">a+</option>
+				<option value="a-">a-</option>
+				<option value="b+">b+</option>
+				<option value="b-">b-</option>
+				<option value="o+">o+</option>
+				<option value="o-">o-</option>
+
+			</select>
+			
 		</div>
 		<div class="form-group col-md-4">
 		    <label>Vacunas</label>
 			<br>
 			<span id="svacunas"></span>
-			<input type="text" class="form-control" name="vacunas" id="vacunas" required>
+			<input type="text" id="vacunas" class="ocultar" name="vacunas">
+			<select class="form-control"  id="mibuscador222" multiple onchange="prueba()">
+				
+			<option value="seleccionar" selected>seleccionar</option>
+				<option value="hepatitis b">hepatitis b</option>
+				<option value="BCG">BCG</option>
+				<option value="rotavirus">rotavirus</option>
+				<option value="pentavalente">pentavalente</option>
+				<option value="polio inactiva">polio inactiva</option>
+				<option value="polio oral">polio oral</option>
+				<option value="neumo 13 valente">neumo 13 valente</option>
+				<option value="influencia estacional">influencia estacional</option>
+				<option value="fiebre amarilla">fiebre amarilla</option>
+				<option value="srp">srp</option>
+			
+			</select>
 		</div>
 		<div class="form-group col-md-4">
 		    <label>Operaciones</label>
@@ -398,7 +428,7 @@
 			<input type="text" class="form-control" name="condicion" id="condicion" required>
 		</div>
 		</div>
-
+		</div>
 
 
 		</div>

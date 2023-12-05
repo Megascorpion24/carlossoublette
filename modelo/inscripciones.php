@@ -28,7 +28,7 @@ class inscripciones extends datos{
 
 
     public function set_cedula_repre($valor){
-        if (preg_match("/^[0-9]{7,8}$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\\s|,.<>\/?\s]{7,9}$/", $valor)) {
 		$this->cedula_repre = $valor; 
         return true;
         }else{
@@ -36,7 +36,7 @@ class inscripciones extends datos{
         }
 	}
 	public function set_estudiante($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->estudiante = $valor; 
         return true;
         }else{
@@ -44,7 +44,7 @@ class inscripciones extends datos{
         }
 	}
 	public function set_cedula_estudiante($valor){
-        if (preg_match("/^[0-9]{7,8}$/", $valor)) {
+        if (preg_match("/^[0-9\s]{7,8}$/", $valor)) {
 		$this->cedula_estudiante = $valor; 
         return true;
         }else{
@@ -52,7 +52,7 @@ class inscripciones extends datos{
         }
 	}
 	public function set_nombre_estudiante($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->nombre_estudiante = $valor;
         return true;
         }else{
@@ -60,7 +60,7 @@ class inscripciones extends datos{
         } 
 	}
 	public function set_apellido_estudiante($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->apellido_estudiante = $valor; 
         return true;
         }else{
@@ -68,7 +68,7 @@ class inscripciones extends datos{
         }
 	}
 	public function set_edad_estudiante($valor){
-        if (preg_match("/^[0-9]{1,2}$/", $valor)) {
+        if (preg_match("/^[0-9\s]{1,2}$/", $valor)) {
 		$this->edad_estudiante = $valor; 
         return true;
         }else{
@@ -76,7 +76,7 @@ class inscripciones extends datos{
         }
 	}
 	public function set_materia($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->materia = $valor;
         return true;
         }else{
@@ -84,7 +84,7 @@ class inscripciones extends datos{
         } 
 	}
     public function set_observaciones($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->observaciones = $valor; 
         return true;
         }else{
@@ -92,7 +92,7 @@ class inscripciones extends datos{
         }
 	}
 	public function set_sangre($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->sangre = $valor;
         return true;
         }else{
@@ -100,7 +100,7 @@ class inscripciones extends datos{
         } 
 	}
     public function set_vacunas($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->vacunas = $valor; 
         return true;
         }else{
@@ -108,7 +108,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_operaciones($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->operaciones = $valor; 
         return true;
         }else{
@@ -116,7 +116,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_enfermedades($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->enfermedades = $valor; 
         return true;
         }else{
@@ -124,7 +124,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_medicamentos($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->medicamentos = $valor; 
         return true;
         }else{
@@ -132,7 +132,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_alerias($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->alergias = $valor; 
         return true;
         }else{
@@ -140,7 +140,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_condicion($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->condicion = $valor; 
         return true;
         }else{
@@ -148,7 +148,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_tratamiento($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->tratamientos = $valor; 
         return true;
         }else{
@@ -156,7 +156,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_ano($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
 		$this->ano = $valor; 
         return true;
         }else{
@@ -164,7 +164,7 @@ class inscripciones extends datos{
         }
 	}
     public function set_seccion($valor){
-        if (preg_match("/^[0-9]{1,5}$/", $valor)) {
+        if (preg_match("/^[0-9\s]{1,5}$/", $valor)) {
 		$this->seccion = $valor; 
         return true;
         }else{
@@ -393,7 +393,7 @@ class inscripciones extends datos{
                     $r= $co->prepare("Insert into deudas(
 						
                         id_estudiante,
-                        monto,
+                    
                         concepto,
                         fecha,
                         estado,
@@ -403,7 +403,7 @@ class inscripciones extends datos{
     
                         Values(
                         :id_estudiante,
-                        :monto,
+                        
                         :concepto,
                         :fecha,
                         :estado,
@@ -416,7 +416,7 @@ class inscripciones extends datos{
                         $concepto="inscripcion";
                         $estado=1;
                     $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
-                    $r->bindParam(':monto',$monto);	
+        
                     $r->bindParam(':concepto', $concepto);	
                     $r->bindParam(':fecha',$fecha);	
                     $r->bindParam(':estado',$estado);	
@@ -457,14 +457,15 @@ class inscripciones extends datos{
                     edad=:edad,
                     observaciones=:observaciones,
                     materias_pendientes=:materias_pendientes,
-                    id_anos_secciones =:id_anos_secciones 
+                    id_anos_secciones =:id_anos_secciones,
+                    estado =:estado
                     
                     where
                     cedula =:cedula
 
                         
                     ");
-                
+                    $estado=1;
                 $r->bindParam(':cedula',$this->cedula_estudiante);	
                 $r->bindParam(':nombre',$this->nombre_estudiante);	
                 $r->bindParam(':edad',$this->edad_estudiante);	
@@ -472,6 +473,8 @@ class inscripciones extends datos{
                 $r->bindParam(':materias_pendientes',$this->materia);	
                 $r->bindParam(':id_anos_secciones',$this->ano);	
                 $r->bindParam(':apellido',$this->apellido_estudiante);	
+                $r->bindParam(':estado', $estado);	
+
           
 
                 $r->execute();
@@ -518,7 +521,7 @@ class inscripciones extends datos{
             $r->bindParam(':medicamentos',$this->medicamentos);	
             $r->bindParam(':enfermedades',$this->enfermedades);	
             $r->bindParam(':operaciones',$this->operaciones);	
-            $r->bindParam(':vacunas',$this->materia);	
+            $r->bindParam(':vacunas',$this->vacunas);	
             $r->bindParam(':tipo_de_sangre',$this->sangre);	
             $r->bindParam(':condicion_medica',$this->condicion);	
             $r->bindParam(':id',$respuesta2);	

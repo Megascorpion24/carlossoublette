@@ -7,6 +7,9 @@ $(document).ready(function () {
     $('#mibuscador').select2({
         dropdownParent: $('#addEmployeeModal')
     });
+    $('#mibuscador222').select2({
+        dropdownParent: $('#addEmployeeModal')
+    });
 
 
     $('#mibuscador2').select2({
@@ -20,7 +23,7 @@ $(document).ready(function () {
     $('#mibuscador4').select2({
         dropdownParent: $('#editEmployeeModal')
     });
-
+ 
     $("#registrar").on("click", function () {
         if ($("#cedula").text() != "") {
 
@@ -119,12 +122,12 @@ $(document).ready(function () {
     });
 
     $("#observacionese").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#observacionese").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#sobservacionese"), "El formato puede ser A-Z a-z 8-26");
     });
 
@@ -150,57 +153,57 @@ $(document).ready(function () {
             $(this), $("#svacunas"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#operaciones").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#operaciones").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#soperaciones"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#enfermedades").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#enfermedades").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#senfermedades"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#medicamentos").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#medicamentos").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#smedicamentos"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#alerias").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#alerias").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#salerias"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#tratamiento").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#tratamiento").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#stratamiento"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#condicion").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#condicion").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#scondicion"), "El formato puede ser A-Z a-z 8-26");
     });
 
@@ -248,12 +251,12 @@ $(document).ready(function () {
     });
 
     $("#observaciones3").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#observaciones3").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#sobservaciones3"), "El formato puede ser A-Z a-z 4-26");
     });
 
@@ -279,57 +282,57 @@ $(document).ready(function () {
             $(this), $("#svacunas1"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#operaciones1").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#operaciones1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#soperaciones1"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#enfermedades1").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#enfermedades1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#senfermedades1"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#medicamentos1").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#medicamentos1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#smedicamentos1"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#alerias1").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#alerias1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#salerias1"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#tratamiento1").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#tratamiento1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#stratamiento1"), "El formato puede ser A-Z a-z 8-26");
     });
     $("#condicion1").on("keypress", function (e) {
-        validarkeypress(/^[A-Za-z]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
 
     });
 
     $("#condicion1").on("keyup", function () {
-        validarkeyup(/^[A-Za-z]{4,26}$/,
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#scondicion1"), "El formato puede ser A-Z a-z 8-26");
     });
 
@@ -674,7 +677,7 @@ function añadir2() {
             
             $("#observacionese").val($(this).find("th:eq(4)").text());
 
-            $("#tratamiento").val($(this).find("th:eq(6)").text());
+     $("#tratamiento").val($(this).find("th:eq(6)").text());
             $("#alerias").val($(this).find("th:eq(7)").text());
             $("#medicamentos").val($(this).find("th:eq(8)").text());
             $("#enfermedades").val($(this).find("th:eq(9)").text());
@@ -694,8 +697,7 @@ function añadir2() {
             $("#edade").val($(this).find("th:eq(3)").text());
             $("#materiae").val($(this).find("th:eq(5)").text());
             $("#observacionese").val($(this).find("th:eq(4)").text());
-
-            $("#tratamiento").val($(this).find("th:eq(6)").text());
+ $("#tratamiento").val($(this).find("th:eq(6)").text());
             $("#alerias").val($(this).find("th:eq(7)").text());
             $("#medicamentos").val($(this).find("th:eq(8)").text());
             $("#enfermedades").val($(this).find("th:eq(9)").text());
@@ -704,6 +706,7 @@ function añadir2() {
 
             $("#sangre").val($(this).find("th:eq(12)").text());
             $("#condicion").val($(this).find("th:eq(13)").text());
+ 
             numero = parseInt($(this).find("th:eq(14)").text());
                 suma=numero;
             }
@@ -758,6 +761,14 @@ function siguiente() {
     $("#siguiente2").addClass("ocultar");
 
     $("#inscri1").removeClass("ocultar");
+    if ( $("#vacunas").val()=="") {
+        $("#vacunas").val($("#mibuscador222").val());
+    }
+    
+    if ( $("#sangre").val()=="") {
+        $("#sangre").val($("#sanggre").val());
+    }
+    
 }
 }
 
@@ -975,9 +986,9 @@ function vacio(){
         return false;
     }else if ($("#observacionese").val()=="") {
         return false;
-    }else if ($("#sangre").val()=="") {
+    }else if ($("#sanggre").val()=="seleccionar") {
         return false;
-    }else if ($("#vacunas").val()=="") {
+    }else if ($("#mibuscador222").val()=="") {
         return false;
     }else if ($("#operaciones").val()=="") {
         return false;
@@ -1007,6 +1018,10 @@ function chect(valo) {
     $("#mibuscador2").attr("disabled", "disabled");
     $("#materiae").removeAttr("disabled");
     $("#cedulae").removeAttr("disabled");
+    $("#nombree").removeAttr("disabled");
+    $("#apellidoe").removeAttr("disabled");
+    $("#edade").removeAttr("disabled");
+    $("#observacionese").removeAttr("disabled");
     if (valo == 0) {
         $("#cedulae").val("");
                 $("#nombree").val("");
@@ -1024,6 +1039,10 @@ function chect(valo) {
                 $("#tratamiento").val("");
                 $("#condicion").val("");
                 $("#mibuscador3").load(location.href + " #mibuscador3>*", "");
+                $("#siguiente2").addClass("btn-light");
+                $("#siguiente2").removeAttr("btn-success");
+                $("#siguiente2").removeAttr("validado");
+                $("#medico").removeClass("ocultar");
     }
                 
 
@@ -1042,6 +1061,12 @@ function chect2(valo) {
     $("#mibuscador2").removeAttr("disabled");
 
     $("#cedulae").attr("disabled", "disabled");
+    $("#medico").addClass("ocultar");
+
+    $("#nombree").attr("disabled", "disabled");
+    $("#apellidoe").attr("disabled", "disabled");
+    $("#edade").attr("disabled", "disabled");
+    $("#observacionese").attr("disabled", "disabled");
 
 
 }
