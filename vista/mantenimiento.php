@@ -21,7 +21,7 @@
 
 		<div class="main-content">
 			<div class="container">
-
+			<?//PHP if (in_array("registrar horario_docente", $nivel1)) { ?>
 				<div class="row">
 					<div class="col">
 						<div class="col-lg-6 col-md-6 col-xs-12 text-center py-2 ">
@@ -63,7 +63,7 @@
 
 
 				</div>
-
+				<?//php } ?>
 
 
 

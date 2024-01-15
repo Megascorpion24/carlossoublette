@@ -5,8 +5,12 @@ class mantenimiento extends datos
 {
 
     
-private $db;
-    
+private $nivel;
+
+public function set_nivel($valor)
+{
+    $this->nivel = $valor;
+}
     
 
 
