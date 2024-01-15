@@ -107,26 +107,26 @@ public function getSec($index) {
 
     public function registrar(){
         $val=$this->registrar1();
-        echo $val;
+        return $val;
     }
 
     public function modificar(){
         $val=$this->modificar1();
-        echo $val;
+        return $val;
     }
 
     public function eliminar(){
         $val= $this->eliminar1();
-        echo $val;
+        return $val;
     }
-
+ 
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
 private function registrar1(){
 
 
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if (!$this->exists($this->secciones,$this->ano,$this->ano_academico)) {
+    if (!$this->exists($this->secciones,$this->ano,$this->ano_academico) && !$this->exists_doc_guia($this->cedula_profesor) ) {
    
         $estado=1;
         try{
@@ -134,18 +134,16 @@ private function registrar1(){
 
                 $r= $co->prepare("Insert into secciones_años(
                     
-                    id,
                     cantidad,
-                    id_secciones,
+                    id_secciones, 
                     id_anos,
                     estado
                    
                     
                     )
-            
+             
 
                     Values(
-                    :id,
                     :cantidad,
                     :id_secciones,
                     :id_anos,
@@ -154,7 +152,6 @@ private function registrar1(){
 
                     
                     )");
-                $r->bindParam(':id',$this->id); 
                 $r->bindParam(':cantidad',$this->cantidad);
                 $r->bindParam(':id_secciones',$this->secciones);
                 $r->bindParam(':id_anos',$this->ano);   
@@ -267,7 +264,7 @@ public function abc2(){
         }
 }
 
- public function Año(){
+ public function Año(){ 
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     try{
@@ -275,12 +272,11 @@ public function abc2(){
         $resultado->execute();
         $respuesta = "";
         
-
         foreach($resultado as $r){
             // Construir un conjunto de elementos de radio con el valor del campo 'id' y el texto del campo 'anos'
-            $respuesta .= '<div class="form-check mb-1">';
-            $respuesta .= '<input class="form-check-input" type="radio" name="año" id="inlineRadio' . $r['id'] . '" value="' . $r['id'] . '">';
-            $respuesta .= '<label class="form-check-label" for="inlineRadio' . $r['id'] . '">' . $r['anos'] . '</label>';
+            $respuesta .= '<div class="custom-radio mb-1">';
+            $respuesta .= '<input class="custom-radio-input" type="radio" name="año" id="inlineRadio' . $r['id'] . '" value="' . $r['id'] . '">';
+            $respuesta .= '<label class="custom-radio-label" for="inlineRadio' . $r['id'] . '">' . $r['anos'] . '</label>';
             $respuesta .= '</div>';
         }
  
@@ -290,15 +286,40 @@ public function abc2(){
     }
 }
 
+
 public function Doc_Guia(){
-    $co = $this->conecta();
+    $co = $this->conecta(); 
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    try{
-        $resultado = $co->prepare("SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, cedula
-        FROM docentes Where anos_trabajo >= 3");
+    try {
+        // Consulta para obtener el ID del año académico activo
+        $query = $co->prepare("SELECT id FROM ano_academico WHERE estado = 1");
+        $query->execute();
+        $id_academico = $query->fetchColumn(); // Obtenemos el ID del año académico activo
+
+        // Consulta principal utilizando la tabla ano_secciones
+        $resultado = $co->prepare("
+        SELECT CONCAT(docentes.nombre, ' ', docentes.apellido) AS nombre_apellido, docentes.cedula
+        FROM docentes
+        WHERE docentes.anos_trabajo >= 3 
+        AND docentes.estado = 1 
+        AND docentes.cedula NOT IN (
+            SELECT docente_guia.id_docente
+            FROM docente_guia
+            INNER JOIN secciones_años ON docente_guia.id_ano_seccion = secciones_años.id
+            INNER JOIN ano_secciones ON secciones_años.id = ano_secciones.id_secciones
+            WHERE ano_secciones.id_anos = :id_academico
+            AND secciones_años.estado = 1
+            GROUP BY docente_guia.id_docente
+            HAVING COUNT(*) >= 2
+        )
+        GROUP BY docentes.nombre, docentes.apellido, docentes.cedula
+        ");
+
+        // Asignar el valor del parámetro
+        $resultado->bindParam(':id_academico', $id_academico, PDO::PARAM_INT);
         $resultado->execute();
+
         $respuesta2 = '';
-        $respuesta2 .='<option value="0" selected disabled hidden>-Seleccionar-</option>';
 
         foreach($resultado as $r){
             $respuesta2 .= '<option value="'.$r['cedula'].'">'.$r['nombre_apellido'].'</option>';
@@ -310,17 +331,38 @@ public function Doc_Guia(){
     }
 }
 
+ 
 public function Doc_Guia_Edit(){
-    $co = $this->conecta();
+    $co = $this->conecta(); 
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     try{
-        $resultado = $co->prepare("SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, cedula
-        FROM docentes Where anos_trabajo >= 3");
+        // Consultar el ID del año académico activo
+        $query = $co->prepare("SELECT id FROM ano_academico WHERE estado = 1");
+        $query->execute();
+        $id_academico = $query->fetchColumn();
+
+        $resultado = $co->prepare("
+                  SELECT 
+                CONCAT(docentes.nombre, ' ', docentes.apellido) AS nombre_apellido, 
+                docentes.cedula, 
+                COUNT(CASE WHEN secciones_años.estado <> 0 THEN ano_secciones.id_secciones ELSE NULL END) AS cantidad_secciones
+            FROM docentes
+            LEFT JOIN docente_guia ON docentes.cedula = docente_guia.id_docente
+            LEFT JOIN secciones_años ON docente_guia.id_ano_seccion = secciones_años.id
+            LEFT JOIN ano_secciones ON secciones_años.id = ano_secciones.id_secciones AND ano_secciones.id_anos = :id_academico
+            WHERE docentes.anos_trabajo >= 3 
+            AND docentes.estado = 1 
+            GROUP BY docentes.cedula, docentes.nombre, docentes.apellido
+        ");
+
+        $resultado->bindParam(':id_academico', $id_academico, PDO::PARAM_INT);
         $resultado->execute();
+
         $respuesta2 = '';
 
         foreach($resultado as $r){
-            $respuesta2 .= '<option value="'.$r['cedula'].'">'.$r['nombre_apellido'].'</option>';
+            $disabled = ($r['cantidad_secciones'] >= 2) ? 'disabled' : '';
+            $respuesta2 .= '<option value="'.$r['cedula'].'" '.$disabled.'>'.$r['nombre_apellido'].'</option>';
         }
 
         return $respuesta2;
@@ -328,6 +370,10 @@ public function Doc_Guia_Edit(){
         return false;
     }
 }
+
+
+
+
 
 public function academico(){
     $co = $this->conecta();
@@ -361,7 +407,7 @@ private function modificar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if (!$this->exists($this->secciones,$this->ano,$this->ano_academico)) {
+    if (!$this->exists($this->secciones,$this->ano,$this->ano_academico) && !$this->exists_doc_guia($this->cedula_profesor) ) {
         try {
             // Actualizar la tabla secciones_años
             $r = $co->prepare("UPDATE secciones_años 
@@ -606,7 +652,7 @@ public function consulta_E($id){
             return false; // Manejo de excepciones
         }
 	}
-
+ 
 // ------------------------------------------------
     public function exists($id_seccion, $ano, $ano_academico) {
         $co = $this->conecta();
@@ -648,6 +694,35 @@ public function consulta_E($id){
         }
     }
     
+    public function exists_doc_guia($cedula_profesor){
+        $co = $this->conecta(); 
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+            $query = $co->prepare("SELECT id FROM ano_academico WHERE estado = 1");
+            $query->execute();
+            $id_academico = $query->fetchColumn();
+    
+            $stmt = $co->prepare("
+                SELECT COUNT(*) 
+                FROM docente_guia 
+                INNER JOIN secciones_años ON docente_guia.id_ano_seccion = secciones_años.id AND secciones_años.estado = 1
+                INNER JOIN ano_secciones ON secciones_años.id = ano_secciones.id_secciones AND ano_secciones.id_anos = :id_academico
+                WHERE docente_guia.id_docente = :cedula_profesor
+            ");
+    
+            $stmt->bindParam(':cedula_profesor', $cedula_profesor);
+            $stmt->bindParam(':id_academico', $id_academico, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            $cantidad_registros = $stmt->fetchColumn();
+            
+            return ($cantidad_registros >= 2) ? true : false;
+        } catch(Exception $e){
+            return false;
+        }
+    }
+    
+
     
 //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 

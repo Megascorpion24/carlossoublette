@@ -9,7 +9,7 @@ if (is_file("modelo/".$pagina.".php")){
 }
 else{ echo "Falta definir la clase ".$pagina;  exit; }
  
- 
+  
    
 
 //Carga de Vista
@@ -36,32 +36,29 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
 				}
 		
 		$o = new secciones();
-        
+         
         // Registro (f)
 		if(!empty($_POST['accion'])){
 			$valor=true;
 			$retorno="";
-				 // Validación de id
-			$validacion[0]=$o->set_id($_POST['id']);
-			$dato[0]="error en la validacion de id";
 				 // Validación de seccion
-			$validacion[1]=$o->set_secciones($_POST['secciones']);
-			$dato[1]="error en la validacion de seciones";
+			$validacion[0]=$o->set_secciones($_POST['secciones']);
+			$dato[0]="error en la validacion de seciones";
 				 // Validación de año
-			$validacion[2]=$o->set_ano($_POST['año']);
-			$dato[2]="error en la validacion del año";
+			$validacion[1]=$o->set_ano($_POST['año']);
+			$dato[1]="error en la validacion del año";
 				 // Validación de Docente Guia
-			$validacion[3]=$o->set_cedula_profesor($_POST['Doc_Guia']);	
-			$dato[3]="error en la validacion de profesor Guia";
+			$validacion[2]=$o->set_cedula_profesor($_POST['Doc_Guia']);	
+			$dato[2]="error en la validacion de profesor Guia";
 				 // Validación de Cantidad
-			$validacion[4]=$o->set_cantidad($_POST['cantidad']);
-			$dato[4]="error en la validacion de cantidad";
+			$validacion[3]=$o->set_cantidad($_POST['cantidad']);
+			$dato[3]="error en la validacion de cantidad";
 
 				 // Validación de año academico
-			$validacion[5]=$o->set_ano_academico($_POST['ano_academico']);
-			$dato[5]="error en la validacion del año academico";
+			$validacion[4]=$o->set_ano_academico($_POST['ano_academico']);
+			$dato[4]="error en la validacion del año academico";
 
-			for ($i=0; $i < 5 ; $i++) { 
+			for ($i=0; $i < 4 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					echo $dato[$i];
@@ -241,8 +238,6 @@ if (!empty($_POST['id_edit'])) {
 		//   ------------------
 		$consulta=$o->consultar($nivel1);
 		  $Año=$o->Año();
-		  $Doc_Guia=$o->Doc_Guia();
-		  $Doc_Guia_Edit=$o->Doc_Guia_Edit();
 		  $academico=$o->academico();
 		  $Edit_Año=$o->Edit_Año();
 

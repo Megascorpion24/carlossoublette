@@ -1,12 +1,18 @@
+
+    
+    
+    
 $(document).ready(function() { 
    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $("#tablas").DataTable({
     
-        responsive: true,   
+        responsive: false,   
 
-      
+        scrollX: true,
+        scrollCollapse: true,
+    
         lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
         columnDefs: [
           { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },
@@ -61,12 +67,44 @@ $(document).ready(function() {
     
       $('[data-toggle="tooltip"]').tooltip();
     
-      window.addEventListener('load', async () => {
-        await initDataTable();
-      });
+  
+ 
  
       
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ $("#tablas2").DataTable({
+    
+    responsive: false,   
+
+    scrollX: true,
+    scrollCollapse: true,
+
+    lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
+    columnDefs: [
+      { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },
+      { orderable: false, targets: [2] },
+      { searchable: false, targets: [1] },
+      { width: '20%', targets: [1] },   
+      
+    ],
+
+    columnDefs: [
+      {
+        responsivePriority: 1,
+        targets: 0
+      },
+      {
+        responsivePriority: 2,
+        targets: -1
+      }
+    ],
+
+    info: false,
+    searching: false,
+    "paging": false,
+  });
+
+
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
@@ -120,8 +158,65 @@ $('#mibuscador2').select2({
    
 
     });
+
+    $("#registrarMM").on("click", function() {
+        if (validarenvioMM()) {
+          
+            enviaAjax($("#fMM"));
+            $('#editmontos').modal('hide');
+       }
+   
+
+    });
     
 
+//<!---------------------------------------------------------------------------------------------------------------------------->
+/*validaciones para registrar*/
+
+
+
+
+$("#codigoMM").on("keypress", function(e) {
+    validarkeypress(/^[0-9\b]*$/, e);
+});
+
+$("#codigoMM").on("keyupMM", function() {
+    validarkeyup(/^[0-9]{1,5}$/,
+        $(this), $("#scodigos"), "La ID debe ser en el siguiente formato 0000");
+});
+
+$("#tipoMM").on("keypress", function(e) {
+    validarkeypress(/^[A-Za-z]$/, e);
+});
+
+$("#tipoMM").on("keyup", function() {
+    validarkeyup(/^[A-Za-z]{4,20}$/,
+        $(this), $("#stipoMM"), "El formato puede ser 0000");
+});
+
+$("#m_montosMM").on("keypress", function(e) {
+    validarkeypress(/^[0-9-]$/, e);
+});
+
+$("#m_montosMM").on("keyup", function() {
+    validarkeyup(/^[0-9-]{1,11}$/,
+        $(this), $("#sm_montosMM"), "El formato puede ser 0000");
+});
+
+$("#d_montosMM").on("keypress", function(e) {
+    validarkeypress(/^[0-9-]$/, e);
+});
+
+$("#d_montosMM").on("keyup", function() {
+    validarkeyup(/^[0-9-]{1,11}$/,
+        $(this), $("#sd_montosMM"), "");
+});
+
+
+
+
+/*aqui termina registrar*/
+//<!---------------------------------------------------------------------------------------------------------------------------->
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 /*validaciones para registrar*/
@@ -178,7 +273,7 @@ $('#mibuscador2').select2({
     });
 
     $("#monto").on("keyup", function() {
-        validarkeyup(/^[0-9-]{2,11}$/,
+        validarkeyup(/^[0-9-]{1,11}$/,
             $(this), $("#smonto"), "El formato puede ser valido");
     });
     $("#meses").on("keypress", function(e) {
@@ -259,7 +354,7 @@ $("#montor").on("keypress", function(e) {
 });
 
 $("#montor").on("keyup", function() {
-    validarkeyup(/^[0-9]{2,11}$/,
+    validarkeyup(/^[0-9]{1,11}$/,
         $(this), $("#smontor"), "El formato puede ser valido");
 });
 $("#mesesr").on("keypress", function(e) {
@@ -338,7 +433,7 @@ $("#montosM").on("keypress", function(e) {
 });
 
 $("#montoM").on("keyup", function() {
-    validarkeyup(/^[0-9-]{2,11}$/,
+    validarkeyup(/^[0-9-]{1,11}$/,
         $(this), $("#smontoM"), "El formato puede ser valido");
 });
 
@@ -354,11 +449,48 @@ $("#mesesM").on("keyup", function() {
 
 });
 //<!---------------------------------------------------------------------------------------------------------------------------->
+function montos(id){
+    $("#tabla tr").each(function(){
+    
+        if(id == $(this).find("th:eq(0)").text()){
+            $("#codigoMM").val($(this).find("th:eq(0)").text());
+            $("#tipoMM").val($(this).find("th:eq(1)").text());
+            $("#m_montosMM").val($(this).find("th:eq(2)").text());
+            $("#d_montosMM").val($(this).find("th:eq(3)").text());
+            
+
+        }
+    });
+
+}
 
 
 
 
+function ver(id){
+    $("#tabla tr").each(function(){
+    
+        if(id == $(this).find("th:eq(0)").text()){
+            $("#idC").val($(this).find("th:eq(0)").text());
+            $("#id_deudasC").val($(this).find("th:eq(1)").text());
+            $("#identificadorC").val($(this).find("th:eq(4)").text());
+            $("#conceptoC").val($(this).find("th:eq(5)").text());               
+            $("#formaC").val($(this).find("th:eq(6)").text());
+            $("#fechaC").val($(this).find("th:eq(7)").text());      
+            $("#fechadC").val($(this).find("th:eq(8)").text());          
+            $("#montoC").val($(this).find("th:eq(9)").text());
+            $("#mesesC").val($(this).find("th:eq(10)").text());
+            $("#cedula2C").val($(this).find("th:eq(2)").text());
+            $("#nombreC").val($(this).find("th:eq(12)").text());  
+            $("#cedulaC").val($(this).find("th:eq(11)").text());
+            $("#nombre1C").val($(this).find("th:eq(3)").text());        
+            $("#estadoC").val($(this).find("th:eq(13)").text());
+        
 
+        }
+    });
+
+}
 
 
 
@@ -370,25 +502,44 @@ $("#mesesM").on("keyup", function() {
             if(id == $(this).find("th:eq(0)").text()){
                 $("#idM").val($(this).find("th:eq(0)").text());
                 $("#id_deudasM").val($(this).find("th:eq(1)").text());
-                $("#identificadorM").val($(this).find("th:eq(2)").text());
-                $("#conceptoM").val($(this).find("th:eq(3)").text());               
-                $("#formaM").val($(this).find("th:eq(4)").text());
-                $("#fechaM").val($(this).find("th:eq(5)").text());               
-                $("#montoM").val($(this).find("th:eq(6)").text());
-                $("#mesesM").val($(this).find("th:eq(7)").text());
-                $("#cedulaM").val($(this).find("th:eq(8)").text());
-                $("#nombreM").val($(this).find("th:eq(9)").text());         
-                $("#estadoM").val($(this).find("th:eq(10)").text());
+                $("#identificadorM").val($(this).find("th:eq(4)").text());
+                $("#conceptoM").val($(this).find("th:eq(5)").text());               
+                $("#formaM").val($(this).find("th:eq(6)").text());
+                $("#fechaM").val($(this).find("th:eq(7)").text());      
+                $("#fechadM").val($(this).find("th:eq(8)").text());          
+                $("#montoM").val($(this).find("th:eq(9)").text());
+                $("#mesesM").val($(this).find("th:eq(10)").text());
+                $("#cedula2M").val($(this).find("th:eq(2)").text());
+                $("#nombreM").val($(this).find("th:eq(12)").text());  
+                $("#cedulaM").val($(this).find("th:eq(11)").text());
+                $("#nombre1M").val($(this).find("th:eq(3)").text());        
+                $("#estadoM").val($(this).find("th:eq(13)").text());
+            
+                
             
 
+                
             }
+            
+
         });
+        
     
     }
 //<!---------------------------------------------------------------------------------------------------------------------------->
+$('#editpago').on('show.bs.modal', function(event) {
 
+   
+    var montoM = $('#montoM');
+    var meses = $('#mesesM');
+  
 
-
+    if (meses.val() > 1) {
+      montoM.attr('readonly', 'readonly');
+    } else {
+      montoM.removeAttr('readonly');
+    }
+  });
 
 
 
@@ -425,29 +576,172 @@ function eliminarr(id){
 
 function añadir2() {
     id = $("#mibuscador").val();
+   
     $("#select tr").each(function () {
+
+        
         if (id == $(this).find("th:eq(0)").text()) {
             $("#id_deudas").val($(this).find("th:eq(0)").text());
             $("#concepto").val($(this).find("th:eq(2)").text());
             $("#fecha").val($(this).find("th:eq(3)").text());
+            $("#monto").val($(this).find("th:eq(6)").text());
+            $("#montov").val($(this).find("th:eq(6)").text());
+            $("#montot").val($(this).find("th:eq(7)").text());
+            $("#montooculto").val($(this).find("th:eq(8)").text());
+
+            var monto = $("#monto").val();
+
+            // Verificar si el monto es mayor al valor de th:eq(6)
+            if (monto > parseFloat($("#select tr th:eq(6)").text())) {
+           
+            }
 
             var fechaActual = new Date();
             var fechaDeuda = new Date($(this).find("th:eq(3)").text());
             var diferencia = fechaActual.getTime() - fechaDeuda.getTime();
             var mes = Math.floor(diferencia / (30 * 24 * 60 * 60 * 1000)); // 30 días en milisegundos
-            $("#total_deuda").val(mes);
+            $("#mesesv").val(mes);
 
+            var meses = $("#meses").val();
+
+            var concepto = $("#concepto").val();
+            if (concepto === "mensualidad") {
+                var mesesv = $("#mesesv").val();
+                if (!isNaN(mesesv)) {
+                    $("#montot").val(parseFloat($("#montot").val()) * parseFloat(mesesv));
+                }
+            }
+     
             if ($(this).find("th:eq(2)").text() == "mensualidad") {
                 $("#ocult").removeClass("ocultar");
                 $("#ocult2").removeClass("ocultar");
+                $("#ocult5").removeClass("ocultar");
             } else {
-                $("#ocult").addClass("ocultar");
+                $("#ocult").addClass("ocultar");           
                 $("#ocult2").addClass("ocultar");
+                $("#ocult5").addClass("ocultar");
             }
 
+            if ($("#ocult").hasClass("ocultar")) {
+                // Eliminar la propiedad readonly del input monto
+                $("#monto").prop("readonly", false);
+                // Asignar un valor predeterminado de 1 al campo meses
+                meses = 1;
+            }
+            
+            if ($("#ocult").hasClass("ocultar")) {
+                // Eliminar la propiedad readonly del input monto
+                $("#monto").prop("readonly", false);
+            }
+
+
+
+
         }
+ 
     });
+    
 }
+
+
+$("#mibuscador").change(function() {
+    $("#meses").val(1);
+});
+// Obtener los elementos HTML
+const inpMeses = document.getElementById("meses");
+const inputMontoV = document.getElementById("montov");
+const inputMontoOculto = document.getElementById("montooculto");
+
+// Agregar un event listener al input de "meses"
+inpMeses.addEventListener("click", function() {
+  // Comparar los valores de los inputs "montov" y "montooculto"
+  if (inputMontoV.value !== inputMontoOculto.value) {
+    // Establecer el atributo "readonly" del input "meses"
+    inpMeses.setAttribute("readonly", true);
+  } else {
+    // Eliminar el atributo "readonly" del input "meses"
+    inpMeses.removeAttribute("readonly");
+  }
+});
+
+
+
+
+
+
+
+const inpuMeses = document.getElementById('meses');
+const inputMonto = document.getElementById('monto');
+const inputConcepto = document.getElementById('concepto');
+
+// Agregar un evento de cambio al input de meses
+inpuMeses.addEventListener('change', function() {
+    // Verificar si el valor del input de meses es mayor que 1
+    if (this.value > 1 && inputConcepto.value === 'mensualidad') {
+        // Hacer que el input de monto sea readonly
+        inputMonto.setAttribute('readonly', 'true');
+        // Establecer el valor del input de monto a 1
+        //inpuMeses.value = 1;
+    } else if (inputConcepto.value === 'inscripcion' && this.value === 1) {
+        // No establecer el atributo readonly en el input de monto
+        inputMonto.removeAttribute('readonly');
+    } else {
+        // De lo contrario, hacer que el input de monto no sea readonly
+        inputMonto.removeAttribute('readonly');
+    }
+    
+});
+
+
+
+
+
+
+const firstInput = document.getElementById("monto");
+const secondInput = document.getElementById("montov");
+const inputMeses = document.getElementById("meses");
+const totalMeses = document.getElementById("mesesv");
+
+firstInput.addEventListener("input", function() {
+  const firstValue = parseFloat(firstInput.value);
+  const secondValue = parseFloat(secondInput.value);
+  
+
+  if (firstValue > secondValue) {
+    firstInput.value = secondValue;
+  }
+
+  if (parseInt(inputMeses.value) >= 2) {
+    // Multiplicamos el valor del campo monto por el valor de los meses
+    firstInput.value *= parseFloat(inputMeses.value);
+  }
+ 
+});
+
+
+
+
+
+inputMeses.addEventListener("input", function() {
+  const firstValue = parseInt(inputMeses.value);
+  const secondValue = parseInt(totalMeses.value);
+  const mesActual = parseInt(inputMeses.value);
+  
+  if (firstValue > secondValue) {
+    inputMeses.value = secondValue;
+    firstInput.value = (secondValue) * parseFloat(secondInput.value);
+  } else {
+    firstInput.value = mesActual * parseFloat(secondInput.value);
+  }
+
+   
+});
+
+
+
+
+
+
 
   function añadirr() {
     id = $("#mibuscador2").val();
@@ -588,6 +882,33 @@ function validarkeypress(er, e) {
 
 
 
+//<!---------------------------------------------------------------------------------------------------------------------------->
+
+function validarenvioMM() {
+    if (validarkeyup(/^[0-9]{1,5}$/,
+    $("#codigoMM"), $("#scodigoMM"), "La ID debe ser en el siguiente formato 0000") == 0) {
+        mensaje("La ID debe ser en el siguiente formato 0000");
+        return false;
+
+    } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+    $("#tipoMM"), $("#stipoMM"), "El formato puede ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
+
+    } else if (validarkeyup(/^[0-9-]{1,11}$/,
+    $("#m_montosMM"), $("#sm_montosMM"), "El formato puede ser 0000") == 0) {
+        mensaje("El formato puede ser 0000");
+        return false;
+
+    }  else if (validarkeyup(/^[0-9-]{1,11}$/,
+    $("#d_montosMM"), $("#sd_montosMM"), "El formato debe ser valido") == 0) {
+        mensaje("El formato debe ser valido");
+        return false;
+
+    }
+    return true;
+}
+//<!---------------------------------------------------------------------------------------------------------------------------->
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
@@ -598,7 +919,7 @@ function validarkeypress(er, e) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
     
-        } else if (validarkeyup(/^[0-9-]{2,11}$/,
+        } else if (validarkeyup(/^[0-9-]{1,11}$/,
         $("#monto"), $("#smonto"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
@@ -659,7 +980,7 @@ function validarkeypress(er, e) {
             mensaje("El formato debe ser valido");
             return false;
 
-        } else if (validarkeyup(/^[0-9-]{2,11}$/,
+        } else if (validarkeyup(/^[0-9-]{1,11}$/,
         $("#montor"), $("#smontor"), "El formato puede ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
@@ -698,7 +1019,7 @@ function validarkeypress(er, e) {
             mensaje("La ID debe ser en el siguiente formato 0000");
             return false;
     
-        } else if (validarkeyup(/^[0-9-]{2,11}$/,
+        } else if (validarkeyup(/^[0-9-]{1,11}$/,
         $("#montoM"), $("#smontoM"), "El formato puede ser valido") == 0) {
             mensaje("El formato debe ser valido");
             return false;
@@ -798,13 +1119,6 @@ input5.addEventListener("input", () => {
   });
 
 
-
-
-
-
-
-
- 
 
 
 

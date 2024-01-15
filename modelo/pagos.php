@@ -10,6 +10,7 @@ class pagos extends datos{
     private $concepto;
     private $forma;
 	private $fecha;
+    private $fechad;
 	private $estado;
     private $estado_pagos;
     private $estatus;
@@ -17,8 +18,10 @@ class pagos extends datos{
     private $meses;
     private $nivel;
 
-	
-
+    private $codigo;
+    private $tipo;
+    private $m_montos;
+    private $d_montos;
 
     public function set_id($valor){
         if (preg_match("/^[0-9]{1,5}$/", $valor)) {
@@ -68,6 +71,14 @@ class pagos extends datos{
             return false;
         }
 	}
+    public function set_fechad($valor){
+        if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $valor)) {
+		$this->fechad = $valor; 
+        return true;
+        }else{
+            return false;
+        }
+	}
 	public function set_estado($valor){
         if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
 		$this->estado = $valor; 
@@ -108,6 +119,41 @@ class pagos extends datos{
             return false;
         }
 	}
+
+
+
+    public function set_codigo($valor){
+        if (preg_match("/^[a-zA-Z1-9\s]+$/", $valor)) {
+		$this->codigo = $valor; 
+        return true;
+        }else{
+            return false;
+        }
+	}
+    public function set_tipo($valor){
+        if (preg_match("/^[a-zA-Z1-9\s]+$/", $valor)) {
+		$this->tipo = $valor; 
+        return true;
+        }else{
+            return false;
+        }
+	}
+    public function set_m_montos($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
+		$this->m_montos = $valor; 
+        return true;
+        }else{
+            return false;
+        }
+	}
+    public function set_d_montos($valor){
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
+		$this->d_montos = $valor; 
+        return true;
+        }else{
+            return false;
+        }
+	}
     public function set_nivel($valor){
 		$this->nivel = $valor; 
 	}
@@ -131,6 +177,11 @@ class pagos extends datos{
         echo $VAL;
     }
 
+    public function montos(){
+        $VAL=  $this->modificarMM();
+        echo $VAL;
+    }
+
     public function eliminar(){
         $VAL= $this->eliminar1();
         echo $VAL;
@@ -142,9 +193,7 @@ class pagos extends datos{
     }
 
 
-
-
-
+    
 
 
 
@@ -158,8 +207,8 @@ class pagos extends datos{
         if(!$this->existe($this->id)){
             try{
               
-                $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha,monto, meses, estado, estado_pagos,estatus )
-                                  VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
+                $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
+                                  VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
 
                 $estado_pagos=1;
                 $estatus=1;    
@@ -168,6 +217,7 @@ class pagos extends datos{
                 $r->bindParam(':concepto',$this->concepto);	
                 $r->bindParam(':forma',$this->forma);	
                 $r->bindParam(':fecha',$this->fecha);	
+                $r->bindParam(':fechad',$this->fechad);
                 $r->bindParam(':monto',$this->monto);	
                 $r->bindParam(':meses',$this->meses);
                 $r->bindParam(':estado',$this->estado);
@@ -175,22 +225,64 @@ class pagos extends datos{
                 $r->bindParam(':estatus',$estatus);	
                 $r->execute();
     
-//<!-----------------------------SE EJECUTA SI CONCEPTO ES MENSUALIDAD----------------------------------------------------------------------------------------------------------------------->               
-                    $r= $co->prepare("UPDATE deudas d SET d.fecha = DATE_ADD(d.fecha, INTERVAL :meses MONTH) WHERE d.id = :id_deudas AND :concepto = 'mensualidad'");
-                    $r->bindParam(':meses',$this->meses);	
-                    $r->bindParam(':id_deudas',$this->id_deudas);
-                    $r->bindParam(':concepto',$this->concepto);	 
-                    $r->execute();
+//<!-----------------------------SE EJECUTA SI CONCEPTO ES MENSUALIDAD-----------------------------------------------------------------------------------------------------------------------> 
+//<!-----------------------------suma el monto del formulario a la deuda en caso de pago de 1 mensualidad-----------------------------------------------------------------------------------------------------------------------> 
+$r= $co->prepare("UPDATE deudas d SET d.monto = d.monto + :monto WHERE d.id = :id_deudas AND :concepto = 'mensualidad' AND :meses = 1 ");                  	
+$r->bindParam(':id_deudas',$this->id_deudas);                    
+$r->bindParam(':monto',$this->monto);	
+$r->bindParam(':concepto',$this->concepto);	
+$r->bindParam(':meses',$this->meses);
+$r->execute();
 
-                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudas AND d.fecha >= CURRENT_DATE() AND :concepto = 'mensualidad'");                     
-                    $r->bindParam(':id_deudas',$this->id_deudas);	
-                    $r->bindParam(':concepto',$this->concepto);	                    
-                    $r->execute();
+$r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos = d.monto AND montos.tipo = 'mensualidad' ) AND d.id = :id_deudas AND :concepto = 'mensualidad' AND :meses = 1 AND d.fecha >= CURRENT_DATE()");               	
+$r->bindParam(':id_deudas',$this->id_deudas);   
+$r->bindParam(':meses',$this->meses);                 
+$r->bindParam(':concepto',$this->concepto);	
+$r->execute();
+//<!-----------------------------suma los meses del formulario a la fecha de la deuda en caso se pago de 1 meses -----------------------------------------------------------------------------------------------------------------------> 
+$r= $co->prepare("UPDATE deudas d SET d.monto = 0, d.fecha = DATE_ADD(d.fecha, INTERVAL :meses MONTH) WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos = d.monto AND montos.tipo = 'mensualidad' ) AND d.id = :id_deudas AND :concepto = 'mensualidad' AND :meses = 1");
+$r->bindParam(':meses',$this->meses);	
+$r->bindParam(':id_deudas',$this->id_deudas);
+$r->bindParam(':concepto',$this->concepto);	 
+$r->execute();
+
+
+
+
+
+
+
+//<!-----------------------------PAGO MULTIPLE DE MENSUALIDAD-----------------------------------------------------------------------------------------------------------------------> 
+//<!-----------------------------suma los meses del formulario a la fecha de la deuda en caso se pago de varios meses -----------------------------------------------------------------------------------------------------------------------> 
+$r= $co->prepare("UPDATE deudas d SET d.fecha = DATE_ADD(d.fecha, INTERVAL :meses MONTH) WHERE d.id = :id_deudas AND :concepto = 'mensualidad' AND :meses >= 2");
+$r->bindParam(':meses',$this->meses);	
+$r->bindParam(':id_deudas',$this->id_deudas);
+$r->bindParam(':concepto',$this->concepto);	 
+$r->execute();
+//<!-----------------------------cambia el estado de la deuda a 0 si la fecha en igual o superior a la actual----------------------------------------------------------------------------------------------------------------------->
+$r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE  d.id = :id_deudas AND d.fecha >= CURRENT_DATE() AND :concepto = 'mensualidad' AND :meses >= 2");               	
+$r->bindParam(':id_deudas',$this->id_deudas);   
+$r->bindParam(':meses',$this->meses);                 
+$r->bindParam(':concepto',$this->concepto);	
+$r->execute();
+
+
+
+
 //<!-----------------------------SE EJECUTA SI CONCEPTO ES INSCRIPCION----------------------------------------------------------------------------------------------------------------------->    
-                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudas AND :concepto = 'inscripcion' ");                 
-                    $r->bindParam(':id_deudas',$this->id_deudas);	
-                    $r->bindParam(':concepto',$this->concepto);	                
-                    $r->execute();
+$r= $co->prepare("UPDATE deudas d SET d.monto = d.monto + :monto WHERE d.id = :id_deudas AND :concepto = 'inscripcion' ");                  	
+$r->bindParam(':id_deudas',$this->id_deudas);                    
+$r->bindParam(':monto',$this->monto);	
+$r->bindParam(':concepto',$this->concepto);	
+$r->execute();
+
+$r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos = d.monto AND montos.tipo = 'inscripcion' ) AND d.id = :id_deudas AND :concepto = 'inscripcion'");               	
+$r->bindParam(':id_deudas',$this->id_deudas);                    
+$r->bindParam(':concepto',$this->concepto);	
+$r->execute();
+//<!----------------------------PAGO UNICO DE MENSUALIDAD-----------------------------------------------------------------------------------------------------------------------> 
+
+
 
                 $this->bitacora("se registro un pago", "docentes",$this->nivel);
                 return "EL PAGO FUE REGISTRADO CON EXITO";	
@@ -249,22 +341,30 @@ class pagos extends datos{
                     $r->execute();
                 
 //<!-----------------------------SE EJECUTA SI CONCEPTO ES MENSUALIDAD----------------------------------------------------------------------------------------------------------------------->      
-                    $r= $co->prepare("UPDATE deudas d SET d.fecha = DATE_ADD(d.fecha, INTERVAL :mesesr MONTH) WHERE d.id = :id_deudasr AND :conceptor = 'mensualidad'");
-                    $r->bindParam(':mesesr',$this->meses);	
-                    $r->bindParam(':id_deudasr',$this->id_deudas);
-                    $r->bindParam(':conceptor',$this->concepto);	 
+
+                    $r= $co->prepare("UPDATE deudas d SET d.monto = d.monto + :monto WHERE d.id = :id_deudas AND :concepto = 'mensualidad' ");                  	
+                    $r->bindParam(':id_deudas',$this->id_deudas);                    
+                    $r->bindParam(':monto',$this->monto);	
+                    $r->bindParam(':concepto',$this->concepto);	
                     $r->execute();
 
-                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudasr AND d.fecha >= CURRENT_DATE() AND :conceptor = 'mensualidad'");                     
-                    $r->bindParam(':id_deudasr',$this->id_deudas);	
-                    $r->bindParam(':conceptor',$this->concepto);	                    
-                    $r->execute();   
+                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos = d.monto AND montos.tipo = 'mensualidad' ) AND d.id = :id_deudas AND :concepto = 'mensualidad' AND :meses = 1");               	
+                    $r->bindParam(':id_deudas',$this->id_deudas);   
+                    $r->bindParam(':meses',$this->meses);                 
+                    $r->bindParam(':concepto',$this->concepto);	
+                    $r->execute();
 
 //<!-----------------------------SE EJECUTA SI CONCEPTO ES INSCRIPCION----------------------------------------------------------------------------------------------------------------------->       
-                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE d.id = :id_deudasr AND :conceptor = 'inscripcion' ");                 
-                    $r->bindParam(':id_deudasr',$this->id_deudas);	
-                    $r->bindParam(':conceptor',$this->concepto);	                
-                    $r->execute(); 
+                    $r= $co->prepare("UPDATE deudas d SET d.monto = d.monto + :monto WHERE d.id = :id_deudas AND :concepto = 'inscripcion' ");                  	
+                    $r->bindParam(':id_deudas',$this->id_deudas);                    
+                    $r->bindParam(':monto',$this->monto);	
+                    $r->bindParam(':concepto',$this->concepto);	
+                    $r->execute();
+
+                    $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos = d.monto AND montos.tipo = 'inscripcion' ) AND d.id = :id_deudas AND :concepto = 'inscripcion'");               	
+                    $r->bindParam(':id_deudas',$this->id_deudas);                    
+                    $r->bindParam(':concepto',$this->concepto);	
+
    
                     $this->bitacora("se registro un pago", "docentes",$this->nivel);
                     return "EL PAGO FUE REGISTRADO CON EXITO";	
@@ -306,6 +406,39 @@ private function modificar1(){
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe($this->id)){
         try{
+
+
+
+            $r= $co->prepare("UPDATE deudas d INNER JOIN pagos p ON d.id = p.id_deudas SET d.monto = CASE WHEN p.monto > :monto THEN d.monto - ABS(p.monto - :monto)
+                              ELSE d.monto + ABS(p.monto - :monto) END
+                              WHERE d.id = :id_deudas AND p.id=:id AND estatus = 1 AND d.monto >= 0 ");    
+            $r->bindParam(':id_deudas',$this->id_deudas);
+            $r->bindParam(':monto',$this->monto);	
+            $r->bindParam(':id',$this->id);             	
+            $r->execute();
+
+            $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos = d.monto AND montos.tipo = 'inscripcion' ) AND d.id = :id_deudas AND :concepto = 'inscripcion'");               	
+            $r->bindParam(':id_deudas',$this->id_deudas);                    
+            $r->bindParam(':concepto',$this->concepto);	
+            $r->execute();
+ 
+            $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 1 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos > d.monto AND montos.tipo = 'inscripcion' ) AND d.id = :id_deudas AND :concepto = 'inscripcion'");               	
+            $r->bindParam(':id_deudas',$this->id_deudas);                    
+            $r->bindParam(':concepto',$this->concepto);	
+            $r->execute();
+
+            $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 0 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos = d.monto AND montos.tipo = 'mensualidad' ) AND d.id = :id_deudas AND :concepto = 'mensualidad'");               	
+            $r->bindParam(':id_deudas',$this->id_deudas);                    
+            $r->bindParam(':concepto',$this->concepto);	
+            $r->execute();
+ 
+            $r= $co->prepare("UPDATE deudas d SET d.estado_deudas = 1 WHERE EXISTS (SELECT * FROM montos WHERE montos.m_montos > d.monto AND montos.tipo = 'mensualidad' ) AND d.id = :id_deudas AND :concepto = 'mensualidad'");               	
+            $r->bindParam(':id_deudas',$this->id_deudas);                    
+            $r->bindParam(':concepto',$this->concepto);	
+            $r->execute();
+     
+
+            
             $r= $co->prepare("UPDATE pagos SET 
                     
                 id_deudas=:id_deudas,
@@ -319,6 +452,8 @@ private function modificar1(){
                 estado_pagos=:estado_pagos            
                 WHERE
                 id=:id
+
+                
   
                 ");
                 $r->bindParam(':id',$this->id);	
@@ -332,7 +467,9 @@ private function modificar1(){
                 $r->bindParam(':estado',$this->estado);	
                 $r->bindParam(':estado_pagos',$this->estado_pagos  );
             $r->execute();
-            
+
+        
+
 
             $this->bitacora("se modifico un pago", "docentes",$this->nivel);
          
@@ -356,7 +493,45 @@ private function modificar1(){
 
 
 
+//<!---------------------------------FUNCION QUE SE USA PARA MODIFICAR LOS REGISTROS------------------------------------------------------------------>
+private function modificarMM(){
 
+
+    $co = $this->conecta();
+    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
+        try{
+
+
+            $r = $co->prepare("UPDATE montos SET 
+            tipo = :tipo,
+            m_montos = (SELECT valor FROM dolar_venezuela) * :d_montos,
+            d_montos = :d_montos
+        WHERE
+            codigo = :codigo");
+
+                $r->bindParam(':codigo',$this->codigo);	
+                $r->bindParam(':tipo',$this->tipo);	
+                $r->bindParam(':m_montos',$this->m_montos);	
+                $r->bindParam(':d_montos',$this->d_montos);	
+                $r->execute();
+  
+            $this->bitacora("se modifico un pago", "docentes",$this->nivel);
+         
+                return "Registro modificado";	
+            
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
+            
+   
+
+
+    }
+
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
 
@@ -374,35 +549,46 @@ private function modificar1(){
 public function consultar($nivel1){
     $co = $this->conecta();		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        try{			
-			$resultado = $co->prepare("SELECT p.*, e.nombre, e.cedula FROM pagos p, deudas d,estudiantes e WHERE p.id_deudas = d.id  AND d.id_estudiante = e.cedula  AND p.estatus=1");
-	
+        try{	
 
+
+			$resultado = $co->prepare("SELECT p.*, e.nombre, e.cedula, tl.nombre1, tl.cedula as 'cedula2' FROM pagos p 
+            INNER JOIN deudas d ON p.id_deudas = d.id 
+            INNER JOIN estudiantes e ON d.id_estudiante = e.cedula 
+            INNER JOIN estudiantes_tutor et ON e.cedula = et.id_estudiantes 
+            INNER JOIN tutor_legal tl ON et.id_tutor = tl.cedula WHERE p.estatus = 1 ");
             $resultado->execute(); 
+
            $respuesta="";
             foreach($resultado as $r){
-                $respuesta= $respuesta.'<tr>';
+                $respuesta=$respuesta.'<tr>';
                 $respuesta=$respuesta."<th>".$r['id']."</th>";
-                $respuesta=$respuesta."<th>".$r['id_deudas']."</th>";             
+                $respuesta=$respuesta."<th>".$r['id_deudas']."</th>";  
+                $respuesta=$respuesta."<th>".$r['cedula2']."</th>";  
+                $respuesta=$respuesta."<th>".$r['nombre1']."</th>";            
                 $respuesta=$respuesta."<th>".$r['identificador']."</th>";               
                 $respuesta=$respuesta."<th>".$r['concepto']."</th>"; 
                 $respuesta=$respuesta."<th>".$r['forma']."</th>";
-                $respuesta=$respuesta."<th>".$r['fecha']."</th>";             
+                $respuesta=$respuesta."<th>".$r['fecha']."</th>";
+                $respuesta=$respuesta."<th>".$r['fechad']."</th>";
                 $respuesta=$respuesta."<th>".$r['monto']."</th>";
                 $respuesta=$respuesta."<th>".$r['meses']."</th>";
                 $respuesta=$respuesta."<th>".$r['cedula']."</th>";  
                 $respuesta=$respuesta."<th>".$r['nombre']."</th>";                      
-                $respuesta=$respuesta."<th>".$r['estado']."</th>";        
+                $respuesta=$respuesta."<th>".$r['estado']."</th>";   
+
+              
+       
                 
                 $respuesta=$respuesta.'<th> ';
                 if (in_array("modificar pagos",$nivel1)) {
                 $respuesta=$respuesta.'<a href="#editpago" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
                <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
             </a>';
-                  }  if (in_array("eliminar pagos",$nivel1)) {
-                    $respuesta=$respuesta.'<a href="#deletepago2" class="delete" data-toggle="modal"  onclick="eliminarr(`'.$r['id'].'`)">
-                <i class="material-icons"  title="Deshacer"><img src="assets/icon/deshacer.png"/></i>               
-            </a>  ';
+                 }if (in_array("modificar pagos",$nivel1)) {
+                $respuesta=$respuesta.'<a href="#verpago" class="edit" data-toggle="modal" onclick="ver(`'.$r['id'].'`)">
+               <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/search.png"/></i>
+            </a>';
                  }if (in_array("eliminar pagos",$nivel1)) {
             $respuesta=$respuesta.'<a href="#deletepago" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
                <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>               
@@ -410,7 +596,7 @@ public function consultar($nivel1){
                   }
                   
             $respuesta=$respuesta.' </th>';
-             $respuesta= $respuesta.'</tr>';
+             $respuesta=$respuesta.'</tr>';
             }          
             return $respuesta;			
 		}catch(Exception $e){
@@ -490,6 +676,48 @@ public function consultart($var){
 
 
 
+  
+
+//<!---------------------------------FUNCION CONSULTAR DT ADMIN------------------------------------------------------------------>          
+
+public function consultamonto($nivel1){
+    $co = $this->conecta();		
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{	
+ 
+            
+			$resultado = $co->prepare("SELECT * FROM montos");
+            $resultado->execute(); 
+
+           $respuesta="";
+            foreach($resultado as $r){
+                $respuesta=$respuesta.'<tr>';
+                $respuesta=$respuesta."<th>".$r['codigo']."</th>";
+                $respuesta=$respuesta."<th>".$r['tipo']."</th>";  
+                $respuesta=$respuesta."<th>".$r['m_montos']."</th>";    
+                $respuesta=$respuesta."<th>".$r['d_montos']."</th>";  
+                  
+                
+                $respuesta=$respuesta.'<th> ';
+                if (in_array("modificar pagos",$nivel1)) {
+                $respuesta=$respuesta.'<a href="#editmontos" class="edit" data-toggle="modal" onclick="montos(`'.$r['codigo'].'`)">
+               <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
+            </a>';
+                 }
+                  
+            $respuesta=$respuesta.' </th>';
+             $respuesta=$respuesta.'</tr>';
+            }          
+            return $respuesta;			
+		}catch(Exception $e){
+			return false;
+		}
+}
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+
+
 
 
 
@@ -507,9 +735,13 @@ public function consultar2(){
         try{
 			
 			
-            $resultado = $co->prepare("SELECT * from deudas WHERE estado_deudas = 1");
-            //<!----------SELECT * from deudas WHERE estado_deudas = 1-------------------->
+            $resultado = $co->prepare("SELECT d.*, (m.m_montos - d.monto) AS monto_restante, (m.m_montos) AS montototal ,(m.m_montos) AS montooculto
+            FROM deudas d
+            INNER JOIN montos m ON d.concepto = m.tipo
+            WHERE d.estado_deudas = 1 AND TIMESTAMPDIFF(DAY, fecha, NOW()) > 30; ");      
 			$resultado->execute();
+
+
            $respuesta="";
            $respuesta2="";
            $respuesta2 =$respuesta2.'<option value="seleccionar" selected hidden>-Seleccionar-</option>';
@@ -523,6 +755,9 @@ public function consultar2(){
                 $respuesta=$respuesta."<th>".$r['fecha']."</th>";
                 $respuesta=$respuesta."<th>".$r['estado']."</th>";
                 $respuesta=$respuesta."<th>".$r['estado_deudas']."</th>";
+                $respuesta=$respuesta."<th>".$r['monto_restante']."</th>";
+                $respuesta=$respuesta."<th>".$r['montototal']."</th>";
+                $respuesta=$respuesta."<th>".$r['montooculto']."</th>";
                 $respuesta= $respuesta.'</tr>';
 
             }
@@ -629,10 +864,6 @@ public function consultarr($var){
 
 
 
-
-
-
-
 //<!----------------------------------------------FUNCION EXISTE ------------------------------------------------------------------>
     private function existe($id){		
 		$co = $this->conecta();		
@@ -685,9 +916,7 @@ private function eliminar1(){
                 $r->bindParam(':id',$this->id);
                 $r->execute();
 
-          /*      $r=$co->prepare("UPDATE pagos p, deudas d SET p.estatus = 0, d.estado_deudas = 1, d.monto = d.monto + p.monto WHERE p.id=:id AND d.id = p.id_deudas ");
-                $r->bindParam(':id',$this->id);
-                $r->execute();*/
+
                       
                 $this->bitacora("se elimino un pago", "docentes",$this->nivel);
                 return "Registro Eliminado";
@@ -732,18 +961,18 @@ private function eliminar2(){
     
         try {
             
-                $r=$co->prepare("UPDATE pagos p, deudas d SET p.estatus = 0, d.estado_deudas = 1, p.estado = 'RETORNADO' WHERE p.id=:id AND d.id = p.id_deudas AND p.concepto = 'inscripcion'");
-                $r->bindParam(':id',$this->id);
-                $r->execute();
+            
+          
+            $r= $co->prepare("UPDATE pagos p, deudas d SET p.estatus = 0, d.estado_deudas = 1, p.estado = 'RETORNADO', d.monto = d.monto - p.monto  WHERE p.id=:id AND d.id = p.id_deudas AND p.concepto = 'inscripcion'");    
+            $r->bindParam(':id',$this->id);
+            $r->execute();
 
-                $r=$co->prepare("UPDATE pagos p, deudas d SET p.estatus = 0, d.fecha = DATE_SUB(d.fecha, INTERVAL p.meses MONTH)  WHERE p.id = :id AND d.id = p.id_deudas AND p.concepto = 'mensualidad'");      
-                $r->bindParam(':id',$this->id);                              
-                $r->execute();
 
-                $r=$co->prepare("UPDATE pagos p, deudas d SET  d.estado_deudas = 1 WHERE p.id=:id AND d.id = p.id_deudas AND d.fecha <= CURRENT_DATE() AND p.concepto = 'mensualidad'");      
-                $r->bindParam(':id',$this->id);                              
-                $r->execute();
-                
+            $r= $co->prepare("UPDATE pagos p, deudas d SET p.estatus = 0, d.estado_deudas = 1, p.estado = 'RETORNADO', d.monto = d.monto - p.monto  WHERE p.id=:id AND d.id = p.id_deudas AND p.concepto = 'mensualidad'");    
+            $r->bindParam(':id',$this->id);
+            $r->execute();
+
+
                  
                 $this->bitacora("se elimino un pago", "docentes",$this->nivel);
                 return "Registro Eliminado";

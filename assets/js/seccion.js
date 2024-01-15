@@ -5,7 +5,7 @@ $(document).ready(function() {
     $("#tablas").DataTable({
     
         responsive: true,     
-
+ 
       
         lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
         columnDefs: [
@@ -90,6 +90,8 @@ $(document).ready(function() {
               enviaAjax($("#f"));  
               $('#addEmployeeModal').modal('hide');
               $('#f').trigger('reset');
+            $("#Doc_Guia").val($("#Doc_Guia option:first").val()).trigger("change");
+            Doc_Guia=0;
             }
     });  
   
@@ -100,6 +102,8 @@ $(document).ready(function() {
             console.log("se valido edit");
         console.log($('#f2').serializeArray());
               enviaAjax($("#f2"));
+
+
               $('#editEmployeeModal').modal('hide');
               $('#f2').trigger('reset');
               }
@@ -336,8 +340,14 @@ $('#editEmployeeModal').on('hidden.bs.modal', function () {
     
   });
 
+
+  $('#f2').trigger('reset');
+  $('#existe_msj2').text('');
+  $('#existe_msj3').text('');
     // ----
 });
+
+
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
  
@@ -375,8 +385,10 @@ function delete_info(s,a){
                 
                 success: (respuesta) => {
                     alert(respuesta);
-                      abc();
-                        abc2();
+                    abc();
+                    abc2();
+                 Doc_Guia2();
+                 Doc_Guia3();
 
                     //$("#id").val(respuesta);
                     $("#consulta").val("consulta");
@@ -451,7 +463,7 @@ function abc(){
 
 abc();
 
-// -----------------------------
+// -------------Modales----------------
 
 function abc2(){
     $.ajax({
@@ -463,6 +475,11 @@ function abc2(){
                 success: function(respuesta) {
             
                     $('#sec').html(respuesta);
+
+                    $('#exampleModalCenter').on('hidden.bs.modal', function () {
+                        $('#sec').html('');
+                        $('#sec').html(respuesta);
+                    });
             }
         });
 
@@ -470,8 +487,43 @@ function abc2(){
 
 abc2();
 
+// ----
+function Doc_Guia2(){
+    $.ajax({
+        url: 'controlador/ajax/seccion_consulta.php',
+        type: 'POST',
+        data: {ajaxPet: true,
+                 action: 'doc_guia'},
+    
+                success: function(respuesta) {
+                    
+                    $('#Doc_Guia').html(`
+                    <option value="0" selected disabled hidden>-Seleccionar-</option>
+                    ${respuesta}
+                `);
+
+            }
+        });
+}
+Doc_Guia2();
 
 
+// ----
+function Doc_Guia3(){
+    $.ajax({
+        url: 'controlador/ajax/seccion_consulta.php',
+        type: 'POST',
+        data: {ajaxPet: true,
+                 action: 'doc_guia_edit'},
+    
+                success: function(respuesta) {
+
+                $('#E_Guia').html(respuesta);
+
+            }
+        });
+}
+Doc_Guia3();
 
 
 
@@ -521,7 +573,7 @@ var ano_academico= $('#ano_academico').val();
             if (respuesta == 1) {
             $('#existe_msj').text('Ya Existe la Seccion con ese Año');
                 existe=1;
-            }
+            } 
             else{
             $('#existe_msj').text('');
                 existe=0;

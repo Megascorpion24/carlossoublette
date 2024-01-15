@@ -31,6 +31,34 @@ if (isset($_POST['ajaxPet']) && $_POST['action'] == 'abc2') {
   }
 }
 
+
+// ------------DOCENTE GUIA---------
+if (isset($_POST['ajaxPet']) && $_POST['action'] == 'doc_guia') {
+  try {
+      
+      $resultado= $obj->Doc_Guia();
+
+      echo $resultado;
+
+  } catch (PDOException $e) {
+      // Manejar errores de la base de datos
+      echo "Error en la consulta: " . $e->getMessage();
+  }
+}
+
+if (isset($_POST['ajaxPet']) && $_POST['action'] == 'doc_guia_edit') {
+  try {
+      
+      $resultado= $obj->Doc_Guia_Edit();
+
+      echo $resultado;
+
+  } catch (PDOException $e) {
+      // Manejar errores de la base de datos
+      echo "Error en la consulta: " . $e->getMessage();
+  }
+}
+
 // ----------------Modal Estudiantes---------------
 if (isset($_POST['ajaxPet']) && isset($_POST['action']) && $_POST['action'] == 'getData') {
     try {
@@ -65,7 +93,7 @@ if (isset($_POST['ajaxPet']) && isset($_POST['action']) && $_POST['action'] == '
   try {
     $nombre=$_POST['nombre'];
     $ano= $_POST['ano'];
-    $ano_academico= $_POST['acad'];
+    $ano_academico= $_POST['acad']; 
       // echo "llego:".$nombre;
 
       $resultado= $obj->exists($nombre, $ano, $ano_academico);

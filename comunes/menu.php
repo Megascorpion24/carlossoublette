@@ -85,6 +85,11 @@
 		  </li>
 
 
+		  <li class="">
+		  <a href="?pagina=mantenimiento" class=""><img class="pr-3" src="assets/icon/reloj.png"/>mantenimiento</a>
+		  </li>
+
+
 <!-------13 PAGINA------------>	
 		<li class="">
 		  <a href="?pagina=bitacora" class=""><img class="pr-3" src="assets/icon/ajustes.png"/>bitacora</a>
@@ -95,6 +100,8 @@
 	  		
 		</ul>
 	 </div>
+
+	 
 	 
    <!-------fIN DEL MENU----------->
    

@@ -214,13 +214,14 @@ private function registrar1() {
         $resultado = $co->prepare("SELECT * from años  WHERE estado=1");
         $resultado->execute();
         $respuesta = "";
-
+ 
         foreach($resultado as $r){
             // Construir un conjunto de elementos de radio con el valor del campo 'id' y el texto del campo 'anos'
-            $respuesta .= '<div class="form-check mb-1">';
-            $respuesta .= '<input class="form-check-input" type="radio" name="año" id="inlineRadio' . $r['id'] . '" value="' . $r['id'] . '">';
-            $respuesta .= '<label class="form-check-label" for="inlineRadio' . $r['id'] . '">' . $r['anos'] . '</label>';
+            $respuesta .= '<div class="custom-radio mb-1">';
+            $respuesta .= '<input class="custom-radio-input" type="radio" name="año" id="inlineRadio' . $r['id'] . '" value="' . $r['id'] . '">';
+            $respuesta .= '<label class="custom-radio-label" for="inlineRadio' . $r['id'] . '">' . $r['anos'] . '</label>';
             $respuesta .= '</div>';
+            
         }
 
         return $respuesta;
@@ -321,7 +322,7 @@ private function modificar1(){
 //<!---------------------------fin de funcion modificar--------------------------->
 
 
-public function off_Docente(){
+private function off_Docente(){
 
 // ----ESTADO 0 A LOS QUE NO ESTEN EN LAS VARIABLES OBTENIDAS------
         $co = $this->conecta();
@@ -352,7 +353,7 @@ public function off_Docente(){
 }
  
 
-public function insert_Docente(){
+private function insert_Docente(){
     $co = $this->conecta();
         $docentes = array($this->docente1, $this->docente2, $this->docente3, $this->docente4, $this->docente5, $this->docente6);
     
@@ -385,6 +386,7 @@ private function verificarRelacionExistente($materiaId, $docenteId) {
 
     return ($result['count'] > 0);
 }
+
 
   //<!--------------------------------funcion consultar------------------------------>          
 public function consultar($nivel1){

@@ -1,5 +1,5 @@
 <?php 
-header('Content-Type: text-html; charset=UTF-8');
+header('Content-Type: text/html; charset=UTF-8');
 
 //Carga de Modelo
 if (is_file("modelo/".$pagina.".php")){

@@ -1,6 +1,6 @@
 <?php
-
-
+ 
+ 
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -19,7 +19,7 @@
 <head>
 	<?php  require_once('comunes/header.php');?>
     <?php require_once('comunes/menu.php'); ?>
-
+	<link rel="stylesheet" href="assets\css\año-btn-radio.css">
 	<link rel="stylesheet" href="assets/css/modal.css">
 
 </head>
@@ -166,9 +166,9 @@
 
 
 	<div class="col-6 mb-3" id="form_radio"> 
-			<label class="form-label ml-4">Año:</label>
+			<label class="form-label ml-5">Año:</label>
 			<br>
-		<div class="form-check form-check-inline" id="año">
+		<div class="form-check form-check-inline ml-5" id="año">
 					<?php
 					
 						if (!empty($Año)) {
@@ -184,12 +184,8 @@
 			 <div class="col-4 md-3">
 					<label>Docente Guia</label>
 					<select class="form-control" name="Doc_Guia" id="Doc_Guia">
-								<?php
-									if (!empty($Doc_Guia)) {
-											echo $Doc_Guia;
-									}
-								?>
-						</select>
+						<!-- contenido -->
+					</select>
 					<br>
 				<span id="dg_msj"></span>
 				</div>
@@ -278,11 +274,7 @@
 					
 
 					<select class="form-control" name="Doc_Guia1" id="E_Guia">
-								<?php
-									if (!empty($Doc_Guia_Edit)) {
-											echo $Doc_Guia_Edit;
-									}
-								?>
+								
 						</select>
 					
 				</div>

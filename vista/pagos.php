@@ -37,7 +37,46 @@
 
 			<div class="main-content">
 			     <div class="row">
-
+<!---------------------------------------------------------------------- TABLA -------------------------------------------------------------------------->	 
+<div class="col-md-5">
+					   <div class="table">
+					     
+							<div class="table-title  mb-3">
+								<div class="row ">
+										<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+											<h2 class="ml-lg-2">Tabla de Montos</h2>
+										</div>
+										
+								</div>
+							</div>
+					   
+							<table id="tablas2" style="width:100%" class="table table-striped ">
+								<thead>
+									<tr>
+				
+									<th>Codigo</th>
+									<th>Tipo</th>	
+									<th>Monto Bs</th>	
+									<th>Monto $</th>													
+									<th>Acción</th>
+									</tr>
+								</thead>
+								<?PHP if (in_array("consultar pagos", $nivel1)) {?>
+								<tbody id="tabla">						  						
+										<?php
+											if(!empty($consutamonto)){
+												echo $consutamonto;
+											}
+										?>   							 
+								</tbody>
+								<?php } ?>
+					
+		
+																				
+							</table>					   
+						</div>
+					</div>
+<!---------------------------------------------------------------------- TABLA -------------------------------------------------------------------------->	 
 <!---------------------------------------------------------------------- TABLA -------------------------------------------------------------------------->	 
 				    <div class="col-md-12">
 					   <div class="table">
@@ -73,14 +112,17 @@
 									<tr>
 				
 									<th>ID</th>
-									<th>N° Deuda</th>									
+									<th>N° Deuda</th>	
+									<th>C.I Repre</th>
+									<th>Tutor</th>								
 									<th>Identificador</th>
 									<th>Concepto</th>
 									<th>F/P</th>
 									<th>Fecha Pago</th>
+									<th>Fecha Deuda</th>
 									<th>Monto Bs</th>
-									<th>Meses Pagos</th>
-									<th>C.I Estudiante</th>
+									<th>Meses </th>
+									<th>C.I Est</th>
 									<th>Estudiante</th>
 									<th>Estado</th>							
 									<th>Acción</th>
@@ -174,21 +216,41 @@
 
 		<div class="form-row">
 			<div class="form-group col-md-4">						
-				<select type="text" class="form-control" name="mibuscador" id="mibuscador" onchange="añadir2()">
+				<select type="text" class="form-control" name="mibuscador"  id="mibuscador"  onchange="añadir2()">
 				<?php
     				if(!empty($consuta2[1])){
         				echo $consuta2[1];
    					}
 	       		 ?>
 				</select>
-			</div>	
-			<div class="form-group col-md-2 ocultar "  id="ocult2" >					
-				<input type="text" class="form-control"  id="total_deuda" readonly >							
 			</div>
 			<div class="form-group col-md-6">
 				<span style="color: green">Seleccionar la deuda que desea cancelar</span>
-			</div>
+			</div>	
+
 		</div>
+		<div class="form-row">
+
+			<div class="form-group col-md-4 " >	
+			<label>Deuda Unica Pendiente</label>					
+				<input type="text" class="form-control" id="montov" readonly >							
+			</div>
+			<div class="form-group col-md-2 " id="ocult2" >
+			<label>Meses</label>						
+				<input type="text" class="form-control" id="mesesv" readonly >							
+			</div>
+			<div class="form-group col-md-3 " id="ocult5" >	
+			<label>Monto Total</label>				
+				<input type="text" class="form-control" id="montot" readonly >							
+			</div>
+			<div class="form-group col-md-3 " >	
+			<label>Precio Base</label>				
+				<input type="text" class="form-control " id="montooculto" readonly >							
+			</div>
+			
+
+		</div>
+
 
 	
 
@@ -213,7 +275,7 @@
 						<div class="form-group col-md-4">
 							<label>Concepto</label>
 								<span style="color:#FF0000" id="sconcepto"></span>
-							<input type="text" class="form-control" readonly="true" name="concepto"  id="concepto" required   >
+							<input type="text" class="form-control" readonly="true" name="concepto"  id="concepto" required onchange="checkConcepto()"  >
 						</div>
 						<!--------------------------------->
 						<div class="form-group col-md-3">
@@ -241,15 +303,10 @@
 								<span style="color:#FF0000" id="sforma"></span>				
 							<select type="text" class="form-control" name="forma" id="forma" required >
 									<option value="" selected>- Seleccionar -</option>
-									<option value="Transferencia">Trasferencia</option>
+									<option value="Transf">Trasferencia</option>
 									<option value="Pago Movil">Pago Movil</option>
 									<option value="Efectivo">Efectivo</option>	
-									<option value="Transf - PMV">Transf - PMV</option>
-									<option value="Transf - Efec">Transf - Efec</option>
-									<option value="PMV - Transf">PMV - Transf</option>
-									<option value="PMV - Efec">PMV - Efec</option>
-									<option value="Efec - Transf">Efec - Transf</option>
-									<option value="Efec - PMV">Efec - PMV</option>		
+								
 									<option value="Otro">Otro</option>																			
 							</select>
 						</div>				
@@ -258,15 +315,15 @@
 								<span style="color:#FF0000" id="sestado"></span>		
 							
 							<select type="text" class="form-control" name="estado" id="estado" required >																
-									<option value="CONFIRMADO">CONFIRMAR</option>
-									<option value="PENDIENTE">PENDIENTE</option>																									
+									<option value="Confirmado">CONFIRMAR</option>
+									<option value="Pendiente">PENDIENTE</option>																									
 							</select>
 						</div>
 						
 						<div class="form-group col-md-2 ocultar" id="ocult">
 							<label>Meses</label>
 								<span id="smeses"></span>
-							<input type="text" class="form-control"  name="meses" value="1" id="meses" required placeholder="0000">							
+							<input type="number" class="form-control"  name="meses" value="1" id="meses" required placeholder="0000">							
 						</div>
 						
 				
@@ -319,6 +376,81 @@
 
 
 
+
+<!-------------------------------------------------------------MODAL EDITAR------------------------------------------------------------------>
+<div class="modal fade" tabindex="-1" id="editmontos" role="dialog">
+ 	<div class="modal-dialog " role="document">
+    	<div class="modal-content">
+				<div class="modal-header">
+					<form id="fMM">
+						<h5 class="modal-title">Editar Montos</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+				</div>
+      		<div class="modal-body">
+
+					<h5 class="modal-title">Tutor</h5>
+						<hr>
+
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<label>Codigo</label>
+								<span style="color:#FF0000" id="scodigoMM"></span>
+								<input type="text" class="form-control" style="display: none;"  name="accionMM" value="accionMM" required>
+							<input type="text" class="form-control " readonly="true" name="codigoMM" id="codigoMM" required >
+						</div>
+						<div class="form-group col-md-3">
+							<label>Tipo</label>
+							<br>
+								<span style="color:#FF0000" id="stipoMM"></span>			
+							<input type="text" class="form-control" readonly="true" name="tipoMM" id="tipoMM" required >
+						</div>
+						<div class="form-group col-md-3">
+							<label>Monto Bs</label>
+								<span style="color:#FF0000" id="sm_montosMM"></span>			
+							<input type="text" class="form-control" readonly="true" name="m_montosMM" id="m_montosMM" required >
+						</div>	
+						<div class="form-group col-md-3">
+							<label>Monto $</label>
+								<span style="color:#FF0000" id="sd_montosMM"></span>			
+							<input type="text" class="form-control"name="d_montosMM" id="d_montosMM" required >
+						</div>					
+					</div>
+
+     		 </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-success" id="registrarMM">Actualizar</button>
+					</div>
+			</form>
+    	</div>
+  	</div>
+</div>
+
+<!---------------------------------------------FIN MODAL EDITAR------------------------------------------------->	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					   
 
 <!-------------------------------------------------------------MODAL EDITAR------------------------------------------------------------------>
@@ -334,10 +466,12 @@
 				</div>
       		<div class="modal-body">
 
+
 					<h5 class="modal-title">Tutor</h5>
 						<hr>
 
 					<div class="form-row">
+						
 						<div class="form-group col-md-3">
 							<label>ID</label>
 								<span style="color:#FF0000" id="sidM"></span>
@@ -355,47 +489,36 @@
 								<span style="color:#FF0000" id="sidentificadorM"></span>			
 							<input type="text" class="form-control"name="identificadorM" id="identificadorM" required >
 						</div>
-												
-						<div class="form-group col-md-3 " >
-							<label>Meses</label>
-								<span id="smesesM"></span>
-							<input type="text" class="form-control" readonly="true" name="mesesM"  id="mesesM" required placeholder="0000">							
-						</div>
-					</div>
-					
-					<div class="form-row">
 						<div class="form-group col-md-3">
 							<label>Concepto</label>
 								<span style="color:#FF0000" id="sconceptM"></span>
 							<input type="text" class="form-control" readonly="true"name="conceptoM" id="conceptoM" required >
+						</div>					
+		
+					</div>
+					
+					<div class="form-row">
+					<div class="form-group col-md-3">
+						<label>Fecha De Pago</label>
+							<span style="color:#FF0000" id="sfechaM"></span>			
+						<input type="text" class="form-control"readonly="true" name="fechaM" id="fechaM" required >
+					</div>
+					<div class="form-group col-md-3">
+						<label>Fecha De Deuda</label>
+							<span style="color:#FF0000" id="sfechadM"></span>			
+						<input type="text" class="form-control"readonly="true" name="fechadM" id="fechadM" required >
+					</div>
+					<div class="form-group col-md-3 " >
+							<label>Meses</label>
+								<span id="smesesM"></span>
+							<input type="text" class="form-control" readonly="true" name="mesesM"  id="mesesM" required placeholder="0000">							
 						</div>
-						<div class="form-group col-md-3">
-							<label>Fecha</label>
-								<span style="color:#FF0000" id="sfechaM"></span>			
-							<input type="text" class="form-control"readonly="true" name="fechaM" id="fechaM" required >
-						</div>
+			
 						<div class="form-group col-md-3">
 							<label>Monto</label>
 								<span style="color:#FF0000" id="smontoM"></span>
 							<input type="text" class="form-control"  name="montoM"  id="montoM" required placeholder="000 / 000-000">
-						</div>
-						<div class="form-group col-md-3">
-							<label>Forma de pago</label>
-								<span style="color:#FF0000" id="sformaM"></span>				
-							<select type="text" class="form-control" name="formaM" id="formaM" required >
-									<option value="" selected>- Seleccionar -</option>
-									<option value="Transferencia">Trasferencia</option>
-									<option value="Pago Movil">Pago Movil</option>
-									<option value="Efectivo">Efectivo</option>	
-									<option value="Transf - PMV">Transf - PMV</option>
-									<option value="Transf - Efec">Transf - Efec</option>
-									<option value="PMV - Transf">PMV - Transf</option>
-									<option value="PMV - Efec">PMV - Efec</option>
-									<option value="Efec - Transf">Efec - Transf</option>
-									<option value="Efec - PMV">Efec - PMV</option>		
-									<option value="Otro">Otro</option>																		
-							</select>
-						</div>	
+						</div>			
 						
 
 					</div>
@@ -411,12 +534,36 @@
 							<input type="text" class="form-control" disabled type="text" name="nombreM" id="nombreM" required >
 						</div>
 						<div class="form-group col-md-4">
+							<label>Forma de pago</label>
+								<span style="color:#FF0000" id="sformaM"></span>				
+							<select type="text" class="form-control" name="formaM" id="formaM" required >
+									<option value="" selected>- Seleccionar -</option>
+									<option value="Transf">Trasferencia</option>
+									<option value="Pago Movil">Pago Movil</option>
+									<option value="Efectivo">Efectivo</option>	
+
+									<option value="Otro">Otro</option>																		
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label>Cedula Tutor</label>
+								<span style="color:#FF0000" id="scedula2M"></span>			
+							<input type="text" class="form-control" disabled type="text" name="cedula2M" id="cedula2M" required >
+						</div>
+						<div class="form-group col-md-4">
+							<label>Nombre Tutor</label>
+								<span style="color:#FF0000" id="snombre1M"></span>			
+							<input type="text" class="form-control" disabled type="text" name="nombre1M" id="nombre1M" required >
+						</div>
+						<div class="form-group col-md-4">
 							<label>Estado</label>
 								<span style="color:#FF0000" id="sestadoM"></span>		
 							
 							<select type="text" class="form-control" name="estadoM" id="estadoM" required >																
-									<option value="CONFIRMADO">CONFIRMAR</option>
-									<option value="PENDIENTE">PENDIENTE</option>																									
+									<option value="Confirmado">CONFIRMAR</option>
+									<option value="Pendiente">PENDIENTE</option>																									
 							</select>
 						</div>
 												
@@ -552,7 +699,132 @@
 
 
 
+<div class="modal fade" tabindex="-1" id="verpago" role="dialog">
+ 	<div class="modal-dialog " role="document">
+    	<div class="modal-content">
+				<div class="modal-header">
+					<form id="f2">
+						<h5 class="modal-title">Consulta de Pagos</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+				</div>
+      		<div class="modal-body">
 
+					<h5 class="modal-title">Datos del Pago</h5>
+						<hr>
+
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<label>ID</label>
+								<span style="color:#FF0000" id="sidC"></span>
+								<input type="text" class="form-control" style="display: none;"  name="accion1" value="accion1" required>
+							<input type="text" class="form-control " readonly="true" name="idC" id="idC" required >
+						</div>
+						<div class="form-group col-md-3">
+							<label>N° Deuda</label>
+							<br>
+								<span style="color:#FF0000" id="scuposC"></span>			
+							<input type="text" class="form-control" readonly="true" name="id_deudasC" id="id_deudasC" required >
+						</div>
+						<div class="form-group col-md-3">
+							<label>Identificador</label>
+								<span style="color:#FF0000" id="sidentificadorC"></span>			
+							<input type="text" class="form-control"  readonly="true"  name="identificadorC" id="identificadorC" required >
+						</div>
+						<div class="form-group col-md-3">
+							<label>Concepto</label>
+								<span style="color:#FF0000" id="sconceptoC"></span>
+							<input type="text" class="form-control" readonly="true"name="conceptoC" id="conceptoC" required >
+						</div>					
+		
+					</div>
+					
+					<div class="form-row">
+					<div class="form-group col-md-3">
+						<label>Fecha De Pago</label>
+							<span style="color:#FF0000" id="sfechaC"></span>			
+						<input type="text" class="form-control"readonly="true" name="fechaC" id="fechaC" required >
+					</div>
+					<div class="form-group col-md-3">
+						<label>Fecha De Deuda</label>
+							<span style="color:#FF0000" id="sfechadC"></span>			
+						<input type="text" class="form-control"readonly="true" name="fechadC" id="fechadC" required >
+					</div>
+					<div class="form-group col-md-3 " >
+							<label>Meses</label>
+								<span id="smesesC"></span>
+							<input type="text" class="form-control" readonly="true" name="mesesC"  id="mesesC" required placeholder="0000">							
+						</div>
+			
+						<div class="form-group col-md-3">
+							<label>Monto</label>
+								<span style="color:#FF0000" id="smontoC"></span>
+							<input type="text" class="form-control" readonly="true"  name="montoC"  id="montoC" required placeholder="000 / 000-000">
+						</div>			
+						
+
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label>Cedula</label>
+								<span style="color:#FF0000" id="scedulaC"></span>			
+							<input type="text" class="form-control" readonly="true"  type="text" name="cedulaC" id="cedulaC" required >
+						</div>
+						<div class="form-group col-md-4">
+							<label>Estudiante</label>
+								<span style="color:#FF0000" id="snombreC"></span>			
+							<input type="text" class="form-control" readonly="true"  type="text" name="nombreC" id="nombreC" required >
+						</div>
+						<div class="form-group col-md-4">
+							<label>Forma de pago</label>
+								<span style="color:#FF0000" id="sformaC"></span>				
+							<select type="text" class="form-control" disabled  name="formaC" id="formaC" required >
+									<option value="" selected>- Seleccionar -</option>
+									<option value="Transf">Trasferencia</option>
+									<option value="Pago Movil">Pago Movil</option>
+									<option value="Efectivo">Efectivo</option>	
+
+									<option value="Otro">Otro</option>																		
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label>Cedula Tutor</label>
+								<span style="color:#FF0000" id="scedula2C"></span>			
+							<input type="text" class="form-control" readonly="true"  type="text" name="cedula2C" id="cedula2C" required >
+						</div>
+						<div class="form-group col-md-4">
+							<label>Nombre Tutor</label>
+								<span style="color:#FF0000" id="snombre1C"></span>			
+							<input type="text" class="form-control" readonly="true"  type="text" name="nombre1C" id="nombre1C" required >
+						</div>
+						<div class="form-group col-md-4">
+							<label>Estado</label>
+								<span style="color:#FF0000" id="sestadoC"></span>		
+							
+							<select type="text" class="form-control" disabled  name="estadoC" id="estadoC" required >																
+									<option value="Confirmado">CONFIRMAR</option>
+									<option value="Pendiente">PENDIENTE</option>																									
+							</select>
+						</div>
+												
+			
+					</div>
+
+     		 </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+						
+					</div>
+			</form>
+    	</div>
+  	</div>
+</div>
+
+<!---------------------------------------------FIN MODAL EDITAR------------------------------------------------->	   
+  
 
 
 
@@ -670,12 +942,7 @@
 									<option value="Transferencia">Trasferencia</option>
 									<option value="Pago Movil">Pago Movil</option>
 									<option value="Efectivo">Efectivo</option>	
-									<option value="Transf - PMV">Transf - PMV</option>
-									<option value="Transf - Efec">Transf - Efec</option>
-									<option value="PMV - Transf">PMV - Transf</option>
-									<option value="PMV - Efec">PMV - Efec</option>
-									<option value="Efec - Transf">Efec - Transf</option>
-									<option value="Efec - PMV">Efec - PMV</option>		
+	
 									<option value="Otro">Otro</option>											
 							</select>
 						</div>

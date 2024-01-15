@@ -1,4 +1,40 @@
  
+// ----------------------Autocompletar Materia--------------
+var materias = [];
+// var materias1 = [];
+
+function materia(){
+    
+  $.ajax({
+    url: 'controlador/ajax/materia_consulta.php', // URL de tu script PHP
+    type: "POST", // Usar método POST
+    dataType: "json",
+    data: {
+      term: 1
+    },
+    success: function(data) {
+      // Recorrer el arreglo de resultados
+      for (var i = 0; i < data.length; i++) {
+        // Agregar el nombre de la materia al arreglo
+        materias.push(data[i].nombre);
+        // materias1.push(data[i].nombre);
+      }
+      // Recorrer el arreglo de resultados
+         // Llamar a la función que configura el autocompletado después de obtener las materias
+    //   configurarAutocompletado();
+    }
+  });
+}
+
+$("#nombre" ).autocomplete({
+    source: materias,
+    select: function(event, ui) {
+        nombre_valor = this.value; // Actualiza nombre_valor con el valor actual del campo
+        console.log(nombre_valor);
+    }
+  });
+
+// -------------------------
 
 $(document).ready(function() {
 
@@ -8,7 +44,7 @@ $(document).ready(function() {
     
     responsive: true,   
 
-  
+   
     lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
     columnDefs: [
       { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },
@@ -79,8 +115,6 @@ $(document).ready(function() {
              console.log($('#f').serializeArray());
               enviaAjax($("#f")); 
 
-                // Supongamos que tienes un campo select2 con el ID "miSelect2"
-
               $('#addEmployeeModal').modal('hide');
               $('#f').trigger('reset');
             $("#docentes").val(null).trigger("change");
@@ -93,12 +127,12 @@ $(document).ready(function() {
     $("#editar").on("click", function() {
 
         if (validarEdit()) { 
-            console.log("se valido edit");
+            // console.log("se valido edit");
         console.log($('#f2').serializeArray());
 
               enviaAjax($("#f2"));
               $('#editEmployeeModal').modal('hide');
-              $('#f2').trigger('reset');
+            $('#f2').trigger('reset');
             $("#docentes1").val(null).trigger("change");
             
             nombre_valor2="";
@@ -106,7 +140,6 @@ $(document).ready(function() {
             $('#existe_msj2').text('');
             $('#existe_msj3').text('');
 
-                materia();//autocompletado
               }
     });
     
@@ -118,34 +151,8 @@ $(".js-example-placeholder-multiple").select2({
   });
 
 
-
-materia();
-
+  materia();//llenar
 });//end ready
-  
-var materias = [];
-function materia(){
-    
-  $.ajax({
-    url: 'controlador/ajax/materia_consulta.php', // URL de tu script PHP
-    type: "POST", // Usar método POST
-    dataType: "json",
-    data: {
-      term: 1
-    },
-    success: function(data) {
-      // Recorrer el arreglo de resultados
-      for (var i = 0; i < data.length; i++) {
-        // Agregar el nombre de la materia al arreglo
-        materias.push(data[i].nombre);
-      }
-    }
-  });
-}
-
-$("#nombre" ).autocomplete({
-    source: materias
-  });
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
@@ -266,6 +273,15 @@ $("#editEmployeeModal").on("hidden.bs.modal", function () {
 
     // Elimina la selección en los elementos <select> de docentes
     docentes_e.val("");
+
+    //Vacia todo
+    $('#f2').trigger('reset');
+            $("#docentes1").val(null).trigger("change");
+            
+            nombre_valor2="";
+            seleccionado2="";
+            $('#existe_msj2').text('');
+            $('#existe_msj3').text('');
 });
 
 
@@ -294,7 +310,8 @@ function eliminar(id){
                 
                 success: (respuesta) => {
                     alert(respuesta);
-                    materia();
+                    materias = [];//vaciar
+                    materia();//llenar
 
                     //$("#id").val(respuesta);
                     $("#consulta").val("consulta");
@@ -334,7 +351,7 @@ function eliminar(id){
                 
                 success: function(respuesta) {
                  $("#tabla").html(respuesta);
-                   
+                
                 },
                 error: function(request, status, err){
                     if (status == "timeout") {

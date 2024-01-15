@@ -22,10 +22,9 @@
 	<?php  require_once('comunes/header.php');?>
     <?php require_once('comunes/menu.php'); ?>
 <link rel="stylesheet" href="assets\css\jquery-ui.css">
+<link rel="stylesheet" href="assets\css\año-btn-radio.css">
 <style>
-	/* .ui-menu .ui-widget .ui-widget-content .ui-autocomplete .ui-front{
-		z-index: 200;
-	} */
+	/* para el autocompletado */
 	#ui-id-1{
 		z-index: 2000;
 	}
@@ -79,7 +78,7 @@
 							 <th>Id</th>
 							 <th>Nombre</th>
 							 <th>Año</th>
-
+  
 							 <th>docente1</th>
 							 <th>docente2</th>
 							 <th>docente3</th>
@@ -154,10 +153,10 @@
 
 
 			
-		<div class="col-6 mb-3" id="form_radio"> 
+		<div class="col-6 mb-1" id="form_radio"> 
 			<label class="form-label ml-4">Año:</label>
 			<br>
-		<div class="form-check form-check-inline" id="año">
+		<div class="ml-4" id="año">
 					<?php
 					
 						if (!empty($Año)) {
@@ -235,7 +234,7 @@
 			<div class="form-group col-md-6">
 				<label>Nombre</label>
 				<br>
-				<input type="text" class="form-control"  style="text-transform: uppercase;" name="nombre1" id="nombre1" required>
+				<input type="text"  class="form-control"  style="text-transform: uppercase;" name="nombre1" id="nombre1" required>
 				<span id="nombre1_v"></span>			
 			</div>
 

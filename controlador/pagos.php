@@ -64,15 +64,17 @@ require_once("modelo/".$pagina.".php");
 			$fecha_actual = date("Y-m-d");
 			$validacion[4]=$o->set_fecha($fecha_actual);		 
 			$dato[4]="error en la validacion del fecha";
-			$validacion[5]=$o->set_monto($_POST['monto']);
-			$dato[5]="error en la validacion del monto";
-			$validacion[6]=$o->set_meses($_POST['meses']);
-			$dato[6]="error en la validacion del meses";
-			$validacion[7]=$o->set_estado($_POST['estado']);
-			$dato[7]="error en la validacion del estado";			
+			$validacion[5]=$o->set_fechad($_POST['fecha']);		 
+			$dato[5]="error en la validacion del fechad";
+			$validacion[6]=$o->set_monto($_POST['monto']);
+			$dato[6]="error en la validacion del monto";
+			$validacion[7]=$o->set_meses($_POST['meses']);
+			$dato[7]="error en la validacion del meses";
+			$validacion[8]=$o->set_estado($_POST['estado']);
+			$dato[8]="error en la validacion del estado";			
 			$o->set_nivel($nivel);
 
-			for ($i=0; $i <= 7 ; $i++) { 
+			for ($i=0; $i <= 8 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
@@ -197,10 +199,42 @@ require_once("modelo/".$pagina.".php");
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
   //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 		  
+  if(!empty($_POST['accionMM'])){
+		
+	$valor=true;
+	$retorno="";	
+	$validacion[0]=$o->set_codigo($_POST['codigoMM']);
+	$dato[0]="error en la validacion del codigo";
+	$validacion[1]=$o->set_tipo($_POST['tipoMM']);
+	$dato[1]="error en la validacion del tipo";
+	$validacion[2]=$o->set_m_montos($_POST['m_montosMM']);
+	$dato[2]="error en la validacion de montos Bs";
+	$validacion[3]=$o->set_d_montos($_POST['d_montosMM']);
+	$dato[3]="error en la validacion de montos $";
+			
+	$o->set_nivel($nivel);
+
+	for ($i=0; $i <= 3 ; $i++) { 
+		if ($validacion[$i]== false) {
+			$retorno=$retorno.$dato[$i]."<br>";
+			$valor=false;
+		}
+	}
+
+	if ($valor==true) {
+		$mensaje = $o->montos();
+		echo $mensaje;
+	}else{
+		echo $retorno;
+	}			
+	exit;			
+}
+//<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
+//<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
+//<!----------------------------------------------------------------------------------------------------------------------------------------------------> 	
 
 
-
-
+ 
 
 
 
@@ -284,6 +318,8 @@ require_once("modelo/".$pagina.".php");
 				 $nivel1 = "";
 			 }
 			
+
+		
 			$consuta=$o->consultar($nivel1);
 			echo $consuta;
 			exit;
@@ -296,10 +332,14 @@ require_once("modelo/".$pagina.".php");
 		  if($_SESSION["rol"]=="1"){
 			$consutar=$o->consultarr($_SESSION["usuario"]);
 
+			
+
 			$consutat=$o->consultart($_SESSION["usuario"]);
 			}else{/* aqui estan las cosas del super usuario*/ 
 				$consuta=$o->consultar($nivel1);
 		
+				$consutamonto=$o->consultamonto($nivel1);
+
 				$consuta2=$o->consultar2();
 			}
 	
@@ -308,4 +348,4 @@ require_once("modelo/".$pagina.".php");
 	
 	}
 	
-?>
+?>  

@@ -1,0 +1,75 @@
+.custom-radio {
+    display: inline-block;
+    margin-right: 10px; /* Ajusta el espacio entre los botones si es necesario */
+  }
+  
+  .custom-radio-input {
+    display: none; /* Oculta el botón de radio original */
+  }
+  /* Estilos predeterminados para botones de radio 1 al 3 */
+  .custom-radio-input[value="1"] + .custom-radio-label,
+  .custom-radio-input[value="2"] + .custom-radio-label,
+  .custom-radio-input[value="3"] + .custom-radio-label {
+    border: 2px solid #007bff; /* Borde azul */
+  }
+  
+  /* Estilos predeterminados para botones de radio 4 y 5 */
+  .custom-radio-input[value="4"] + .custom-radio-label,
+  .custom-radio-input[value="5"] + .custom-radio-label {
+    border: 2px solid #b08e6b; /* Borde beige */
+  }
+  
+  /* Estilos generales para botones de radio */
+  .custom-radio-label {
+    display: inline-block;
+    border-radius: 35px; /* Bordes redondeados */
+    padding: 3px 15px; /* Espacio interno */
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transición suave */
+  }
+  
+  /* Estilos predeterminados para botones de radio 1 al 3 */
+  .custom-radio-input[value="1"] + .custom-radio-label,
+  .custom-radio-input[value="2"] + .custom-radio-label,
+  .custom-radio-input[value="3"] + .custom-radio-label {
+    border: 1px solid #007bff; /* Borde azul */
+  }
+  
+  /* Estilos predeterminados para botones de radio 4 y 5 */
+  .custom-radio-input[value="4"] + .custom-radio-label,
+  .custom-radio-input[value="5"] + .custom-radio-label {
+    border: 1px solid #b08e6b; /* Borde beige */
+  }
+  
+  /* Estilos específicos para botones de radio 1 al 3 seleccionados */
+  .custom-radio-input[value="1"]:checked + .custom-radio-label,
+  .custom-radio-input[value="2"]:checked + .custom-radio-label,
+  .custom-radio-input[value="3"]:checked + .custom-radio-label {
+    background-color: #cce5ff; /* Fondo azul más claro */
+    color: black; /* Color de texto azul */
+    border-color: #007bff; /* Borde azul */
+  }
+  
+  /* Estilos específicos para botones de radio 4 y 5 seleccionados */
+  .custom-radio-input[value="4"]:checked + .custom-radio-label,
+  .custom-radio-input[value="5"]:checked + .custom-radio-label {
+    background-color: #e8c39e; /* Fondo beige */
+    color: black; /* Color de texto negro */
+    border-color: #b08e6b; /* Borde beige */
+  }
+  
+  /* Estilos cuando los botones de radio están seleccionados */
+  .custom-radio-input:checked + .custom-radio-label {
+    background-color: #007bff; /* Cambia el color de fondo cuando está seleccionado */
+    color: white; /* Cambia el color del texto cuando está seleccionado */
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño cuando está seleccionado */
+  }
+  
+  /* Estilos hover para botones de radio */
+  .custom-radio-input:hover + .custom-radio-label {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el cursor */
+  }
+  
+  
+  
