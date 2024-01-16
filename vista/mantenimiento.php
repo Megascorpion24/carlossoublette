@@ -80,20 +80,15 @@
         </button>
       </div>
       <div class="modal-body">
-	  <form  method="POST" enctype="multipart/form-data">
+	  <form method="POST" enctype="multipart/form-data">
+  <input type="file" name="import_file" id="file" class="form-control" required>
+  <!-- Agregamos el atributo "required" para indicar que el campo es obligatorio -->
 
-<input type="file" name="import_file"  id="file" class="form-control" />
-
-
-
-
-	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button  name="restaurar" class="btn btn-success">restaurar</button>
-      </div>
-	  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <button name="restaurar" class="btn btn-success">Restaurar</button>
+  </div>
+</form>
     </div>
   </div>
 </div>

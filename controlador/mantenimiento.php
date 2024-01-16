@@ -51,13 +51,15 @@ if (is_file("vista/" . $pagina . ".php")) {
 		$file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
 
 		$allowed_ext = ['sql'];
-
-		if(in_array($file_ext, $allowed_ext)){
-		$inputFileNamePath = $_FILES['import_file']['tmp_name'];
-		$o->importarBaseDatos($inputFileNamePath);
+		if (empty($fileName)) {
+			echo "<script type='text/javascript'>alert(' eEl archivo no puede estar vacío.');</script>";
+		} elseif (!in_array($file_ext, $allowed_ext)) {
+			echo "<script type='text/javascript'>alert(' el archivo enviado no es una base de datos SQL.');</script>";
+		} else {
+			$inputFileNamePath = $_FILES['import_file']['tmp_name'];
+			$o->importarBaseDatos($inputFileNamePath);
 		}
 	}
-
 	require_once("vista/" . $pagina . ".php");
 } else {
 	echo "PAGINA EN CONSTRUCCION";

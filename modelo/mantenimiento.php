@@ -67,11 +67,12 @@ public function set_nivel($valor)
 
     // Verificamos si la importación fue exitosa
     if ($stmt->rowCount() > 0) {
-        echo 'Base de datos importada correctamente.';
+        echo "<script type='text/javascript'>alert(' Error al importar la base de datos.');</script>";
+        
     } else {
-        echo 'Error al importar la base de datos.';
-    }
 
+        echo "<script type='text/javascript'>alert(' base de datos importada correctamente.');</script>";
+    }
     // Cerramos la conexión a la base de datos
     $co = null;
 }
