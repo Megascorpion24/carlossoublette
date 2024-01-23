@@ -1,46 +1,9 @@
- 
-// ----------------------Autocompletar Materia--------------
-var materias = [];
-// var materias1 = [];
+ function CargarDataTable(){
+       /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function materia(){
-    
-  $.ajax({
-    url: 'controlador/ajax/materia_consulta.php', // URL de tu script PHP
-    type: "POST", // Usar método POST
-    dataType: "json",
-    data: {
-      term: 1
-    },
-    success: function(data) {
-      // Recorrer el arreglo de resultados
-      for (var i = 0; i < data.length; i++) {
-        // Agregar el nombre de la materia al arreglo
-        materias.push(data[i].nombre);
-        // materias1.push(data[i].nombre);
-      }
-      // Recorrer el arreglo de resultados
-         // Llamar a la función que configura el autocompletado después de obtener las materias
-    //   configurarAutocompletado();
-    }
-  });
-}
+       var pageLengthSetting = localStorage.getItem('pageLength2') || 15;
 
-$("#nombre" ).autocomplete({
-    source: materias,
-    select: function(event, ui) {
-        nombre_valor = this.value; // Actualiza nombre_valor con el valor actual del campo
-        console.log(nombre_valor);
-    }
-  });
-
-// -------------------------
-
-$(document).ready(function() {
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
- $("#tablas").DataTable({
+var table = $("#tablas").DataTable({
     
     responsive: true,   
 
@@ -64,7 +27,7 @@ $(document).ready(function() {
         targets: -1
       }
     ],
-    pageLength: 10,
+    pageLength: pageLengthSetting,
     destroy: true,
     language: {
     info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
@@ -104,9 +67,51 @@ $(document).ready(function() {
   });
  
   //--------------------
+  
+  $('select[name="tablas_length"]').change(function() {
+    var value = $(this).val();
+    localStorage.setItem('pageLength2', value); // Guarda en localStorage
+    table.page.len(value).draw(); // Actualiza el pageLength y redibuja la tabla
+});
+
+  //--------------------
  
-     
+  $('#filtro-1').on('click', function() {
+    table.columns(2).search('1').draw(); // Filtrar por el año '1'
+});
+
+$('#filtro-2').on('click', function() {
+    table.columns(2).search('2').draw(); // Filtrar por el año '2'
+});
+
+$('#filtro-3').on('click', function() {
+    table.columns(2).search('3').draw(); // Filtrar por el año '3'
+});
+
+$('#filtro-4').on('click', function() {
+    table.columns(2).search('4').draw(); // Filtrar por el año '4'
+});
+
+$('#filtro-5').on('click', function() {
+    table.columns(2).search('5').draw(); // Filtrar por el año '5'
+});
+
+// Evento de clic para el botón de limpiar filtro
+$('#limpiar-filtro').on('click', function() {
+table.columns(2).search('').draw();
+table.column(1).search(valor).draw();
+
+});
+
+
+ }
+
+$(document).ready(function() {
+
+ 
+     CargarDataTable();
     
+
     $("#registrar").on("click", function() {
         
  
@@ -154,6 +159,48 @@ $(".js-example-placeholder-multiple").select2({
   materia();//llenar
 });//end ready
 
+// ----------------------Autocompletar Materia--------------
+var materias = [];
+
+function materia(){
+    
+  $.ajax({
+    url: 'controlador/ajax/materia_consulta.php', // URL de tu script PHP
+    type: "POST", // Usar método POST
+    dataType: "json",
+    data: {
+      term: 1
+    },
+    success: function(data) {
+      // Recorrer el arreglo de resultados
+      for (var i = 0; i < data.length; i++) {
+        // Agregar el nombre de la materia al arreglo
+        materias.push(data[i].nombre);
+        // console.log(data[i].nombre);
+    
+      }
+      CargaAutoComplete();
+    }
+  });
+}
+
+var nombre_valor="";
+
+function CargaAutoComplete(){
+    
+$("#nombre" ).autocomplete({
+    source: materias,
+    select: function(event, ui) {
+        nombre_valor = ui.item.value; // ui.item.value contiene el valor seleccionado
+        // nombre_valor = this.value; // 
+        inputName();
+    }
+  });
+
+
+}
+
+// ------------------------- 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
@@ -286,18 +333,15 @@ $("#editEmployeeModal").on("hidden.bs.modal", function () {
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
-function eliminar(id){
+function eliminar(id) {
     $("#id2").val(id);
-    $("#borrar").on("click", () => {
-            
-         enviaAjax($("#f3"));
-        });
+    
+    LlamadaConfirmacion();
 }
 
-//<!---------------------------------------------------------------------------------------------------------------------------->
-    
 
+
+// ----------------------------------------
     function enviaAjax(datos){
     
         $.ajax({
@@ -309,7 +353,11 @@ function eliminar(id){
                 },
                 
                 success: (respuesta) => {
-                    alert(respuesta);
+                    // alert(respuesta); 
+                    LlamadaAlert(respuesta);
+
+        // --------------------------------------------
+
                     materias = [];//vaciar
                     materia();//llenar
 
@@ -317,7 +365,7 @@ function eliminar(id){
                     $("#consulta").val("consulta");
                     enviaAjax2($("#f4"));
 
-                },
+                }, 
                 error: function(request, status, err){
                     if (status == "timeout") {
                         mensaje("Servidor ocupado, intente de nuevo");
@@ -332,8 +380,6 @@ function eliminar(id){
         });
         
     }
-
-
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
@@ -350,8 +396,10 @@ function eliminar(id){
                 },
                 
                 success: function(respuesta) {
+                 $('#tablas').DataTable().destroy();
                  $("#tabla").html(respuesta);
-                
+                CargarDataTable();
+
                 },
                 error: function(request, status, err){
                     if (status == "timeout") {
@@ -375,15 +423,17 @@ function eliminar(id){
 
 
 // ------------CONSULTA SI EXISTE AL REGISTRAR--------------
-    var nombre_valor="";
+function inputName(){
+    if (nombre_valor != "" && seleccionado != "") {
+        consulta_existe(nombre_valor, seleccionado);
+        }
+}
 
-    $("#nombre").on("keyup", function() {
+    $("#nombre").on("input", function() {
            nombre_valor = $(this).val();
            console.log(nombre_valor);
-
-           if (nombre_valor != "" && seleccionado != "") {
-          consulta_existe(nombre_valor, seleccionado);
-          }
+        
+        inputName();   
     });
 
     var seleccionado="";

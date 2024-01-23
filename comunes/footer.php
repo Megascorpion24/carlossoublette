@@ -45,14 +45,18 @@
 	   });
   </script>
   
-  
+   
  
-
+ 
   <script src="assets/js/p_bootstrap.min.js"></script>
 <script src='assets/js/jquery.dataTables.min.js'></script>
 <script src='assets/js/dataTables.responsive.min.js'></script>
 <script src='assets/js/dataTables.bootstrap4.min.js'></script>
 <script src="assets/select2/js/select2.js"></script>
+<!-- --Alert-- -->
+<script src="assets/js/sweetalert2.js"></script>
+<script src="assets/js/Alert.js"></script>
+<!-- -- -->
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.8/index.global.min.js"></script>
 

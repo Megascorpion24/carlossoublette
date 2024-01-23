@@ -151,6 +151,55 @@ class tutor_legal extends datos{
              
                 $r->execute();
 
+                $t="1";
+                $claveencr=password_hash($this->cedula, PASSWORD_DEFAULT, ['cost'=>10]);
+                $r= $co->prepare("Insert into usuarios(
+						
+                    id,
+                    nombre, 
+                    correo,
+                    clave,
+                    estado,
+                    id_rol
+                    )
+            
+
+                    Values(
+                        :id,
+                        :nombre,
+                        :correo,
+                        :clave,
+                        :estado,
+                        19
+                    )");
+                    $r->bindParam(':id',$this->cedula);
+                $r->bindParam(':nombre',$this->nombre1);	
+                
+               
+                $r->bindParam(':correo',$this->correo);	
+                $r->bindParam(':clave',$claveencr);	
+                $r->bindParam(':estado',$t);
+                
+                $r->execute();
+                $lid1 = $co->lastInsertId();
+
+                $r= $co->prepare("Insert into usuarios_tutor(
+						
+                    
+                    id_usuarios, 
+                    id_tutor
+                    )
+            
+
+                    Values(
+                        
+                        :id_usuarios,
+                        :id_tutor
+                    )");
+                    $r->bindParam(':id_usuarios',$this->cedula);	
+                    $r->bindParam(':id_tutor',$this->cedula);
+                    
+                    $r->execute();
       
                 
                	

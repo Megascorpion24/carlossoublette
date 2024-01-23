@@ -42,13 +42,15 @@ require_once("modelo/".$pagina.".php");
 			$dato[2]="error en la validacion del correo";
 			$validacion[3]=$o->set_contraceña($_POST['contraceña']);
 			$dato[3]="error en la validacion del contraceña";
+			$validacion[4]=$o->set_cedula($_POST['cedula']);
+			$dato[4]="error en la validacion de la cedula";
 			
 			
 			
 			
 			
 			$o->set_nivel($nivel);
-			for ($i=0; $i <= 3 ; $i++) { 
+			for ($i=0; $i <= 4 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
@@ -81,12 +83,12 @@ require_once("modelo/".$pagina.".php");
 			$validacion[3]=$o->set_contraceña($_POST['contraceña2']);
 			$dato[3]="error en la validacion del contraceña2";
 			
-			$validacion[4]=$o->set_id($_POST['id']);
-			$dato[4]="error en la validacion del id";
+			$validacion[4]=$o->set_cedula($_POST['id']);
+			$dato[4]="error en la validacion del cedula";
 			
 			
 			$o->set_nivel($nivel);
-			for ($i=0; $i <= 3 ; $i++) { 
+			for ($i=0; $i <= 4 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
@@ -109,8 +111,8 @@ require_once("modelo/".$pagina.".php");
 
 			$valor=true;
 			$retorno="";
-			$validacion[0]=$o->set_id($_POST['id1']);
-			$dato[0]="error en la validacion del id1";
+			$validacion[0]=$o->set_cedula($_POST['id1']);
+			$dato[0]="error en la validacion del id1".$_POST['id1'];
 				
 			
 			$o->set_nivel($nivel);

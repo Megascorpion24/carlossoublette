@@ -52,7 +52,7 @@ if (isset($_SESSION['permisos'])) {
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 
-							 		<?PHP if (in_array("registrar ano_academico", $nivel1)) { ?>
+							 		<?PHP if (in_array("agregar_evento", $nivel1)) { ?>
 
 							    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
 									<i class="material-icons" style="width:100%" title="registrar"></i>
@@ -84,7 +84,7 @@ if (isset($_SESSION['permisos'])) {
 									</ul>
 
 									<!-- Tab panes -->
-									<?PHP if (in_array("consultar ano_academico", $nivel1)) { ?>
+									<?PHP if (in_array("consultar_evento", $nivel1)) { ?>
 									<div class="tab-content">
 										<div class="tab-pane container active" id="home">
 
@@ -176,10 +176,12 @@ if (isset($_SESSION['permisos'])) {
 											<thead>
 													<tr>
 														<th>ID</th>				
-														<th>Fecha Inicio</th>		
-														<th>Fecha Cierre</th>
-														<th>Evento</th>
-														<th>Acciones</th>
+														<th>FECHA DE INICIO</th>		
+														<th>FECHA DE CIERRE</th>
+														<th>ENCARGADO</th>
+														<th>EVENTO</th>
+														<th>AÑO ACADEMICO</th>
+														<th>ACCIONES</th>
 													</tr>
 												</thead>
 
@@ -251,16 +253,10 @@ if (isset($_SESSION['permisos'])) {
 	    <hr>
 		<div class="form-row">
 
-			<div class="form-group col-md-4" style="display:none;">
-				<label>Id</label>
-				<span id="sid"></span>
-				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
-				<input type="text" class="form-control sm" name="id" id="id" required placeholder="0000000">
-			</div>
-
 			<div class="form-group col-md-4">
 				<label>Fecha Inicio</label>
 				<span style="color:#FF0000" id="sfecha_ini"></span>
+				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
 				<input type="date" class="form-control" name="fecha_ini" id="fecha_ini" required placeholder="3">
 			</div>
 
@@ -268,6 +264,21 @@ if (isset($_SESSION['permisos'])) {
 				<label>Fecha Cierre</label>
 				<span style="color:#FF0000" id="sfecha_cierr"></span>
 				<input type="date" class="form-control" name="fecha_cierr" id="fecha_cierr" required placeholder="Tarde">
+			</div>
+
+			<div class="form-group col-md-4">
+				<label>Encargado</label>
+				<div class="form-group col-md-4">
+					<span style="color:#FF0000" id="scedula_profesor"></span>
+					<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
+					<select class="form-control" name="cedula_profesor" id="cedula_profesor" onchange="añadir1('#cedula_profesor')">
+						<?php
+						if (!empty($consuta1)) {
+								echo $consuta1;
+						}
+						?>
+					</select>
+				</div>
 			</div>
 
 			<div class="form-group col-md-4">
@@ -359,11 +370,20 @@ if (isset($_SESSION['permisos'])) {
 				<input type="text" class="form-control" name="evento1" id="evento1" required >
 			</div>
 
+			<br>
+				<div class="ml-3 mt-4">
+					<?php
+						if (!empty($ano_academico)) {
+								echo $ano_academico;
+							}
+					?>
+				</div>
+
+		</div>
+
 		</div>
 
 
-
-      </div>
       <div class="modal-footer">
 
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

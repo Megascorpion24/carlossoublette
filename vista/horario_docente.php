@@ -58,7 +58,7 @@ if (isset($_SESSION['permisos'])) {
 								</div>
 								<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 									<?PHP if (in_array("registrar horario_docente", $nivel1)) { ?>
-										<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+										<a href="#addClase" class="btn btn-success" data-toggle="modal">
 											<i class="material-icons">&#xE147;</i>
 											<span>Registrar</span>
 										</a>
@@ -199,7 +199,7 @@ if (isset($_SESSION['permisos'])) {
 
 															$("#id").val(info.event.id);
 
-															$("#editEmployeeModal").modal();
+															$("#editClase").modal();
 
 
 
@@ -223,7 +223,7 @@ if (isset($_SESSION['permisos'])) {
 														calendar.refetchEvents();
 													}
 													);
-													$('#addEmployeeModal').on('hidden.bs.modal', function() {
+													$('#addClase').on('hidden.bs.modal', function() {
 														calendar.render();
 													});
 												});
@@ -307,7 +307,7 @@ if (isset($_SESSION['permisos'])) {
 
 
 						<!------------------------------------------------MODAL REGISTRO------------------------------------------------->
-						<div class="modal fade" tabindex="-1" id="addEmployeeModal" role="dialog">
+						<div class="modal fade" tabindex="-1" id="addClase" role="dialog">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -425,7 +425,7 @@ if (isset($_SESSION['permisos'])) {
 
 
 					<!---MODAL BORRAR--------->
-					<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+					<div class="modal fade" tabindex="-1" id="deleteClase" role="dialog">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -461,7 +461,7 @@ if (isset($_SESSION['permisos'])) {
 
 
 				<!---------------------------------MODAL EDITAR------------------------------------------------------------------>
-				<div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
+				<div class="modal fade" tabindex="-1" id="editClase" role="dialog">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">

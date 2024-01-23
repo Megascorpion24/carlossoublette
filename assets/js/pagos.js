@@ -4,6 +4,11 @@
     
 $(document).ready(function() { 
    
+
+
+
+
+    
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $("#tablas").DataTable({
@@ -111,13 +116,38 @@ $(document).ready(function() {
 
 
 $('#mibuscador').select2({
-    dropdownParent: $('#addpago')
-});
+    dropdownParent: $('#addpago'),
+    placeholder: 'Seleccionar',
+    language: {
+        noResults: function() {
+            return "No se encontraron datos";
+        }
+    },
+
+})
 
 $('#mibuscador2').select2({
-    dropdownParent: $('#addpagorepre')
-});
+    dropdownParent: $('#addpagorepre'),
+    placeholder: 'Seleccionar',
+    language: {
+        noResults: function() {
+            return "No se encontraron datos";
+        }
+    },
 
+})
+
+
+$('#mibuscador3').select2({
+    dropdownParent: $('#confirmarpagos'),
+    placeholder: 'Seleccionar',
+    language: {
+        noResults: function() {
+            return "No se encontraron datos";
+        }
+    },
+
+});
 
 
 
@@ -130,6 +160,18 @@ $('#mibuscador2').select2({
             enviaAjax($("#f"));
             $('#addpago').modal('hide');
             $('#f').trigger('reset');          
+           
+       }
+        
+       
+    });
+
+    $("#registrarp").on("click", function() {
+        if (validarenviop()) {
+          
+            enviaAjax($("#fp"));
+            $('#confirmarpagos').modal('hide');
+            $('#fp').trigger('reset');          
            
        }
         
@@ -207,10 +249,7 @@ $("#d_montosMM").on("keypress", function(e) {
     validarkeypress(/^[0-9-]$/, e);
 });
 
-$("#d_montosMM").on("keyup", function() {
-    validarkeyup(/^[0-9-]{1,11}$/,
-        $(this), $("#sd_montosMM"), "");
-});
+
 
 
 
@@ -292,11 +331,101 @@ $("#d_montosMM").on("keyup", function() {
 /*aqui termina registrar*/
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
+$("#idp").on("keypress", function(e) {
+    validarkeypress(/^[0-9\b]*$/, e);
+});
+
+$("#idp").on("keyup", function() {
+    validarkeyup(/^[0-9]{1,5}$/,
+        $(this), $("#sidp"), "La ID debe ser en el siguiente formato 0000");
+});
+
+
+$("#id_deudasp").on("keypress", function(e) {
+    validarkeypress(/^[0-9\b]*$/, e);
+});
+
+$("#id_deudasp").on("keyup", function() {
+    validarkeyup(/^[0-9]{1,5}$/,
+        $(this), $("#sid_deudasp"), "La ID debe ser en el siguiente formato 0000");
+});
+
+$("#identificadorp").on("keypress", function(e) {
+    validarkeypress(/^[0-9-\u002E\b]*$/, e);
+});
+
+$("#identificadorp").on("keyup", function() {
+    validarkeyup(/^[0-9-]{4,11}$/,
+        $(this), $("#sidentificadorp"), "El formato puede ser 0000");
+});
+
+$("#conceptop").on("keypress", function(e) {
+    validarkeypress(/^[A-Za-z]$/, e);
+});
+
+$("#conceptop").on("keyup", function() {
+    validarkeyup(/^[A-Za-z]{4,20}$/,
+        $(this), $("#sconceptop"), "El formato puede ser 0000");
+});
+
+$("#formap").on("keypress", function(e) {
+    validarkeypress(/^[-A-Z a-z\s]$/, e);
+});
+
+$("#formap").on("keyup", function() {
+    validarkeyup(/^[-A-Za-z\s]{4,25}$/,
+        $(this), $("#sformap"), "");
+});
+
+$("#montop").on("keypress", function(e) {
+    validarkeypress(/^[0-9-]$/, e);
+});
+
+$("#montop").on("keyup", function() {
+    validarkeyup(/^[0-9-]{1,11}$/,
+        $(this), $("#smontop"), "El formato puede ser valido");
+});
+
+$("#mesesp").on("keypress", function(e) {
+    validarkeypress(/^[1-9]$/, e);
+});
+
+$("#mesesp").on("keyup", function() {
+    validarkeyup(/^[1-9]{1,2}$/,
+        $(this), $("#smesesp"), "El formato puede ser valido");
+});
+
+$("#estadop").on("keypress", function(e) {
+    validarkeypress(/^[A-Z a-z\s]$/, e);
+});
+
+$("#estadop").on("keyup", function() {
+    validarkeyup(/^[A-Za-z\s]{4,10}$/,
+        $(this), $("#sestadop"), "El formato puede ser valido");
+});
+
+$("#estado_pagosp").on("keypress", function(e) {
+    validarkeypress(/^[0-9]$/, e);
+});
+
+$("#estado_pagosp").on("keyup", function() {
+    validarkeyup(/^[0-9]{1,2}$/,
+        $(this), $("#sestado_pagosp"), "El formato puede ser valido");
+});
+
+$("#estadop").on("keypress", function(e) {
+    validarkeypress(/^[0-9]$/, e);
+});
+
+$("#estatusp").on("keyup", function() {
+    validarkeyup(/^[0-9]{1,2}$/,
+        $(this), $("#sestatusp"), "El formato puede ser valido");
+});
 
 
 
-
-
+/*aqui termina registrar*/
+//<!---------------------------------------------------------------------------------------------------------------------------->
 
 
 
@@ -437,14 +566,7 @@ $("#montoM").on("keyup", function() {
         $(this), $("#smontoM"), "El formato puede ser valido");
 });
 
-$("#mesesM").on("keypress", function(e) {
-    validarkeypress(/^[1-9]$/, e);
-});
 
-$("#mesesM").on("keyup", function() {
-    validarkeyup(/^[1-9]{1,2}$/,
-        $(this), $("#smesesM"), "El formato puede ser valido");
-});
 
 
 });
@@ -478,8 +600,8 @@ function ver(id){
             $("#formaC").val($(this).find("th:eq(6)").text());
             $("#fechaC").val($(this).find("th:eq(7)").text());      
             $("#fechadC").val($(this).find("th:eq(8)").text());          
-            $("#montoC").val($(this).find("th:eq(9)").text());
-            $("#mesesC").val($(this).find("th:eq(10)").text());
+            $("#mesesC").val($(this).find("th:eq(9)").text());
+            $("#montoC").val($(this).find("th:eq(10)").text());
             $("#cedula2C").val($(this).find("th:eq(2)").text());
             $("#nombreC").val($(this).find("th:eq(12)").text());  
             $("#cedulaC").val($(this).find("th:eq(11)").text());
@@ -506,9 +628,12 @@ function ver(id){
                 $("#conceptoM").val($(this).find("th:eq(5)").text());               
                 $("#formaM").val($(this).find("th:eq(6)").text());
                 $("#fechaM").val($(this).find("th:eq(7)").text());      
-                $("#fechadM").val($(this).find("th:eq(8)").text());          
-                $("#montoM").val($(this).find("th:eq(9)").text());
-                $("#mesesM").val($(this).find("th:eq(10)").text());
+                $("#fechadM").val($(this).find("th:eq(8)").text());  
+                var fechaInicial = new Date(Date.parse($("#fechadM").val()));
+                var fechaFinal = new Date(Date.parse($("#mesesM").val()));
+                var mesesDiferencia = Math.abs(fechaFinal.getMonth() - fechaInicial.getMonth()) + 1;                          
+                $("#mesesM").val(mesesDiferencia);                     
+                $("#montoM").val($(this).find("th:eq(10)").text());
                 $("#cedula2M").val($(this).find("th:eq(2)").text());
                 $("#nombreM").val($(this).find("th:eq(12)").text());  
                 $("#cedulaM").val($(this).find("th:eq(11)").text());
@@ -527,19 +652,19 @@ function ver(id){
     
     }
 //<!---------------------------------------------------------------------------------------------------------------------------->
-$('#editpago').on('show.bs.modal', function(event) {
+//$('#editpago').on('show.bs.modal', function(event) {
 
    
-    var montoM = $('#montoM');
-    var meses = $('#mesesM');
+  //  var montoM = $('#montoM');
+  //  var meses = $('#mesesM');
   
 
-    if (meses.val() > 1) {
-      montoM.attr('readonly', 'readonly');
-    } else {
-      montoM.removeAttr('readonly');
-    }
-  });
+ //   if (meses.val() > 1) {
+   //   montoM.attr('readonly', 'readonly');
+  //  } else {
+   //   montoM.removeAttr('readonly');
+  //  }
+//  });
 
 
 
@@ -568,6 +693,25 @@ function eliminarr(id){
 
 }
 //<!---------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -643,7 +787,6 @@ function añadir2() {
     
 }
 
-
 $("#mibuscador").change(function() {
     $("#meses").val(1);
 });
@@ -663,11 +806,6 @@ inpMeses.addEventListener("click", function() {
     inpMeses.removeAttribute("readonly");
   }
 });
-
-
-
-
-
 
 
 const inpuMeses = document.getElementById('meses');
@@ -693,10 +831,6 @@ inpuMeses.addEventListener('change', function() {
 });
 
 
-
-
-
-
 const firstInput = document.getElementById("monto");
 const secondInput = document.getElementById("montov");
 const inputMeses = document.getElementById("meses");
@@ -718,20 +852,16 @@ firstInput.addEventListener("input", function() {
  
 });
 
-
-
-
-
 inputMeses.addEventListener("input", function() {
   const firstValue = parseInt(inputMeses.value);
   const secondValue = parseInt(totalMeses.value);
   const mesActual = parseInt(inputMeses.value);
   
   if (firstValue > secondValue) {
-    inputMeses.value = secondValue;
+    inputMeses.value = secondValue;// limita los meses a la deuda
     firstInput.value = (secondValue) * parseFloat(secondInput.value);
   } else {
-    firstInput.value = mesActual * parseFloat(secondInput.value);
+    firstInput.value = mesActual * parseFloat(secondInput.value); // borrar todo menos esto si quiero poder paar meses de adelanto 
   }
 
    
@@ -743,7 +873,37 @@ inputMeses.addEventListener("input", function() {
 
 
 
-  function añadirr() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function añadirr() {
     id = $("#mibuscador2").val();
     $("#selectr tr").each(function () {
 
@@ -751,31 +911,330 @@ inputMeses.addEventListener("input", function() {
             $("#id_deudasr").val($(this).find("th:eq(0)").text());
             $("#conceptor").val($(this).find("th:eq(2)").text());
             $("#fechar").val($(this).find("th:eq(3)").text());
+            $("#montor").val($(this).find("th:eq(6)").text());
+            $("#montovr").val($(this).find("th:eq(6)").text());
+            $("#montotr").val($(this).find("th:eq(7)").text());
+            $("#montoocultor").val($(this).find("th:eq(8)").text());
 
+            var monto = $("#montor").val();
+
+            // Verificar si el monto es mayor al valor de th:eq(6)
+            if (monto > parseFloat($("#select tr th:eq(6)").text())) {
            
+            }
+
             var fechaActual = new Date();
             var fechaDeuda = new Date($(this).find("th:eq(3)").text());
             var diferencia = fechaActual.getTime() - fechaDeuda.getTime();
             var mes = Math.floor(diferencia / (30 * 24 * 60 * 60 * 1000)); // 30 días en milisegundos
-            $("#total_deudar").val(mes);
+            $("#mesesvr").val(mes);
 
+            var meses = $("#mesesr").val();
+
+            var concepto = $("#conceptor").val();
+            if (concepto === "mensualidad") {
+                var mesesv = $("#mesesvr").val();
+                if (!isNaN(mesesv)) {
+                    $("#montotr").val(parseFloat($("#montotr").val()) * parseFloat(mesesv));
+                }
+            }
+           
             if ($(this).find("th:eq(2)").text() == "mensualidad") {
                 $("#ocult3").removeClass("ocultar");
                 $("#ocult4").removeClass("ocultar");
+                $("#ocult6").removeClass("ocultar");
             } else {
-                $("#ocult3").addClass("ocultar");
+                $("#ocult3").addClass("ocultar");           
                 $("#ocult4").addClass("ocultar");
+                $("#ocult6").addClass("ocultar");
             }
 
+            if ($("#ocult3").hasClass("ocultar")) {
+                // Eliminar la propiedad readonly del input monto
+                $("#montor").prop("readonly", false);
+                // Asignar un valor predeterminado de 1 al campo meses
+                meses = 1;
+            }
+            
+            if ($("#ocult3").hasClass("ocultar")) {
+                // Eliminar la propiedad readonly del input monto
+                $("#montor").prop("readonly", false);
+            }
+
+
+
+
         }
+ 
     });
+    
 }
+
+
+$("#mibuscador2").change(function() {
+    $("#mesesr").val(1);
+});
+// Obtener los elementos HTML
+const inpMesesr = document.getElementById("mesesr");
+const inputMontoVr = document.getElementById("montovr");
+const inputMontoOcultor = document.getElementById("montoocultor");
+
+// Agregar un event listener al input de "meses"
+inpMesesr.addEventListener("click", function() {
+  // Comparar los valores de los inputs "montov" y "montooculto"
+  if (inputMontoVr.value !== inputMontoOcultor.value) {
+    // Establecer el atributo "readonly" del input "meses"
+    inpMesesr.setAttribute("readonly", true);
+  } else {
+    // Eliminar el atributo "readonly" del input "meses"
+    inpMesesr.removeAttribute("readonly");
+  }
+});
+
+
+const inpuMesesr = document.getElementById('mesesr');
+const inputMontor = document.getElementById('montor');
+const inputConceptor = document.getElementById('conceptor');
+
+// Agregar un evento de cambio al input de meses
+inpuMesesr.addEventListener('change', function() {
+    // Verificar si el valor del input de meses es mayor que 1
+    if (this.value > 1 && inputConceptor.value === 'mensualidad') {
+        // Hacer que el input de monto sea readonly
+        inputMontor.setAttribute('readonly', 'true');
+        // Establecer el valor del input de monto a 1
+        //inpuMeses.value = 1;
+    } else if (inputConcepto.value === 'inscripcion' && this.value === 1) {
+        // No establecer el atributo readonly en el input de monto
+        inputMontor.removeAttribute('readonly');
+    } else {
+        // De lo contrario, hacer que el input de monto no sea readonly
+        inputMontor.removeAttribute('readonly');
+    }
+    
+});
+
+
+const firstInputr = document.getElementById("montor");
+const secondInputr = document.getElementById("montovr");
+const inputMesesr = document.getElementById("mesesr");
+const totalMesesr = document.getElementById("mesesvr");
+
+firstInputr.addEventListener("input", function() {
+  const firstValuer = parseFloat(firstInputr.value);
+  const secondValuer = parseFloat(secondInputr.value);
+  
+
+  if (firstValuer > secondValuer) {
+    firstInputr.value = secondValuer;
+  }
+
+  if (parseInt(inputMesesr.value) >= 2) {
+    // Multiplicamos el valor del campo monto por el valor de los meses
+    firstInputr.value *= parseFloat(inputMesesr.value);
+  }
+ 
+});
+
+inputMesesr.addEventListener("input", function() {
+  const firstValuer = parseInt(inputMesesr.value);
+  const secondValuer = parseInt(totalMesesr.value);
+  const mesActualr = parseInt(inputMesesr.value);
+  
+  if (firstValuer > secondValuer) {
+    inputMesesr.value = secondValuer;
+    firstInputr.value = (secondValuer) * parseFloat(secondInputr.value);
+  } else {
+    firstInputr.value = mesActualr * parseFloat(secondInputr.value);
+  }
+
+   
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+function añadir3() {
+    id = $("#mibuscador3").val();
+   
+    $("#selectp tr").each(function () {
+
+        
+        if (id == $(this).find("th:eq(0)").text()) {
+            $("#idp").val($(this).find("th:eq(0)").text());
+            $("#id_deudasp").val($(this).find("th:eq(1)").text());
+            $("#conceptop").val($(this).find("th:eq(2)").text());
+            $("#identificadorp").val($(this).find("th:eq(3)").text());
+            $("#fechap").val($(this).find("th:eq(4)").text());
+            $("#fechadp").val($(this).find("th:eq(5)").text());
+            $("#formap").val($(this).find("th:eq(6)").text());
+            $("#montop").val($(this).find("th:eq(7)").text());
+            $("#mesesp").val($(this).find("th:eq(8)").text());
+            $("#estadop").val($(this).find("th:eq(9)").text());
+            $("#estado_pagosp").val($(this).find("th:eq(10)").text());
+            $("#estatusp").val($(this).find("th:eq(11)").text());
+
+            $("#montovp").val($(this).find("th:eq(12)").text());
+            $("#montotp").val($(this).find("th:eq(13)").text());
+            $("#montoocultop").val($(this).find("th:eq(14)").text());
+
+            var monto = $("#montop").val();
+
+            // Verificar si el monto es mayor al valor de th:eq(6)
+            if (monto > parseFloat($("#select tr th:eq(7)").text())) {
+           
+            }
+
+            var fechaActual = new Date();
+            var fechaDeuda = new Date($(this).find("th:eq(5)").text());
+            var diferencia = fechaActual.getTime() - fechaDeuda.getTime();
+            var mes = Math.floor(diferencia / (30 * 24 * 60 * 60 * 1000)); // 30 días en milisegundos
+            $("#mesesvp").val(mes);
+
+            var meses = $("#mesesp").val();
+
+            var concepto = $("#conceptop").val();
+            if (concepto === "mensualidad") {
+                var mesesv = $("#mesesvp").val();
+                if (!isNaN(mesesv)) {
+                    $("#montotp").val(parseFloat($("#montotp").val()) * parseFloat(mesesv));
+                }
+            }
+
+
+            if ($(this).find("th:eq(2)").text() == "mensualidad") {
+                $("#ocultp1").removeClass("ocultar");
+                $("#ocultp2").removeClass("ocultar");
+                $("#ocultp3").removeClass("ocultar");
+            } else {
+                $("#ocultp1").addClass("ocultar");           
+                $("#ocultp2").addClass("ocultar");
+                $("#ocultp3").addClass("ocultar");
+            }
+
+            if ($("#ocultp1").hasClass("ocultar")) {
+                // Eliminar la propiedad readonly del input monto
+                $("#montop").prop("readonly", false);
+                // Asignar un valor predeterminado de 1 al campo meses
+                meses = 1;
+            }
+            
+            if ($("#ocultp1").hasClass("ocultar")) {
+                // Eliminar la propiedad readonly del input monto
+                $("#montop").prop("readonly", false);
+            }
+
+
+
+        }
+ 
+    });
+    
+}
+
+
+// Obtener los elementos HTML
+const inpMesesp = document.getElementById("mesesp");
+const inputMontoVp = document.getElementById("montovp");
+const inputMontoOcultop = document.getElementById("montoocultop");
+
+// Agregar un event listener al input de "meses"
+inpMesesp.addEventListener("click", function() {
+  // Comparar los valores de los inputs "montov" y "montooculto"
+  if (inputMontoVp.value !== inputMontoOcultop.value) {
+    // Establecer el atributo "readonly" del input "meses"
+    inpMesesp.setAttribute("readonly", true);
+  } else {
+    // Eliminar el atributo "readonly" del input "meses"
+    inpMesesp.removeAttribute("readonly");
+  }
+});
+
+
+const inpuMesesp = document.getElementById('mesesp');
+const inputMontop = document.getElementById('montop');
+const inputConceptop = document.getElementById('conceptop');
+
+// Agregar un evento de cambio al input de meses
+inpuMesesp.addEventListener('change', function() {
+    // Verificar si el valor del input de meses es mayor que 1
+    if (this.value > 1 && inputConceptop.value === 'mensualidad') {
+        // Hacer que el input de monto sea readonly
+        inputMontop.setAttribute('readonly', 'true');
+        // Establecer el valor del input de monto a 1
+        //inpuMeses.value = 1;
+    } else if (inputConceptop.value === 'inscripcion' && this.value === 1) {
+        // No establecer el atributo readonly en el input de monto
+        inputMontop.removeAttribute('readonly');
+    } else {
+        // De lo contrario, hacer que el input de monto no sea readonly
+        inputMontop.removeAttribute('readonly');
+    }
+    
+});
+
+const firstInputp = document.getElementById("montop");
+const secondInputp = document.getElementById("montovp");
+const inputMesesp = document.getElementById("mesesp");
+const totalMesesp = document.getElementById("mesesvp");
+
+firstInputp.addEventListener("input", function() {
+  const firstValuep = parseFloat(firstInputp.value);
+  const secondValuep = parseFloat(secondInputp.value);
+  
+
+  if (firstValuep > secondValuep) {
+    firstInputp.value = secondValuep;
+  }
+
+  if (parseInt(inputMesesp.value) >= 2) {
+    // Multiplicamos el valor del campo monto por el valor de los meses
+    firstInputp.value *= parseFloat(inputMesesp.value);
+  }
+ 
+});
+inputMesesp.addEventListener("input", function() {
+  const firstValuep = parseInt(inputMesesp.value);
+  const secondValuep = parseInt(totalMesesp.value);
+  const mesActualp = parseInt(inputMesesp.value);
+  
+  if (firstValuep > secondValuep) {
+    inputMesesp.value = secondValuep;
+    firstInputp.value = (secondValuep) * parseFloat(secondInputp.value);
+  } else {
+    firstInputp.value = mesActualp * parseFloat(secondInputp.value);
+  }
+
+   
+});
+
+
+
 
 
 
@@ -898,11 +1357,6 @@ function validarenvioMM() {
     } else if (validarkeyup(/^[0-9-]{1,11}$/,
     $("#m_montosMM"), $("#sm_montosMM"), "El formato puede ser 0000") == 0) {
         mensaje("El formato puede ser 0000");
-        return false;
-
-    }  else if (validarkeyup(/^[0-9-]{1,11}$/,
-    $("#d_montosMM"), $("#sd_montosMM"), "El formato debe ser valido") == 0) {
-        mensaje("El formato debe ser valido");
         return false;
 
     }
@@ -1041,21 +1495,72 @@ function validarenvioMM() {
 
         } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
         $("#estadoM"), $("#sestadoM"), "El formato puede ser valido") == 0) {
-            mensaje("El formato puede ser valido");
+            mensaje("El formato debe ser valido");
             return false;
 
-        }  else if (validarkeyup(/^[1-9]{1,2}$/,
-        $("#mesesM"), $("#smesesM"), "El formato puede ser valido") == 0) {
-            mensaje("El formato puede ser valido");
-            return false;
-
-        }
+        } 
         return true;
     }
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
+//<!---------------------------------------------------------------------------------------------------------------------------->
+function validarenviop() {
 
+    if (validarkeyup(/^[0-9]{1,5}$/,
+    $("#idp"), $("#sidp"), "La ID debe ser en el siguiente formato 0000") == 0) {
+        mensaje("La ID debe ser en el siguiente formato 0000");
+        return false;
+
+    } else if (validarkeyup(/^[0-9]{1,5}$/,
+    $("#id_deudasp"), $("#sid_deudasp"), "La ID debe ser en el siguiente formato 0000") == 0) {
+        mensaje("La ID debe ser en el siguiente formato 0000");
+        return false;
+
+    } else if (validarkeyup(/^[0-9-]{4,11}$/,
+    $("#identificadorp"), $("#sidentificadorp"), "El formato puede ser 0000.00") == 0) {
+        mensaje("El formato puede ser 0000");
+        return false;
+
+    } else if (validarkeyup(/^[A-Za-z]{4,20}$/,
+    $("#conceptop"), $("#sconceptop"), "El formato debe ser valido") == 0) {
+        mensaje("El formato debe ser valido");
+        return false;
+
+    } else if (validarkeyup(/^[-A-Za-z\s]{4,25}$/,
+    $("#formap"), $("#sformap"), "El formato debe ser valido") == 0) {
+        mensaje("El formato debe ser valido");
+        return false;
+
+    } else if (validarkeyup(/^[0-9-]{1,11}$/,
+    $("#montop"), $("#smontop"), "El formato puede ser valido") == 0) {
+        mensaje("El formato debe ser valido");
+        return false;
+
+    }  else if (validarkeyup(/^[1-9]{1,2}$/,
+    $("#mesesp"), $("#smesesp"), "El formato puede ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
+
+    } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+    $("#estadop"), $("#sestadop"), "El formato puede ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
+
+    }  else if (validarkeyup(/^[0-9]{1,2}$/,
+    $("#estado_pagosp"), $("#sestado_pagosp"), "El formato puede ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
+
+    } else if (validarkeyup(/^[0-9]{1,2}$/,
+    $("#estatusp"), $("#sestatusp"), "El formato puede ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
+
+    } 
+    return true;
+}
+//<!---------------------------------------------------------------------------------------------------------------------------->
 
 const input1 = document.getElementById("identificador");
 const input2 = document.getElementById("monto");
@@ -1065,7 +1570,7 @@ const input5 = document.getElementById("montor");
 const input6 = document.getElementById("mesesr");
 const input7 = document.getElementById("identificadorM");
 const input8 = document.getElementById("montoM");
-const input9 = document.getElementById("mesesM");
+
 
 // Función para limitar la longitud del valor
 const limitarLongitud = (input, maxLength) => {
@@ -1112,13 +1617,6 @@ input5.addEventListener("input", () => {
     const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input8, maxLength);
   });
-
-  input9.addEventListener("input", () => {
-    const maxLength = 2; // Cambia este valor al límite máximo deseado
-    limitarLongitud(input9, maxLength);
-  });
-
-
 
 
 

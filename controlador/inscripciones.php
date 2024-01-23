@@ -289,6 +289,19 @@ if(isset($_POST['save_excel_data']))
 			$o->set_condicion($condicion);
 
 			$ano = $row['16'];
+			if ($ano ==1) {
+				$ano=32;
+			}
+			if ($ano ==2) {
+				$ano=33;
+			}
+			if ($ano ==3) {
+				$ano=34;
+			}
+			if ($ano ==4) {
+				$ano=35;
+			}
+			
 			$o->set_ano($ano);
 
 

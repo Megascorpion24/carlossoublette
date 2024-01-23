@@ -182,7 +182,7 @@ class horario extends datos
             $r->execute();
 
             if ($r->rowCount() > 0) {
-                return "Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
+                return "4Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
             }
 
             $resultado2 = $co->prepare("SELECT * from  ano_academico");
@@ -245,13 +245,10 @@ class horario extends datos
 
              // Validar que clase_inicio no sea mayor a clase_termina
     if ($this->clase_inicia > $this->clase_termina) {
-        throw new Exception("La hora de inicio no puede ser mayor a la hora de término");
+        return"4la hora de inicio no puede ser mayor a la hora final";
     }
 
-    // Validar que clase_termina no sea menor a clase_inicio
-    if ($this->clase_termina < $this->clase_inicia) {
-        throw new Exception("La hora de término no puede ser menor a la hora de inicio");
-    }
+    
 
    
 
@@ -330,7 +327,7 @@ class horario extends datos
 
             $this->bitacora("se registro un horario", "horario_docente", $this->nivel);
 
-            return "Registro incluido";
+            return "1Registro incluido";
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -375,7 +372,7 @@ class horario extends datos
                 $r->execute();
 
                 if ($r->rowCount() >1) {
-                    return "Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
+                    return "4Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
                 }
 
 
@@ -406,12 +403,7 @@ class horario extends datos
 
              // Validar que clase_inicio no sea mayor a clase_termina
              if ($this->clase_inicia > $this->clase_termina) {
-                throw new Exception("La hora de inicio no puede ser mayor a la hora de término");
-            }
-        
-            // Validar que clase_termina no sea menor a clase_inicio
-            if ($this->clase_termina < $this->clase_inicia) {
-                throw new Exception("La hora de término no puede ser menor a la hora de inicio");
+                return"4la hora de inicio no puede ser mayor a la hora final";
             }
             
            
@@ -424,12 +416,12 @@ class horario extends datos
 
                 $this->bitacora("se modifico un horario", "horario_docente", $this->nivel);
 
-                return "Registro modificado";
+                return "2Registro modificado";
             } catch (Exception $e) {
                 return $e->getMessage();
             }
         } else {
-            return "clase no modificada";
+            return "4clase no registrada";
         }
     }
 
@@ -524,12 +516,12 @@ class horario extends datos
 
 
 
-                    $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['id'] . '`)">
+                    $respuesta = $respuesta . '<a href="#editClase" class="edit" data-toggle="modal" onclick="modificar(`' . $r['id'] . '`)">
                 <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
                </a>';
                 }
                 if (in_array("eliminar horario_docente", $nivel1)) {
-                    $respuesta = $respuesta . '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['id'] . '`)">
+                    $respuesta = $respuesta . '<a href="#deleteClase" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['id'] . '`)">
                <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
                </a>';
                 }
@@ -554,14 +546,20 @@ class horario extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT * from materias where estado = 1");
+            $resultado = $co->prepare("SELECT materias.*,años.anos from materias
+            INNER join años_materias
+            on materias.id = años_materias.id_materias
+            INNER JOIN años
+            on años_materias.id_anos = años.id
+            
+            WHERE materias.estado=1;");
             $resultado->execute();
             $respuesta = "";
             $respuesta2 = "";
-            $respuesta2 = $respuesta2 . '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+            $respuesta2 = $respuesta2 . '<option value="" selected hidden>-Seleccionar-</option>';
 
             foreach ($resultado as $r) {
-                $respuesta2 = $respuesta2 . '<option value="' . $r['id'] . '"  >' . $r['nombre'] . '</option>';
+                $respuesta2 = $respuesta2 . '<option value="' . $r['id'] . '"  >' . $r['nombre'] ." - ". $r['anos'] . '</option>';
 
 
 
@@ -595,10 +593,10 @@ class horario extends datos
             $resultado->execute();
             $respuesta = "";
             $respuesta2 = "";
-            $respuesta2 = $respuesta2 . '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+            $respuesta2 = $respuesta2 . '<option value="" selected hidden>-Seleccionar-</option>';
 
             foreach ($resultado as $r) {
-                $respuesta2 = $respuesta2 . '<option value="' . $r['cedula'] . '"  >' . $r['nombre'] . '</option>';
+                $respuesta2 = $respuesta2 . '<option value="' . $r['cedula'] . '"  >' . $r['cedula'] ." - " . $r['nombre'] . '</option>';
 
 
 
@@ -626,11 +624,19 @@ class horario extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones, secciones_años.estado FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id WHERE secciones_años.estado=1;");
+            $resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones, secciones_años.estado
+            FROM secciones_años
+            INNER JOIN años on secciones_años.id_anos=años.id
+            INNER JOIN secciones on secciones_años.id_secciones=secciones.id
+            WHERE secciones_años.estado=1 AND NOT EXISTS (
+              SELECT 1
+              FROM secciones
+              WHERE secciones.id = secciones_años.id_secciones AND secciones.secciones = 'vacia'
+            );");
             $resultado->execute();
             $respuesta = "";
             $respuesta2 = "";
-            $respuesta2 = $respuesta2 . '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+            $respuesta2 = $respuesta2 . '<option value="" selected hidden>-Seleccionar-</option>';
 
             foreach ($resultado as $r) {
                 $respuesta2 = $respuesta2 . '<option value="' . $r['id'] . '"  >' . $r['anos'] . " - " . $r['secciones'] . '</option>';
@@ -858,12 +864,12 @@ class horario extends datos
                 $r->bindParam(':id', $this->id);
                 $r->execute();
                 $this->bitacora("se elimino un horario", "horario_docente", $this->nivel);
-                return "Registro Eliminado";
+                return "3Registro Eliminado";
             } catch (Exception $e) {
                 return $e->getMessage();
             }
         } else {
-            return "Clase no eliminada";
+            return "4Clase no registrada";
         }
     }
 

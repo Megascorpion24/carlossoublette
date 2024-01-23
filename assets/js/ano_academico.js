@@ -118,6 +118,20 @@ $("#ano academico1").on("keyup", function() {
     }
 
 
+    function delete_info(estado) {
+    var mensaje = '';
+
+    if (estado == 0) {
+        mensaje = 'No se puede eliminar el año académico porque está DESHABILITADO';
+    }
+
+     
+
+alert(mensaje);
+
+}
+
+
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->

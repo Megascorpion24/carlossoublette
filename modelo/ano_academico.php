@@ -8,6 +8,7 @@ class ano_academico extends datos{
 	private $fecha_ini;
     private $fecha_cierr;
     private $ano_academico;
+    private $estatus;
     private $nivel;
     private $estado;
 
@@ -50,6 +51,10 @@ class ano_academico extends datos{
         $this->estado = $valor; 
     }
 
+    public function set_estatus($valor){
+        $this->estatus = $valor; 
+    }
+
 
     public function registrar()
     {
@@ -86,33 +91,57 @@ class ano_academico extends datos{
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if(!$this->existe($this->id)){
+        
             try{
 
                 $estado = 1;
 
+                $estatus = "HABILITADO";
+
+                $consulta = "SELECT * FROM ano_academico WHERE estado = :estado;";
+            $r = $co->prepare($consulta);
+
+            $r->bindParam(':estado', $estado);
+
+            $r->execute();
+
+            if ($r->rowCount() > 0) {
+                return "Ya existe un año academico asignado al año en curso";
+            }
+
+
                 $r= $co->prepare("Insert into ano_academico(
 						
-                            id,
                             fecha_ini,
                             fecha_cierr,
                             ano_academico,
+                            estatus,
                             estado
                             )
             
-                    Values( :id,
-                            :fecha_ini,
+                    Values( :fecha_ini,
                             :fecha_cierr,
                             :ano_academico,
+                            :estatus,
                             :estado
                     )"
                 );
 
-                $r->bindParam(':id',$this->id);	
                 $r->bindParam(':fecha_ini',$this->fecha_ini);
                 $r->bindParam(':fecha_cierr',$this->fecha_cierr);
                 $r->bindParam(':ano_academico',$this->ano_academico);
+                $r->bindParam(':estatus', $estatus);
                 $r->bindParam(':estado', $estado);
+
+                // Validar que fecha_ini no sea mayor a fecha_cierr
+    if ($this->fecha_ini > $this->fecha_cierr) {
+        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+    }
+
+    // Validar que fecha_cierr no sea menor a fecha_ini
+    if ($this->fecha_cierr < $this->fecha_ini) {
+        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+    }
             
              
                 $r->execute();
@@ -124,10 +153,6 @@ class ano_academico extends datos{
                 
             }catch(Exception $e){
                 return $e->getMessage();
-            }
-        }
-            else{
-                return "Año Registrado";
             }
   }
 
@@ -156,6 +181,23 @@ class ano_academico extends datos{
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if($this->existe($this->id)){
                 try{
+
+            $consulta = "SELECT * FROM ano_academico WHERE estado = :estado;";
+            $r = $co->prepare($consulta);
+
+            $r->bindParam(':estado', $estado);
+
+            $r->execute();
+
+            if ($r->rowCount() > 1) {
+                return "Ya existe un año academico asignado al año en curso";
+            }
+
+
+
+
+
+
                     $r= $co->prepare("Update ano_academico set 
                             
                        
@@ -173,7 +215,17 @@ class ano_academico extends datos{
                     $r->bindParam(':id',$this->id);	
                     $r->bindParam(':fecha_ini',$this->fecha_ini);	
                     $r->bindParam(':fecha_cierr',$this->fecha_cierr);
-                    $r->bindParam(':ano_academico',$this->ano_academico); 
+                    $r->bindParam(':ano_academico',$this->ano_academico);
+
+                    // Validar que fecha_ini no sea mayor a fecha_cierr
+    if ($this->fecha_ini > $this->fecha_cierr) {
+        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+    }
+
+    // Validar que fecha_cierr no sea menor a fecha_ini
+    if ($this->fecha_cierr < $this->fecha_ini) {
+        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+    } 
                 
                  
                     $r->execute();
@@ -228,20 +280,23 @@ public function consultar($nivel1){
             
             $resultado = $co->prepare("SELECT * from ano_academico 
 
-            WHERE ano_academico.estado = 1
+            WHERE ano_academico.estado = 1 OR ano_academico.estado = 0
 
-            ORDER BY `ano_academico`.`id` ASC ");
+            ORDER BY ano_academico.id DESC");
 
-            $resultado->execute();
+           $resultado->execute();
            $respuesta="";
 
             foreach($resultado as $r){
-                $respuesta= $respuesta.'<tr>';
-                $respuesta=$respuesta."<th>".$r['id']."</th>";
-                $respuesta=$respuesta."<th>".$r['fecha_ini']."</th>";
-                $respuesta=$respuesta."<th>".$r['fecha_cierr']."</th>";
-                $respuesta=$respuesta."<th>".$r['ano_academico']."</th>";
-                $respuesta=$respuesta.'<th>';
+
+                $respuesta = $respuesta . '<tr>';
+                $respuesta = $respuesta . "<th>" . $r['id'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['fecha_ini'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['fecha_cierr'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['ano_academico'] . "</th>";
+                $respuesta = $respuesta . '<th value="' . $r['estatus'] . '">  <span class="h6 font-weight-bold">' . $r['estatus'] . '</span> </th>';
+                $respuesta = $respuesta . '<th>';
+
 
                 if (in_array("modificar ano_academico", $nivel1)) {
                     # code...
@@ -251,18 +306,30 @@ public function consultar($nivel1){
                </a>';
                }
                
+               
                 if (in_array("eliminar ano_academico", $nivel1)) {
                     # code...
-                    
-               $respuesta=$respuesta. '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
+                $estado= $r['estado'];
+                if($estado > 0){
+                 
+               $respuesta=$respuesta. '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`, `'.$r['estado'].'`)">
                <i class="material-icons" title="BORRAR"><img src="assets/icon/trashh.png"/></i>
                </a>';
                }
+               else{
+                    $respuesta .= '<a href="#" onclick="delete_info(`'.$r['estado'].'`)">
+                    <i class="material-icons"  title="BORRAR"><img style="width: 18px;" src="assets/icon/basura.png"/></i>    
+                    </a>';
+                }
+            }
+
+               
 
              $respuesta=$respuesta.'</th>';
              $respuesta= $respuesta.'</tr>';
+                }
 
-            }
+            
 
            
             return $respuesta;
@@ -319,6 +386,33 @@ public function eventos(){
 
 
 //<!---------------------------------fin funcion eventos------------------------------------------------------------------>
+
+
+private function existe2() {
+    $co = $this->conecta();
+    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    try {
+        $r = $co->prepare("SELECT COUNT(*) as count FROM ano_academico 
+            INNER JOIN ano_estudiantes ON ano_estudiantes.id_ano = ano_academico.id
+            INNER JOIN estudiantes ON ano_estudiantes.id_estudiantes = estudiantes.cedula 
+            INNER JOIN eventos_ano ON eventos_ano.id_anos = ano_academico.id
+            INNER JOIN eventos ON eventos_ano.id_evento = eventos.id
+            INNER JOIN horario_ano ON horario_ano.id_ano = ano_academico.id
+            INNER JOIN horario_docente ON horario_ano.id_horario = horario_docente.id
+            WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND eventos.estado = 1 AND horario_docente.estado = 1");
+
+        $r->execute();
+        $count = $r->fetch(PDO::FETCH_ASSOC)['count'];
+
+        return $count > 0;
+    } catch (Exception $e) {
+        // Manejar errores de manera más descriptiva
+        error_log("Error en la función existe2: " . $e->getMessage());
+        return false;
+    }
+}
+
 
 
 
@@ -388,12 +482,15 @@ public function eventos(){
 
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
 private function eliminar1(){
+
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)) {
+    
+    if($this->existe($this->id) && $this->existe2()) {
     
 
         try {
+
         
                 $r=$co->prepare("UPDATE ano_academico 
 
@@ -417,16 +514,17 @@ private function eliminar1(){
 
 
 
-                SET ano_academico.estado = 0, estudiantes.estado = 0 , eventos.estado = 0, horario_docente.estado = 0
-                WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND eventos.estado = 1 AND horario_docente.estado = 1 ;");
+                SET ano_academico.estado = 0, ano_academico.estatus='DESHABILITADO', estudiantes.estado = 0 , eventos.estado = 0, horario_docente.estado = 0, deudas.estado = 0
+                 WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND eventos.estado = 1 AND horario_docente.estado = 1 AND deudas.estado = 1 ;");
                 
 
                 $r->execute();
 
                 $this->bitacora("se elimino un año academico", "ano_academico", $this->nivel);
-                return "Registro Eliminado";
+
 
                 return "Registro Eliminado";
+
                 
         } catch(Exception $e) {
             return $e->getMessage();
@@ -436,7 +534,7 @@ private function eliminar1(){
 
     }
     else{
-        return "Año no registrado";
+        return "No se puede eliminar";
     }
 }
 

@@ -77,10 +77,6 @@ if (isset($_SESSION['permisos'])) {
 										<li class="nav-item">
 											<a class="nav-link" data-toggle="tab" href="#menu1">Tabla de registros</a>
 										</li>
-										<!--
-										<li class="nav-item">
-											<a class="nav-link" data-toggle="tab" href="#menu2">Docentes</a>
-										</li>-->
 									</ul>
 
 									<!-- Tab panes -->
@@ -138,6 +134,7 @@ if (isset($_SESSION['permisos'])) {
 
 													eventColor: "#F27171",
 													eventBackgroundColor: "#947BE6",
+													
 
 
 													eventClick: function(calEvent, jsEvent, view) {
@@ -176,10 +173,11 @@ if (isset($_SESSION['permisos'])) {
 											<thead>
 													<tr>
 														<th>ID</th>				
-														<th>Fecha Inicio</th>		
-														<th>Fecha Cierre</th>
-														<th>Año Academico</th>
-														<th>Acciones</th>
+														<th>FECHA DE INICIO</th>		
+														<th>FECHA DE CIERRE</th>
+														<th>AÑO ACADEMICO</th>
+														<th>ESTADO</th>
+														<th>ACCIONES</th>
 													</tr>
 												</thead>
 
@@ -189,37 +187,6 @@ if (isset($_SESSION['permisos'])) {
 													<?php
 													if (!empty($consuta)) {
 														echo $consuta;
-													}
-													?>
-
-												</tbody>
-
-											</table>
-
-										</div>
-
-
-										<div class="tab-pane container fade" id="menu2">
-									
-											<table id="tablas" style="width:100%; color:black;" class="table table-hover table-dark">
-											
-											<thead>
-													<tr>
-														<th>Cedula</th>				
-														<th>Nombre</th>		
-														<th>Apellido</th>
-														<th>Categoria</th>
-														<th>Especializacion</th>
-														<th>Acciones</th>
-													</tr>
-												</thead>
-
-												<tbody id="tabla">
-
-
-													<?php
-													if (!empty($consuta1)) {
-														echo $consuta1;
 													}
 													?>
 
@@ -282,16 +249,10 @@ if (isset($_SESSION['permisos'])) {
 	    <hr>
 		<div class="form-row">
 
-			<div class="form-group col-md-4" style="display:none;">
-				<label>Id</label>
-				<span id="sid"></span>
-				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
-				<input type="text" class="form-control sm" name="id" id="id" required placeholder="0000000">
-			</div>
-
 			<div class="form-group col-md-4">
 				<label>Fecha Inicio</label>
 				<span style="color:#FF0000" id="sfecha_ini"></span>
+				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
 				<input type="date" class="form-control" name="fecha_ini" id="fecha_ini" required placeholder="3">
 			</div>
 

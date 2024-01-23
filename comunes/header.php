@@ -9,16 +9,18 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
       <title>U.E.COLEGIO - Carlos Soublette</title>
-	  
+	   
     
       <link rel="stylesheet" type="text/css" href="assets/select2/css/select2.css">
       <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
+ 
 	    <!----css3---->
         <link rel="stylesheet" href="assets/css/custom.css">
-		
 		<link rel="stylesheet" href="assets/css/estilos.css">
+        <!-- Alert -->
+    <link rel="stylesheet" href="assets\css\sweetalert2.css">
+
 
 		<!--google fonts -->
 	    <link rel="preconnect" href="https://fonts.googleapis.com">

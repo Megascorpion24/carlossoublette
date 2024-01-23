@@ -103,6 +103,7 @@ $(document).ready(function() {
 
     $("#cedula").on("keypress", function(e) {
         validarkeypress(/^[0-9-\b]*$/, e);
+       
 
     });
 
@@ -205,6 +206,20 @@ $(document).ready(function() {
 /*validaciones para editar*/
 $("#cedula1").on("keypress", function(e) {
     validarkeypress(/^[0-9-\b]*$/, e);
+    valor=$("#cedula1").val();
+    $("#tablas tr").each(function(){
+    
+        if(valor == $(this).find("th:eq(0)").text()){
+           
+            $("#scedula1").text("la cedula ya esta registrada");
+            $("input").attr("readonly","readonly");
+       
+            
+
+        }else{
+            $("#editEmployeeModal input").removeAttr("readonly");
+        }
+    });
 
 });
 

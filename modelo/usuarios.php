@@ -3,7 +3,8 @@
 require_once('modelo/conexion.php');
 class usuarios extends datos{
 
-	private $nombre;
+	private $cedula;
+    private $nombre;
 	private $rol;
     private $correo;
     private $contraceña;
@@ -14,6 +15,14 @@ class usuarios extends datos{
 	public function set_nombre($valor){
         if (preg_match("/^[a-zA-Z'-]+$/", $valor)) {
 		$this->nombre = $valor; 
+        return true;
+        }else{
+            return false;
+        }
+	}
+    public function set_cedula($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\\s|,.<>\/?\s]{7,9}$/", $valor)) {
+		$this->cedula = $valor; 
         return true;
         }else{
             return false;
@@ -80,13 +89,13 @@ class usuarios extends datos{
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if(!$this->existe($this->nombre)){
+        if(!$this->existe($this->cedula)){
             try{
                 $t="1";
                 $claveencr=password_hash($this->contraceña, PASSWORD_DEFAULT, ['cost'=>10]);
                 $r= $co->prepare("Insert into usuarios(
 						
-                    
+                    id,
                     nombre, 
                     correo,
                     clave,
@@ -96,14 +105,14 @@ class usuarios extends datos{
             
 
                     Values(
-                        
+                        :id,
                         :nombre,
                         :correo,
                         :clave,
                         :estado,
                         :id_rol
                     )");
-
+                    $r->bindParam(':id',$this->cedula);	
                 $r->bindParam(':nombre',$this->nombre);	
                
                 $r->bindParam(':correo',$this->correo);	
@@ -123,7 +132,7 @@ class usuarios extends datos{
                 
             }
             else{
-                return "nombre registrado";
+                return "cedula registrada registrado";
             }
     
 
@@ -141,7 +150,7 @@ class usuarios extends datos{
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->id)){
+            if($this->existe($this->cedula)){
                 try{
                     $t="1";
                     $r= $co->prepare("Update usuarios set 
@@ -172,7 +181,7 @@ class usuarios extends datos{
                             
                         ");
                         $r->bindParam(':nombre',$this->nombre);	
-                        $r->bindParam(':id',$this->id);
+                        $r->bindParam(':id',$this->cedula);
                
                         $r->bindParam(':correo',$this->correo);	
                         $r->bindParam(':clave',$this->contraceña);	
@@ -337,7 +346,7 @@ public function consultar($nivel1){
     public function eliminar1(){
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		if($this->existe($this->id)){
+		if($this->existe($this->cedula)){
 		
 
 			try {
@@ -345,7 +354,7 @@ public function consultar($nivel1){
 						where
 						id= :id
 						");
-					$r->bindParam(':id',$this->id);
+					$r->bindParam(':id',$this->cedula);
 					$r->execute();
                     $this->bitacora("se elimino un usuario", "usuarios",$this->nivel);
 					return "Registro Eliminado";

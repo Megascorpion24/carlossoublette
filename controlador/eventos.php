@@ -46,10 +46,12 @@ require_once("modelo/".$pagina.".php");
 			$dato[1]="error en la validacion del fecha_ini";
 			$validacion[2]=$o->set_fecha_cierr($_POST['fecha_cierr']);
 			$dato[2]="error en la validacion del fecha_cierr";
-			$validacion[3]=$o->set_evento($_POST['evento']);
-			$dato[3]="error en la validacion del evento";
-			$validacion[4]=$o->set_ano_academico($_POST['ano_academico']);
-			$dato[4]="error en la validacion del ano_academico";
+			$validacion[3]=$o->set_cedula_profesor($_POST['cedula_profesor']);
+			$dato[3]="error en la validacion del cedula_profesor";
+			$validacion[4]=$o->set_evento($_POST['evento']);
+			$dato[4]="error en la validacion del evento";
+			$validacion[5]=$o->set_ano_academico($_POST['ano_academico']);
+			$dato[5]="error en la validacion del ano_academico";
 
 
 			$o->set_nivel($nivel);
@@ -169,6 +171,7 @@ require_once("modelo/".$pagina.".php");
 		  }
 
 		  $consuta=$o->consultar($nivel1);
+		  $consuta1=$o->consultar1();
 
 
 

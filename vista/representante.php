@@ -171,6 +171,11 @@
 				<input type="text" class="form-control" name="apellido2" id="apellido2" required placeholder="Sarmiento">
 			</div>
 			<div class="form-group col-md-4">
+				<label>direccion</label>
+				<span id="sdireccion"></span>
+				<input type="text" class="form-control" name="direccion" id="direccion" required placeholder="crrera # con calle #">
+			</div>
+			<div class="form-group col-md-4">
 				<label>Telefono</label>
 				<span id="stelefono"></span>
 				<input type="text" class="form-control" name="telefono" id="telefono" required placeholder="0000-0000000">

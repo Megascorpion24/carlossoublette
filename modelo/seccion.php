@@ -11,7 +11,7 @@ class secciones extends datos{
     private $ano_academico;
     private $cantidad;
     private $nivel;
-   
+    
 
 // ----------------
 
@@ -42,7 +42,7 @@ public function getSec($index) {
     return isset($this->sec[$variable]) ? $this->sec[$variable] : null;
 }
 
-
+ 
 // ---------------------
     public function set_id($valor){
         if (preg_match("/^[0-9]{0,4}$/", $valor)) {
@@ -107,17 +107,17 @@ public function getSec($index) {
 
     public function registrar(){
         $val=$this->registrar1();
-        return $val;
+        echo $val;
     }
 
     public function modificar(){
         $val=$this->modificar1();
-        return $val;
+        echo $val;
     }
 
     public function eliminar(){
         $val= $this->eliminar1();
-        return $val;
+        echo $val;
     }
  
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
@@ -204,7 +204,7 @@ private function registrar1(){
 
 
                 $this->bitacora("se registro una seccion", "secciones",$this->nivel);            
-                return "Registro incluido"; 
+                return "1Registro incluido"; 
             
         }catch(Exception $e){
             return $e->getMessage();
@@ -360,11 +360,12 @@ public function Doc_Guia_Edit(){
 
         $respuesta2 = '';
 
-        foreach($resultado as $r){
+        foreach ($resultado as $r) {
             $disabled = ($r['cantidad_secciones'] >= 2) ? 'disabled' : '';
-            $respuesta2 .= '<option value="'.$r['cedula'].'" '.$disabled.'>'.$r['nombre_apellido'].'</option>';
+            $class = ($disabled) ? '' : 'text-dark'; // Agrega la clase text-dark si no está deshabilitado
+            $respuesta2 .= '<option value="'.$r['cedula'].'" '.$disabled.' class="'.$class.'">'.$r['nombre_apellido'].'</option>';
         }
-
+        
         return $respuesta2;
     } catch(Exception $e){
         return false;
@@ -396,7 +397,6 @@ public function academico(){
         return false;
     }
 }
-
 
 
 
@@ -435,12 +435,12 @@ private function modificar1(){
 
             $this->bitacora("se modifico una seccion", "secciones",$this->nivel);
 
-            return "Registro modificado";
+            return "2Registro Modificado";
         } catch (Exception $e) {
             return $e->getMessage();
         }
-    } else {
-
+    } else { 
+ 
         try {
             // Actualizar la tabla secciones_años
             $r = $co->prepare("UPDATE secciones_años 
@@ -465,9 +465,10 @@ private function modificar1(){
             $r->execute();
 
        
-            $this->bitacora("se modifico datos adicionales de una seccion", "secciones",$this->nivel);
+            $this->bitacora("se modifico Docente Guia o Cantidad de la Seccion", "secciones",$this->nivel);
 
-            return "Solo se permitio Actualizar Datos Adicionales de la Seccion";
+
+            return "2Registro Modificado";
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -741,7 +742,7 @@ private function eliminar1(){
            
             $this->bitacora("se elimino una seccion", "seccion",$this->nivel);
 
-            return "Registro Eliminado";
+            return "3Registro Eliminado";
                 
         } catch(Exception $e) {
             return $e->getMessage();
@@ -790,9 +791,9 @@ public function Asig_Seccion() {
             // Mostrar información sobre el cambio de estado
             // echo "ID: {$id}, Estado actual: {$seccion['estado']}, Nuevo estado: {$estado}<br>";
         }
-        $this->bitacora("se Actualizo el Abecedario de secciones", "secciones",$this->nivel);
+        $this->bitacora("Se Actualizo el Abecedario de Secciones", "secciones",$this->nivel);
 
-        return "Se actualizó el estado de las secciones.";
+        return "1Se Actualizo el Abecedario de Secciones";
     } catch (Exception $e) {
         return $e->getMessage();
     }

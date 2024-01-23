@@ -35,6 +35,8 @@ $(document).ready(function() {
 
     $("#cedula").on("keypress", function(e) {
         validarkeypress(/^[0-9-\b]*$/, e);
+        
+
 
     });
 
@@ -185,7 +187,7 @@ const input1 = document.getElementById("nombre1");
 
 
   input6.addEventListener("input", () => {
-    const maxLength = 26; // Cambia este valor al límite máximo deseado
+    const maxLength = 50; // Cambia este valor al límite máximo deseado
     limitarLongitud(input6, maxLength);
   });
     
@@ -329,12 +331,17 @@ input8.addEventListener("input", () => {
 
 
     function validarenvio() {
-        if (validarkeyup(/^[A-Za-z]{4,26}$/,
+        if (validarkeyup(/^[0-9]{6,10}$/,
+        $("#cedula"), $("#scedula"), "La Cedula debe ser en el siguiente formato 00000000") == 0) {
+            mensaje( "La Cedula debe ser en el siguiente formato 00000000");
+            return false;
+    
+        }else if (validarkeyup(/^[A-Za-z]{4,26}$/,
         $("#nombre"), $("#snombre"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>El formato puede ser A-Z a-z 8-26</p>");
             return false;
     
-        }else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        }else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,50}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
         $("#correo"), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;

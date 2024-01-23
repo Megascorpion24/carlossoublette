@@ -1,8 +1,13 @@
-$(document).ready(function() {
+// Variables Globales de Data Table
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var table;//para toda funcionalidades
+var valor;//para secciones
 
-    $("#tablas").DataTable({
+function CargarDataTable(){
+
+    var pageLengthSetting = localStorage.getItem('pageLength') || 15;
+
+     table = $("#tablas").DataTable({
     
         responsive: true,     
  
@@ -26,7 +31,7 @@ $(document).ready(function() {
             targets: -1
           }
         ], 
-        pageLength: 15,
+        pageLength: pageLengthSetting,
         destroy: true,
         language: {
         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
@@ -64,9 +69,115 @@ $(document).ready(function() {
       window.addEventListener('load', async () => {
         await initDataTable();
       });
- 
-      
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    $('select[name="tablas_length"]').change(function() {
+        var value = $(this).val();
+        localStorage.setItem('pageLength', value); // Guarda en localStorage
+        table.page.len(value).draw(); // Actualiza el pageLength y redibuja la tabla
+    });
+
+      //   ---------------------  
+
+}
+
+function Cargarfilter(){
+    // -----Año------
+    var htmlOne=`
+    
+	<div  class="btn-toolbar btn-filter" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+       <button type="button" id="limpiar-filtro" class="btn btn-light border">Todos</button>
+       <button type="button" id="filtro-1" class="btn btn-light border">1</button>
+       <button type="button" id="filtro-2" class="btn btn-light border">2</button>
+       <button type="button" id="filtro-3" class="btn btn-light border">3</button>
+       <button type="button" id="filtro-4" class="btn btn-light border">4</button>
+       <button type="button" id="filtro-5" class="btn btn-light border">5</button>
+     </div>
+    </div>
+
+
+    `;
+const tablas_filter= document.getElementById('tablas_filter');
+console.log(tablas_filter);
+
+if (tablas_filter){
+            tablas_filter.insertAdjacentHTML("afterbegin",htmlOne);
+}
+
+
+$('#filtro-1').on('click', function() {
+    table.columns(2).search('1').draw(); // Filtrar por el año '1'
+});
+
+$('#filtro-2').on('click', function() {
+    table.columns(2).search('2').draw(); // Filtrar por el año '2'
+});
+
+$('#filtro-3').on('click', function() {
+    table.columns(2).search('3').draw(); // Filtrar por el año '3'
+});
+
+$('#filtro-4').on('click', function() {
+    table.columns(2).search('4').draw(); // Filtrar por el año '4'
+});
+
+$('#filtro-5').on('click', function() {
+    table.columns(2).search('5').draw(); // Filtrar por el año '5'
+});
+
+// Evento de clic para el botón de limpiar filtro
+$('#limpiar-filtro').on('click', function() {
+table.columns(2).search('').draw();
+table.column(1).search(valor).draw();
+
+});
+
+
+
+    // --------Secciones-----
+   
+var htmlToAdd = `
+
+    <label for="secciones abc-filter" style="margin-left: 30px;">Filtrar:
+    
+        <select class="form-control" id="secciones-filter">
+            
+        </select>
+
+    </label>
+`;
+
+// Obtener el elemento #tablas_length
+var tablasLengthElement = document.getElementById('tablas_length');
+// Verificar si el elemento existe antes de agregar el HTML
+if (tablasLengthElement) {
+// Agregar el HTML al final del contenido del elemento #tablas_length
+tablasLengthElement.insertAdjacentHTML('beforeend', htmlToAdd);
+}
+
+
+// Cuando cambia el select
+$('#secciones-filter').on('change', function() {
+    valor = $(this).find("option:selected").text(); // Obtener el valor seleccionado en el select
+    valor = (valor=="todo") ? "" : valor;
+    console.log(valor);
+    table.column(1).search(valor).draw(); // Aplicar filtro a la columna deseada (en este caso, columna 1)
+});
+   
+
+}
+
+$(document).ready(function() {
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   CargarDataTable();
+   Cargarfilter();
+    
+   PrimerValordeSeccion();
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         $("#act_sec").on("click", function() { 
             if (validarenvio_Seccion()) { 
@@ -85,13 +196,19 @@ $(document).ready(function() {
  
         if (validarenvio()) { 
             console.log("se valido todo");
-        console.log($('#f').serializeArray());
+             console.log($('#f').serializeArray());
 
               enviaAjax($("#f"));  
+
+
               $('#addEmployeeModal').modal('hide');
               $('#f').trigger('reset');
             $("#Doc_Guia").val($("#Doc_Guia option:first").val()).trigger("change");
             Doc_Guia=0;
+            nombre_valor="";
+            seleccionado="";
+
+            PrimerValordeSeccion();
             }
     });  
   
@@ -118,8 +235,8 @@ $('#Doc_Guia').select2({
   });
 
 
-// $('#E_Guia').select2({
-//   dropdownParent: $('#editEmployeeModal')
+// $('#secciones').select2({
+//   dropdownParent: $('#tablas_length')
 // });
 
 
@@ -299,6 +416,7 @@ function MostrarSelect(value_seccion,value_año,value_guia){
 
     if (value_guia==texto3){
     $(option3).attr("selected",'');
+    $(option3).removeAttr("disabled");
         
     }
   });
@@ -329,13 +447,15 @@ $('#editEmployeeModal').on('hidden.bs.modal', function () {
     }
    
  });
-
+ 
  // Iterar a través de las opciones
  id_Guia.find("option").each(function(index, option) {
     // Comprueva si el option tiene atributo select
     if (option.hasAttribute("selected")) {
      //remueve el atributo
      $(option).removeAttr("selected");
+    $(option).attr("disabled",'');
+
      }
     
   });
@@ -357,21 +477,19 @@ function eliminar(id, s, a){
     $('#año_b').text(a);
     // console.log(se);
     // console.log(a);
-//    ----------
+//    ---------- 
     $("#id2").val(id);
-    $("#borrar").on("click", () => {
-            
-         enviaAjax($("#f3"));
-        });
+    LlamadaConfirmacion();
 }
 
 function delete_info(s,a){
     var se= s.toUpperCase();
-    // alert(`La Seccion ${s} ${a} tiene Estudiantes Registrados`);
-    // alert(`La Seccion ${s} ${String(a)} tiene Estudiantes Registrados`);
-    alert('La Seccion: ' + se + ' ' + a + ' año ..tiene Estudiantes Registrados');
+    var text='La Seccion: ' + se + ' ' + a + ' año ..tiene Estudiantes Registrados';
+    Alerta_Error(text);
 }
 //<!---------------------------------------------------------------------------------------------------------------------------->
+
+ 
 
     function enviaAjax(datos){
     
@@ -384,13 +502,13 @@ function delete_info(s,a){
                 },
                 
                 success: (respuesta) => {
-                    alert(respuesta);
+                    // alert(respuesta);
+                    LlamadaAlert(respuesta)
                     abc();
                     abc2();
                  Doc_Guia2();
                  Doc_Guia3();
 
-                    //$("#id").val(respuesta);
                     $("#consulta").val("consulta");
                     enviaAjax2($("#f4"));
 
@@ -409,10 +527,9 @@ function delete_info(s,a){
         });
         
     }
-
+ 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
 
     function enviaAjax2(datos){
     
@@ -425,8 +542,11 @@ function delete_info(s,a){
                 },
                 
                 success: function(respuesta) {
-                 $("#tabla").html(respuesta);
-                   
+                    // console.log(respuesta);
+                 $('#tablas').DataTable().destroy();
+                 $("#tabla").html(respuesta);//carga datos de la BD a la tabla
+                    CargarDataTable();
+                    Cargarfilter();
                 },
                 error: function(request, status, err){
                     if (status == "timeout") {
@@ -453,9 +573,16 @@ function abc(){
                  action: 'abc'},
     
                 success: function(respuesta) {
-            
+                
                     $('#secciones').html(respuesta);
                     $('#secciones1').html(respuesta);
+
+                   
+                    setTimeout(()=>{
+                        $('#secciones-filter').html(`
+                        <option value="" selected >todo</option>
+                        ${respuesta} `);    
+                    }, 50);
             }
         });
 
@@ -528,7 +655,16 @@ Doc_Guia3();
 
 
 // ------------CONSULTA SI EXISTE AL REGISTRAR--------------
-var nombre_valor=$("#secciones option:first").val();
+// Obtener el valor del atributo "value" del primer option
+var nombre_valor;
+
+function PrimerValordeSeccion(){
+    
+setTimeout(()=>{
+    nombre_valor = $("#secciones option:first").val();
+},100)
+
+}
 
 $("#secciones").on("change", function() {
        nombre_valor = $(this).val();
@@ -791,7 +927,7 @@ function handleRowClick(studentId,s,a, event) {
 
 
 //<!------------Validar REGISTRAR---------------->
-        var seccion='A';//en el form enviara el value solo es un permiso
+        var seccion= nombre_valor;//en el form enviara el value solo es un permiso
         $('#secciones').change(function(){
              seccion = $(this).val();
         });

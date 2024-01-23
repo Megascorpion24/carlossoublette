@@ -14,14 +14,14 @@ class eliminarUsuarioTest extends TestCase{
 	
 	public function testEliminarExito(){
         
-        $this->Usuarios->set_id("75");
+        $this->Usuarios->set_cedula("30019083");
       
 		$this->assertEquals("Registro Eliminado", $this->Usuarios->eliminar1($this->Usuarios));
 	}
 
 	public function testEliminarFalla(){
         
-        $this->Usuarios->set_id("235");
+        $this->Usuarios->set_cedula("30019111");
       
 		$this->assertEquals("Usuario no registrado", $this->Usuarios->eliminar1($this->Usuarios));
 	}

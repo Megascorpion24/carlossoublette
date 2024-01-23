@@ -3,6 +3,10 @@ $(document).ready(function() {
 
     console.log(location.href);
 
+    $('#cedula_profesor').select2({
+        dropdownParent: $('#addEmployeeModal')
+    });
+
 
 
     $("#registrar").on("click", function() {
@@ -96,7 +100,7 @@ $("#evento1").on("keyup", function() {
                 $("#id1").val($(this).find("th:eq(0)").text());
                 $("#fecha_ini1").val($(this).find("th:eq(1)").text());
                 $("#fecha_cierr1").val($(this).find("th:eq(2)").text());
-                $("#evento1").val($(this).find("th:eq(3)").text());
+                $("#evento1").val($(this).find("th:eq(4)").text());
                
                 
 
@@ -117,6 +121,16 @@ $("#evento1").on("keyup", function() {
         $('#deleteEmployeeModal').modal('hide');
         });
 
+    }
+
+
+    function añadir1(valor){
+        if (valor=='#cedula_profesor') {
+            $('#cedula_profesor').prepend($(valor).val());
+        }else{
+            $('#cedula_profesor').append($(valor).val()); 
+        }
+        
     }
 
 
@@ -252,6 +266,9 @@ $("#evento1").on("keyup", function() {
     if (valini($('#fecha_ini').val(),$("#sfecha_ini")) == 0) {
         mensaje("<p>Debe de seleccionar una fecha </p>");
         return false;
+    }else if (valprof($('#cedula_profesor').val(),$("#scedula_profesor")) == 0) {
+              mensaje("<p>Debe de seleccionar una materia</p>");
+              return false;
     }else if (valcierr($('#fecha_cierr').val(),$("#sfecha_cierr")) == 0) {
         mensaje("<p>Debe de seleccionar una fecha</p>");
         return false;
@@ -322,6 +339,24 @@ function valcierr(fecha_cierr,sfecha_cierr) {
         sfecha_cierr.text("seleccione una fecha de cierre")
         setTimeout(function() {
             sfecha_cierr.fadeOut();
+        }, 3000);
+        return false;
+    }
+
+
+
+}
+
+function valprof(cedula_profesor,scedula_profesor) {
+    
+
+    if (cedula_profesor != 'seleccionar') {
+        
+        return true;
+    } else {
+        scedula_profesor.text("seleccione a un profesor")
+        setTimeout(function() {
+            scedula_profesor.fadeOut();
         }, 3000);
         return false;
     }

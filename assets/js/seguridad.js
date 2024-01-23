@@ -319,6 +319,11 @@ $("#descripcion1").on("keyup", function() {
             check("generar_reporte_ingresos", "#53");
             check("generar_reporte_egresos", "#54");
 
+            check("agregar_evento", "#55");
+            check("modificar_evento", "#56");
+            check("eliminar_evento", "#57");
+            check("consultar_evento", "#58");
+
 
         }, 500);
         

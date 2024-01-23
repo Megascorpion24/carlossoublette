@@ -583,8 +583,42 @@ class inscripciones extends datos{
                         )");
 
                         $fecha= date('Y-m-d');
-                        $monto="20";
+                        $monto="0";
                         $concepto="inscripcion";
+                        $estado=1;
+                    $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
+                    $r->bindParam(':monto',$monto);	
+                    $r->bindParam(':concepto', $concepto);	
+                    $r->bindParam(':fecha',$fecha);	
+                    $r->bindParam(':estado',$estado);	
+                    $r->bindParam(':estado_deudas',$estado);
+                    $r->execute();
+
+                    $r= $co->prepare("Insert into deudas(
+						
+                        id_estudiante,
+                        monto,
+                        concepto,
+                        fecha,
+                        estado,
+                        estado_deudas
+                        )
+                
+    
+                        Values(
+                        :id_estudiante,
+                        :monto,
+                        :concepto,
+                        :fecha,
+                        :estado,
+                        :estado_deudas
+                        
+                        
+                        )");
+
+                        $fecha= date('Y-m-d');
+                        $monto="0";
+                        $concepto="mensualidad";
                         $estado=1;
                     $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
                     $r->bindParam(':monto',$monto);	
@@ -1467,8 +1501,41 @@ public function consultar4(){
                         
                         )");
                         $fecha= date('Y-m-d');
-                        $monto="20";
+                        $monto="0";
                         $concepto="inscripcion";
+                        $estado=1;
+                    $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
+                    $r->bindParam(':monto',$monto);	
+                    $r->bindParam(':concepto', $concepto);	
+                    $r->bindParam(':fecha',$fecha);	
+                    $r->bindParam(':estado',$estado);	
+                    $r->bindParam(':estado_deudas',$estado);
+                    $r->execute();
+
+                    $r= $co->prepare("Insert into deudas(
+						
+                        id_estudiante,
+                        monto,
+                        concepto,
+                        fecha,
+                        estado,
+                        estado_deudas
+                        )
+                
+    
+                        Values(
+                        :id_estudiante,
+                        :monto,
+                        :concepto,
+                        :fecha,
+                        :estado,
+                        :estado_deudas
+                        
+                        
+                        )");
+                        $fecha= date('Y-m-d');
+                        $monto="0";
+                        $concepto="mensualidad";
                         $estado=1;
                     $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
                     $r->bindParam(':monto',$monto);	

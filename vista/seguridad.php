@@ -379,7 +379,7 @@
 
 </div> 
 <div class="form-group col-md-4">
-<h5 class="modal-title">horario docente</h5>
+<h5 class="modal-title">horarios</h5>
 	    <hr>
 		<div class="form-check">
   <input class="form-check-input" type="checkbox" value="90" name="exampleRadios[]" id="29"  >
@@ -408,36 +408,7 @@
 
 
 </div> 
-<div class="form-group col-md-4">
-<h5 class="modal-title">horario seccion</h5>
-	    <hr>
-		<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="94" name="exampleRadios[]" id="33"  >
-  <label class="form-check-label" for="33">
-	 registrar
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="95" name="exampleRadios[]" id="34" >
-  <label class="form-check-label" for="34"  >
-    modificar
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="96" name="exampleRadios[]" id="35" >
-  <label class="form-check-label" for="35"  >
-    eliminar
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="97" name="exampleRadios[]" id="36" >
-  <label class="form-check-label" for="36"  >
-    consultar
-  </label>
-</div>
 
-
-</div> 
 <div class="form-group col-md-4">
 <h5 class="modal-title">inscripcion</h5>
 	    <hr>
@@ -542,7 +513,7 @@
 <h5 class="modal-title">reportes</h5>
 	    <hr>
 		<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="112" name="exampleRadios[]" id="51"  >
+  <input class="form-check-input" type="checkbox" value="116" name="exampleRadios[]" id="51"  >
   <label class="form-check-label" for="51">
 	 consultar ingresos
   </label>
@@ -569,6 +540,37 @@
 
 </div> 
 
+
+<div class="form-group col-md-4">
+<h5 class="modal-title">eventos</h5>
+	    <hr>
+		<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="117" name="exampleRadios[]" id="55"  >
+  <label class="form-check-label" for="55">
+	 agregar evento
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="118" name="exampleRadios[]" id="56" >
+  <label class="form-check-label" for="56"  >
+  modificar evento
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="119" name="exampleRadios[]" id="57" >
+  <label class="form-check-label" for="57"  >
+  eliminar evento
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="120" name="exampleRadios[]" id="58" >
+  <label class="form-check-label" for="58"  >
+  consultar evento
+  </label>
+</div>
+
+
+</div> 
 
 		
       </div>

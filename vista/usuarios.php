@@ -64,7 +64,7 @@
 					      <thead>
 						     <tr>
 							
-							 <th>Id </th>
+							 <th>cedula </th>
 							 <th>Rol</th>
 							 <th>Usuario</th>							 	
 							 <th>correo</th>
@@ -123,12 +123,19 @@
       <div class="modal-body">
         <div class="form-group">
 		
-		    <label>Nombre de usuario</label>
+		    <label>cedula</label>
 			<br>
-			<span id="snombre"></span>
-			<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
-			<input type="text" class="form-control" name="nombre" id="nombre" required>
-		</div>
+			<span id="scedula"></span>
+		
+			<input type="text" class="form-control" name="cedula" id="cedula" required>
+		</div> <div class="form-group">
+		
+		<label>Nombre de usuario</label>
+		<br>
+		<span id="snombre"></span>
+		<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
+		<input type="text" class="form-control" name="nombre" id="nombre" required>
+	</div>
 		<div class="form-group">
 		    <label>Correo</label>
 			<br>

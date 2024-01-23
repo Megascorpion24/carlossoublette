@@ -1,6 +1,6 @@
 <?php
  
-
+ 
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -12,22 +12,46 @@
 		  else{
 			  $nivel1 = "";
 		  }
-	    ?>
-
-  
-
+	    ?> 
+ 
+   
+ 
 <!DOCTYPE html> 
-<html lang="es">
+<html lang="es"> 
 <head>
-	<?php  require_once('comunes/header.php');?>
-    <?php require_once('comunes/menu.php'); ?>
+	
 <link rel="stylesheet" href="assets\css\jquery-ui.css">
 <link rel="stylesheet" href="assets\css\año-btn-radio.css">
+<?php  require_once('comunes/header.php');?>
+    <?php require_once('comunes/menu.php'); ?>
 <style>
 	/* para el autocompletado */
 	#ui-id-1{
 		z-index: 2000;
 	}
+	
+	.btn-filter{
+			margin-left: 55%; 
+			position: absolute;
+			z-index: 200;
+		}
+		@media (max-width: 768px) {
+			.btn-filter {
+				margin-left: 35%; /* Cambia el margen cuando el ancho de la pantalla sea menor a 768px */
+			}
+		}
+		@media (max-width: 1024px) {
+			.btn-filter {
+				margin-left: 35%;
+			}
+		}
+
+		/* Lo oculte para moviles  */
+		@media (max-width: 425px) {
+			.btn-filter {
+				display:none;
+			}
+		}
 </style>
 
 </head>
@@ -37,16 +61,13 @@
 
 							<!-- MAIN -->
 			<main>
-			<div class="head-title pt-3  mx-auto" style="width: 200px;  ">
+			<div class="head-title pt-3  mx-auto" style="width: 200px;">
 				<div class="left">
 					<h1>MATERIA</h1>
 				</div>
 			</div>
 
-
-
-
-							<!--TABLA -->	
+<!--TABLA -->	
 <!--------------------------------------------------main-content-start------------------------------------------------------------> 
 		     
            <div class="main-content">
@@ -71,7 +92,19 @@
 							 </div>
 					     </div>
 					   </div>
-					 
+			
+					   <!-- Botones de filtro -->
+	<div  class="btn-toolbar btn-filter" role="toolbar" aria-label="Toolbar with button groups">
+		<div class="btn-group mr-2" role="group" aria-label="First group">
+		   <button type="button" id="limpiar-filtro" class="btn btn-light border">Todos</button>
+		   <button type="button" id="filtro-1" class="btn btn-light border">1</button>
+		   <button type="button" id="filtro-2" class="btn btn-light border">2</button>
+		   <button type="button" id="filtro-3" class="btn btn-light border">3</button>
+		   <button type="button" id="filtro-4" class="btn btn-light border">4</button>
+		   <button type="button" id="filtro-5" class="btn btn-light border">5</button>
+		 </div>
+	</div>
+
 					   <table id="tablas" style="width:100%" class="table table-striped table-hover">
 					      <thead>
 						     <tr>	 
@@ -112,7 +145,7 @@
 					   </div>
 					</div>
 
-
+ 
 
 <!------------------------------------------FINAL DE LA TABLA -------------------------------------------------->
 
@@ -153,7 +186,7 @@
 
 
 			
-		<div class="col-6 mb-1" id="form_radio"> 
+		<div class="col-6" id="form_radio"> 
 			<label class="form-label ml-4">Año:</label>
 			<br>
 		<div class="ml-4" id="año">
@@ -169,8 +202,8 @@
 
 		</div>
 			
-<div class="container text-center">
-  <span id="existe_msj" class="text-end text-warning  mb-2"></span>
+<div class="container text-center" style="margin-top: -30px;">
+  <span id="existe_msj" class="text-end mb-2" style="color:#dfa700;"></span>
 </div>
 
 		
@@ -250,8 +283,8 @@
    				 </select>
   			</div>
 			
- <div class="container text-center">
-  <span id="existe_msj2" class="text-end text-warning  mb-2"></span>
+ <div class="container text-center"  style="margin-top: -10px;">
+  <span id="existe_msj2" class="text-end mb-2" style="color:#dfa700;"></span>
   <span id="existe_msj3" class="text-end text-primary  mb-2"></span>
 </div>
 
@@ -287,34 +320,13 @@
 					   
 <!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
 
-
-<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Borrar Materia Registrado</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-	  <form id="f3">
+<form id="f3">
 
 		<input style="display: none;" type="text" name="id2" id="id2">
 		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
 
 	</form>
-      <div class="modal-body">
-        <p>Estas seguro de querer eliminar este registro ?</p>
-		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal" id="borrar">Si, Borrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+      
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 					   	
 				 
@@ -329,7 +341,6 @@
 	<?php require_once('comunes/footer.php') ?> 
 	<script src="assets/js/jquery-ui.js"></script>
     <script src="assets/js/materia.js"></script>
-
     <!-- <script src="assets/js/tabla.js"></script> -->
 	<!--<script  src="assets/js/script.js"></script>-->
 </body>

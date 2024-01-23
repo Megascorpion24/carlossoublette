@@ -1,34 +1,32 @@
-<?php
-
+<?php 
 use PHPUnit\Framework\TestCase;
+require_once("./modelo/pagos.php");
 
-require_once("./modelo/horario_docente.php");
 
+class eliminarPagosTest extends TestCase{
 
-class eliminarHorariosTest extends TestCase
-{
+	private $Pagos;
 
-	private $horario;
-
-	public function setUp(): void
-	{
-		$this->horario = new horario();
+	public function setUp():void{
+		$this->Pagos = new pagos();
 	}
 
-
-	public function testEliminarExito()
-	{
-
-		$this->horario->set_id("39");
-
-		$this->assertEquals("Registro Eliminado", $this->horario->eliminar($this->horario));
+	//el usuario Ingresa los datos correctos
+	public function testRegistroExitoso(){
+        $this->Pagos->set_id("3467");
+       
+              
+        $this->Pagos->set_nivel("1");
+		$this->assertEquals("Registro Eliminado", $this->Pagos->eliminar($this->Pagos));
 	}
 
-	public function testEliminarFalla()
-	{
-
-		$this->horario->set_id("456");
-
-		$this->assertEquals("Clase no existe", $this->horario->eliminar($this->horario));
+    //el usuario Ingresa los datos repetidos
+	public function testRegistrofallido(){
+        $this->Pagos->set_id("99999");
+        
+             
+        $this->Pagos->set_nivel("1");
+		$this->assertEquals("Pago no registrado", $this->Pagos->eliminar($this->Pagos));
 	}
+    
 }

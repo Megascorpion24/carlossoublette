@@ -22,6 +22,64 @@
 	<link rel="stylesheet" href="assets\css\año-btn-radio.css">
 	<link rel="stylesheet" href="assets/css/modal.css">
 
+	<style>
+		.btn-filter{
+			margin-left: 10%; 
+			position: absolute;
+			z-index: 200;
+
+		}
+		@media (max-width: 768px) {
+			.btn-filter {
+				margin-left: 35%; /* Cambia el margen cuando el ancho de la pantalla sea menor a 768px */
+			position: relative;
+
+			}
+		}
+		@media (max-width: 1024px) {
+			.btn-filter {
+			margin-right: 40%;
+			position: relative;
+
+				
+			}
+		}
+
+		/* Lo oculte para moviles  */
+		@media (max-width: 425px) {
+			.btn-filter {
+				display:none;
+			}
+		}
+
+		/*-------------*/
+		.abc-filter{
+			margin-left: 45%; 
+			/* position: absolute; */
+
+		}
+		@media (max-width: 768px) {
+			.abc-filter {
+				margin-left: 15%; /* Cambia el margen cuando el ancho de la pantalla sea menor a 768px */
+			}
+		}
+		@media (max-width: 1024px) {
+			.abc-filter {
+				margin-left: 10%;
+			}
+		}
+
+		/* Lo oculte para moviles  */
+		@media (max-width: 425px) {
+			.abc-filter {
+				display:none;
+			}
+		}
+
+
+
+	</style>
+
 </head>
 <body> 
    
@@ -63,13 +121,15 @@
 									<i><img style="width: 18px; margin-top:-10px; margin-button:-15px;" src="assets/icon/add(1).png"/></i>
 									<span>Registrar</span>
 							    </a>
-							<?php } ?>
+							<?php } ?> 
 					
 
 							 </div>
 					     </div>
 					   </div>
-					 
+				
+
+
 					   <table id="tablas" style="width:100%" class="table table-striped table-hover">
 					      <thead>
 							 <th>ID</th>
@@ -190,13 +250,13 @@
 				<span id="dg_msj"></span>
 				</div>
 
-<div class="container mb-3">
-	 <span id="existe_msj" class="text-end text-warning  mb-2"></span>
+<div class="container mb-3"  style="margin-top: -20px;">
+	 <span id="existe_msj" class="text-end mb-2" style="color:#dfa700;"></span>
  </div>
 
 
 			<div class="form-group col-md-4">
-				<label>Cantidad de Alumnos:</label>
+				<label>Cantidad de Alumnos:</label> 
 				<input type="text" class="form-control" name="cantidad" id="cantidad" required placeholder="">
 		<span id="cantidad_msj"></span>
 			</div>
@@ -260,12 +320,12 @@
 									if (!empty($Edit_Año)) {
 											echo $Edit_Año;
 									}
-								?> 
+								?>  
    				 </select>
   			</div> 
-
-<div class="container text-center">
-  <span id="existe_msj2" class="text-end text-warning  mb-2"></span>
+ 
+<div class="container text-center"  style="margin-top: -10px;">
+  <span id="existe_msj2" class="text-end mb-5" style="color:#dfa700;"></span>
   <span id="existe_msj3" class="text-end text-primary  mb-2"></span>
 </div>
 
@@ -316,33 +376,12 @@
 <!-- ------------------------------------------------------------------------------- -->
 
 <!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
+<form id="f3">
 
-<div class="modal modal-user fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Borrar Seccion: "<span class="text-danger" id="seccion_b"></span>" <span id="año_b" class="text-danger"></span> Año</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-	  <form id="f3">
+<input style="display: none;" type="text" name="id2" id="id2">
+<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
 
-		<input style="display: none;" type="text" name="id2" id="id2">
-		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
-
-	</form>
-      <div class="modal-body">
-        <p>Estas seguro de querer eliminar este registro ?</p>
-		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal" id="borrar">Si, Borrar</button>
-      </div>
-    </div>
-  </div>
-</div>
+</form>
 
 
 
@@ -360,7 +399,7 @@
 <div class="modal fade bd-example-modal-lg" id="info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
 
-    <div class="modal-content">
+    <div class="modal-content"> 
 		<div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Seccion <span id="s_M" class="font-weight-bold"></span>
 			 Año <span id="a_M" class="font-weight-bold"></span></h5>

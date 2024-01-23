@@ -5,16 +5,41 @@ $(document).ready(function() {
     
 
   $('#ano').select2({
-    dropdownParent: $('#addEmployeeModal')
+    dropdownParent: $('#addClase'),
+    placeholder: 'Seleccionar',
+    language: {
+        noResults: function() {
+            return "No se encontraron datos";
+        }
+    },
   });
   $('#ano1').select2({
-    dropdownParent: $('#editEmployeeModal')
+    dropdownParent: $('#editClase'),
+    placeholder: 'Seleccionar',
+    language: {
+        noResults: function() {
+            return "No se encontraron datos";
+        }
+    },
   });
   $('#clase').select2({
-    dropdownParent: $('#addEmployeeModal')
+    dropdownParent: $('#addClase'),
+    placeholder: 'Seleccionar',
+    language: {
+        noResults: function() {
+            return "No se encontraron datos";
+        }
+    },
+
   });
   $('#cedula_profesor').select2({
-    dropdownParent: $('#addEmployeeModal')
+    dropdownParent: $('#addClase'),
+    placeholder: 'Seleccionar',
+    language: {
+        noResults: function() {
+            return "No se encontraron datos";
+        }
+    },
   });
   
   
@@ -29,7 +54,7 @@ $(document).ready(function() {
         
         if (validarenvio()) {
             enviaAjax($("#f"));
-            $('#addEmployeeModal').modal('hide');
+            $('#addClase').modal('hide');
          
             $('#f').trigger('reset');
         }
@@ -42,7 +67,7 @@ $(document).ready(function() {
           
             enviaAjax($("#f2"));
        
-            $('#editEmployeeModal').modal('hide');
+            $('#editClase').modal('hide');
             $('#f2').trigger('reset');
         }
    
@@ -171,10 +196,13 @@ $(document).ready(function() {
                 },
                 
                 success: function(respuesta) {
-                 alert(respuesta);
+                //alert(respuesta);
+                LlamadaAlert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
-                 window.location.reload();
+                 setTimeout(function(){
+                    window.location.reload();
+                }, 1500);
                  
                 
                 },
@@ -346,7 +374,7 @@ function validarenvio2() {
 function valprof(cedula_profesor,scedula_profesor) {
     
 
-    if (cedula_profesor != 'seleccionar') {
+    if (cedula_profesor != '') {
         
         return true;
     } else {
@@ -363,7 +391,7 @@ function valprof(cedula_profesor,scedula_profesor) {
 function valclase(clase,sclase) {
     
 
-    if (clase != 'seleccionar') {
+    if (clase != '') {
         
         return true;
     } else {
@@ -380,7 +408,7 @@ function valclase(clase,sclase) {
 function valseccion(ano,sano) {
     
 
-    if (ano != 'seleccionar') {
+    if (ano != '') {
         
         return true;
     } else {

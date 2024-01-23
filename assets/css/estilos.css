@@ -4,3 +4,9 @@ display: none;
 .mostrar{
     display: block;
     }
+
+    /* Estilo para el Alert */
+	.small-swal2-popup {
+        width: 400px;
+      }
+    

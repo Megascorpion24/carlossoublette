@@ -1,50 +1,48 @@
 <?php 
 use PHPUnit\Framework\TestCase;
-require_once("./modelo/horario_docente.php");
+require_once("./modelo/pagos.php");
 
 
-class registrarHorariosTest extends TestCase{
+class registrarPagosTest extends TestCase{
 
-	private $Horarios;
+	private $Pagos;
 
 	public function setUp():void{
-		$this->Horarios = new horario();
+		$this->Pagos = new pagos();
 	}
 
 	//el usuario Ingresa los datos correctos
 	public function testRegistroExitoso(){
-        $this->Horarios->set_clase("13");
-        $this->Horarios->set_cedula_profesor("30019082");
-        $this->Horarios->set_ano("30");
-        $this->Horarios->set_dia("1");
-        $this->Horarios->set_clase_inicia("13:00:00");
-        $this->Horarios->set_clase_termina("14:00:00");
-       
-        $this->Horarios->set_nivel("1");
-		$this->assertEquals("Registro incluido", $this->Horarios->registrar($this->Horarios));
+        $this->Pagos->set_id_deudas("57");
+        $this->Pagos->set_identificador("3456742");
+        $this->Pagos->set_concepto("inscripcion");
+        $this->Pagos->set_forma("Transf");
+        $this->Pagos->set_fecha("2024-01-18");
+        $this->Pagos->set_fechad("2023-10-30");
+        $this->Pagos->set_estado("Confirmado");
+        $this->Pagos->set_estado_pagos("1");
+        $this->Pagos->set_monto("2250");
+        $this->Pagos->set_meses("1");
+              
+        $this->Pagos->set_nivel("1");
+		$this->assertEquals("EL PAGO FUE REGISTRADO CON EXITO", $this->Pagos->registrar($this->Pagos));
 	}
-    //el usuario Ingresa los datos inmcompatibles
-    public function testConflisto_clases(){
-        $this->Horarios->set_clase("13");
-        $this->Horarios->set_cedula_profesor("30019082");
-        $this->Horarios->set_ano("30");
-        $this->Horarios->set_dia("1");
-        $this->Horarios->set_clase_inicia("13:00:00");
-        $this->Horarios->set_clase_termina("14:00:00");
-       
-        $this->Horarios->set_nivel("1");
-		$this->assertEquals("Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente", $this->Horarios->registrar($this->Horarios));
+
+    //el usuario Ingresa los datos repetidos
+	public function testRegistrofallido(){
+        $this->Pagos->set_id_deudas("57");
+        $this->Pagos->set_identificador("3456742");
+        $this->Pagos->set_concepto("inscripcion");
+        $this->Pagos->set_forma("Transf");
+        $this->Pagos->set_fecha("2024-01-18");
+        $this->Pagos->set_fechad("2023-10-30");
+        $this->Pagos->set_estado("Confirmado");
+        $this->Pagos->set_estado_pagos("1");
+        $this->Pagos->set_monto("2250");
+        $this->Pagos->set_meses("1");
+             
+        $this->Pagos->set_nivel("1");
+		$this->assertEquals("EL PAGO YA SE ENCUENTRA REGISTRADO", $this->Pagos->registrar($this->Pagos));
 	}
-    //la hora eligida no es valida
-	public function testRango_hora(){
-        $this->Horarios->set_clase("13");
-        $this->Horarios->set_cedula_profesor("30019082");
-        $this->Horarios->set_ano("30");
-        $this->Horarios->set_dia("1");
-        $this->Horarios->set_clase_inicia("15:00:00");
-        $this->Horarios->set_clase_termina("14:00:00");
-       
-        $this->Horarios->set_nivel("1");
-		$this->assertEquals("La hora de inicio no puede ser mayor a la hora de término", $this->Horarios->registrar($this->Horarios));
-	}
+    
 }

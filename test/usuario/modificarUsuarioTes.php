@@ -13,27 +13,27 @@ class modificarUsuarioTest extends TestCase{
 
 	
 
-	public function testModificarExito(){
-        $this->Usuarios->set_nombre("vegetales");
+	//el usuario Ingresa los datos correctos
+	public function testRegistroExitoso(){
+        $this->Usuarios->set_cedula("30019083");
+        $this->Usuarios->set_nombre("arepa");
         $this->Usuarios->set_correo("santi@gmail.com");
-        $this->Usuarios->set_id("75");
         $this->Usuarios->set_contraceña("marial2");
         $this->Usuarios->set_rol("1");
         $this->Usuarios->set_nivel("1");
         
-		$this->assertEquals("Registro modificado", $this->Usuarios->modificar1($this->Usuarios));
+		$this->assertEquals("Registro modificado", $this->Usuarios->modificar($this->Usuarios));
+	}
+    //el usuario Ingresa los datos noxisten
+    public function testRegistroFallido(){
+        $this->Usuarios->set_cedula("30019111");
+        $this->Usuarios->set_nombre("arepa");
+        $this->Usuarios->set_correo("santi@gmail.com");
+        $this->Usuarios->set_contraceña("marial2");
+        $this->Usuarios->set_rol("1");
+        $this->Usuarios->set_nivel("1");
+        
+		$this->assertEquals("el usuario no esta registrado", $this->Usuarios->modificar($this->Usuarios));
 	}
 
-    public function testModificarFalla(){
-        $this->Usuarios->set_nombre("vegetales");
-        $this->Usuarios->set_correo("santi@gmail.com");
-        $this->Usuarios->set_id("120");
-        $this->Usuarios->set_contraceña("marial2");
-        $this->Usuarios->set_rol("1");
-        $this->Usuarios->set_nivel("1");
-        
-		$this->assertEquals("el usuario no esta registrado", $this->Usuarios->modificar1($this->Usuarios));
-	}
-	
-	
 }

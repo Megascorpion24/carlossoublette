@@ -3,7 +3,7 @@
 -- Host: localhost	Database: colegiocarlossoublette
 -- ------------------------------------------------------
 -- Server version 	10.4.28-MariaDB
--- Date: Tue, 16 Jan 2024 18:20:01 +0100
+-- Date: Tue, 16 Jan 2024 19:18:58 +0100
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1240,4 +1240,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Tue, 16 Jan 2024 18:20:02 +0100
+-- Dump completed on: Tue, 16 Jan 2024 19:18:59 +0100

@@ -22,6 +22,7 @@
 			<?php require_once('comunes/menu.php'); ?>
 		</head>
 	<body>
+
  
 	
 
@@ -61,7 +62,7 @@
 									<th>Acción</th>
 									</tr>
 								</thead>
-								<?PHP if (in_array("consultar pagos", $nivel1)) {?>
+								<?PHP if (in_array("consultarmontos", $nivel1)) {?>
 								<tbody id="tabla">						  						
 										<?php
 											if(!empty($consutamonto)){
@@ -94,6 +95,15 @@
 											</a>
 
 											<?php } ?>
+
+											<?PHP if (in_array("registrar pagos", $nivel1)) {?>
+											<a href="#confirmarpagos" class="btn btn-primary" data-toggle="modal">
+												<i class="material-icons " style="width:100%" title="registrar"></i>
+												<span>Confirmar Pago</span>
+											</a>
+
+											<?php } ?>
+
 											<?PHP if (in_array("registrar pagos_tutor", $nivel1)) {?>
 											<a href="#addpagorepre" class="btn btn-success" data-toggle="modal">
 												<i class="material-icons " style="width:100%" title="registrarr"></i>
@@ -113,16 +123,16 @@
 				
 									<th>ID</th>
 									<th>N° Deuda</th>	
-									<th>C.I Repre</th>
+									<th>C.I Tutor</th>
 									<th>Tutor</th>								
-									<th>Identificador</th>
+									<th>Ref</th>
 									<th>Concepto</th>
 									<th>F/P</th>
 									<th>Fecha Pago</th>
-									<th>Fecha Deuda</th>
-									<th>Monto Bs</th>
-									<th>Meses </th>
-									<th>C.I Est</th>
+									<th>Desde</th>
+									<th>Hasta</th>
+									<th>Bs</th>									
+									<th>C.I</th>
 									<th>Estudiante</th>
 									<th>Estado</th>							
 									<th>Acción</th>
@@ -323,7 +333,7 @@
 						<div class="form-group col-md-2 ocultar" id="ocult">
 							<label>Meses</label>
 								<span id="smeses"></span>
-							<input type="number" class="form-control"  name="meses" value="1" id="meses" required placeholder="0000">							
+							<input type="text" class="form-control" min="1"  name="meses" value="1" id="meses" required placeholder="0000">							
 						</div>
 						
 				
@@ -354,6 +364,307 @@
 </table>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!----------------------------------------------------------TABLA OCULTA----------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----------------------------------------------------------------MODAL CONFIRMAR----------------------------------------------------------------->
+<div class="modal fade" tabindex="-1" id="confirmarpagos" role="dialog">
+  	<div class="modal-dialog " role="document">
+    	<div class="modal-content">
+				<div class="modal-header">
+				<form id="fp">
+					<h5 class="modal-title">Confirmar Pagos</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+      		<div class="modal-body">
+
+
+
+			
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<h5 class="modal-title  mb-3">Pagos Pendientes</h5>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">						
+				<select type="text" class="form-control" name="mibuscador3"  id="mibuscador3"  onchange="añadir3()">
+				<?php
+    				if(!empty($consuta3[1])){
+        				echo $consuta3[1];
+   					}
+	       		 ?>
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+				<span style="color: green">Seleccionar Pagos que desea confirmar</span>
+			</div>	
+
+		</div>
+
+
+
+
+
+
+		<div class="form-row">
+
+			<div class="form-group col-md-4 " >	
+			<label>Deuda Unica Pendiente</label>					
+				<input type="text" class="form-control" id="montovp" readonly >							
+			</div>
+			<div class="form-group col-md-2 " id="ocultp2" >
+			<label>Meses</label>						
+				<input type="text" class="form-control" id="mesesvp" readonly >							
+			</div>
+			<div class="form-group col-md-3 " id="ocultp3" >	
+			<label>Monto Total</label>				
+				<input type="text" class="form-control" id="montotp" readonly >							
+			</div>
+			<div class="form-group col-md-3 " >	
+			<label>Precio Base</label>				
+				<input type="text" class="form-control " id="montoocultop" readonly >							
+			</div>
+			
+
+		</div>
+
+
+
+
+
+
+
+
+		<hr>
+
+
+
+				<h5 class="modal-title"> Datos del Pago</h5>
+				<hr>
+
+
+				
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<label>ID</label>	
+								<span style="color:#FF0000" id="sidp"></span>
+								<input type="text" class="form-control" style="display: none;"  name="accionp" value="accionp" required>
+							<input type="text" class="form-control" readonly="true" name="idp" id="idp" required>
+						</div>
+						<div class="form-group col-md-3">
+							<label>N° Deuda</label>	
+								<span style="color:#FF0000" id="sid_deudasp"></span>							
+							<input type="text" class="form-control" readonly="true" name="id_deudasp" id="id_deudasp" required>
+						</div>
+
+						<div class="form-group col-md-3">
+							<label>Concepto</label>
+								<span style="color:#FF0000" id="sconceptop"></span>
+							<input type="text" class="form-control" readonly="true" name="conceptop"  id="conceptop" required  >
+						</div>
+						<!--------------------------------->
+						<div class="form-group col-md-3">
+							<label>Identificador</label>
+								<span style="color:#FF0000" id="sidentificadorp"></span>
+							<input type="text" class="form-control" name="identificadorp" id="identificadorp" required placeholder="0000">
+						</div>
+
+					</div>	
+	
+						<!--------------------------------->
+					
+					
+					<div class="form-row">
+						<div class="form-group col-md-3">
+								<label>Fecha Pago</label>
+									<span style="color:#FF0000" id="sfechap"></span>
+								<input type="date" class="form-control "  readonly="true" name="fechap" id="fechap"required  >							
+							</div>
+						<div class="form-group col-md-3">
+								<label>Deuda Generada</label>
+									<span style="color:#FF0000" id="sfechadp"></span>
+								<input type="date" class="form-control "  readonly="true" name="fechadp" id="fechadp"required  >							
+							</div>
+						<div class="form-group col-md-3">
+							<label>Forma de pago</label>
+								<span style="color:#FF0000" id="sformap"></span>				
+							<select type="text" class="form-control" name="formap" id="formap" required >
+									<option value="" selected>- Seleccionar -</option>
+									<option value="Transf">Trasferencia</option>
+									<option value="Pago Movil">Pago Movil</option>
+									<option value="Efectivo">Efectivo</option>	
+								
+									<option value="Otro">Otro</option>																			
+							</select>
+						</div>		
+						<div class="form-group col-md-3 " >
+								<label>Monto</label>
+									<span style="color:#FF0000" id="smontop"></span>
+								<input type="text" class="form-control"   name="montop"   id="montop" required placeholder="000.00">								
+						</div>				
+					</div>
+
+
+					<div class="form-row">	
+						<div class="form-group col-md-3  " id="ocultp1">
+								<label>Meses</label>
+									<span id="smesesp"></span>
+								<input type="text" class="form-control" min="1"   name="mesesp"  id="mesesp" required placeholder="0000">							
+						</div>
+
+						<div class="form-group col-md-3 " >
+								<label>Estado</label>
+									<span id="sestadop"></span>
+								<input type="text" class="form-control " readonly="true" name="estadop"  id="estadop" required >							
+						</div>
+
+						<div class="form-group col-md-3 " >
+								<label>Estado Pago</label>
+									<span id="sestado_pagosp"></span>
+								<input type="text" class="form-control " readonly="true" name="estado_pagosp"  id="estado_pagosp" required >							
+						</div>
+						<div class="form-group col-md-3 " >
+								<label>Estatus</label>
+									<span id="sestatusp"></span>
+								<input type="text" class="form-control " readonly="true" name="estatusp"  id="estatusp" required >							
+						</div>
+					</div>
+				
+			</div>
+					<div class="modal-footer">
+						
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-success" id="registrarp">Confirmar</button>
+					</div>
+			</form>
+    	</div>
+  	</div>
+</div>
+
+<!----------------------------------------------------------FIN MODAL CONFIRMAR----------------------------------------------------------------->
+<table class="table table-striped table-hover ocultar">
+			<thead>						 
+			</thead>						  
+	<tbody id="selectp">						      
+		<?php if(!empty($consuta3[0])){ echo $consuta3[0];} ?>
+					 
+	</tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -451,6 +762,32 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					   
 
 <!-------------------------------------------------------------MODAL EDITAR------------------------------------------------------------------>
@@ -498,26 +835,26 @@
 					</div>
 					
 					<div class="form-row">
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-4">
 						<label>Fecha De Pago</label>
 							<span style="color:#FF0000" id="sfechaM"></span>			
 						<input type="text" class="form-control"readonly="true" name="fechaM" id="fechaM" required >
 					</div>
-					<div class="form-group col-md-3">
-						<label>Fecha De Deuda</label>
+					<div class="form-group col-md-4">
+						<label>Fecha Deuda</label>
 							<span style="color:#FF0000" id="sfechadM"></span>			
 						<input type="text" class="form-control"readonly="true" name="fechadM" id="fechadM" required >
 					</div>
-					<div class="form-group col-md-3 " >
+					<div class="form-group col-md-3 "  style="display: none;">
 							<label>Meses</label>
-								<span id="smesesM"></span>
-							<input type="text" class="form-control" readonly="true" name="mesesM"  id="mesesM" required placeholder="0000">							
+								<span style="color:#FF0000" id="smesesM"></span>
+							<input type="text" class="form-control" readonly="true" name="mesesM"  id="mesesM" required >							
 						</div>
 			
-						<div class="form-group col-md-3">
+						<div class="form-group col-md-4">
 							<label>Monto</label>
 								<span style="color:#FF0000" id="smontoM"></span>
-							<input type="text" class="form-control"  name="montoM"  id="montoM" required placeholder="000 / 000-000">
+							<input type="text" class="form-control" readonly="true" name="montoM"  id="montoM" required placeholder="000 / 000-000">
 						</div>			
 						
 
@@ -557,14 +894,11 @@
 								<span style="color:#FF0000" id="snombre1M"></span>			
 							<input type="text" class="form-control" disabled type="text" name="nombre1M" id="nombre1M" required >
 						</div>
-						<div class="form-group col-md-4">
-							<label>Estado</label>
-								<span style="color:#FF0000" id="sestadoM"></span>		
-							
-							<select type="text" class="form-control" name="estadoM" id="estadoM" required >																
-									<option value="Confirmado">CONFIRMAR</option>
-									<option value="Pendiente">PENDIENTE</option>																									
-							</select>
+
+						<div class="form-group col-md-3 " >
+								<label>Estado</label>
+									<span id="sestadoM"></span>
+								<input type="text" class="form-control " readonly="true" name="estadoM"  id="estadoM" required >							
 						</div>
 												
 			
@@ -583,6 +917,34 @@
 <!---------------------------------------------FIN MODAL EDITAR------------------------------------------------->	   
   
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -653,6 +1015,14 @@
 
 
 
+
+
+
+
+
+
+
+
 <!-----------------------------------------------MODAL RETORNAR------------------------------------------------------>
 <div class="modal fade" tabindex="-1" id="deletepago2" role="dialog">
   	<div class="modal-dialog" role="document">
@@ -680,6 +1050,22 @@
 </div>
 
 <!-----------------------------------------------FIN MODAL RETORNAR------------------------------------------------------>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -747,12 +1133,12 @@
 						<input type="text" class="form-control"readonly="true" name="fechaC" id="fechaC" required >
 					</div>
 					<div class="form-group col-md-3">
-						<label>Fecha De Deuda</label>
+						<label>Desde</label>
 							<span style="color:#FF0000" id="sfechadC"></span>			
 						<input type="text" class="form-control"readonly="true" name="fechadC" id="fechadC" required >
 					</div>
 					<div class="form-group col-md-3 " >
-							<label>Meses</label>
+							<label>Hasta</label>
 								<span id="smesesC"></span>
 							<input type="text" class="form-control" readonly="true" name="mesesC"  id="mesesC" required placeholder="0000">							
 						</div>
@@ -850,6 +1236,35 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-----------------------------------------------------------------MODAL REGISTRO REPRESENTANTES------------------------------------------------------------------>
 <div class="modal fade" tabindex="-1" id="addpagorepre" role="dialog">
   	<div class="modal-dialog " role="document">
@@ -882,15 +1297,33 @@
 	       		 ?>
 				</select>
 			</div>	
-			<div class="form-group col-md-2 ocultar "  id="ocult4" >					
-				<input type="text" class="form-control"  id="total_deudar" readonly >							
-			</div>
+
 			<div class="form-group col-md-6">
 				<span style="color: green">Seleccionar la deuda que desea cancelar</span>
 			</div>
 		</div>
 	
-		
+		<div class="form-row">
+
+			<div class="form-group col-md-4 " >	
+			<label>Deuda Unica Pendiente</label>					
+				<input type="text" class="form-control" id="montovr" readonly >							
+			</div>
+			<div class="form-group col-md-2 " id="ocult4" >
+			<label>Meses</label>						
+				<input type="text" class="form-control" id="mesesvr" readonly >							
+			</div>
+			<div class="form-group col-md-3 " id="ocult6" >	
+			<label>Monto Total</label>				
+				<input type="text" class="form-control" id="montotr" readonly >							
+			</div>
+			<div class="form-group col-md-3 " >	
+			<label>Precio Base</label>				
+				<input type="text" class="form-control " id="montoocultor" readonly >							
+			</div>
+
+
+		</div>
 		
 			<hr>
 			<h5 class="modal-title"> Datos del Pago</h5>
@@ -910,7 +1343,7 @@
 						<div class="form-group col-md-4">
 							<label>Concepto</label>
 								<span style="color:#FF0000" id="sconceptor"></span>
-							<input type="text" class="form-control" readonly="true" name="conceptor"  id="conceptor" required  >
+							<input type="text" class="form-control" readonly="true" name="conceptor"  id="conceptor" required onchange="checkConcepto()" >
 						</div>
 						<!--------------------------------->
 						<div class="form-group col-md-3 ">
@@ -939,7 +1372,7 @@
 								<span style="color:#FF0000" id="sformar"></span>				
 							<select type="text" class="form-control" name="formar" id="formar" required >
 									<option value="" selected>- Seleccionar -</option>
-									<option value="Transferencia">Trasferencia</option>
+									<option value="Transf">Trasferencia</option>
 									<option value="Pago Movil">Pago Movil</option>
 									<option value="Efectivo">Efectivo</option>	
 	
@@ -950,12 +1383,12 @@
 						<div class="form-group col-md-3">
 							<label>Estado</label>
 								<span style="color:#FF0000" id="sestador"></span>
-							<input type="text" class="form-control"  readonly="true" value="PENDIENTE" name="estador" id="estador" required placeholder="Activo">
+							<input type="text" class="form-control"  readonly="true" value="Pendiente" name="estador" id="estador" required placeholder="Activo">
 						</div>
 						<div class="form-group col-md-2 ocultar" id="ocult3">
 							<label>Meses</label>
 								<span id="smesesr"></span>
-							<input type="text" class="form-control"  name="mesesr" value="1" id="mesesr" required placeholder="0000">
+							<input type="text" class="form-control" min="1"  name="mesesr" value="1" id="mesesr" required placeholder="0000">
 						</div>
 					</div>
 		
@@ -998,6 +1431,7 @@
 
 	
 </body>
+
 </html>
 
 

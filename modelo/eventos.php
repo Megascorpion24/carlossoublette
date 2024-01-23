@@ -7,6 +7,7 @@ class eventos extends datos{
     private $id;
 	private $fecha_ini;
     private $fecha_cierr;
+    private $cedula_profesor;
     private $evento;
     private $ano_academico;
     private $nivel;
@@ -28,8 +29,7 @@ class eventos extends datos{
     }else{
         return false;
     }
-        
-	}
+    }
     public function set_fecha_cierr($valor){
         if (preg_match("/^\d{4}-\d{2}-\d{2}$/",$valor )) {
 		$this->fecha_cierr = $valor; 
@@ -38,6 +38,14 @@ class eventos extends datos{
         return false;
     }
 	}
+    public function set_cedula_profesor($valor){
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/",$valor )) {
+        $this->cedula_profesor = $valor; 
+        return true;
+    }else{
+        return false;
+    }
+    }
     public function set_evento($valor){
         if (preg_match("/^[a-zA-Z\s]+$/",$valor )) {
         $this->evento = $valor; 
@@ -107,31 +115,56 @@ class eventos extends datos{
 
                 $r= $co->prepare("Insert into eventos(
 						
-                            id,
                             fecha_ini,
                             fecha_cierr,
                             evento,
                             estado
                             )
             
-                    Values( :id,
-                            :fecha_ini,
+                    Values( :fecha_ini,
                             :fecha_cierr,
                             :evento,
                             :estado
                     )"
                 );
 
-                $r->bindParam(':id',$this->id);	
                 $r->bindParam(':fecha_ini',$this->fecha_ini);
                 $r->bindParam(':fecha_cierr',$this->fecha_cierr);
                 $r->bindParam(':evento',$this->evento);
                 $r->bindParam(':estado', $estado);
+
+                // Validar que fecha_ini no sea mayor a fecha_cierr
+    if ($this->fecha_ini > $this->fecha_cierr) {
+        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+    }
+
+    // Validar que fecha_cierr no sea menor a fecha_ini
+    if ($this->fecha_cierr < $this->fecha_ini) {
+        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+    }
             
              
                 $r->execute();
 
                 $lid = $co->lastInsertId();
+
+                $r = $co->prepare("Insert into eventos_docente(
+                    
+                    id_docente,
+                    id_evento
+                    )
+            
+
+                    Values(
+                    :id_docente,
+                    :id_evento
+                    
+                    
+                    )");
+                $r->bindParam(':id_docente', $this->cedula_profesor);
+                $r->bindParam(':id_evento', $lid);
+                $r->execute();
+
 
                 $r= $co->prepare("Insert into eventos_ano(
 
@@ -192,6 +225,38 @@ public function ano_academico(){
         return false;
     }
 }
+
+ public function consultar1()
+    {
+        $co = $this->conecta();
+
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+
+
+            $resultado = $co->prepare("SELECT * from docentes where estado = 1");
+            $resultado->execute();
+            $respuesta = "";
+            $respuesta2 = "";
+            $respuesta2 = $respuesta2 . '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+
+            foreach ($resultado as $r) {
+                $respuesta2 = $respuesta2 . '<option value="' . $r['cedula'] . '"  >' . $r['nombre'] . '</option>';
+
+
+
+                $respuesta = $respuesta . '</tr>';
+            }
+
+
+
+
+            return $respuesta2;
+        } catch (Exception $e) {
+
+            return false;
+        }
+    }
         
 
 
@@ -227,6 +292,16 @@ public function ano_academico(){
                     $r->bindParam(':fecha_ini',$this->fecha_ini);	
                     $r->bindParam(':fecha_cierr',$this->fecha_cierr);
                     $r->bindParam(':evento',$this->evento);
+
+                    // Validar que fecha_ini no sea mayor a fecha_cierr
+    if ($this->fecha_ini > $this->fecha_cierr) {
+        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+    }
+
+    // Validar que fecha_cierr no sea menor a fecha_ini
+    if ($this->fecha_cierr < $this->fecha_ini) {
+        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+    }
                 
                  
                     $r->execute();
@@ -279,7 +354,20 @@ public function consultar($nivel1){
         try{
             
             
-            $resultado = $co->prepare("SELECT * from eventos 
+            $resultado = $co->prepare("SELECT eventos. *,concat(docentes.nombre ,'-', docentes.cedula) as cedula, ano_academico.ano_academico as ano
+            FROM eventos
+
+            INNER JOIN eventos_docente
+            ON eventos.id = eventos_docente.id_evento
+            INNER JOIN docentes
+            ON eventos_docente.id_docente = docentes.cedula
+
+            INNER JOIN eventos_ano
+            ON eventos.id = eventos_ano.id_evento
+            INNER JOIN ano_academico
+            ON eventos_ano.id_anos = ano_academico.id
+
+
 
             WHERE eventos.estado = 1
 
@@ -293,10 +381,12 @@ public function consultar($nivel1){
                 $respuesta=$respuesta."<th>".$r['id']."</th>";
                 $respuesta=$respuesta."<th>".$r['fecha_ini']."</th>";
                 $respuesta=$respuesta."<th>".$r['fecha_cierr']."</th>";
+                $respuesta=$respuesta."<th>".$r['cedula']."</th>";
                 $respuesta=$respuesta."<th>".$r['evento']."</th>";
+                $respuesta=$respuesta."<th>".$r['ano']."</th>";
                 $respuesta=$respuesta.'<th>';
 
-                if (in_array("modificar ano_academico", $nivel1)) {
+                if (in_array("modificar_evento", $nivel1)) {
                     # code...
                 
                 $respuesta=$respuesta. '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
@@ -304,7 +394,7 @@ public function consultar($nivel1){
                </a>';
                }
                
-                if (in_array("eliminar ano_academico", $nivel1)) {
+                if (in_array("eliminar_evento", $nivel1)) {
                     # code...
                     
                $respuesta=$respuesta. '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
@@ -455,7 +545,6 @@ private function eliminar1(){
                 $this->bitacora("se elimino un evento", "eventos", $this->nivel);
                 return "Registro Eliminado";
 
-                return "Registro Eliminado";
                 
         } catch(Exception $e) {
             return $e->getMessage();

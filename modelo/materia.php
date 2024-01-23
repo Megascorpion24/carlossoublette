@@ -194,7 +194,7 @@ private function registrar1() {
                         }
 
             $this->bitacora("se registró una materia", "materias", $this->nivel);
-            return "Registro Incluido";
+            return "1Registro Incluido";
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -299,7 +299,7 @@ private function modificar1(){
 
 
             $this->bitacora("se modificó una materia", "materias", $this->nivel);
-            return "Registro modificado..";
+            return "2Registro Modificado";
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -312,7 +312,7 @@ private function modificar1(){
         $this->insert_Docente(); //llamma a la funcion a registra los docentes nuevos
 
             $this->bitacora("se modificó Docente de una materia", "materias", $this->nivel);
-            return "Registro modificado..";
+            return "2Registro Modificado";
         
     }
     
@@ -590,7 +590,7 @@ public function exists($nombre, $ano) {
                  $r->bindParam(':estado',$estado);
                  $r->execute();
                  $this->bitacora("se elimino una materia", "materias",$this->nivel);
-                 return "Registro Eliminado";
+                 return "3Registro Eliminado";
                 
          } catch(Exception $e) {
              return $e->getMessage();
