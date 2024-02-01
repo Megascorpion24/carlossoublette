@@ -150,10 +150,13 @@ $("#evento1").on("keyup", function() {
                 },
                 
                 success: function(respuesta) {
-                 alert(respuesta);
+                 //alert(respuesta);
+                LlamadaAlert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
-                 window.location.reload();
+                 setTimeout(function(){
+                    window.location.reload();
+                }, 1500);
                    
                 },
                 error: function(request, status, err){

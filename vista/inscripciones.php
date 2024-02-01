@@ -87,7 +87,7 @@
 							 <th>año</th>
 							 <th>seccion</th>
 							 <th>accion</th>
-							 <th></th>
+							 
 						
 
 							 </tr>

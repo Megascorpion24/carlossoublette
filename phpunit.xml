@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php"
+         colors="true"
+         verbose="true"
+         testdox = "true"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Test">
+           
+
+            <directory>test\login</directory>
+            <directory>test\reportes</directory>
+            <directory>test\usuario</directory>
+            <directory>test\inscripcion</directory>
+            <directory>test\horario</directory>
+            <directory>test\evento</directory>
+            <directory>test\pagos</directory>
+            <directory>test\seccion</directory>
+            <directory>test\materias</directory>
+            <directory>test\docentes</directory>
+            <directory>test\seguridad</directory>
+            <directory>test\representantes</directory> 
+            
+
+                
+
+<file>test\año academico\consultarAno_academicoTest.php</file>
+           
+            <file>test\año academico\modificarAno_academicoTest.php</file> 
+
+
+<file>test\año academico\eliminarAno_academicoTest.php</file>
+            <file>test\año academico\fregistrarAno_academicoTest.php</file>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <file>test\mantenimiento\mantenimientoTest.php</file>
+            
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -63,7 +63,7 @@
 									</tr>
 								</thead>
 								<?PHP if (in_array("consultarmontos", $nivel1)) {?>
-								<tbody id="tabla">						  						
+								<tbody id="tabla2">						  						
 										<?php
 											if(!empty($consutamonto)){
 												echo $consutamonto;

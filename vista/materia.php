@@ -29,7 +29,9 @@
 	#ui-id-1{
 		z-index: 2000;
 	}
-	
+
+	/* -------- -----------------*/
+
 	.btn-filter{
 			margin-left: 55%; 
 			position: absolute;
@@ -97,11 +99,11 @@
 	<div  class="btn-toolbar btn-filter" role="toolbar" aria-label="Toolbar with button groups">
 		<div class="btn-group mr-2" role="group" aria-label="First group">
 		   <button type="button" id="limpiar-filtro" class="btn btn-light border">Todos</button>
-		   <button type="button" id="filtro-1" class="btn btn-light border">1</button>
-		   <button type="button" id="filtro-2" class="btn btn-light border">2</button>
-		   <button type="button" id="filtro-3" class="btn btn-light border">3</button>
-		   <button type="button" id="filtro-4" class="btn btn-light border">4</button>
-		   <button type="button" id="filtro-5" class="btn btn-light border">5</button>
+		   <button type="button" id="filtro-1" class="btn btn-light border" data-value="1">1</button>
+		   <button type="button" id="filtro-2" class="btn btn-light border" data-value="2">2</button>
+		   <button type="button" id="filtro-3" class="btn btn-light border" data-value="3">3</button>
+		   <button type="button" id="filtro-4" class="btn btn-light border" data-value="4">4</button>
+		   <button type="button" id="filtro-5" class="btn btn-light border" data-value="5">5</button>
 		 </div>
 	</div>
 
@@ -314,18 +316,38 @@
   </div>
 </div>	
 
-<!---------------------------------------------FIN MODAL EDITAR------------------------------------------------->	   
-					   
-
-					   
+				   
 <!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
 
-<form id="f3">
+
+<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Borrar Materia Registrado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form id="f3">
 
 		<input style="display: none;" type="text" name="id2" id="id2">
 		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
 
 	</form>
+      <div class="modal-body">
+        <p>Estas seguro de querer eliminar este registro ?</p>
+		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" id="borrar">Si, Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+					   
+
       
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 					   	

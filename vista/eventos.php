@@ -429,7 +429,7 @@ if (isset($_SESSION['permisos'])) {
       <div class="modal-body">
 
         <p>Estas seguro de querer eliminar este registro ?</p>
-		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
+		<p style="color:#FF0000"><small>Esta Accion no es reversible</small></p>
 
       </div>
       <div class="modal-footer">
@@ -461,4 +461,12 @@ if (isset($_SESSION['permisos'])) {
     <script  src="assets/js/script.js"></script>
 
 </body>
+
+<style>
+	* {
+		font-family: 'Poppins',sans-serif;
+                                                
+       }
+</style>
+
 </html>

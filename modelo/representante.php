@@ -86,17 +86,17 @@ class tutor_legal extends datos{
 
     public function registrar(){
        $val= $this->registrar1();
-       echo  $val;
+       return  $val;
     }
 
     public function modificar(){
         $val=  $this->modificar1();
-        echo  $val;
+        return  $val;
     }
 
     public function eliminar(){
         $val=$this->eliminar1();
-        echo  $val;
+        return  $val;
     }
   
     
@@ -206,7 +206,7 @@ class tutor_legal extends datos{
 
                 $this->bitacora("se registro un representante", "representantes",$this->nivel);
              
-                    return "Registro Incluido";	
+                return "1REGISTRADO CON EXITO";
                 
             }catch(Exception $e){
                 
@@ -214,7 +214,7 @@ class tutor_legal extends datos{
             }
         }
             else{
-                return "Cedula Registrada";
+                return "4CEDULA YA EXISTE";
             }
   }
 
@@ -274,7 +274,7 @@ class tutor_legal extends datos{
                     $r->execute();
     
                     $this->bitacora("se modifico un representante", "representantes",$this->nivel);
-                        return "Registro modificado";	
+                    return "2REGISTRO MODIFICADO";
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -282,7 +282,7 @@ class tutor_legal extends datos{
                     
                 }
                 else{
-                    return "cedula no registrada";
+                    return "4PAGO NO REGISTRADO";
                 }
         
 
@@ -448,13 +448,13 @@ public function eliminar1(){
                 $r->bindParam(':cedula',$this->cedula);
                 $r->execute();
                 $this->bitacora("se elimino un representante", "representantes",$this->nivel);
-                return "Registro Eliminado";              
+                return "3REGISTRO ELIMINADO";             
         } catch(Exception $e) {
             return $e->getMessage();
         }
     }
     else{
-        return "Cedula no registrada";
+        return "4REGISTRO NO EXISTE";
     }
 }
 

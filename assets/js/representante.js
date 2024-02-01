@@ -348,42 +348,33 @@ function modificar(id){
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
-
-    function enviaAjax(datos){
-    
-        $.ajax({
-                url: '', 
-                type: 'POST',
-                data: datos.serialize(),
-                beforeSend: function(){
-  
-                },
-                
-                
-                success: function(respuesta) {
-                    alert(respuesta);   
-                 $("#consulta").val("consulta");
-                 enviaAjax2($("#f4"));
-                 window.location.reload();
-        
-                   
-                },
-                error: function(request, status, err){
-                    if (status == "timeout") {
-                        mensaje("Servidor ocupado, intente de nuevo");
-                    } else {
-                        mensaje("ERROR: <br/>" + request + status + err);
-                    }
-                },
-                complete: function(){
-             
+function enviaAjax(datos){
+    $.ajax({
+            url: '', 
+            type: 'POST',
+            data: datos.serialize(),
+            beforeSend: function(){            
+            },            
+            success: function(respuesta) {
+                LlamadaAlert(respuesta);     
+             $("#consulta").val("consulta");            
+             enviaAjax2($("#f4"));  
+                 setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
+           
+        },
+            error: function(request, status, err){
+                if (status == "timeout") {
+                    mensaje("Servidor ocupado, intente de nuevo");
+                } else {
+                    mensaje("ERROR: <br/>" + request + status + err);
                 }
-                
-        });
-        
-    }
-
+            },
+            complete: function(){               
+            }            
+    });    
+}
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 

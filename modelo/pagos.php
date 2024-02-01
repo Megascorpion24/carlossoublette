@@ -171,37 +171,37 @@ class pagos extends datos{
 
     public function registrar(){
        $VAL= $this->registrar1();
-       echo $VAL;
+       return $VAL;
     }
 
     public function registrarr(){
         $VAL=  $this->registrarr1();
-        echo $VAL;
+        return $VAL;
     }
 
     public function registrarp(){
         $VAL=  $this->registrarp1();
-        echo $VAL;
+        return $VAL;
     }
 
     public function modificar(){
         $VAL=  $this->modificar1();
-        echo $VAL;
+        return $VAL;
     }
 
     public function montos(){
         $VAL=  $this->modificarMM();
-        echo $VAL;
+        return $VAL;
     }
 
     public function eliminar(){
         $VAL= $this->eliminar1();
-        echo $VAL;
+        return $VAL;
     }
 
     public function eliminarr(){
         $VAL= $this->eliminar2();
-        echo $VAL;
+        return $VAL;
     }
 
 
@@ -299,14 +299,14 @@ class pagos extends datos{
 
 
                 $this->bitacora("se registro un pago", "docentes",$this->nivel);
-                return "EL PAGO FUE REGISTRADO CON EXITO";	
+                return "1PAGO REGISTRADO CON EXITO";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
             }
             }
             else{
-                return "EL PAGO YA SE ENCUENTRA REGISTRADO";
+                return "4EL PAGO YA SE ENCUENTRA REGISTRADO";
             }
         }
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
@@ -346,7 +346,7 @@ class pagos extends datos{
             
    
                     $this->bitacora("se registro un pago", "docentes",$this->nivel);
-                    return "EL PAGO FUE REGISTRADO CON EXITO";	
+                    return "1PAGO REGISTRADO CON EXITO";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -354,7 +354,7 @@ class pagos extends datos{
                     
                 }
                 else{
-                    return "EL PAGO YA SE ENCUENTRA REGISTRADO";
+                    return "4EL PAGO YA SE ENCUENTRA REGISTRADO";
                 }
 
             }
@@ -420,7 +420,7 @@ private function modificar1(){
 
             $this->bitacora("se modifico un pago", "docentes",$this->nivel);
          
-                return "Registro modificado";	
+                return "2REGISTRO MODIFICADO";
             
         }catch(Exception $e){
             return $e->getMessage();
@@ -428,7 +428,7 @@ private function modificar1(){
             
         }
         else{
-            return "Pago no registrado";
+            return "4PAGO NO REGISTRADO";
         }
 
 
@@ -506,14 +506,14 @@ private function modificarMM(){
 
             $this->bitacora("se modifico un pago", "docentes",$this->nivel);
          
-                return "Registro modificado";	
+            return "2REGISTRO MODIFICADO";	
             
         }catch(Exception $e){
             return $e->getMessage();
         }
     }
     else{
-        return "Monto no registrado";
+        return "4MONTO NO REGISTRADO";
     } 
    
 
@@ -637,7 +637,7 @@ private function registrarp1(){
 
             $this->bitacora("se confirmo un pago", "docentes",$this->nivel);
          
-                return "Registro confirmado";	
+                return "1PAGO CONFIRMADO";	
             
         }catch(Exception $e){
             return $e->getMessage();
@@ -645,7 +645,7 @@ private function registrarp1(){
             
         }
         else{
-            return "Pago no registrado";
+            return "4PAGO NO REGISTRADO";
         }
 
 
@@ -1208,7 +1208,7 @@ private function eliminar1(){
 
                       
                 $this->bitacora("se elimino un pago", "docentes",$this->nivel);
-                return "Registro Eliminado";
+                return "3REGISTRO ELIMINADO";
                 
         } catch(Exception $e) {
             
@@ -1217,7 +1217,7 @@ private function eliminar1(){
         
     }
     else{
-        return "Pago no registrado";
+        return "4REGISTRO NO EXISTE";
     }
 }
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 

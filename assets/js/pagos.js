@@ -572,7 +572,7 @@ $("#montoM").on("keyup", function() {
 });
 //<!---------------------------------------------------------------------------------------------------------------------------->
 function montos(id){
-    $("#tabla tr").each(function(){
+    $("#tabla2 tr").each(function(){
     
         if(id == $(this).find("th:eq(0)").text()){
             $("#codigoMM").val($(this).find("th:eq(0)").text());
@@ -1258,12 +1258,14 @@ function enviaAjax(datos){
             beforeSend: function(){            
             },            
             success: function(respuesta) {
-                alert(respuesta);       
+                LlamadaAlert(respuesta);     
              $("#consulta").val("consulta");            
              enviaAjax2($("#f4"));  
-             window.location.reload();
-            },
-            
+                 setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
+           
+        },
             error: function(request, status, err){
                 if (status == "timeout") {
                     mensaje("Servidor ocupado, intente de nuevo");
