@@ -1,6 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-//hola santiagos como estas 
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
