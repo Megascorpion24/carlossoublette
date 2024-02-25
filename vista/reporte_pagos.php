@@ -1,7 +1,6 @@
 <?php
 
 
-<<<<<<< HEAD
 require 'vendor/autoload.php';
 
 use Firebase\JWT\JWT;
@@ -16,8 +15,6 @@ if(isset($_COOKIE['token'])){
 }
 
 
-=======
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
