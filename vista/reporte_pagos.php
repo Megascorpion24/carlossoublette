@@ -2,11 +2,12 @@
 
 
 require 'vendor/autoload.php';
-
+$dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
+$dotenv->load();
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+$key = $_ENV['JWT_SECRET_KEY'];
 
 if(isset($_COOKIE['token'])){
 	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
@@ -53,17 +54,7 @@ if(isset($_COOKIE['token'])){
 							    <h2 class="ml-lg-2">consultar reportes</h2>
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center" >
-<<<<<<< HEAD
 							 <div id="tipo"  class="btn btn-success" >Cambiar a gráfico circular</div>
-=======
-							 <?PHP if (in_array("generar_reporte_egresos", $nivel1)) {?>
-							    <button href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" type="submit">
-									<i class="material-icons">&#xE147;</i>
-									<span>Registrar</span>
-							    </button>
-
-								<?php } ?>
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 
 							 </div>
 					     </div>
@@ -82,7 +73,6 @@ if(isset($_COOKIE['token'])){
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#menu1">anual</a>
     </li>
-<<<<<<< HEAD
 	
     
   </ul>
@@ -92,14 +82,6 @@ if(isset($_COOKIE['token'])){
       <h3>reporte de pagos mensual</h3>
 	  
 	  
-=======
-    
-  </ul>
-  <?PHP if (in_array("consultar_reporte_egresos", $nivel1)) {?> 
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade show active">
-      <h3>reporte de pagos mensual</h3>
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
       <div class="form-row">
 						<div class="form-group col-md-6">
 						<canvas id="myChart" width="100" height="100"></canvas>

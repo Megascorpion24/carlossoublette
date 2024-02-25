@@ -1,5 +1,6 @@
 <?php
   session_start();
   session_destroy();
-  header("Location: . ");
+  setcookie("token", "", time() - 3600,  "/", "", true, true);
+header('location:index.php');
 ?>

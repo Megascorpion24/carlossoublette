@@ -273,10 +273,7 @@ class tutor_legal extends datos{
 
                     
                     $this->bitacora("se modifico un representante", "representantes",$this->nivel);
-<<<<<<< HEAD
                     
-=======
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                     return "2REGISTRO MODIFICADO";
                     
                 }catch(Exception $e){
@@ -447,7 +444,6 @@ public function eliminar1(){
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe($this->cedula)){
         try {
-<<<<<<< HEAD
 
 
 
@@ -485,21 +481,6 @@ public function eliminar1(){
             return "4CEDULA NO REGISTRADA";
         }
         }
-=======
-                $r=$co->prepare("UPDATE tutor_legal  SET estado = 0 WHERE cedula=:cedula");
-                $r->bindParam(':cedula',$this->cedula);
-                $r->execute();
-                $this->bitacora("se elimino un representante", "representantes",$this->nivel);
-                return "3REGISTRO ELIMINADO";             
-        } catch(Exception $e) {
-            return $e->getMessage();
-        }
-    }
-    else{
-        return "4REGISTRO NO EXISTE";
-    }
-}
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 
 
 

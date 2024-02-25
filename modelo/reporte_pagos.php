@@ -4,11 +4,7 @@ require_once('dompdf/vendor/autoload.php');
 use Dompdf\Dompdf; 
 
 require_once('modelo/conexion.php');
-<<<<<<< HEAD
-class reporte_egreso extends datos{
-=======
 class reporte_pagos extends datos{
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
     
 
     public function generarPDF(){
@@ -419,18 +415,8 @@ public function consultar5(){
 					$date1 = new DateTime($date1);
 					$date2 = new DateTime($r['fecha']);
 					$diff = $date1->diff($date2);
-<<<<<<< HEAD
-					if ($diff->m >= 0 && $dater['month'] == $datet['month'] && $dater['year'] == $datet['year'] ) {
-						if ($diff->m >= 1) {
-							$mul= $diff->m * $men;
-						}else{
-							$mul= $men;
-						}
-						
-=======
 					if ($diff->m >= 1 && $dater['month'] == $datet['month'] && $dater['year'] == $datet['year'] ) {
 						$mul= $diff->m * $men;
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 
 						$respuesta=$respuesta.'<tr>';
                 		$respuesta=$respuesta."<th>"."mensualidad"."</th>";
@@ -584,17 +570,8 @@ public function consultar5(){
 					$date1 = new DateTime($date1);
 					$date2 = new DateTime($r['fecha']);
 					$diff = $date1->diff($date2);
-<<<<<<< HEAD
-					if ($diff->m >= 0 && $dater['year'] == $datet['year'] ) {
-						if ($diff->m >= 1) {
-							$mul= $diff->m * $men;
-						}else{
-							$mul= $men;
-						}
-=======
 					if ($diff->m >= 1 && $dater['year'] == $datet['year'] ) {
 						$mul= $diff->m * $men;
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 
 						$respuesta=$respuesta.'<tr>';
                 		$respuesta=$respuesta."<th>"."mensualidad"."</th>";

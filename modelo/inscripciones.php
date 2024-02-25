@@ -1112,22 +1112,14 @@ public function consultar3(){
         try{
 			
 			
-<<<<<<< HEAD
 			$resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones, secciones_años.cantidad,secciones_años.estado FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id ORDER by  años.anos, secciones.secciones AND secciones.estado=1 and años.estado=1 and secciones_años.cantidad=0;");
-=======
-			$resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones, secciones_años.cantidad FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id ORDER by  años.anos, secciones.secciones AND secciones.estado=1 and años.estado=1 and secciones_años.cantidad=0;");
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 			$resultado->execute();
            $respuesta="";
            $respuesta2="";
            $respuesta2 =$respuesta2.'<option value="seleccionar" selected hidden>-Seleccionar-</option>';
 
             foreach($resultado as $r){
-<<<<<<< HEAD
                 if ($r['cantidad']>0 && $r['secciones']!="vacia" && $r['estado']!=0) {
-=======
-                if ($r['cantidad']>0) {
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                     $respuesta2 =$respuesta2.'<option value="'.$r['id'].'"  >'.$r['anos']." - ".$r['secciones'].' - '.'cupos: '.$r['cantidad'].'</option>';
                 }
                
