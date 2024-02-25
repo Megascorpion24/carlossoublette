@@ -171,35 +171,42 @@ class pagos extends datos{
 
     public function registrar(){
        $VAL= $this->registrar1();
-       echo $VAL;
+       return $VAL;
     }
 
     public function registrarr(){
         $VAL=  $this->registrarr1();
-        echo $VAL;
+        return $VAL;
     }
 
     public function registrarp(){
         $VAL=  $this->registrarp1();
-        echo $VAL;
+        return $VAL;
     }
 
     public function modificar(){
         $VAL=  $this->modificar1();
-        echo $VAL;
+        return $VAL;
     }
 
     public function montos(){
         $VAL=  $this->modificarMM();
-        echo $VAL;
+        return $VAL;
     }
 
     public function eliminar(){
         $VAL= $this->eliminar1();
-        echo $VAL;
+        return $VAL;
     }
 
+<<<<<<< HEAD
    
+=======
+    public function eliminarr(){
+        $VAL= $this->eliminar2();
+        return $VAL;
+    }
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 
 
     
@@ -295,7 +302,11 @@ class pagos extends datos{
 
 
 
+<<<<<<< HEAD
                 $this->bitacora("se registro un pago", "Pagos",$this->nivel);
+=======
+                $this->bitacora("se registro un pago", "docentes",$this->nivel);
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                 return "1PAGO REGISTRADO CON EXITO";	
                 
             }catch(Exception $e){
@@ -342,7 +353,11 @@ class pagos extends datos{
                     $r->execute();
             
    
+<<<<<<< HEAD
                     $this->bitacora("se registro un pago", "Pagos",$this->nivel);
+=======
+                    $this->bitacora("se registro un pago", "docentes",$this->nivel);
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                     return "1PAGO REGISTRADO CON EXITO";	
                     
                 }catch(Exception $e){
@@ -1201,7 +1216,11 @@ private function eliminar1(){
 
 
                       
+<<<<<<< HEAD
                 $this->bitacora("se elimino un pago", "Pagos",$this->nivel);
+=======
+                $this->bitacora("se elimino un pago", "docentes",$this->nivel);
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                 return "3REGISTRO ELIMINADO";
                 
         } catch(Exception $e) {

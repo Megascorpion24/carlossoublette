@@ -31,7 +31,11 @@ require_once("modelo/".$pagina.".php");
 
 
 
+<<<<<<< HEAD
 		$o = new reporte_egreso();
+=======
+		$o = new reporte_pagos();
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 		
 	if (!empty($_POST['accion'])) {
 		$o->generarPDF();

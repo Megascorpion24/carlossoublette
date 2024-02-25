@@ -75,9 +75,9 @@
               <i id="reveal-password" class="bi bi-eye-slash"></i>
             </div>
 
-            <div class="change-password">
+          <!--  <div class="change-password">
               Para alterar Contraseña <a href="javascript:void(0)">Clique aqui</a>
-            </div>
+            </div>-->
             
             <div class="boton" id="enviar" >Ingresar</div>
             

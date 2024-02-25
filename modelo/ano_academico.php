@@ -504,8 +504,13 @@ private function eliminar1(){
                 ON ano_secciones.id_secciones = secciones_años.id 
 
 
+<<<<<<< HEAD
                 SET ano_academico.estado = 0, ano_academico.estatus='DESHABILITADO', estudiantes.estado = 0 , horario_docente.estado = 0, secciones_años.estado = 0
                  WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND horario_docente.estado = 1 AND secciones_años.estado = 1;");
+=======
+                SET ano_academico.estado = 0, ano_academico.estatus='DESHABILITADO', estudiantes.estado = 0 , horario_docente.estado = 0
+                 WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND horario_docente.estado = 1;");
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                 
 
                 $r->execute();

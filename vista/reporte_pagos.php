@@ -1,6 +1,7 @@
 <?php
 
 
+<<<<<<< HEAD
 require 'vendor/autoload.php';
 
 use Firebase\JWT\JWT;
@@ -15,6 +16,8 @@ if(isset($_COOKIE['token'])){
 }
 
 
+=======
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -53,7 +56,17 @@ if(isset($_COOKIE['token'])){
 							    <h2 class="ml-lg-2">consultar reportes</h2>
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center" >
+<<<<<<< HEAD
 							 <div id="tipo"  class="btn btn-success" >Cambiar a gráfico circular</div>
+=======
+							 <?PHP if (in_array("generar_reporte_egresos", $nivel1)) {?>
+							    <button href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" type="submit">
+									<i class="material-icons">&#xE147;</i>
+									<span>Registrar</span>
+							    </button>
+
+								<?php } ?>
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 
 							 </div>
 					     </div>
@@ -72,6 +85,7 @@ if(isset($_COOKIE['token'])){
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#menu1">anual</a>
     </li>
+<<<<<<< HEAD
 	
     
   </ul>
@@ -81,6 +95,14 @@ if(isset($_COOKIE['token'])){
       <h3>reporte de pagos mensual</h3>
 	  
 	  
+=======
+    
+  </ul>
+  <?PHP if (in_array("consultar_reporte_egresos", $nivel1)) {?> 
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade show active">
+      <h3>reporte de pagos mensual</h3>
+>>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
       <div class="form-row">
 						<div class="form-group col-md-6">
 						<canvas id="myChart" width="100" height="100"></canvas>

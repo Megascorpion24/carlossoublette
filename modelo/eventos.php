@@ -79,19 +79,19 @@ class eventos extends datos{
     public function registrar()
     {
         $val = $this->registrar1();
-        echo $val;
+        return $val;
     }
 
     public function modificar()
     {
         $val = $this->modificar1();
-        echo $val;
+        return $val;
     }
 
     public function eliminar()
     {
         $val = $this->eliminar1();
-        echo $val;
+        return $val;
     }
 
     

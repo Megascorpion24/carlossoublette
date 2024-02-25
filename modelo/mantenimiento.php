@@ -27,8 +27,9 @@ public function set_nivel($valor)
         } catch (\Exception $e) {
             echo 'mysqldump-php error: ' . $e->getMessage();
         }
-        $message = "respaldo creado correctammente";
-        echo "<script type='text/javascript'>alert('$message');</script>";
+        $mensaje = "respaldo creado correctammente";
+        echo "<script type='text/javascript'>alert('$mensaje');</script>";
+        return $mensaje;
     }
 
 
@@ -68,10 +69,11 @@ public function set_nivel($valor)
     // Verificamos si la importación fue exitosa
     if ($stmt->rowCount() > 0) {
         echo "<script type='text/javascript'>alert(' Error al importar la base de datos.');</script>";
-        
+        return "Error al importar la base de datos";
     } else {
 
         echo "<script type='text/javascript'>alert(' base de datos importada correctamente.');</script>";
+        return  " base de datos importada correctamente.";
     }
     // Cerramos la conexión a la base de datos
     $co = null;

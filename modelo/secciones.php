@@ -53,27 +53,27 @@ class secciones extends datos{
 
     public function registrar(){
         $val=$this->registrar1();
-        echo $val;
+        return $val;
     }
 
     public function registrars(){
         $val=$this->registrars1();
-        echo $val;
+        return $val;
     }
 
     public function registrara(){
         $val=$this->registrara1();
-        echo $val;
+        return $val;
     }
     
     public function modificar(){
         $val=$this->modificar1();
-        echo $val;
+        return $val;
     }
 
     public function eliminar(){
         $val= $this->eliminar1();
-        echo $val;
+        return $val;
     }
 
 
