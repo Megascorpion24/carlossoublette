@@ -111,6 +111,28 @@ class entrada extends datos{
 
 
 
+public function bitacora1($accion, $modulo,$id){
+	$var=$this->bitacora($accion, $modulo,$id);
+}
+
+	private function bitacora($accion, $modulo,$id){
+		try {
+			$co = $this->conecta();
+			$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		parent::registrar_bitacora($accion, $modulo,$id);
+
+					
+					
+					;
+			} catch(Exception $e) {
+				return $e->getMessage();
+			}
+		
+	}
+
+
+
 }
 
 ?>

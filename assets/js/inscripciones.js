@@ -837,9 +837,8 @@ function enviaAjax(datos) {
         },
 
         success: function (respuesta) {
-            alert(respuesta);
-            $("#consulta").val("consulta");
-            enviaAjax2($("#f4"));
+            LlamadaAlert(respuesta);
+            $("#tablas").load(location.href + " #tablas>*", "");
 
         },
         error: function (request, status, err) {
@@ -1038,7 +1037,10 @@ function chect(valo) {
                 $("#alerias").val("");
                 $("#tratamiento").val("");
                 $("#condicion").val("");
+
                 $("#mibuscador3").load(location.href + " #mibuscador3>*", "");
+                
+
                 $("#siguiente2").addClass("btn-light");
                 $("#siguiente2").removeAttr("btn-success");
                 $("#siguiente2").removeAttr("validado");

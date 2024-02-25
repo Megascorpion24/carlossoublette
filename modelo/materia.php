@@ -132,66 +132,24 @@ private function registrar1() {
             $r->bindParam(':ano', $this->ano);
             $r->bindParam(':id_materia', $lid);
             $r->execute();
-            // ------Docente Materia----
-            if (!empty($this->docente1)) {
-                
-            $r = $co->prepare("INSERT INTO materias_docentes (id_materias, id_docente) 
-            VALUES (:id_materia, :docente1)");
+           
 
-            $r->bindParam(':id_materia', $lid);
-            $r->bindParam(':docente1', $this->docente1);
-            $r->execute();
-            }
-            
-            if (!empty($this->docente2)) {
+            //Registrar Docentes
 
-            $r = $co->prepare("INSERT INTO materias_docentes (id_materias, id_docente) 
-            VALUES (:id_materia, :docente2)");
+            $docentes = array($this->docente1, $this->docente2, $this->docente3, $this->docente4, $this->docente5, $this->docente6);
 
-            $r->bindParam(':id_materia', $lid);
-            $r->bindParam(':docente2', $this->docente2);
-            $r->execute();
-            }
+            foreach ($docentes as $index => $docente) {
+                if (!empty($docente)) {
+                    $r = $co->prepare("INSERT INTO materias_docentes (estado, id_materias, id_docente) 
+                    VALUES (1, :id_materia, :docente)");
 
-            if (!empty($this->docente3)) {
-
-            $r = $co->prepare("INSERT INTO materias_docentes (id_materias, id_docente) 
-            VALUES (:id_materia, :docente3)");
-
-            $r->bindParam(':id_materia', $lid);
-            $r->bindParam(':docente3', $this->docente3);
-            $r->execute();
-            }
-
-            if (!empty($this->docente4)) {
-
-                $r = $co->prepare("INSERT INTO materias_docentes (id_materias, id_docente) 
-                VALUES (:id_materia, :docente4)");
-                
-                $r->bindParam(':id_materia', $lid);
-                $r->bindParam(':docente4', $this->docente4);
-                $r->execute();
-                }
-
-                if (!empty($this->docente5)) {
-
-                    $r = $co->prepare("INSERT INTO materias_docentes (id_materias, id_docente) 
-                    VALUES (:id_materia, :docente5)");
-                    
                     $r->bindParam(':id_materia', $lid);
-                    $r->bindParam(':docente5', $this->docente5);
+                    $r->bindParam(':docente', $docente);
                     $r->execute();
-                    }
+                }
+            }
 
-                    if (!empty($this->docente6)) {
 
-                        $r = $co->prepare("INSERT INTO materias_docentes (id_materias, id_docente) 
-                        VALUES (:id_materia, :docente6)");
-                        
-                        $r->bindParam(':id_materia', $lid);
-                        $r->bindParam(':docente6', $this->docente6);
-                        $r->execute();
-                        }
 
             $this->bitacora("se registró una materia", "materias", $this->nivel);
             return "1Registro Incluido";
@@ -355,29 +313,33 @@ private function off_Docente(){
 
 private function insert_Docente(){
     $co = $this->conecta();
-        $docentes = array($this->docente1, $this->docente2, $this->docente3, $this->docente4, $this->docente5, $this->docente6);
+    $docentes = array($this->docente1, $this->docente2, $this->docente3, $this->docente4, $this->docente5, $this->docente6);
     
-        // Recorre y actualiza las relaciones con docentes
-        foreach ($docentes as $index => $docente) {
-            if (!empty($docente)) {
-                // Verifica si la relación ya existe
-                $exists = $this->verificarRelacionExistente($this->id, $docente);
-    
-                if (!$exists) {
-                    $r = $co->prepare("INSERT INTO materias_docentes (id_materias, id_docente) 
-                    VALUES (:id_materia, :docente)");
+    foreach ($docentes as $index => $docente) {
+        if (!empty($docente)) {
+            // Verifica si la relación ya existe
+            $exists = $this->verificarRelacionExistente($this->id, $docente);
+            
+            if (!$exists) {
+                try {
+                    $r = $co->prepare("INSERT INTO materias_docentes (estado, id_materias, id_docente) 
+                                       VALUES (1, :id_materia, :docente)");
                     $r->bindParam(':id_materia', $this->id);
                     $r->bindParam(':docente', $docente);
                     $r->execute();
+                    // echo "Inserción exitosa";
+                } catch (Exception $e) {
+                    echo "Error en la inserción: " . $e->getMessage();
                 }
             }
         }
-   
+    }
 }
 
 private function verificarRelacionExistente($materiaId, $docenteId) {
     $co = $this->conecta();
-    $r = $co->prepare("SELECT COUNT(*) as count FROM materias_docentes WHERE id_materias = :id_materia AND id_docente = :docente");
+    $r = $co->prepare("SELECT COUNT(*) as count FROM materias_docentes 
+                       WHERE id_materias = :id_materia AND id_docente = :docente AND estado = 1");
     $r->bindParam(':id_materia', $materiaId);
     $r->bindParam(':docente', $docenteId);
     $r->execute();
@@ -415,6 +377,7 @@ public function consultar($nivel1){
             docentes ON materias_docentes.id_docente = docentes.cedula
         WHERE
             materias.estado = 1
+            AND materias_docentes.estado = 1  -- Agregar esta línea para filtrar por estado en materias_docentes
         GROUP BY
             materias.id;
         

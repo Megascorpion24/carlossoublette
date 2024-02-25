@@ -1,7 +1,6 @@
 // Variables Globales de Data Table
 
 var table;//para toda funcionalidades
-var valor;//para secciones
 
 function CargarDataTable(){
 
@@ -78,26 +77,33 @@ function CargarDataTable(){
     });
 
       //   ---------------------  
+   Cargarfilter();
+      //   ---------------------  
+
 
 }
+ 
+// -----------------------------------------------------------------
+var filtros = {
+    year: '',
+    seccion: ''
+};
 
 function Cargarfilter(){
-    // -----Año------
-    var htmlOne=`
-    
-	<div  class="btn-toolbar btn-filter" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group mr-2" role="group" aria-label="First group">
-       <button type="button" id="limpiar-filtro" class="btn btn-light border">Todos</button>
-       <button type="button" id="filtro-1" class="btn btn-light border">1</button>
-       <button type="button" id="filtro-2" class="btn btn-light border">2</button>
-       <button type="button" id="filtro-3" class="btn btn-light border">3</button>
-       <button type="button" id="filtro-4" class="btn btn-light border">4</button>
-       <button type="button" id="filtro-5" class="btn btn-light border">5</button>
-     </div>
-    </div>
+     
+    var htmlOne = `
+   
+    <div  id='filter' class="btn-toolbar btn-filter" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button type="button" id="limpiar-filtro" class="btn btn-light border ">Todos</button>
+            <button type="button" id="filtro-1" class="btn btn-light ${filtros.year == '1' ? 'border-secondary' : 'border'}" data-value="1">1</button>
+            <button type="button" id="filtro-2" class="btn btn-light ${filtros.year == '2' ? 'border-secondary' : 'border'}" data-value="2">2</button>
+            <button type="button" id="filtro-3" class="btn btn-light ${filtros.year == '3' ? 'border-secondary' : 'border'}" data-value="3">3</button>
+            <button type="button" id="filtro-4" class="btn btn-light ${filtros.year == '4' ? 'border-secondary' : 'border'}" data-value="4">4</button>
+            <button type="button" id="filtro-5" class="btn btn-light ${filtros.year == '5' ? 'border-secondary' : 'border'}" data-value="5">5</button>
+        </div>
+    </div>`;
 
-
-    `;
 const tablas_filter= document.getElementById('tablas_filter');
 console.log(tablas_filter);
 
@@ -106,31 +112,27 @@ if (tablas_filter){
 }
 
 
-$('#filtro-1').on('click', function() {
-    table.columns(2).search('1').draw(); // Filtrar por el año '1'
+$('.btn-light').on('click', function () {
+    // Limpiar la clase 'border-secondary' de todos los botones
+    $('.btn-light').removeClass('border-secondary');
+    // Agregar la clase 'border-secondary' al botón clicado
+    $(this).addClass('border-secondary');
+});
+// --------------
+$('[id^=filtro-]').on('click', function() {
+    filtros.year = $(this).data('value');
+    table.columns(2).search(filtros.year).draw();
+    console.log(filtros.year);
+
 });
 
-$('#filtro-2').on('click', function() {
-    table.columns(2).search('2').draw(); // Filtrar por el año '2'
-});
-
-$('#filtro-3').on('click', function() {
-    table.columns(2).search('3').draw(); // Filtrar por el año '3'
-});
-
-$('#filtro-4').on('click', function() {
-    table.columns(2).search('4').draw(); // Filtrar por el año '4'
-});
-
-$('#filtro-5').on('click', function() {
-    table.columns(2).search('5').draw(); // Filtrar por el año '5'
-});
 
 // Evento de clic para el botón de limpiar filtro
 $('#limpiar-filtro').on('click', function() {
-table.columns(2).search('').draw();
-table.column(1).search(valor).draw();
-
+    // Verificar si hay un filtro de año antes de aplicarlo
+    table.columns(2).search('').draw();
+    table.column(1).search(filtros.seccion).draw();
+    filtros.year ='';
 });
 
 
@@ -156,24 +158,49 @@ if (tablasLengthElement) {
 tablasLengthElement.insertAdjacentHTML('beforeend', htmlToAdd);
 }
 
-
-// Cuando cambia el select
+// Evento de cambio para el select de secciones
 $('#secciones-filter').on('change', function() {
-    valor = $(this).find("option:selected").text(); // Obtener el valor seleccionado en el select
-    valor = (valor=="todo") ? "" : valor;
-    console.log(valor);
-    table.column(1).search(valor).draw(); // Aplicar filtro a la columna deseada (en este caso, columna 1)
+    filtros.seccion = $(this).find("option:selected").text();
+    console.log(filtros.seccion);
+    filtros.seccion = (filtros.seccion == "todo") ? "" : filtros.seccion;
+    table.column(1).search(filtros.seccion).draw();
+    
 });
-   
+
+//Carga valores de Filtro si no esta vacia la variables globales
+
+// Si filtros.seccion no está vacío, aplicar el filtro
+if (filtros.seccion !== '') {
+    table.column(1).search(filtros.seccion).draw();
+}
+
+if (filtros.year !== '') {
+    table.columns(2).search(filtros.year).draw();
+} 
+
 
 }
+
+
+function CargarfilterSeccion(){
+    // Seleccionar la opción correspondiente en el select
+        $('#secciones-filter').find('option').each(function(index, option) {
+            // console.log($(this).text + '->'+ filtros.seccion);
+            var text = $(option).text();
+    
+            if (text === filtros.seccion) {
+                $(this).prop('selected', true);
+            }
+        });
+}
+
+
 
 $(document).ready(function() {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    CargarDataTable();
-   Cargarfilter();
     
    PrimerValordeSeccion();
 
@@ -324,6 +351,7 @@ var doc_G;
 var año_id;
 var seccion_id;
 var año_academico_M;
+var Cantidad_estudintes=0;
 
 function modificar(id){
 
@@ -334,11 +362,12 @@ function modificar(id){
             $("#id_ac").html($(this).find("th:eq(1)").text());
             $("#id_año").html($(this).find("th:eq(2)").text());
             $("#cantidad_e").val($(this).find("th:eq(5)").text());
+            Cantidad_estudintes=$(this).find("th:eq(6)").text();
             $("#año_acd").html($(this).find("th:eq(7)").text());
             año_academico_M=$(this).find("th:eq(7)").attr("value");
             $('#value_acd').val(año_academico_M);
             // console.log(año_academico_M);
-             
+             console.log(Cantidad_estudintes);
             // ------------------------
             // console.log($(this).find("th:eq(1)").text());
 
@@ -477,9 +506,12 @@ function eliminar(id, s, a){
     $('#año_b').text(a);
     // console.log(se);
     // console.log(a);
-//    ---------- 
+//    ----------
     $("#id2").val(id);
-    LlamadaConfirmacion();
+    $("#borrar").on("click", () => {
+            
+         enviaAjax($("#f3"));
+        });
 }
 
 function delete_info(s,a){
@@ -544,9 +576,14 @@ function delete_info(s,a){
                 success: function(respuesta) {
                     // console.log(respuesta);
                  $('#tablas').DataTable().destroy();
+                     $("#tabla").empty();
+
                  $("#tabla").html(respuesta);//carga datos de la BD a la tabla
-                    CargarDataTable();
-                    Cargarfilter();
+                   
+                 CargarDataTable(); 
+
+                
+
                 },
                 error: function(request, status, err){
                     if (status == "timeout") {
@@ -565,6 +602,7 @@ function delete_info(s,a){
  
     // -----------CARGA SE SECCIONES POR AJAX----------
     
+    
 function abc(){
     $.ajax({
         url: 'controlador/ajax/seccion_consulta.php',
@@ -580,9 +618,16 @@ function abc(){
                    
                     setTimeout(()=>{
                         $('#secciones-filter').html(`
-                        <option value="" selected >todo</option>
+                        <option value="">todo</option>
                         ${respuesta} `);    
-                    }, 50);
+
+                        CargarfilterSeccion();
+                    }, 150);
+
+                    
+            
+
+
             }
         });
 
@@ -821,6 +866,10 @@ function cargarDatosEnTabla() {
             searchField.attr('placeholder', 'Buscar estudiantes');
             searchField.addClass('form-control');
             searchField.appendTo($('#info .tabla_estudiantes'));
+        },
+        // Configuración para español
+        language: {
+            "url": "assets/datatables/Plugin/es-ES.json" // Asegúrate de ajustar la ruta al archivo Spanish.json en tu proyecto
         }
     });
 }
@@ -982,11 +1031,12 @@ function handleRowClick(studentId,s,a, event) {
             return false;
     
         }
-        else if($("#cantidad").val() == 0){
-            $('#cantidad_msj').text('la cantidad deve ser mayor que 1');
+        if ($("#cantidad").val() < 10 || $("#cantidad").val() > 40) {
+            $('#cantidad_msj').text('La cantidad debe ser mayor o igual a 10 y menor a 40');
             console.log($("#cantidad").val());
             return false;
         }
+        
 
 
         if (existe==1) {
@@ -1039,8 +1089,18 @@ function validarEdit() {
             return false;
     
         }
-        else if($("#cantidad_e").val() == 0){
-            $('#cantidad_msj2').text('la cantidad deve ser mayor que 1');
+        
+        
+        var cantidad_editar = $("#cantidad_e").val();
+
+         if( (cantidad_editar < 10 || cantidad_editar > 40 ) ){
+            $('#cantidad_msj2').text('La cantidad debe ser mayor o igual a 10 y menor a 40');
+            return false;
+        }
+         if(cantidad_editar < Cantidad_estudintes){
+            // $('#cantidad_msj2').text('Debe ser mayor o igual a ' + Cantidad_estudintes);
+            $('#cantidad_msj2').html('Debe ser mayor o igual a <strong>' + Cantidad_estudintes + '</strong>');
+
             return false;
         }
 

@@ -1,6 +1,19 @@
 <?php
 
 
+require 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}
+
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -143,18 +156,18 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Cedula</label>
-				<span id="scedula"></span>
+				<span style="color:#FF0000" id="scedula"></span>
 				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
 				<input type="text" class="form-control sm" name="cedula" id="cedula" required placeholder="0000000">
 			</div>
 			<div class="form-group col-md-4">
 				<label>Primer Nombre</label>
-				<span id="snombre1"></span>
+				<span style="color:#FF0000" id="snombre1"></span>
 				<input type="text" class="form-control" name="nombre1" id="nombre1" required placeholder="Jose">
 			</div>
 			<div class="form-group col-md-4">
 				<label>Segundo Nombre</label>
-				<span id="snombre2"></span>
+				<span style="color:#FF0000" id="snombre2"></span>
 				<input type="text" class="form-control" name="nombre2" id="nombre2" required placeholder="Alejandro">
 			</div>
 		</div>
@@ -162,22 +175,22 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Primer Apellido</label>
-				<span id="sapellido1"></span>
+				<span style="color:#FF0000" id="sapellido1"></span>
 				<input type="text" class="form-control" name="apellido1" id="apellido1" required placeholder="Rodriguez">
 			</div>
 			<div class="form-group col-md-4">
 				<label>Segundo Apellido</label>
-				<span id="sapellido2"></span>
+				<span style="color:#FF0000" id="sapellido2"></span>
 				<input type="text" class="form-control" name="apellido2" id="apellido2" required placeholder="Sarmiento">
 			</div>
 			<div class="form-group col-md-4">
 				<label>direccion</label>
-				<span id="sdireccion"></span>
+				<span style="color:#FF0000" id="sdireccion"></span>
 				<input type="text" class="form-control" name="direccion" id="direccion" required placeholder="crrera # con calle #">
 			</div>
 			<div class="form-group col-md-4">
 				<label>Telefono</label>
-				<span id="stelefono"></span>
+				<span style="color:#FF0000" id="stelefono"></span>
 				<input type="text" class="form-control" name="telefono" id="telefono" required placeholder="0000-0000000">
 			</div>
 		</div>
@@ -185,7 +198,7 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Correo</label>
-				<span id="scorreo"></span>
+				<span style="color:#FF0000" id="scorreo"></span>
 				<input type="text" class="form-control" name="correo" id="correo" required placeholder="personal@gmail.com">
 			</div>
 		</div>
@@ -195,7 +208,7 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Contacto de Emergencia</label>
-				<span id="scontacto_emer"></span>
+				<span style="color:#FF0000" id="scontacto_emer"></span>
 				<input type="text" class="form-control" name="contacto_emer" id="contacto_emer" required placeholder="0000-0000000">
 			</div>
 		</div>
@@ -253,19 +266,19 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Cedula</label>
-				<span id="scedula1"></span>
+				<span style="color:#FF0000" id="scedula1"></span>
 				<input type="text" class="form-control" style="display: none;"  name="accion1" value="accion1" required>
 				<input type="text" class="form-control " name="cedula1" id="cedula1" required >
 			</div>
 			<div class="form-group col-md-4">
 				<label>Primer Nombre</label>
 				<br>
-				<span id="snombre11"></span>			
+				<span style="color:#FF0000" id="snombre11"></span>			
 				<input type="text" class="form-control" name="nombre11" id="nombre11" required >
 			</div>
 			<div class="form-group col-md-4">
 				<label>Segundo Nombre</label>
-				<span id="snombre21"></span>			
+				<span style="color:#FF0000" id="snombre21"></span>			
 				<input type="text" class="form-control" name="nombre21" id="nombre21" required >
 			</div>
 		</div>
@@ -273,17 +286,17 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Primer Apellido</label>
-				<span id="sapellido11"></span>			
+				<span style="color:#FF0000" id="sapellido11"></span>			
 				<input type="text" class="form-control" name="apellido11" id="apellido11" required >
 			</div>
 			<div class="form-group col-md-4">
 				<label>Segundo Apellido</label>
-				<span id="sapellido21"></span>		
+				<span style="color:#FF0000" id="sapellido21"></span>		
 				<input type="text" class="form-control" name="apellido21" id="apellido21" required >
 			</div>
 			<div class="form-group col-md-4">
 				<label>Telefono</label>
-				<span id="stelefono1"></span>			
+				<span style="color:#FF0000" id="stelefono1"></span>			
 				<input type="text" class="form-control" name="telefono1" id="telefono1" required >
 			</div>
 		</div>
@@ -291,7 +304,7 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Correo</label>
-				<span id="scorreo1"></span>		
+				<span style="color:#FF0000" id="scorreo1"></span>		
 				<input type="text" class="form-control" name="correo1" id="correo1" required >
 			</div>
 		</div>
@@ -301,7 +314,7 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Contacto de Emergencia</label>
-				<span id="scontacto_emer1"></span>				
+				<span style="color:#FF0000" id="scontacto_emer1"></span>				
 				<input type="text" class="form-control" name="contacto_emer1" id="contacto_emer1" required >
 			</div>
 		</div>

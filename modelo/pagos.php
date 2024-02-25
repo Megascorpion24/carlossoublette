@@ -199,10 +199,7 @@ class pagos extends datos{
         echo $VAL;
     }
 
-    public function eliminarr(){
-        $VAL= $this->eliminar2();
-        echo $VAL;
-    }
+   
 
 
     
@@ -298,15 +295,15 @@ class pagos extends datos{
 
 
 
-                $this->bitacora("se registro un pago", "docentes",$this->nivel);
-                return "EL PAGO FUE REGISTRADO CON EXITO";	
+                $this->bitacora("se registro un pago", "Pagos",$this->nivel);
+                return "1PAGO REGISTRADO CON EXITO";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
             }
             }
             else{
-                return "EL PAGO YA SE ENCUENTRA REGISTRADO";
+                return "4EL PAGO YA SE ENCUENTRA REGISTRADO";
             }
         }
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
@@ -345,8 +342,8 @@ class pagos extends datos{
                     $r->execute();
             
    
-                    $this->bitacora("se registro un pago", "docentes",$this->nivel);
-                    return "EL PAGO FUE REGISTRADO CON EXITO";	
+                    $this->bitacora("se registro un pago", "Pagos",$this->nivel);
+                    return "1PAGO REGISTRADO CON EXITO";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -354,7 +351,7 @@ class pagos extends datos{
                     
                 }
                 else{
-                    return "EL PAGO YA SE ENCUENTRA REGISTRADO";
+                    return "4EL PAGO YA SE ENCUENTRA REGISTRADO";
                 }
 
             }
@@ -395,10 +392,8 @@ private function modificar1(){
                 concepto=:concepto,
                 forma=:forma,
                 fecha=:fecha,
-                monto=:monto,
-                meses=(SELECT meses FROM pagos WHERE id = :id),
-                estado=:estado,     
-                estado_pagos=:estado_pagos            
+                monto=:monto,    
+                estado=:estado                          
                 WHERE
                 id=:id
 
@@ -411,16 +406,15 @@ private function modificar1(){
                 $r->bindParam(':concepto',$this->concepto);	
                 $r->bindParam(':forma',$this->forma);	
                 $r->bindParam(':fecha',$this->fecha);	
-                $r->bindParam(':monto',$this->monto);	
-                $r->bindParam(':meses',$this->meses);
+                $r->bindParam(':monto',$this->monto);	              
                 $r->bindParam(':estado',$this->estado);	
-                $r->bindParam(':estado_pagos',$this->estado_pagos);
+         
             $r->execute();       
 
 
-            $this->bitacora("se modifico un pago", "docentes",$this->nivel);
+            $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          
-                return "Registro modificado";	
+                return "2REGISTRO MODIFICADO";
             
         }catch(Exception $e){
             return $e->getMessage();
@@ -428,7 +422,7 @@ private function modificar1(){
             
         }
         else{
-            return "Pago no registrado";
+            return "4PAGO NO REGISTRADO";
         }
 
 
@@ -504,16 +498,16 @@ private function modificarMM(){
 
      
 
-            $this->bitacora("se modifico un pago", "docentes",$this->nivel);
+            $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          
-                return "Registro modificado";	
+            return "2REGISTRO MODIFICADO";	
             
         }catch(Exception $e){
             return $e->getMessage();
         }
     }
     else{
-        return "Monto no registrado";
+        return "4MONTO NO REGISTRADO";
     } 
    
 
@@ -615,7 +609,7 @@ private function registrarp1(){
 
             //<!-----------------------------SE EJECUTA SI CONCEPTO ES MENSUALIDAD-----------------------------------------------------------------------------------------------------------------------> 
             //<!-----------------------------suma el monto del formulario a la deuda en caso de pago de 1 mensualidad-----------------------------------------------------------------------------------------------------------------------> 
-            $r= $co->prepare("UPDATE deudas d INNER JOIN pagos p ON d.id = p.id_deudas SET d.monto = d.monto + :monto , p.estado = 'confimado' WHERE d.id = :id_deudas AND :concepto = 'mensualidad' AND :meses = 1 ");                  	
+            $r= $co->prepare("UPDATE deudas d INNER JOIN pagos p ON d.id = p.id_deudas SET d.monto = d.monto + :monto , p.estado = 'Confirmado' WHERE d.id = :id_deudas AND :concepto = 'mensualidad' AND :meses = 1 ");                  	
             $r->bindParam(':id_deudas',$this->id_deudas);                    
             $r->bindParam(':monto',$this->monto);	
             $r->bindParam(':concepto',$this->concepto);	
@@ -635,9 +629,9 @@ private function registrarp1(){
             $r->execute();
 
 
-            $this->bitacora("se confirmo un pago", "docentes",$this->nivel);
+            $this->bitacora("se confirmo un pago", "Pagos",$this->nivel);
          
-                return "Registro confirmado";	
+                return "1PAGO CONFIRMADO";	
             
         }catch(Exception $e){
             return $e->getMessage();
@@ -645,7 +639,7 @@ private function registrarp1(){
             
         }
         else{
-            return "Pago no registrado";
+            return "4PAGO NO REGISTRADO";
         }
 
 
@@ -1207,8 +1201,8 @@ private function eliminar1(){
 
 
                       
-                $this->bitacora("se elimino un pago", "docentes",$this->nivel);
-                return "Registro Eliminado";
+                $this->bitacora("se elimino un pago", "Pagos",$this->nivel);
+                return "3REGISTRO ELIMINADO";
                 
         } catch(Exception $e) {
             
@@ -1217,7 +1211,7 @@ private function eliminar1(){
         
     }
     else{
-        return "Pago no registrado";
+        return "4REGISTRO NO EXISTE";
     }
 }
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
@@ -1226,60 +1220,6 @@ private function eliminar1(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//<!---------------------------------FUNCION DESHACER PAGO------------------------------------------------------------------>
-/*private function eliminar2(){
-    $co = $this->conecta();
-    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
-    
-        try {
-            
-            
-          
-            $r= $co->prepare("UPDATE pagos p, deudas d SET p.estatus = 0, d.estado_deudas = 1, p.estado = 'RETORNADO', d.monto = d.monto - p.monto  WHERE p.id=:id AND d.id = p.id_deudas AND p.concepto = 'inscripcion'");    
-            $r->bindParam(':id',$this->id);
-            $r->execute();
-
-
-            $r= $co->prepare("UPDATE pagos p, deudas d SET p.estatus = 0, d.estado_deudas = 1, p.estado = 'RETORNADO', d.monto = d.monto - p.monto  WHERE p.id=:id AND d.id = p.id_deudas AND p.concepto = 'mensualidad'");    
-            $r->bindParam(':id',$this->id);
-            $r->execute();
-
-
-                 
-                $this->bitacora("se elimino un pago", "docentes",$this->nivel);
-                return "Registro Eliminado";
-                
-        } catch(Exception $e) {
-            
-            return $e->getMessage();
-        }
-
-    }
-    else{
-        return "Pago no registrado";
-    }
-}
-  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
-  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
-  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
-*/
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once('modelo/conexion.php');
+require_once('conexion.php');
 class eventos extends datos{
 
 
@@ -118,12 +118,14 @@ class eventos extends datos{
                             fecha_ini,
                             fecha_cierr,
                             evento,
+                            id_ano_academico,
                             estado
                             )
             
                     Values( :fecha_ini,
                             :fecha_cierr,
                             :evento,
+                            :id_ano_academico,
                             :estado
                     )"
                 );
@@ -131,16 +133,17 @@ class eventos extends datos{
                 $r->bindParam(':fecha_ini',$this->fecha_ini);
                 $r->bindParam(':fecha_cierr',$this->fecha_cierr);
                 $r->bindParam(':evento',$this->evento);
+                $r->bindParam(':id_ano_academico',$this->ano_academico);
                 $r->bindParam(':estado', $estado);
 
                 // Validar que fecha_ini no sea mayor a fecha_cierr
     if ($this->fecha_ini > $this->fecha_cierr) {
-        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
     }
 
     // Validar que fecha_cierr no sea menor a fecha_ini
     if ($this->fecha_cierr < $this->fecha_ini) {
-        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
     }
             
              
@@ -166,38 +169,17 @@ class eventos extends datos{
                 $r->execute();
 
 
-                $r= $co->prepare("Insert into eventos_ano(
-
-                    id_evento,
-                    id_anos
-                    
-                    )
-            
-
-                    Values(
-
-                    :id_evento,
-                    :id_anos
-                    
-                    
-                    )");
-   
-                $r->bindParam(':id_evento',$lid);
-                $r->bindParam(':id_anos',$this->ano_academico);  
-                $r->execute();
-
-
                 $this->bitacora("se registro un evento", "eventos", $this->nivel);
 
              
-                    return "Registro Incluido";	
+                    return "1Registro Incluido";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
             }
         }
             else{
-                return "Evento Registrado";
+                return "4Evento Registrado";
             }
   }
 
@@ -236,9 +218,10 @@ public function ano_academico(){
 
             $resultado = $co->prepare("SELECT * from docentes where estado = 1");
             $resultado->execute();
+
             $respuesta = "";
             $respuesta2 = "";
-            $respuesta2 = $respuesta2 . '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+            $respuesta2 = $respuesta2 . '<option value= "seleccionar" selected hidden>-Seleccionar-</option>';
 
             foreach ($resultado as $r) {
                 $respuesta2 = $respuesta2 . '<option value="' . $r['cedula'] . '"  >' . $r['nombre'] . '</option>';
@@ -295,12 +278,12 @@ public function ano_academico(){
 
                     // Validar que fecha_ini no sea mayor a fecha_cierr
     if ($this->fecha_ini > $this->fecha_cierr) {
-        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
     }
 
     // Validar que fecha_cierr no sea menor a fecha_ini
     if ($this->fecha_cierr < $this->fecha_ini) {
-        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
     }
                 
                  
@@ -309,7 +292,7 @@ public function ano_academico(){
                     $this->bitacora("se modifico un evento", "eventos", $this->nivel);
     
                  
-                        return "Registro modificado";	
+                        return "2Registro modificado";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -317,7 +300,7 @@ public function ano_academico(){
                     
                 }
                 else{
-                    return "Evento no registrado";
+                    return "4Evento no registrado";
                 }
         
 
@@ -362,10 +345,8 @@ public function consultar($nivel1){
             INNER JOIN docentes
             ON eventos_docente.id_docente = docentes.cedula
 
-            INNER JOIN eventos_ano
-            ON eventos.id = eventos_ano.id_evento
             INNER JOIN ano_academico
-            ON eventos_ano.id_anos = ano_academico.id
+            ON eventos.id_ano_academico = ano_academico.id 
 
 
 
@@ -543,7 +524,7 @@ private function eliminar1(){
                 $r->execute();
 
                 $this->bitacora("se elimino un evento", "eventos", $this->nivel);
-                return "Registro Eliminado";
+                return "3Registro Eliminado";
 
                 
         } catch(Exception $e) {
@@ -554,7 +535,7 @@ private function eliminar1(){
 
     }
     else{
-        return "Evento no registrado";
+        return "4Evento no registrado";
     }
 }
 

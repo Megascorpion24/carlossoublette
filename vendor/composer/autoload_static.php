@@ -33,6 +33,10 @@ class ComposerStaticInitaed76201e6a77b943381b3f80b8c4b02
         array (
             'Ifsnop\\' => 7,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'DeepCopy\\' => 9,
@@ -76,6 +80,10 @@ class ComposerStaticInitaed76201e6a77b943381b3f80b8c4b02
         'Ifsnop\\' => 
         array (
             0 => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'DeepCopy\\' => 
         array (

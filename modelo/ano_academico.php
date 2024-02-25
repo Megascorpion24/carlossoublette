@@ -1,13 +1,13 @@
-<?php
-
-require_once('modelo/conexion.php');
+<?php 
+ 
+require_once('conexion.php');
 class ano_academico extends datos{
 
-
+ 
     private $id;
 	private $fecha_ini;
     private $fecha_cierr;
-    private $ano_academico;
+    private $ano_academico; 
     private $estatus;
     private $nivel;
     private $estado;
@@ -59,19 +59,19 @@ class ano_academico extends datos{
     public function registrar()
     {
         $val = $this->registrar1();
-        echo $val;
+        return $val;
     }
 
     public function modificar()
     {
         $val = $this->modificar1();
-        echo $val;
+        return $val;
     }
 
     public function eliminar()
     {
         $val = $this->eliminar1();
-        echo $val;
+        return $val;
     }
 
     public function set_nivel($valor)
@@ -106,7 +106,7 @@ class ano_academico extends datos{
             $r->execute();
 
             if ($r->rowCount() > 0) {
-                return "Ya existe un año academico asignado al año en curso";
+                return "4Ya existe un año academico asignado al año en curso";
             }
 
 
@@ -135,12 +135,12 @@ class ano_academico extends datos{
 
                 // Validar que fecha_ini no sea mayor a fecha_cierr
     if ($this->fecha_ini > $this->fecha_cierr) {
-        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
     }
 
     // Validar que fecha_cierr no sea menor a fecha_ini
     if ($this->fecha_cierr < $this->fecha_ini) {
-        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
     }
             
              
@@ -149,7 +149,7 @@ class ano_academico extends datos{
                 $this->bitacora("se registro un año academico", "ano_academico", $this->nivel);
 
              
-                    return "Registro Incluido";	
+                    return "1Registro Incluido";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
@@ -158,18 +158,6 @@ class ano_academico extends datos{
 
  //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
         
-
-
-
-
-
-
-
-
- 
-
-
-
 
 
 
@@ -190,7 +178,7 @@ class ano_academico extends datos{
             $r->execute();
 
             if ($r->rowCount() > 1) {
-                return "Ya existe un año academico asignado al año en curso";
+                return "4Ya existe un año academico asignado al año en curso";
             }
 
 
@@ -219,12 +207,12 @@ class ano_academico extends datos{
 
                     // Validar que fecha_ini no sea mayor a fecha_cierr
     if ($this->fecha_ini > $this->fecha_cierr) {
-        throw new Exception("La fecha de inicio no puede ser mayor a la fecha de cierre");
+        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
     }
 
     // Validar que fecha_cierr no sea menor a fecha_ini
     if ($this->fecha_cierr < $this->fecha_ini) {
-        throw new Exception("La fecha de finalizacion no puede ser menor a la fecha de inicio");
+        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
     } 
                 
                  
@@ -233,7 +221,7 @@ class ano_academico extends datos{
                     $this->bitacora("se modifico un año academico", "ano_academico", $this->nivel);
     
                  
-                        return "Registro modificado";	
+                        return "2Registro modificado";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -241,7 +229,7 @@ class ano_academico extends datos{
                     
                 }
                 else{
-                    return "Año no registrado";
+                    return "4Año no registrado";
                 }
         
 
@@ -289,22 +277,31 @@ public function consultar($nivel1){
 
             foreach($resultado as $r){
 
-                $respuesta = $respuesta . '<tr>';
+
+                $respuesta .= '<tr class="studentDataRow line" 
+         onclick="handleRowClick(`'.$r['id'].'`, `'.$r['ano_academico'].'`, event)" data-bs-toggle="modal" data-bs-target="#infoStudents">';
                 $respuesta = $respuesta . "<th>" . $r['id'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['fecha_ini'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['fecha_cierr'] . "</th>";
                 $respuesta = $respuesta . "<th>" . $r['ano_academico'] . "</th>";
                 $respuesta = $respuesta . '<th value="' . $r['estatus'] . '">  <span class="h6 font-weight-bold">' . $r['estatus'] . '</span> </th>';
-                $respuesta = $respuesta . '<th>';
 
-
+                $respuesta .= '<th id="option">';
                 if (in_array("modificar ano_academico", $nivel1)) {
                     # code...
+                $estado= $r['estado'];
+                if($estado > 0){
                 
                 $respuesta=$respuesta. '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
                <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
                </a>';
                }
+               else{
+                    $respuesta .= '<a href="#" onclick="delete_info(`'.$r['estado'].'`)">
+                    <i class="material-icons"  title="BORRAR"><img style="width: 18px;" src="assets/icon/pencil2.png"/></i>    
+                    </a>';
+                }
+            }
                
                
                 if (in_array("eliminar ano_academico", $nivel1)) {
@@ -331,7 +328,7 @@ public function consultar($nivel1){
 
             
 
-           
+        //    echo $respuesta;
             return $respuesta;
          
                             
@@ -347,6 +344,26 @@ public function consultar($nivel1){
 }
 //<!---------------------------------fin funcion consultar------------------------------------------------------------------>
 
+
+
+
+
+public function consulta_E($id){
+    $co = $this->conecta(); 
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+             
+            
+           $resultado = $co->prepare("SELECT * FROM `eventos` WHERE id_ano_academico =:id"); 
+            $resultado->bindParam(':id',$id);
+            $resultado->execute();
+           return $resultado;
+
+        }
+        catch(Exception $e){     
+        return false;
+    }
+}
 
 
 
@@ -396,11 +413,10 @@ private function existe2() {
         $r = $co->prepare("SELECT COUNT(*) as count FROM ano_academico 
             INNER JOIN ano_estudiantes ON ano_estudiantes.id_ano = ano_academico.id
             INNER JOIN estudiantes ON ano_estudiantes.id_estudiantes = estudiantes.cedula 
-            INNER JOIN eventos_ano ON eventos_ano.id_anos = ano_academico.id
-            INNER JOIN eventos ON eventos_ano.id_evento = eventos.id
+
             INNER JOIN horario_ano ON horario_ano.id_ano = ano_academico.id
             INNER JOIN horario_docente ON horario_ano.id_horario = horario_docente.id
-            WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND eventos.estado = 1 AND horario_docente.estado = 1");
+            WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND horario_docente.estado = 1");
 
         $r->execute();
         $count = $r->fetch(PDO::FETCH_ASSOC)['count'];
@@ -412,16 +428,6 @@ private function existe2() {
         return false;
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -465,21 +471,6 @@ private function existe2() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
 private function eliminar1(){
 
@@ -500,30 +491,38 @@ private function eliminar1(){
                 INNER JOIN estudiantes 
                 ON ano_estudiantes.id_estudiantes = estudiantes.cedula 
 
-                INNER JOIN eventos_ano
-                ON eventos_ano.id_anos = ano_academico.id
-
-                INNER JOIN eventos 
-                ON eventos_ano.id_evento = eventos.id
-
                 INNER JOIN horario_ano
                 ON horario_ano.id_ano = ano_academico.id
 
                 INNER JOIN horario_docente
                 ON horario_ano.id_horario = horario_docente.id
 
+                INNER JOIN ano_secciones 
+                ON  ano_secciones.id_anos  = ano_academico.id
+
+                INNER JOIN secciones_años 
+                ON ano_secciones.id_secciones = secciones_años.id 
 
 
-                SET ano_academico.estado = 0, ano_academico.estatus='DESHABILITADO', estudiantes.estado = 0 , eventos.estado = 0, horario_docente.estado = 0, deudas.estado = 0
-                 WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND eventos.estado = 1 AND horario_docente.estado = 1 AND deudas.estado = 1 ;");
+                SET ano_academico.estado = 0, ano_academico.estatus='DESHABILITADO', estudiantes.estado = 0 , horario_docente.estado = 0, secciones_años.estado = 0
+                 WHERE ano_academico.estado = 1 AND estudiantes.estado = 1 AND horario_docente.estado = 1 AND secciones_años.estado = 1;");
                 
 
                 $r->execute();
 
+                $r = $co->prepare("UPDATE `deudas` SET `estado`= 0 WHERE `estado`= 1"  );
+
+                $r->execute();
+
+                $r = $co->prepare("UPDATE `eventos` SET `estado`= 0 WHERE `estado`= 1");
+
+                $r->execute();
+
+
                 $this->bitacora("se elimino un año academico", "ano_academico", $this->nivel);
 
 
-                return "Registro Eliminado";
+                return "3Registro Eliminado";
 
                 
         } catch(Exception $e) {
@@ -534,7 +533,7 @@ private function eliminar1(){
 
     }
     else{
-        return "No se puede eliminar";
+        return "4No se puede eliminar";
     }
 }
 

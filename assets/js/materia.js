@@ -1,3 +1,4 @@
+ var FilterYear;
  function CargarDataTable(){
        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +16,7 @@ var table = $("#tablas").DataTable({
       { searchable: false, targets: [1] },
       { width: '20%', targets: [1] },   
       
-    ],
+    ], 
 
     columnDefs: [
       {
@@ -76,32 +77,30 @@ var table = $("#tablas").DataTable({
 
   //--------------------
  
-  $('#filtro-1').on('click', function() {
-    table.columns(2).search('1').draw(); // Filtrar por el año '1'
+  
+$('.btn-light').on('click', function () {
+    // Limpiar la clase 'border-secondary' de todos los botones
+    $('.btn-light').removeClass('border-secondary');
+    // Agregar la clase 'border-secondary' al botón clicado
+    $(this).addClass('border-secondary');
 });
+// --------------
+$('[id^=filtro-]').on('click', function() {
+    FilterYear = $(this).data('value');
+    table.columns(2).search(FilterYear).draw();
+    console.log(FilterYear);
 
-$('#filtro-2').on('click', function() {
-    table.columns(2).search('2').draw(); // Filtrar por el año '2'
-});
-
-$('#filtro-3').on('click', function() {
-    table.columns(2).search('3').draw(); // Filtrar por el año '3'
-});
-
-$('#filtro-4').on('click', function() {
-    table.columns(2).search('4').draw(); // Filtrar por el año '4'
-});
-
-$('#filtro-5').on('click', function() {
-    table.columns(2).search('5').draw(); // Filtrar por el año '5'
 });
 
 // Evento de clic para el botón de limpiar filtro
 $('#limpiar-filtro').on('click', function() {
 table.columns(2).search('').draw();
-table.column(1).search(valor).draw();
 
-});
+}); 
+if (FilterYear !== '') {
+    table.columns(2).search(FilterYear).draw();
+} 
+
 
 
  }
@@ -335,8 +334,10 @@ $("#editEmployeeModal").on("hidden.bs.modal", function () {
 //<!---------------------------------------------------------------------------------------------------------------------------->
 function eliminar(id) {
     $("#id2").val(id);
-    
-    LlamadaConfirmacion();
+    $("#borrar").on("click", () => {
+            
+         enviaAjax($("#f3"));
+        });
 }
 
 

@@ -265,7 +265,7 @@ public function consultar($nivel1){
         try{
 			
 			
-			$resultado = $co->prepare('SELECT a.id, a.nombre,a.correo, b.name FROM (SELECT id as ide, nombre as name FROM rol) as b , usuarios as a WHERE b.ide = a.id_rol');
+			$resultado = $co->prepare('SELECT a.id, a.nombre,a.correo, b.name FROM (SELECT id as ide, nombre as name FROM rol) as b , usuarios as a WHERE b.ide = a.id_rol and a.estado = 1;');
 			$resultado->execute();
            $respuesta="";
 
@@ -350,14 +350,11 @@ public function consultar($nivel1){
 		
 
 			try {
-					$r=$co->prepare("Delete from usuarios 
-						where
-						id= :id
-						");
-					$r->bindParam(':id',$this->cedula);
-					$r->execute();
-                    $this->bitacora("se elimino un usuario", "usuarios",$this->nivel);
-					return "Registro Eliminado";
+                $r = $co->prepare("UPDATE `usuarios` SET `estado`= 0 WHERE id=:id");
+                $r->bindParam(':id', $this->cedula);
+                $r->execute();
+                $this->bitacora("se elimino un usuario", "usuarios", $this->nivel);
+                return "Registro Eliminado";
                     
 			} catch(Exception $e) {
 				return $e->getMessage();

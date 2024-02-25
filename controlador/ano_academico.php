@@ -162,9 +162,9 @@ require_once("modelo/".$pagina.".php");
 	
 			$consuta=$o->consultar($nivel1);
 			
-			echo $consuta;
+			// echo $consuta;
 			exit;
-		  }
+		  } 
 
 		  $consuta=$o->consultar($nivel1);
 
@@ -179,7 +179,7 @@ require_once("modelo/".$pagina.".php");
 
 		  
 		  $evento=$o->eventos();
-
+ 
 
 		require_once("vista/".$pagina.".php");
 

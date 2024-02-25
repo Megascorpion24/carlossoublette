@@ -20,14 +20,18 @@ revealPasswordButton.onclick = onChangeRevealPassword;
 $(document).ready(function() {
 
 
+ 
 
+
+    
 
 
 
 
  
   if ($.trim($("#texto").text()) != "") {
-          mensaje($("#texto").html());
+    $("#errorModal").modal();
+    $("#mens").text($("#texto").text());
       
       }
       

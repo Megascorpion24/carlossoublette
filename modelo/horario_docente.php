@@ -106,15 +106,7 @@ class horario extends datos
             return false;
         }
     }
-    public function set_ano_academico($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
-		    $this->ano_academico = $valor;  
-            // $this->s;
-            return true;
-            }else{
-                return false;
-            }
-	}
+   
 
     public function registrar()
     {
@@ -169,20 +161,15 @@ class horario extends datos
             $estado = 1;
 
 
-            $consulta = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
-            $r = $co->prepare($consulta);
-
-
-            $r->bindParam(':dia', $this->dia);
-            $r->bindParam(':clase_inicia', $this->clase_inicia);
-            $r->bindParam(':clase_termina', $this->clase_termina);
-            $r->bindParam(':id_ano_seccion', $this->ano);
-            $r->bindParam(':estado', $estado);
-
-            $r->execute();
-
-            if ($r->rowCount() > 0) {
-                return "4Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
+            $dia = $this->dia;
+            $clase_inicia = $this->clase_inicia;
+            $clase_termina = $this->clase_termina;
+            $ano = $this->ano;
+           
+            $result = $this->existe_c($dia, $clase_inicia, $clase_termina, $ano, $estado);
+        
+            if ($result !== true) {
+                return $result;
             }
 
             $resultado2 = $co->prepare("SELECT * from  ano_academico");
@@ -325,9 +312,10 @@ class horario extends datos
 
 
 
-            $this->bitacora("se registro un horario", "horario_docente", $this->nivel);
+            $this->bitacora("se registro una clase", "Horario", $this->nivel);
 
             return "1Registro incluido";
+           
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -413,10 +401,11 @@ class horario extends datos
 
 
 
-
-                $this->bitacora("se modifico un horario", "horario_docente", $this->nivel);
+                $this->bitacora("se modifico una clase", "Horario", $this->nivel);
+                
 
                 return "2Registro modificado";
+                
             } catch (Exception $e) {
                 return $e->getMessage();
             }
@@ -833,7 +822,33 @@ class horario extends datos
 
 
 
+    private function existe_c($dia, $clase_inicia, $clase_termina, $ano, $estado)
+{
+    $co = $this->conecta();
 
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        try {
+    $consulta = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = :estado AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
+    $r = $this->conecta()->prepare($consulta);
+    $r->bindParam(':dia', $dia);
+    $r->bindParam(':clase_inicia', $clase_inicia);
+    $r->bindParam(':clase_termina', $clase_termina);
+    $r->bindParam(':id_ano_seccion', $ano);
+    $r->bindParam(':estado', $estado);
+    $r->execute();
+
+    if ($r->rowCount() > 0) {
+        return "4Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
+    }
+
+    return true;
+
+} catch (Exception $e) {
+
+    return false;
+}
+}
 
 
 
@@ -863,7 +878,7 @@ class horario extends datos
                 $r = $co->prepare("UPDATE `horario_docente` SET `estado`= 0 WHERE id=:id");
                 $r->bindParam(':id', $this->id);
                 $r->execute();
-                $this->bitacora("se elimino un horario", "horario_docente", $this->nivel);
+                $this->bitacora("se elimino una clase", "Horario", $this->nivel);
                 return "3Registro Eliminado";
             } catch (Exception $e) {
                 return $e->getMessage();

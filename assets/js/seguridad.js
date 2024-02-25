@@ -324,6 +324,10 @@ $("#descripcion1").on("keyup", function() {
             check("eliminar_evento", "#57");
             check("consultar_evento", "#58");
 
+            check("respaldar", "#59");
+            check("restaurar", "#60");
+            check("pagos_reportes", "#61");
+
 
         }, 500);
         

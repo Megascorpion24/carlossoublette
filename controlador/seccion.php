@@ -183,7 +183,7 @@ if (!empty($_POST['id_edit'])) {
 				$secciones = $_POST['sec'];
 			
 				// Asegúrate de tener al menos 1 registro y como máximo 12
-				$secciones = array_slice($secciones, 0, 12);
+				$secciones = array_slice($secciones, 0, 27);
 				
 				
 				//no esta vacio

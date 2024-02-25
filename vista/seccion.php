@@ -1,5 +1,18 @@
 <?php
  
+
+require 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}
  
 		  if(empty($_SESSION)){
 		  session_start();
@@ -260,21 +273,28 @@
 				<input type="text" class="form-control" name="cantidad" id="cantidad" required placeholder="">
 		<span id="cantidad_msj"></span>
 			</div>
-				
+	
+
 			<br>
-				<div class="ml-3 mt-4">
-					<?php
-						if (!empty($academico)) {
-								echo $academico;
-							}
-					?>
-				</div>
+			<div class="ml-3 mt-4">
+				<?php
+					if (!empty($academico)) {
+					echo $academico;
+					} else {
+					echo '<p class="text-light bg-dark p-1">NO Año Académico Registrado!!</p>';
+					}
+				?>
+			</div>
 
        
       </div>
       <div class="modal-footer">
 	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" id="registrar">Registrar</button>
+	  <?php
+		if (!empty($academico)) {
+			echo '<button type="button" class="btn btn-success" id="registrar">Registrar</button>';
+			} 	
+	  ?>
       </div>
 	  </form>
     
@@ -373,15 +393,37 @@
 <!-- CONTENT -->
 
 
-<!-- ------------------------------------------------------------------------------- -->
 
 <!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
-<form id="f3">
 
-<input style="display: none;" type="text" name="id2" id="id2">
-<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
+<div class="modal modal-user fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Borrar Seccion: "<span class="text-danger" id="seccion_b"></span>" <span id="año_b" class="text-danger"></span> Año</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form id="f3">
 
-</form>
+		<input style="display: none;" type="text" name="id2" id="id2">
+		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
+
+	</form>
+      <div class="modal-body">
+        <p>Estas seguro de querer eliminar este registro ?</p>
+		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" id="borrar">Si, Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------- -->
 
 
 

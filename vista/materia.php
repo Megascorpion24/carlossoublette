@@ -1,6 +1,18 @@
 <?php
  
- 
+
+require 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -29,7 +41,9 @@
 	#ui-id-1{
 		z-index: 2000;
 	}
-	
+
+	/* -------- -----------------*/
+
 	.btn-filter{
 			margin-left: 55%; 
 			position: absolute;
@@ -97,11 +111,11 @@
 	<div  class="btn-toolbar btn-filter" role="toolbar" aria-label="Toolbar with button groups">
 		<div class="btn-group mr-2" role="group" aria-label="First group">
 		   <button type="button" id="limpiar-filtro" class="btn btn-light border">Todos</button>
-		   <button type="button" id="filtro-1" class="btn btn-light border">1</button>
-		   <button type="button" id="filtro-2" class="btn btn-light border">2</button>
-		   <button type="button" id="filtro-3" class="btn btn-light border">3</button>
-		   <button type="button" id="filtro-4" class="btn btn-light border">4</button>
-		   <button type="button" id="filtro-5" class="btn btn-light border">5</button>
+		   <button type="button" id="filtro-1" class="btn btn-light border" data-value="1">1</button>
+		   <button type="button" id="filtro-2" class="btn btn-light border" data-value="2">2</button>
+		   <button type="button" id="filtro-3" class="btn btn-light border" data-value="3">3</button>
+		   <button type="button" id="filtro-4" class="btn btn-light border" data-value="4">4</button>
+		   <button type="button" id="filtro-5" class="btn btn-light border" data-value="5">5</button>
 		 </div>
 	</div>
 
@@ -314,18 +328,38 @@
   </div>
 </div>	
 
-<!---------------------------------------------FIN MODAL EDITAR------------------------------------------------->	   
-					   
-
-					   
+				   
 <!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
 
-<form id="f3">
+
+<div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Borrar Materia Registrado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form id="f3">
 
 		<input style="display: none;" type="text" name="id2" id="id2">
 		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
 
 	</form>
+      <div class="modal-body">
+        <p>Estas seguro de querer eliminar este registro ?</p>
+		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" id="borrar">Si, Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+					   
+
       
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 					   	

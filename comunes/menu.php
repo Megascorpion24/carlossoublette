@@ -81,6 +81,7 @@
 		  <ul class="collapse list-unstyled menu" id="homeSubmenu3">
 		     <li><a href="?pagina=reporte_ingreso" class=""><img class="pr-3" src="assets/icon/grafico-simple.png"/>reporte de ingresos </a></li>
 			 <li><a href="?pagina=reporte_egresos" class=""><img class="pr-3" src="assets/icon/grafico-simple-horizontal.png"/>reporte de egresos </a></li>
+			 <li><a href="?pagina=reporte_pagos" class=""><img class="pr-3" src="assets/icon/grafico-simple-horizontal.png"/>reporte de pagos </a></li>
 		  </ul>
 		  </li>
 
@@ -88,20 +89,18 @@
 		  <li class="">
 		  <a href="?pagina=mantenimiento" class=""><img class="pr-3" src="assets/icon/reloj.png"/>mantenimiento</a>
 		  </li>
-
-
 <!-------13 PAGINA------------>	
 		<li class="">
 		  <a href="?pagina=bitacora" class=""><img class="pr-3" src="assets/icon/ajustes.png"/>bitacora</a>
 		  </li>			  
-			
+		  <li class="">
+		  <a href="?pagina=manual"  target="_blank" class=""><img class="pr-3" src="assets/icon/ajustes.png"/>manual de usuario</a>
+		  </li>		
 		
 
 	  		
 		</ul>
 	 </div>
-
-	 
 	 
    <!-------fIN DEL MENU----------->
    

@@ -1,11 +1,15 @@
-$(document).ready(function() { 
-   
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Variables Globales de Data Table
 
-    $("#tablas").DataTable({
+var table;//para toda funcionalidades
+
+function CargarDataTable(){
+
+    var pageLengthSetting = localStorage.getItem('pageLength') || 15;
+
+     table = $("#tablas").DataTable({
     
-        responsive: true,   
-
+        responsive: true,     
+ 
       
         lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
         columnDefs: [
@@ -25,8 +29,8 @@ $(document).ready(function() {
             responsivePriority: 2,
             targets: -1
           }
-        ],
-        pageLength: 5,
+        ], 
+        pageLength: pageLengthSetting,
         destroy: true,
         language: {
         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
@@ -64,7 +68,26 @@ $(document).ready(function() {
       window.addEventListener('load', async () => {
         await initDataTable();
       });
- 
+
+
+
+
+}
+
+
+
+
+
+$(document).ready(function() { 
+   
+  
+    CargarDataTable();
+
+
+
+
+
+    
 
     $("#registrar").on("click", function() {
         if (validarenvio()) {
@@ -169,7 +192,7 @@ $(document).ready(function() {
     });
 
     $("#correo").on("keyup", function() {
-        validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        validarkeyup(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[A-Za-z]{5,7}[\u002E]{1}[A-Za-z]{3}$/,
             $(this), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari@servidor.dominio");
     });
 
@@ -284,7 +307,7 @@ $("#correo1").on("keypress", function(e) {
 });
 
 $("#correo1").on("keyup", function() {
-    validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+    validarkeyup(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[A-Za-z]{5,7}[\u002E]{1}[A-Za-z]{3}$/,
         $(this), $("#scorreo1"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari@servidor.dominio");
 });
 
@@ -348,42 +371,31 @@ function modificar(id){
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
-
-    function enviaAjax(datos){
-    
-        $.ajax({
-                url: '', 
-                type: 'POST',
-                data: datos.serialize(),
-                beforeSend: function(){
-  
-                },
-                
-                
-                success: function(respuesta) {
-                    alert(respuesta);   
-                 $("#consulta").val("consulta");
-                 enviaAjax2($("#f4"));
-                 window.location.reload();
-        
-                   
-                },
-                error: function(request, status, err){
-                    if (status == "timeout") {
-                        mensaje("Servidor ocupado, intente de nuevo");
-                    } else {
-                        mensaje("ERROR: <br/>" + request + status + err);
-                    }
-                },
-                complete: function(){
-             
+function enviaAjax(datos){
+    $.ajax({
+            url: '', 
+            type: 'POST',
+            data: datos.serialize(),
+            beforeSend: function(){            
+            },            
+            success: function(respuesta) {
+                LlamadaAlert(respuesta);     
+             $("#consulta").val("consulta");            
+             enviaAjax2($("#f4"));  
+       
+           
+        },
+            error: function(request, status, err){
+                if (status == "timeout") {
+                    mensaje("Servidor ocupado, intente de nuevo");
+                } else {
+                    mensaje("ERROR: <br/>" + request + status + err);
                 }
-                
-        });
-        
-    }
-
+            },
+            complete: function(){               
+            }            
+    });    
+}
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
@@ -401,9 +413,13 @@ function modificar(id){
                 },
                 
                 success: function(respuesta) {
-                 $("#tabla").html(respuesta);
-                   
+                    $('#tablas').DataTable().destroy();
+                    $("#tabla").empty();
+                    $("#tabla").html(respuesta);//carga datos de la BD a la tabla
+                    CargarDataTable(); 
                 },
+
+
                 error: function(request, status, err){
                     if (status == "timeout") {
                         mensaje("Servidor ocupado, intente de nuevo");
@@ -502,7 +518,7 @@ function modificar(id){
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
     
-        } else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        } else if (validarkeyup(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[A-Za-z]{5,7}[\u002E]{1}[A-Za-z]{3}$/,
         $("#correo"), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
             mensaje("<p>El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio</p>");
             return false;
@@ -551,7 +567,7 @@ function modificar(id){
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
     
-        } else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        } else if (validarkeyup(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[A-Za-z]{5,7}[\u002E]{1}[A-Za-z]{3}$/,
         $("#correo1"), $("#scorreo1"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;

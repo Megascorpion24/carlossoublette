@@ -83,7 +83,7 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
                                 )");
         
                                 $fecha= date('Y-m-d');
-                                $monto="20";
+                                $monto="0";
                                 $concepto="mensualidad";
                                 $estado=1;
                             $r->bindParam(':id_estudiante', $r1);	
@@ -117,7 +117,13 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
         
                     }
         
-                       
+                    $r= $co->prepare("UPDATE deudas SET estado_deudas = 1 WHERE fecha <= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND estado = 1 AND concepto = 'mensualidad'");                      
+                    $r->bindParam(':concepto', $concepto);	
+                    $r->bindParam(':fecha',$fecha);	
+                    $r->bindParam(':estado',$estado);	
+                    $r->bindParam(':estado_deudas',$estado);
+                    $r->execute();
+        
         
                         
                             return $fecha;	

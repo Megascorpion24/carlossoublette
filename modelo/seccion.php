@@ -12,7 +12,7 @@ class secciones extends datos{
     private $cantidad;
     private $nivel;
     
-
+ 
 // ----------------
 
     public function validarAbecedarioFormulario($abecedario) {
@@ -21,7 +21,7 @@ class secciones extends datos{
             if (!preg_match("/^[0-9]{1,2}$/", $abc)) {
               return false;
             }
-          
+           
         }
       
         return true;
@@ -55,7 +55,8 @@ public function getSec($index) {
 	}
     public function set_secciones($valor){
         if (preg_match("/^[0-9]{1,3}$/", $valor)) {
-		    $this->secciones = $valor;   
+		    $this->secciones = $valor;
+            // echo 'seccion:'.$this->secciones;   
             return true;
             }else{
                 return false;
@@ -71,7 +72,7 @@ public function getSec($index) {
             }
     }
     public function set_cantidad($valor){
-        if (preg_match("/^[0-9]{1,3}$/", $valor)) {
+        if (preg_match("/^[0-9]{2}$/", $valor)&& $valor > 10) {
           $this->cantidad = $valor;     
             return true;
             }else{
@@ -219,50 +220,63 @@ private function registrar1(){
 
  //<!---------------------------------Modal Registrar------------------------------------------------------------------>  
 
-
- public function abc(){
+public function abc(){
     $co = $this->conecta();
-        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        try{
-            
-            $resultado = $co->prepare("SELECT * from secciones WHERE estado=1");
-            $resultado->execute();
-           $respuesta2="";
+    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            foreach($resultado as $r){
-                $respuesta2 .='<option value="'.$r['id'].'" class="'.$r['estado'].'">'.$r['secciones'].'</option>';
+    try {
+        $resultado = $co->prepare("SELECT * FROM secciones WHERE estado = 1");
+        $resultado->execute();
+        
+        $respuesta2 = "";
+        $primerResultado = true;
 
-            }  
+        foreach ($resultado as $r) {
+            // Omitir el primer resultado
+            if ($primerResultado) {
+                $primerResultado = false;
+                continue;
+            }
 
-            return $respuesta2;  
-            
-        }catch(Exception $e){
-            
-            return false;
+            $respuesta2 .= '<option value="' . $r['id'] . '" class="' . $r['estado'] . '">' . $r['secciones'] . '</option>';
         }
+
+        // Cerrar la conexión si es persistente
+
+        return $respuesta2;
+    } catch (Exception $e) {
+        // Manejo de errores
+        return false;
+    }
 }
 
 public function abc2(){
     $co = $this->conecta();
-        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        try{
-            
-            $resultado = $co->prepare("SELECT * from secciones");
-            $resultado->execute();
-           $respuesta2="";
+    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            foreach($resultado as $r){
-                $respuesta2 .='<option value="'.$r['id'].'" class="'.$r['estado'].'">'.$r['secciones'].'</option>';
+    try {
+        $resultado = $co->prepare("SELECT * FROM secciones");
+        $resultado->execute();
+        $respuesta2 = "";
+        $primerResultado = true;
 
-            }  
+        foreach ($resultado as $r) {
+            // Omitir el primer resultado
+            if ($primerResultado) {
+                $primerResultado = false;
+                continue;
+            }
 
-            return $respuesta2;  
-            
-        }catch(Exception $e){
-            
-            return false;
+            $respuesta2 .= '<option value="' . $r['id'] . '" class="' . $r['estado'] . '">' . $r['secciones'] . '</option>';
         }
+
+        return $respuesta2;
+    } catch (Exception $e) {
+        // Manejo de errores
+        return false;
+    }
 }
+
 
  public function Año(){ 
     $co = $this->conecta();
@@ -407,7 +421,7 @@ private function modificar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if (!$this->exists($this->secciones,$this->ano,$this->ano_academico) && !$this->exists_doc_guia($this->cedula_profesor) ) {
+    if (!$this->exists($this->secciones,$this->ano,$this->ano_academico) && !$this->exists_doc_guia($this->cedula_profesor, false) ) {
         try {
             // Actualizar la tabla secciones_años
             $r = $co->prepare("UPDATE secciones_años 
@@ -468,7 +482,7 @@ private function modificar1(){
             $this->bitacora("se modifico Docente Guia o Cantidad de la Seccion", "secciones",$this->nivel);
 
 
-            return "2Registro Modificado";
+            return "2Registro Modificado"; 
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -532,7 +546,8 @@ private function modificar1(){
            INNER JOIN ano_academico ON ano_secciones.id_anos = ano_academico.id
            LEFT JOIN estudiantes ON secciones_años.id = estudiantes.id_anos_secciones AND estudiantes.estado = 1
        WHERE 
-           secciones_años.estado = 1
+           secciones_años.estado = 1 
+           AND ano_academico.estado = 1
        GROUP BY 
            secciones_años.id, 
            secciones.id,  
@@ -654,48 +669,46 @@ public function consulta_E($id){
         }
 	}
  
-// ------------------------------------------------
     public function exists($id_seccion, $ano, $ano_academico) {
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
+        
         try {
-            $r = $co->prepare("SELECT id FROM secciones_años 
-                                WHERE id_secciones = :id_seccion 
-                                AND id_anos = :ano 
-                                AND estado = 1");
+            $co->beginTransaction();
+    
+            $r = $co->prepare("SELECT sa.id 
+                               FROM secciones_años sa
+                               INNER JOIN ano_secciones ans ON sa.id = ans.id_secciones
+                               WHERE sa.id_secciones = :id_seccion 
+                                 AND sa.id_anos = :ano 
+                                 AND sa.estado = 1
+                                 AND ans.id_anos = :ano_academico");
+    
             $r->bindParam(':id_seccion', $id_seccion);
             $r->bindParam(':ano', $ano);
+            $r->bindParam(':ano_academico', $ano_academico);
     
             $r->execute();
     
             $secciones_anos_ids = $r->fetchAll(PDO::FETCH_COLUMN);
     
-            foreach ($secciones_anos_ids as $secciones_anos_id) {
-                // Para cada ID obtenido, busca una coincidencia en ano_secciones con el ano_academico proporcionado
-                $r2 = $co->prepare("SELECT COUNT(*) FROM ano_secciones 
-                                    WHERE id_secciones = :id_seccion_anos 
-                                    AND id_anos = :ano_academico_id");
-                $r2->bindParam(':id_seccion_anos', $secciones_anos_id);
-                $r2->bindParam(':ano_academico_id', $ano_academico);
-    
-                $r2->execute();
-    
-                $matches = $r2->fetchColumn();
-    
-                if ($matches > 0) {
-                    return true; // Si hay al menos una coincidencia, retorna true
-                }
-            }
-    
-            return false; // Si no se encuentra una coincidencia para ningún ID, retorna false
+            $co->commit();
+            // echo $secciones_anos_ids;
+            // print_r($secciones_anos_ids);
+            return !empty($secciones_anos_ids);
     
         } catch (Exception $e) {
-            return false; // Manejo de excepciones
+            $co->rollBack();
+            // Aquí puedes registrar o manejar la excepción adecuadamente
+            return false;
+        } finally {
+            // Asegúrate de cerrar la conexión, incluso en caso de excepción
+            $co = null;
         }
     }
     
-    public function exists_doc_guia($cedula_profesor){
+    
+    public function exists_doc_guia($cedula_profesor, $comparacion_igual_o_mayor = true){
         $co = $this->conecta(); 
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
@@ -714,10 +727,20 @@ public function consulta_E($id){
             $stmt->bindParam(':cedula_profesor', $cedula_profesor);
             $stmt->bindParam(':id_academico', $id_academico, PDO::PARAM_INT);
             $stmt->execute();
-            
+
             $cantidad_registros = $stmt->fetchColumn();
+
+
+            if ($comparacion_igual_o_mayor) {
+                
+                return ($cantidad_registros >= 2);
+
+            } else {
             
-            return ($cantidad_registros >= 2) ? true : false;
+                return ($cantidad_registros > 2);
+            }
+
+            
         } catch(Exception $e){
             return false;
         }
@@ -753,7 +776,7 @@ private function eliminar1(){
         return "Sección no existe, o tiene estudiantes afiliados";
     }
 }
-
+ 
 
 //<!---------------------------------Fin de funcion eliminar------------------------------------------------------------------>
 
@@ -764,7 +787,7 @@ public function Asig_Seccion() {
 
     try {
         // Obtener todos los IDs de la tabla secciones
-        $query = "SELECT id, estado FROM secciones";
+        $query = "SELECT id, estado FROM secciones ORDER BY id LIMIT 10000 OFFSET 1";
         $stmt = $co->prepare($query);
         $stmt->execute();
         $all_secciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -789,7 +812,7 @@ public function Asig_Seccion() {
             $update_stmt->execute();
 
             // Mostrar información sobre el cambio de estado
-            // echo "ID: {$id}, Estado actual: {$seccion['estado']}, Nuevo estado: {$estado}<br>";
+           // echo "ID: {$id}, Estado actual: {$seccion['estado']}, Nuevo estado: {$estado}<br>";
         }
         $this->bitacora("Se Actualizo el Abecedario de Secciones", "secciones",$this->nivel);
 

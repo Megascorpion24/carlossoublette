@@ -143,7 +143,7 @@ require_once("modelo/".$pagina.".php");
 					$valor=false;
 				}
 			}
-
+			$o->set_nivel($nivel);
 			if ($valor==true) {
 				$mensaje = $o->eliminar();
 				echo $mensaje;

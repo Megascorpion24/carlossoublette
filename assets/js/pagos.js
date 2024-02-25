@@ -572,7 +572,7 @@ $("#montoM").on("keyup", function() {
 });
 //<!---------------------------------------------------------------------------------------------------------------------------->
 function montos(id){
-    $("#tabla tr").each(function(){
+    $("#tabla2 tr").each(function(){
     
         if(id == $(this).find("th:eq(0)").text()){
             $("#codigoMM").val($(this).find("th:eq(0)").text());
@@ -629,10 +629,7 @@ function ver(id){
                 $("#formaM").val($(this).find("th:eq(6)").text());
                 $("#fechaM").val($(this).find("th:eq(7)").text());      
                 $("#fechadM").val($(this).find("th:eq(8)").text());  
-                var fechaInicial = new Date(Date.parse($("#fechadM").val()));
-                var fechaFinal = new Date(Date.parse($("#mesesM").val()));
-                var mesesDiferencia = Math.abs(fechaFinal.getMonth() - fechaInicial.getMonth()) + 1;                          
-                $("#mesesM").val(mesesDiferencia);                     
+                    
                 $("#montoM").val($(this).find("th:eq(10)").text());
                 $("#cedula2M").val($(this).find("th:eq(2)").text());
                 $("#nombreM").val($(this).find("th:eq(12)").text());  
@@ -651,25 +648,12 @@ function ver(id){
         
     
     }
-//<!---------------------------------------------------------------------------------------------------------------------------->
-//$('#editpago').on('show.bs.modal', function(event) {
-
-   
-  //  var montoM = $('#montoM');
-  //  var meses = $('#mesesM');
-  
-
- //   if (meses.val() > 1) {
-   //   montoM.attr('readonly', 'readonly');
-  //  } else {
-   //   montoM.removeAttr('readonly');
-  //  }
-//  });
 
 
 
 
 
+    
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
@@ -683,15 +667,7 @@ function eliminar(id){
 
 }
 
-function eliminarr(id){
-    $("#idE2").val(id);
-    $("#borrar2").on("click", function(){
-       
-    enviaAjax($("#f5"));
-    $('#deletepago2').modal('hide');
-    });
 
-}
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
@@ -1258,12 +1234,14 @@ function enviaAjax(datos){
             beforeSend: function(){            
             },            
             success: function(respuesta) {
-                alert(respuesta);       
+                LlamadaAlert(respuesta);     
              $("#consulta").val("consulta");            
              enviaAjax2($("#f4"));  
-             window.location.reload();
-            },
-            
+                 setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
+           
+        },
             error: function(request, status, err){
                 if (status == "timeout") {
                     mensaje("Servidor ocupado, intente de nuevo");

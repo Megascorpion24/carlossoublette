@@ -116,7 +116,7 @@ $(document).ready(function() {
         
             if(id == $(this).find("th:eq(0)").text()){
                 $("#id").val($(this).find("th:eq(0)").text());
-              
+                $("#ano2").val($(this).find("th:eq(3)").text())
                 $("#dia1").val($(this).find("th:eq(4)").text());
                 $("#clase_inicia1").val($(this).find("th:eq(6)").text());
                 $("#clase_termina1").val($(this).find("th:eq(7)").text());

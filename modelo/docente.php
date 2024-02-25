@@ -186,7 +186,7 @@ class docente extends datos{
                 $r->execute();
                 $this->bitacora("se registro un docente", "docentes",$this->nivel);
              
-                    return "Registro incluido";	
+                    return "1Registro incluido";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
@@ -194,7 +194,7 @@ class docente extends datos{
                 
             }
             else{
-                return "cedula registrada";
+                return "4cedula registrada";
             }
     
 
@@ -261,7 +261,7 @@ class docente extends datos{
                     $r->execute();
     
                     $this->bitacora("se modificco un docente", "docentes",$this->nivel);
-                        return "Registro modificado";	
+                        return "2Registro modificado";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -269,7 +269,7 @@ class docente extends datos{
                     
                 }
                 else{
-                    return "cedula no registrada";
+                    return "4cedula no registrada";
                 }
         
     
@@ -387,7 +387,7 @@ public function consultar($nivel1){
 					$r->execute();
 
                     $this->bitacora("se elimino un docente", "docentes",$this->nivel);
-					return "Registro Eliminado";
+					return "3Registro Eliminado";
                     
 			} catch(Exception $e) {
 				return $e->getMessage();
@@ -397,7 +397,7 @@ public function consultar($nivel1){
 
 		}
 		else{
-			return "Cedula no registrada o este docente esta siendo utilizado en otro modulo";
+			return "4Cedula no registrada o este docente esta siendo utilizado en otro modulo";
 		}
     }
 

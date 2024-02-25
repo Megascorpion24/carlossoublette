@@ -43,12 +43,12 @@ $(document).ready(function() {
 
 
     $("#evento").on("keypress", function(e) {
-        validarkeypress(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
+        validarkeypress(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040\s]$/, e);
 
     });
 
     $("#evento").on("keyup", function() {
-        validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+        validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040\s]{4,25}$/,
             $(this), $("#sevento"), "Los Lapsos debe ser solamente letras");
     });
     
@@ -71,12 +71,12 @@ $(document).ready(function() {
 /*validaciones para editar*/
 
 $("#evento1").on("keypress", function(e) {
-        validarkeypress(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
+        validarkeypress(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040\s]$/, e);
 
 });
 
 $("#evento1").on("keyup", function() {
-        validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+        validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040\s]{4,25}$/,
             $(this), $("#sevento1"), "Los eventos debe ser solamente Letras");
 });
 
@@ -150,10 +150,13 @@ $("#evento1").on("keyup", function() {
                 },
                 
                 success: function(respuesta) {
-                 alert(respuesta);
+                 //alert(respuesta);
+                LlamadaAlert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
-                 window.location.reload();
+                 setTimeout(function(){
+                    window.location.reload();
+                }, 1500);
                    
                 },
                 error: function(request, status, err){
@@ -272,7 +275,7 @@ $("#evento1").on("keyup", function() {
     }else if (valcierr($('#fecha_cierr').val(),$("#sfecha_cierr")) == 0) {
         mensaje("<p>Debe de seleccionar una fecha</p>");
         return false;
-    }else if (validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+    }else if (validarkeyup(/^[A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040\s]{4,25}$/,
         $("#evento"), $("#sevento"), "Los lapsos debe ser solamente letras") == 0) {
         mensaje("<p>Solo letras de la A a la Z</p>");
         return false;
@@ -299,7 +302,7 @@ $("#evento1").on("keyup", function() {
     }else if (valcierr($('#fecha_cierr1').val(),$("#sfecha_cierr1")) == 0) {
         mensaje("<p>Debe de seleccionar una fecha</p>");
         return false;
-    }else if (validarkeyup(/^[0-9A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]{4,25}$/,
+    }else if (validarkeyup(/^[0-9A-Za-z\u002D\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040\s]{4,25}$/,
         $("#evento1"), $("#sevento1"), "Los lapsos debe ser solamente letras") == 0) {
         mensaje("<p>Solo letras de la A a la Z</p>");
         return false;

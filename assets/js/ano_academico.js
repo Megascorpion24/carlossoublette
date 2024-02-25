@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
      console.log(location.href);
-
+ 
 
 
     $("#registrar").on("click", function() {
@@ -118,18 +118,18 @@ $("#ano academico1").on("keyup", function() {
     }
 
 
-    function delete_info(estado) {
+    /*function delete_info(estado) {
     var mensaje = '';
 
     if (estado == 0) {
-        mensaje = 'No se puede eliminar el año académico porque está DESHABILITADO';
+        mensaje = 'No se puede eliminar/modificar el año académico porque está DESHABILITADO';
     }
 
      
 
 alert(mensaje);
 
-}
+}*/
 
 
 
@@ -148,10 +148,13 @@ alert(mensaje);
                 },
                 
                 success: function(respuesta) {
-                 alert(respuesta);
+                 //alert(respuesta);
+                LlamadaAlert(respuesta);
                  $("#consulta").val("consulta");
                  enviaAjax2($("#f4"));
-                 window.location.reload();
+                 setTimeout(function(){
+                    window.location.reload();
+                }, 1500);
                    
                 },
                 error: function(request, status, err){
@@ -208,6 +211,90 @@ alert(mensaje);
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
+
+
+
+    // Esta función se encarga de cargar los datos en el tbody
+function cargarDatosEnTabla() {
+    // ... tu lógica actual para cargar los datos en el tbody ...
+
+    // Una vez que los datos se han cargado en el tbody, inicializa DataTables
+    $('.tabla_estudiantes').DataTable({
+        // Personaliza el encabezado del modal con el campo de búsqueda
+        initComplete: function () {
+            this.api().search('').draw();
+            var searchField = $('#tabla_estudiantes_filter').find('input');
+            searchField.attr('placeholder', 'Buscar estudiantes');
+            searchField.addClass('form-control');
+            searchField.appendTo($('#info .tabla_estudiantes'));
+        }
+    });
+}
+
+var ObtenerID;
+
+function handleRowClick(id,ano_academico, event) {
+    console.log('click' + ano_academico);
+    if ($(event.target).closest('#option').length === 0) {
+        ObtenerID = id;
+        // console.log(ObtenerID);
+        // $('#s_M').text(s);
+        // $('#a_M').text(a);
+
+        $.ajax({
+            url: 'controlador/ajax/eventos_consulta.php',
+            type: 'POST',
+            data: { ajaxPet: true, id: ObtenerID, action: 'getData' },
+            success: function (respuesta) {
+                var studData = JSON.parse(respuesta);
+                // console.log(studData);
+
+                  // Elimina la instancia actual de DataTables
+                  $('.tabla_estudiantes').DataTable().destroy();
+                // Vacía el contenido anterior del modal antes de agregar los nuevos datos
+                $('#info #tabla_estudiantes').empty();
+
+                // Itera sobre cada estudiante en studData
+                for (var i = 0; i < studData.length; i++) {
+                    var eventos = studData[i];
+
+                    // Crea un nuevo modal para cada estudiante
+                    var modalContent = `
+                    <tr>
+                        <td class="id">${eventos.id}</td>
+                        <td class="fecha_ini">${eventos.fecha_ini}</td>
+                        <td class="fecha_cierr">${eventos.fecha_cierr}</td>
+                        <td class="evento">${eventos.evento}</td>
+                    </tr>    
+                    `;
+
+                    // Agrega el contenido del modal al elemento .modal-content
+                    $('#info #tabla_estudiantes').append(modalContent);
+                }
+
+              
+                 // Muestra el modal después de agregar todos los estudiantes
+                 $('#info').modal('show');
+
+                // Llama a la función para inicializar DataTables después de cargar los datos
+                cargarDatosEnTabla();
+                // Inicia el filtrado y la paginación
+                // iniciarFiltradoYPaginacion();
+            },
+
+            error: function (request, status, err) {
+                if (status == "timeout") {
+                    mensaje("Servidor ocupado, intente de nuevo");
+                } else {
+                    mensaje("ERROR: <br/>" + request + status + err);
+                }
+            },
+            complete: function () {
+
+            }
+        });
+    } 
+}
 
 
 

@@ -1,6 +1,19 @@
 <?php
 
 
+require 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}
+
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -535,9 +548,17 @@
   <label class="form-check-label" for="54"  >
     generar reportes de egresos
   </label>
+  
 </div>
 
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="125" name="exampleRadios[]" id="61" >
+  <label class="form-check-label" for="61"  >
+    consultar los reportes de pagos
+  </label>
 
+
+  </div> 
 </div> 
 
 
@@ -571,6 +592,29 @@
 
 
 </div> 
+
+
+<div class="form-group col-md-4">
+<h5 class="modal-title">mantenimiento</h5>
+	    <hr>
+		<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="123" name="exampleRadios[]" id="59"  >
+  <label class="form-check-label" for="59">
+	 respaldar
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="124" name="exampleRadios[]" id="60" >
+  <label class="form-check-label" for="60"  >
+  restaurar 
+  </label>
+</div>
+
+
+
+</div> 
+
+
 
 		
       </div>

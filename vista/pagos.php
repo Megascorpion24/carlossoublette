@@ -1,6 +1,19 @@
 <?php
 
 
+require 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}
+
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -63,7 +76,7 @@
 									</tr>
 								</thead>
 								<?PHP if (in_array("consultarmontos", $nivel1)) {?>
-								<tbody id="tabla">						  						
+								<tbody id="tabla2">						  						
 										<?php
 											if(!empty($consutamonto)){
 												echo $consutamonto;
@@ -845,11 +858,7 @@
 							<span style="color:#FF0000" id="sfechadM"></span>			
 						<input type="text" class="form-control"readonly="true" name="fechadM" id="fechadM" required >
 					</div>
-					<div class="form-group col-md-3 "  style="display: none;">
-							<label>Meses</label>
-								<span style="color:#FF0000" id="smesesM"></span>
-							<input type="text" class="form-control" readonly="true" name="mesesM"  id="mesesM" required >							
-						</div>
+
 			
 						<div class="form-group col-md-4">
 							<label>Monto</label>
@@ -895,7 +904,7 @@
 							<input type="text" class="form-control" disabled type="text" name="nombre1M" id="nombre1M" required >
 						</div>
 
-						<div class="form-group col-md-3 " >
+						<div class="form-group col-md-4 " >
 								<label>Estado</label>
 									<span id="sestadoM"></span>
 								<input type="text" class="form-control " readonly="true" name="estadoM"  id="estadoM" required >							

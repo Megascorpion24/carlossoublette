@@ -393,7 +393,7 @@ class inscripciones extends datos{
                     $r= $co->prepare("Insert into deudas(
 						
                         id_estudiante,
-                    
+                        monto,
                         concepto,
                         fecha,
                         estado,
@@ -403,7 +403,7 @@ class inscripciones extends datos{
     
                         Values(
                         :id_estudiante,
-                        
+                        :monto,
                         :concepto,
                         :fecha,
                         :estado,
@@ -411,12 +411,47 @@ class inscripciones extends datos{
                         
                         
                         )");
+
                         $fecha= date('Y-m-d');
-                        $monto="20";
+                        $monto="0";
                         $concepto="inscripcion";
                         $estado=1;
                     $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
-        
+                    $r->bindParam(':monto',$monto);	
+                    $r->bindParam(':concepto', $concepto);	
+                    $r->bindParam(':fecha',$fecha);	
+                    $r->bindParam(':estado',$estado);	
+                    $r->bindParam(':estado_deudas',$estado);
+                    $r->execute();
+
+                    $r= $co->prepare("Insert into deudas(
+						
+                        id_estudiante,
+                        monto,
+                        concepto,
+                        fecha,
+                        estado,
+                        estado_deudas
+                        )
+                
+    
+                        Values(
+                        :id_estudiante,
+                        :monto,
+                        :concepto,
+                        :fecha,
+                        :estado,
+                        :estado_deudas
+                        
+                        
+                        )");
+
+                        $fecha= date('Y-m-d');
+                        $monto="0";
+                        $concepto="mensualidad";
+                        $estado=1;
+                    $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
+                    $r->bindParam(':monto',$monto);	
                     $r->bindParam(':concepto', $concepto);	
                     $r->bindParam(':fecha',$fecha);	
                     $r->bindParam(':estado',$estado);	
@@ -583,42 +618,8 @@ class inscripciones extends datos{
                         )");
 
                         $fecha= date('Y-m-d');
-                        $monto="0";
+                        $monto="20";
                         $concepto="inscripcion";
-                        $estado=1;
-                    $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
-                    $r->bindParam(':monto',$monto);	
-                    $r->bindParam(':concepto', $concepto);	
-                    $r->bindParam(':fecha',$fecha);	
-                    $r->bindParam(':estado',$estado);	
-                    $r->bindParam(':estado_deudas',$estado);
-                    $r->execute();
-
-                    $r= $co->prepare("Insert into deudas(
-						
-                        id_estudiante,
-                        monto,
-                        concepto,
-                        fecha,
-                        estado,
-                        estado_deudas
-                        )
-                
-    
-                        Values(
-                        :id_estudiante,
-                        :monto,
-                        :concepto,
-                        :fecha,
-                        :estado,
-                        :estado_deudas
-                        
-                        
-                        )");
-
-                        $fecha= date('Y-m-d');
-                        $monto="0";
-                        $concepto="mensualidad";
                         $estado=1;
                     $r->bindParam(':id_estudiante',$this->cedula_estudiante);	
                     $r->bindParam(':monto',$monto);	
@@ -638,18 +639,48 @@ class inscripciones extends datos{
 
 
                         }else{
-                            return "cedula no registradammmmmmmmmmmm";
+                            return "4cedula no registradammmmmmmmmmmm";
                         }
                     }
 
+                    $resultado2 = $co->prepare("SELECT cantidad from secciones_años WHERE id=:id_estudiantes");
+			
+                    $resultado2->bindParam(':id_estudiantes',$this->ano);
+    
+                    $resultado2->execute();
+                    $cantidad="";
+        
+                    foreach($resultado2 as $r){
+                       
+                        $cantidad=$r["cantidad"];
+                    }
 
+                     $cantidad= $cantidad-1;
                 
-            
-             
+                    $r= $co->prepare("Update secciones_años set 
+                            
+                       
+                    cantidad=:cantidad
+    
+       
+                
+                    
+                    where
+                    id =:id
+    
+                        
+                    ");
+                
+                $r->bindParam(':cantidad',$cantidad);	
+                $r->bindParam(':id',$this->ano);
+          
+    
+                $r->execute();
+                    
                     $this->bitacora("se inscribio un estudiante", "inscripciones",$this->nivel);
 
              
-                    return "Registro incluido";	
+                    return "1Registro incluido";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
@@ -790,7 +821,7 @@ class inscripciones extends datos{
       
     
             $this->bitacora("se modifico un estudiante", "inscripciones",$this->nivel);
-                        return "Registro modificado";	
+                        return "2Registro modificado";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -798,7 +829,7 @@ class inscripciones extends datos{
                     
                 }
                 else{
-                    return "cedula no registrada";
+                    return "4cedula no registrada";
                 }
         
     
@@ -1081,14 +1112,17 @@ public function consultar3(){
         try{
 			
 			
-			$resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id ORDER by  años.anos, secciones.secciones AND secciones.estado=1 and años.estado=1");
+			$resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones, secciones_años.cantidad,secciones_años.estado FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id ORDER by  años.anos, secciones.secciones AND secciones.estado=1 and años.estado=1 and secciones_años.cantidad=0;");
 			$resultado->execute();
            $respuesta="";
            $respuesta2="";
            $respuesta2 =$respuesta2.'<option value="seleccionar" selected hidden>-Seleccionar-</option>';
 
             foreach($resultado as $r){
-                $respuesta2 =$respuesta2.'<option value="'.$r['id'].'"  >'.$r['anos']." - ".$r['secciones'].'</option>';
+                if ($r['cantidad']>0 && $r['secciones']!="vacia" && $r['estado']!=0) {
+                    $respuesta2 =$respuesta2.'<option value="'.$r['id'].'"  >'.$r['anos']." - ".$r['secciones'].' - '.'cupos: '.$r['cantidad'].'</option>';
+                }
+               
                
              
                
@@ -1238,6 +1272,25 @@ public function consultar4(){
 
 			try {
 
+                $resultado = $co->prepare("SELECT * FROM deudas WHERE deudas.id_estudiante=:cedula and deudas.estado_deudas=1 AND deudas.estado=1;");
+                $resultado->bindParam(':cedula',$this->cedula_estudiante);
+                $resultado->execute();
+           $respuesta="";
+           $respuesta2="";
+   
+
+            foreach($resultado as $r){
+                $respuesta2 =$r['id_estudiante'];
+               
+             
+               
+   
+
+            }
+
+if (empty($respuesta2)) {
+    # code...
+
                 $estado=0;
                 $r= $co->prepare("Update estudiantes set 
                             
@@ -1256,8 +1309,27 @@ public function consultar4(){
       
 
             $r->execute();
+
+            $r= $co->prepare("UPDATE deudas set 
+                        
+                        estado_deudas=0,
+                        estado=0
+               
+                where
+                id_estudiante =:id
+
+                ");
+            $r->bindParam(':id',$this->cedula_estudiante);
+               
+        
+         
+            $r->execute();
+
             $this->bitacora("se elimino un estudiante", "inscripciones",$this->nivel);
-					return "Registro Eliminado";
+					return "3Registro Eliminado";
+                }else{
+                    return "4no se puede eliminar porque este estudiante tiene deudas pendientes";
+                }
                     
 			} catch(Exception $e) {
 				return $e->getMessage();
@@ -1267,7 +1339,7 @@ public function consultar4(){
 
 		}
 		else{
-			return "Cedula no registrada";
+			return "4Cedula no registrada";
 		}
     }
 
@@ -1288,7 +1360,6 @@ public function consultar4(){
 			}
 		
 	}
-
 
 
 
@@ -1757,7 +1828,6 @@ public function consultar4(){
                 
         
     }
-    
 
 
 

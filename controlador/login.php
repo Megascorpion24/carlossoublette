@@ -1,4 +1,8 @@
 <?php 
+require 'vendor/autoload.php';
+use Firebase\JWT\JWT;
+
+
 
 if (!is_file("modelo/".$pagina.".php")){
 	
@@ -26,7 +30,8 @@ require_once("modelo/".$pagina.".php");
 			if(empty($resultado[1])){
 				$entrada= false;
 				$mensaje="El usuario ingresado es incorrecto";
-				echo $mensaje;
+				$o->bitacora1("se intento ingresar al sistema", "login","0000");
+			
 				
 				
 			}
@@ -37,16 +42,36 @@ require_once("modelo/".$pagina.".php");
 				if (!$verifica) {
 					$entrada= false;
 					$mensaje="La contraceña ingresada es incorrecta";
-					echo $mensaje;
+					$o->bitacora1("se intento ingresar al sistema", "login","0000");
 				}
 
 			}
 			
+		
 
 			if($entrada){
 				$permisos=$o->permisos($resultado[1]);
 				if ($permisos!="ha ocurrido un error") {
+					
 					session_start();
+					
+							$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+							$token = JWT::encode(
+								array(
+									'iat'		=>	time(),
+									'nbf'		=>	time(),
+									'exp'		=>	time() + 3600,
+									'resultado'	=> array(
+										'user'	=>	$resultado[2],
+										'rol'	=>	$resultado[1]
+									)
+								),
+								$key,
+								'HS256'
+							);
+							setcookie("token", $token, time() + 3600, "/", "", true, true);
+							
+					
 					
 					$_SESSION['usuario'] =$resultado[2];
 					$_SESSION['rol'] = $resultado[1];

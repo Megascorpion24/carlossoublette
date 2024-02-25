@@ -206,7 +206,7 @@ class tutor_legal extends datos{
 
                 $this->bitacora("se registro un representante", "representantes",$this->nivel);
              
-                    return "Registro Incluido";	
+                return "1REGISTRADO CON EXITO";
                 
             }catch(Exception $e){
                 
@@ -214,7 +214,7 @@ class tutor_legal extends datos{
             }
         }
             else{
-                return "Cedula Registrada";
+                return "4CEDULA YA EXISTE";
             }
   }
 
@@ -268,13 +268,13 @@ class tutor_legal extends datos{
                     $r->bindParam(':apellido2',$this->apellido2);	
                     $r->bindParam(':telefono',$this->telefono);	
                     $r->bindParam(':correo',$this->correo);	
-                    $r->bindParam(':contacto_emer',$this->contacto_emer);	
-                
-                 
+                    $r->bindParam(':contacto_emer',$this->contacto_emer);	                 
                     $r->execute();
-    
+
+                    
                     $this->bitacora("se modifico un representante", "representantes",$this->nivel);
-                        return "Registro modificado";	
+                    
+                    return "2REGISTRO MODIFICADO";
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -282,7 +282,7 @@ class tutor_legal extends datos{
                     
                 }
                 else{
-                    return "cedula no registrada";
+                    return "4PAGO NO REGISTRADO";
                 }
         
 
@@ -444,23 +444,56 @@ public function eliminar1(){
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe($this->cedula)){
         try {
-                $r=$co->prepare("UPDATE tutor_legal  SET estado = 0 WHERE cedula=:cedula");
-                $r->bindParam(':cedula',$this->cedula);
-                $r->execute();
-                $this->bitacora("se elimino un representante", "representantes",$this->nivel);
-                return "Registro Eliminado";              
-        } catch(Exception $e) {
-            return $e->getMessage();
+
+
+
+
+        $resultado = $co->prepare("SELECT e.*, et.*
+        FROM estudiantes e
+        JOIN estudiantes_tutor et ON e.cedula = et.id_estudiantes
+        WHERE et.id_tutor = :cedula AND e.estado = 1;");
+        $resultado->bindParam(':cedula',$this->cedula);
+        $resultado->execute();
+        $respuesta="";
+        $respuesta2="";
+        foreach($resultado as $r){
+        $respuesta2 =$r['cedula'];
         }
-    }
-    else{
-        return "Cedula no registrada";
-    }
-}
+
+                if (empty($respuesta2)) {
+                    # code...
+                    
+                
+                $r= $co->prepare("UPDATE tutor_legal  SET estado = 0 WHERE cedula=:cedula");           
+                $r->bindParam(':cedula',$this->cedula);	               	
+                $r->execute();
+
+                $this->bitacora("Se Elimino Un Representante", "Pagos",$this->nivel);
+                    return "3REGISTRO ELIMINADO";
+                    }else{
+                    return "4No se puede eliminar Tiene estudiante activo";
+                    }                       
+                } catch(Exception $e) {
+                    return $e->getMessage();
+                }        
+            }
+      else{
+            return "4CEDULA NO REGISTRADA";
+        }
+        }
 
 
 
 
+
+
+
+
+
+
+
+
+ 
 
 
 

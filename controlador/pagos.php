@@ -196,15 +196,13 @@ require_once("modelo/".$pagina.".php");
 			$dato[4]="error en la validacion del fechaM";
 			$validacion[5]=$o->set_monto($_POST['montoM']);
 			$dato[5]="error en la validacion del montoM";
-			$validacion[6]=$o->set_meses($_POST['mesesM']);
-			$dato[6]="error en la validacion del mesesM";
-			$validacion[7]=$o->set_estado($_POST['estadoM']);
-			$dato[7]="error en la validacion del estadoM";
-			$validacion[8]=$o->set_id($_POST['idM']);
-			$dato[8]="error en la validacion del idM";			
+			$validacion[6]=$o->set_estado($_POST['estadoM']);
+			$dato[6]="error en la validacion del estadoM";
+			$validacion[7]=$o->set_id($_POST['idM']);
+			$dato[7]="error en la validacion del idM";			
 			$o->set_nivel($nivel);
 
-			for ($i=0; $i <= 8 ; $i++) { 
+			for ($i=0; $i <= 7 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;
@@ -319,12 +317,6 @@ require_once("modelo/".$pagina.".php");
 
  
 
-
-
-
-
-
-
 		  if(!empty($_POST['accion3'])){
 
 			$valor=true;
@@ -338,7 +330,7 @@ require_once("modelo/".$pagina.".php");
 					$valor=false;
 				}
 			}
-
+			$o->set_nivel($nivel);
 			if ($valor==true) {
 				$mensaje = $o->eliminar();
 				echo $mensaje;
@@ -354,92 +346,38 @@ require_once("modelo/".$pagina.".php");
 
 
 
-
-
-
-
-
-
-
-		  if(!empty($_POST['accion4'])){
-
-			$valor=true;
-			$retorno="";	
-			$validacion[0]=$o->set_id($_POST['idE2']);	
-			$dato[0]="error en la validacion del idE2";
-			
-			for ($i=0; $i <= 0 ; $i++) { 
-				if ($validacion[$i]== false) {
-					$retorno=$retorno.$dato[$i]."<br>";
-					$valor=false;
-				}				
-			}
-
-			if ($valor==true) {
-				$mensaje = $o->eliminarr();
-				echo $mensaje;
-			}else{
-				echo $retorno;
-			}			
-			exit;			
-		}
-  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
-  //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
-  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
-
-
-
-
-
-
-		  if(!empty($_POST['consulta'])){
+		if(!empty($_POST['consulta'])){
 	
 			if(isset($_SESSION['permisos'])){
 				$nivel1 = $_SESSION['permisos'];		   
-			 }
-			 else{
+			}
+			else{
 				 $nivel1 = "";
-			 }
-			
-
-		
-			$consuta=$o->consultar($nivel1);
-			echo $consuta;
+			}
+			$consuta=$o->consultar($nivel1);	
+			echo $consuta;	
 			exit;
-		  }
+		}
 	
-		  $var=$o->dolar();
+		$var=$o->dolar();
 
 
 		  	/* aqui estan las cosas del tutor*/ 
-		  if($_SESSION["rol"]=="1"){
+		if($_SESSION["rol"]=="1"){
 			$consutar=$o->consultarr($_SESSION["usuario"]);
-
-			
-		
-
 			$consutat=$o->consultart($_SESSION["usuario"]);
-			}else{/* aqui estan las cosas del super usuario*/ 
-				$consuta=$o->consultar($nivel1);
-		
+
+		}else{/* aqui estan las cosas del super usuario*/ 
+				$consuta=$o->consultar($nivel1);		
 				$consuta3=$o->consultar3($nivel1);
-				$consuta2=$o->consultar2($nivel1);
-				
-			}
-	
-			$consutamonto=$o->consultamonto($nivel1);
+				$consuta2=$o->consultar2($nivel1);				
+		}	
+		$consutamonto=$o->consultamonto($nivel1);
 
-
-			
-			require_once("vista/".$pagina.".php");
+		require_once("vista/".$pagina.".php");
 	
 	
 	}
-
-
-
-
-
 
 	
 ?>  

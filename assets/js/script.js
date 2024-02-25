@@ -33,6 +33,7 @@ $(document).ready(function() {
       lengthMenu: 'Mostrar _MENU_ registros',
       zeroRecords: 'No se encontraron resultados',
       emptyTable: 'Ningún dato disponible en esta tabla',
+      info:"Mostrando de _START_ a _END_ de _TOTAL_ registros",
       infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
       infoFiltered: '(filtrado de un total de _MAX_ registros)',
       search: 'Buscar:',
@@ -55,7 +56,7 @@ $(document).ready(function() {
   
 
   $(".dataTables_filter input")
-    .attr("placeholder", "Search here...")
+    .attr("placeholder", "Buscar...")
 
 
   $('[data-toggle="tooltip"]').tooltip();

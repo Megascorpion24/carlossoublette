@@ -1,6 +1,19 @@
 <?php
 
 
+require 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}
+
 if (empty($_SESSION)) {
 	session_start();
 }
@@ -64,11 +77,10 @@ if (isset($_SESSION['permisos'])) {
 										</a>
 									<?php } ?>
 
-
 								</div>
 							</div>
 
-							<div>
+							<div id=full>
 								<!-- Nav tabs -->
 								<ul class="nav nav-tabs">
 									<li class="nav-item">
@@ -184,9 +196,6 @@ if (isset($_SESSION['permisos'])) {
 
 																	},
 
-
-
-
 																<?php
 																				}
 																?>
@@ -201,15 +210,11 @@ if (isset($_SESSION['permisos'])) {
 
 															$("#editClase").modal();
 
-
-
 														},
 
 
 														eventColor: "#F27171",
 														eventBackgroundColor: "#947BE6",
-
-
 
 
 													});
@@ -231,16 +236,6 @@ if (isset($_SESSION['permisos'])) {
 
 
 										</div>
-
-
-
-
-
-
-
-
-
-
 
 										<div class="tab-pane container fade" id="menu1">
 
@@ -272,11 +267,7 @@ if (isset($_SESSION['permisos'])) {
 
 												</tbody>
 
-
 											</table>
-
-
-
 
 										</div>
 
@@ -325,9 +316,9 @@ if (isset($_SESSION['permisos'])) {
 										<div class="form-row">
 											<div class="form-group col-md-4">
 												<label>Materia</label>
-												<span style="color:#FF0000" id="sclase"></span>
+										
 												<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
-												<div class="form-group col-md-4">
+												
 
 													<select class="form-control col-md-4" name="clase" id="clase" onchange="añadir('#clase')">
 														<?php
@@ -336,12 +327,12 @@ if (isset($_SESSION['permisos'])) {
 														}
 														?>
 													</select>
-												</div>
+													<span style="color:#FF0000"   margin-top: 10px" id="sclase"></span>
 											</div>
 											<div class="form-group col-md-4">
 												<label>docente</label>
-												<div class="form-group col-md-4">
-													<span style="color:#FF0000" id="scedula_profesor"></span>
+												
+													
 													<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
 													<select class="form-control" name="cedula_profesor" id="cedula_profesor" onchange="añadir2('#cedula_profesor')">
 														<?php
@@ -350,7 +341,8 @@ if (isset($_SESSION['permisos'])) {
 														}
 														?>
 													</select>
-												</div>
+													<span style="color:#FF0000" id="scedula_profesor"></span>
+												
 											</div>
 
 
@@ -358,7 +350,7 @@ if (isset($_SESSION['permisos'])) {
 												
 													<div class="form-group col-md-4">
 														<label>Sección:</label>
-														<span style="color:#FF0000" id="sano"></span>
+														
 														<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
 														<select name="ano" id="ano" onchange="añadir3('#ano')">
 															<?php
@@ -367,6 +359,7 @@ if (isset($_SESSION['permisos'])) {
 															}
 															?>
 														</select>
+														<span style="color:#FF0000" id="sano"></span>
 													</div>
 										
 											
@@ -379,7 +372,7 @@ if (isset($_SESSION['permisos'])) {
 
 											<div class="form-group col-md-4">
 												<label>dia</label>
-												<span style="color:#FF0000" id="sdia"></span>
+												
 												<select class="form-control" id="dia" name="dia">
 													<option value="0">-Selecionar-</option>
 													<option value="1">lunes</option>
@@ -388,17 +381,20 @@ if (isset($_SESSION['permisos'])) {
 													<option value="4">jueves</option>
 													<option value="5">viernes</option>
 												</select>
+												<span style="color:#FF0000" id="sdia"></span>
 											</div>
 
 											<div class="form-group col-md-4">
 												<label>Clase inicia</label>
-												<span style="color:#FF0000" id="sclase_inicia"></span>
+												
 												<input type="time" class="form-control" name="clase_inicia" id="clase_inicia" required>
+												<span style="color:#FF0000" id="sclase_inicia"></span>
 											</div>
 											<div class="form-group col-md-4">
 												<label>Clase termina</label>
-												<span style="color:#FF0000" id="sclase_termina"></span>
+												
 												<input type="time" placeholder="hh/mm" class="form-control" name="clase_termina" id="clase_termina" required>
+												<span style="color:#FF0000" id="sclase_termina"></span>
 											</div>
 										
 										
@@ -474,13 +470,14 @@ if (isset($_SESSION['permisos'])) {
 							<div class="modal-body">
 
 								<h5 class="modal-title">Modifcar informacion de la clases</h5>
+								<label>sección actual del registro: <input disabled type="text" name="ano2" id="ano2"></label>
 								<hr>
 
 								<div class="form-row">
 
 
 
-									<div class="form-row">
+									
 
 										<div class="form-group col-md-4">
 											<label>Dia</label>
@@ -498,7 +495,7 @@ if (isset($_SESSION['permisos'])) {
 										</div>
 										
 											<div class="form-group col-md-4">
-												<div class="form-group col-md-4">
+												
 													<label>sección:</label>
 													<span style="color:#FF0000" id="sano1"></span>
 
@@ -509,10 +506,9 @@ if (isset($_SESSION['permisos'])) {
 														}
 														?>
 													</select>
-												</div>
+												
 											</div>
-										
-									
+								
 									
 										<div class="form-group col-md-4">
 											<label>inicio de la clase</label>
@@ -520,18 +516,18 @@ if (isset($_SESSION['permisos'])) {
 											<input type="time" class="form-control" name="clase_inicia1" id="clase_inicia1" required>
 										</div>
 										<div class="form-group col-md-4">
-											<label>clase_termina</label>
+											<label>Clase Termina</label>
 											<span style="color:#FF0000" id="sclase_termina1"></span>
 											<input type="time" class="form-control" name="clase_termina1" id="clase_termina1" required>
 										</div>
+										</div>
 									
-									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 										<button type="button" class="btn btn-success" id="registrar2">Actualizar</button>
 									</div>
 									</form>
-								</div>
+								
 							</div>
 						</div>
 					</div>

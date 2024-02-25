@@ -1,6 +1,19 @@
 <?php
 
 
+require 'vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = '1a3LM3W966D6QTJ5BJb9opunkUcw_d09NCOIJb9QZTsrneqOICoMoeYUDcd_NfaQyR787PAH98Vhue5g938jdkiyIZyJICytKlbjNBtebaHljIR6-zf3A2h3uy6pCtUFl1UhXWnV6madujY4_3SyUViRwBUOP-UudUL4wnJnKYUGDKsiZePPzBGrF4_gxJMRwF9lIWyUCHSh-PRGfvT7s1mu4-5ByYlFvGDQraP4ZiG5bC1TAKO_CnPyd1hrpdzBzNW4SfjqGKmz7IvLAHmRD-2AMQHpTU-hN2vwoA-iQxwQhfnqjM0nnwtZ0urE6HjKl6GWQW-KLnhtfw5n_84IRQ';
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}
+
 if (empty($_SESSION)) {
 	session_start();
 }
@@ -20,6 +33,7 @@ if (isset($_SESSION['permisos'])) {
 
 	<?php  require_once('comunes/header.php');?>
     <?php require_once('comunes/menu.php'); ?>
+    <link rel="stylesheet" href="assets/css/boton.css">
 
 </head>
 <body>
@@ -168,7 +182,7 @@ if (isset($_SESSION['permisos'])) {
 
 										<div class="tab-pane container fade" id="menu1">
 									
-											<table id="tablas" style="width:100%; color:black;" class="table table-hover table-dark">
+											<table id="tablas" style="width:100%; color:black;" class="table table-striped table-hover">
 											
 											<thead>
 													<tr>
@@ -390,7 +404,7 @@ if (isset($_SESSION['permisos'])) {
       <div class="modal-body">
 
         <p>Estas seguro de querer eliminar este registro ?</p>
-		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
+		<p style="color:#FF0000"><small>Esta Accion no es reversible</small></p>
 
       </div>
       <div class="modal-footer">
@@ -404,43 +418,6 @@ if (isset($_SESSION['permisos'])) {
 </div>
 
 <!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>  
-
-
-
-<!-----------------------------------------------MODAL BORRAR------------------------------------------------------>
-<div class="modal fade" tabindex="-1" id="updateDoc" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-
-        <h5 class="modal-title">Actualizar el estado del Docente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-
-      </div>
-	  <form id="f3">
-
-		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
-
-	</form>
-      <div class="modal-body">
-
-        <p>Estas seguro de querer eliminar este registro ?</p>
-		<p class="text-warning"><small>Esta Accion no es reversible</small></p>
-
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" id="update">Si, Actualizar</button>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-----------------------------------------------FIN MODAL BORRAR------------------------------------------------------>   
 					   
 					
 					
@@ -459,4 +436,48 @@ if (isset($_SESSION['permisos'])) {
     <script  src="assets/js/script.js"></script>
 
 </body>
+
+<style>
+	* {
+		font-family: 'Poppins',sans-serif;
+                                                
+       }
+</style>
+
 </html>
+
+
+
+
+<!-- Modal: Informacion  -->
+<div class="modal fade bd-example-modal-lg" id="info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content"> 
+		<div class="modal-header">
+             <h5 class="modal-title">Registrar Años Academicos</h5>
+			<!-- <input type="text" id="filtroEstudiantes" placeholder="Buscar estudiantes"> -->
+        </div>
+
+		 <div class="modal-body">
+		
+<table id="tablas" style="width:100%" class="table table-striped table-hover  tabla_estudiantes">
+                <thead>
+                   <th>ID</th>
+                   <th>FECHA INICIO</th>
+                   <th>FECHA CIERRE</th>
+                   <th>EVENTO</th>
+                   </tr>
+                </thead> 
+                 
+                <tbody id="tabla_estudiantes">
+                    
+                </tbody>     
+</table>
+
+		</div>
+	</div>
+
+    <!-- </div> -->
+  </div>
+</div>
