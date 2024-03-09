@@ -2,6 +2,7 @@
 require 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
 $dotenv->load();
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
