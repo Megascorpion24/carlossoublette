@@ -153,6 +153,7 @@ class usuarios extends datos{
             if($this->existe($this->cedula)){
                 try{
                     $t="1";
+                    $claveencr=password_hash($this->contraceña, PASSWORD_DEFAULT, ['cost'=>10]);
                     $r= $co->prepare("Update usuarios set 
                             
                        
@@ -184,7 +185,7 @@ class usuarios extends datos{
                         $r->bindParam(':id',$this->cedula);
                
                         $r->bindParam(':correo',$this->correo);	
-                        $r->bindParam(':clave',$this->contraceña);	
+                        $r->bindParam(':clave',$claveencr);	
                         $r->bindParam(':estado',$t);	
                         $r->bindParam(':id_rol',$this->rol);	
                  

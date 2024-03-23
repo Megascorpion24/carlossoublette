@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Recuperar</title>
     <!-- Style -->
     <link rel="stylesheet" href="assets/css/login.css" />
     <!-- Google Fonts -->
@@ -55,7 +55,7 @@
 
     <div class="container">
       <div class="card">
-        <div class="container-label">Bienvenido <span></span></div>
+        <div class="container-label">Recuperar Contraseña <span></span></div>
 
         <div class="container-icon">
          
@@ -65,21 +65,19 @@
             <form  method="post" id="f">
             <label for="usuario">Nombre / Usuario</label>
             <span id="suser"></span>
-            <input type="text"id="user" name="user" placeholder="Introducir Nombre / Contraseña" autofocus/>
+            <input type="text"id="user" name="user" placeholder="Introducir Nombre " autofocus/>
 
-            <div class="container-input">
-              <label for="password">Contraseña</label>
-
-              <span id="spassword"></span>
-              <input type="password"id="password" name="password" id="password" placeholder="Digite su Contrasena"/>
+            <div class="container-input" display= none>
+              
+             
               <i id="reveal-password" class="bi bi-eye-slash"></i>
             </div>
 
           <div class="change-password">
-              Recuperar contraseña <a href="?pagina=recuperar" class="">Clique aqui</a>
+              Iniciar sesión <a href="?pagina=Login">Clique aqui</a>
             </div>
             
-            <div class="boton" id="enviar" >Ingresar</div>
+            <div class="boton" id="enviar" >Recuperar</div>
             
             </form>
         </div>
