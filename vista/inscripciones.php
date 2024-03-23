@@ -72,6 +72,12 @@ if(isset($_COOKIE['token'])){
 							   <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
 							   <i class="material-icons">&#xE147;</i>
 							   <span>Inscribir</span>
+							   <select class="form-select" aria-label="Default select example">
+  <option selected>Open this select menu</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
 							   </a>
 							   <?php } ?>
 
@@ -86,6 +92,7 @@ if(isset($_COOKIE['token'])){
 							 </div>
 					     </div>
 					   </div>
+					  
 					   <?PHP if (in_array("consultar inscipcion", $nivel1)) {?>
 					   <table id="tablas" class="table table-striped table-hover">
 					      <thead>
