@@ -1,13 +1,10 @@
 <?php
  
-
-require 'vendor/autoload.php';
-
 require 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
 $dotenv->load();
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+use Firebase\JWT\JWT; 
+use Firebase\JWT\Key; 
 
 $key = $_ENV['JWT_SECRET_KEY'];
 
