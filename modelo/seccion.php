@@ -229,7 +229,6 @@ public function abc(){
         $resultado->execute();
         
         $respuesta2 = "";
-        $primerResultado = true;
 
         foreach ($resultado as $r) {
             $respuesta2 .= '<option value="' . $r['id'] . '" class="' . $r['estado'] . '">' . $r['secciones'] . '</option>';
