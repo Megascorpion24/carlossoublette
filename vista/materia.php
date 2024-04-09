@@ -7,7 +7,7 @@ $dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
 $dotenv->load();
 use Firebase\JWT\JWT; 
 use Firebase\JWT\Key; 
-
+ 
 $key = $_ENV['JWT_SECRET_KEY'];
 
 if(isset($_COOKIE['token'])){
@@ -15,7 +15,7 @@ if(isset($_COOKIE['token'])){
 } else {
 	header('location:index.php');
 }  
-
+ 
 // ---------------------------------
 		  if(empty($_SESSION)){
 		  session_start();
@@ -25,7 +25,7 @@ if(isset($_COOKIE['token'])){
 			 $nivel1 = $_SESSION['permisos'];
 		
 		  }
-		  else{
+		  else{ 
 			  $nivel1 = "";
 		  }
 	    ?> 
@@ -217,9 +217,9 @@ if(isset($_COOKIE['token'])){
 		</div>
 		<span id="año_msj"></span>
 
-		</div>
+		</div> 
 			 
-<div class="container text-center" style="margin-top: -30px;">
+<div class="container text-center" style="margin-top: 10px;"> 
   <span id="existe_msj" class="text-end mb-2" style="color:#dfa700;"></span>
 </div>
 
