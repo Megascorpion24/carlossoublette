@@ -232,12 +232,6 @@ public function abc(){
         $primerResultado = true;
 
         foreach ($resultado as $r) {
-            // Omitir el primer resultado
-            if ($primerResultado) {
-                $primerResultado = false;
-                continue;
-            }
-
             $respuesta2 .= '<option value="' . $r['id'] . '" class="' . $r['estado'] . '">' . $r['secciones'] . '</option>';
         }
 
