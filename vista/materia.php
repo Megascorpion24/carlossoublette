@@ -1,6 +1,8 @@
 <?php
- 
-require 'vendor/autoload.php';
+
+
+// ---------------------------------
+ require 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
 $dotenv->load();
 use Firebase\JWT\JWT; 
@@ -12,7 +14,9 @@ if(isset($_COOKIE['token'])){
 	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
 } else {
 	header('location:index.php');
-}
+}  
+
+// ---------------------------------
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -29,7 +33,7 @@ if(isset($_COOKIE['token'])){
    
  
 <!DOCTYPE html> 
-<html lang="es"> 
+<html lang="es">   
 <head>
 	
 <link rel="stylesheet" href="assets\css\jquery-ui.css">
@@ -211,11 +215,10 @@ if(isset($_COOKIE['token'])){
 						}
 					?>
 		</div>
-		<br>
 		<span id="año_msj"></span>
 
 		</div>
-			
+			 
 <div class="container text-center" style="margin-top: -30px;">
   <span id="existe_msj" class="text-end mb-2" style="color:#dfa700;"></span>
 </div>
@@ -374,8 +377,15 @@ if(isset($_COOKIE['token'])){
 
 	<?php require_once('comunes/footer.php') ?> 
 	<script src="assets/js/jquery-ui.js"></script>
-    <script src="assets/js/materia.js"></script>
-    <!-- <script src="assets/js/tabla.js"></script> -->
+	
+    <script src="assets\js\src\materia\01.DataTable+Filter.js"></script>
+    <script src="assets\js\src\materia\02.AutoComplete.js"></script>
+    <script src="assets\js\src\materia\03.Modificar_Eliminar_Enviar.js"></script>
+    <script src="assets\js\src\materia\04.Validate_Exist.js"></script>
+    <script src="assets\js\src\materia\05.Validate.js"></script>
+    <script src="assets\js\src\materia\Main.js"></script>
+	
+    <!-- <script src="assets/js/materia.js"></script>  -->
 	<!--<script  src="assets/js/script.js"></script>-->
 </body>
 </html>
