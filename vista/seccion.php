@@ -1,19 +1,21 @@
 <?php
- 
 
- require 'vendor/autoload.php';
- $dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
- $dotenv->load();
- use Firebase\JWT\JWT;
- use Firebase\JWT\Key;
- 
- $key = $_ENV['JWT_SECRET_KEY'];
- 
- if(isset($_COOKIE['token'])){
-	 $decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
- } else {
-	 header('location:index.php');
- }
+// ---------------------------------
+require 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
+$dotenv->load();
+use Firebase\JWT\JWT; 
+use Firebase\JWT\Key; 
+
+$key = $_ENV['JWT_SECRET_KEY'];
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+} else {
+	header('location:index.php');
+}  
+
+// ---------------------------------
 		  if(empty($_SESSION)){
 		  session_start();
 		  }
@@ -24,7 +26,7 @@
 		  }
 		  else{
 			  $nivel1 = "";
-		  }
+		  } 
 	    ?>
 
 <!DOCTYPE html>
@@ -227,11 +229,7 @@
 			  <div class="col-2 mb-3">
    			 <label for="exampleFormControlSelect1">Ident.Abecedario</label>
    				 <select class="form-control" id="secciones" name="secciones">
-								<!-- <?php
-									// if (!empty($abc)) {
-											// echo $abc; 
-									// }
-								?> -->
+								<!-- CONTENIDO POR AJAX -->
    				 </select>
   			</div>
 			
@@ -424,13 +422,20 @@
 </div>
 
 <!-- ------------------------------------------------------------------------------- -->
-
-
-
+ 
+  
+  
 	<?php require_once('comunes/footer.php') ?> 
-    <script src="assets/js/seccion.js"></script>
+	<script src="assets\js\src\seccion\01.DataTable+Filter.js"></script>
+    <script src="assets\js\src\seccion\02.Request_Ajax.js"></script>
+    <script src="assets\js\src\seccion\03.Modificar_Eliminar_Enviar.js"></script>
+    <script src="assets\js\src\seccion\04.EventListener.js"></script>
+	<script src="assets\js\src\seccion\05.Validate_Exist.js"></script>
+	<script src="assets\js\src\seccion\06.Validate.js"></script>
+    <script src="assets\js\src\seccion\07.Modal_Students.js"></script>
+	<script src="assets\js\src\seccion\Main.js"></script>
 
-
+  
     <!-- <script src="assets/js/tabla.js"></script> -->
 	<!--<script  src="assets/js/script.js"></script>-->
 </body>
@@ -439,7 +444,7 @@
 
 <!-- Modal: Informacion  -->
 <div class="modal fade bd-example-modal-lg" id="info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg ">
 
     <div class="modal-content"> 
 		<div class="modal-header">
