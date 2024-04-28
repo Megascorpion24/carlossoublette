@@ -615,6 +615,21 @@ if(isset($_COOKIE['token'])){
 
 </div> 
 
+<div class="form-group col-md-4">
+<h5 class="modal-title">bitacora</h5>
+	    <hr>
+		<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="126" name="exampleRadios[]" id="63"  >
+  <label class="form-check-label" for="63">
+	 Consultar Bitacora
+  </label>
+</div>
+
+
+
+
+</div> 
+
 
 
 		
