@@ -379,7 +379,11 @@
                                         <img alt="Disponible en Google Play" src="/img/icons/social-google-play-badge.webp" height="50px"/>
                                     </a>
                                     <div class="margin-10"></div>
+<<<<<<< HEAD
                                 <h1>Dólar BCV  Venezuela</h1><h2>36,43<small><small> BS/USD</small></small></h2><p>28-04-2024 09:18 pm</p>                    </div>
+=======
+                                <h1>Dólar BCV  Venezuela</h1><h2>36,43<small><small> BS/USD</small></small></h2><p>28-04-2024 05:49 pm</p>                    </div>
+>>>>>>> 3b432c35ec6073d2686b2f6ebca36dc95632b350
                     
                             <script>
 
@@ -537,9 +541,15 @@
                                             <div itemprop="text">
                                                 <!-- start NewsArticle -->
                                                 <div itemscope itemtype="https://schema.org/NewsArticle">        
+<<<<<<< HEAD
         <meta itemprop="dateCreated"        content="2024-04-29T01:18 +00:00" />
         <meta itemprop="datePublished"      content="2024-04-29T01:18 +00:00" />
         <meta itemprop="dateModified"       content="2024-04-29T01:18 +00:00" />
+=======
+        <meta itemprop="dateCreated"        content="2024-04-28T21:49 +00:00" />
+        <meta itemprop="datePublished"      content="2024-04-28T21:49 +00:00" />
+        <meta itemprop="dateModified"       content="2024-04-28T21:49 +00:00" />
+>>>>>>> 3b432c35ec6073d2686b2f6ebca36dc95632b350
         <meta itemprop="articleSection"     content="Venezuela" />
         <meta itemprop="description"        content="El precio del dólar BCV en Venezuela hoy domingo, 28 de Abril de 2024 es de 36,43 BS/USD. Consulta los gráficos estadísticos actualizados cada 5 minutos." />
         <meta itemprop="mainEntityOfPage"   itemscope itemtype="https://schema.org/WebPage" itemid="https://exchangemonitor.net/estadisticas/ve/dolar-bcv" />
@@ -756,7 +766,11 @@
         var formato = "%d/%m/%Y %H:%M";
         var tooltip = true;
         
+<<<<<<< HEAD
         let fecha_utc = new Date('2024/04/29 01:18');
+=======
+        let fecha_utc = new Date('2024/04/28 21:49');
+>>>>>>> 3b432c35ec6073d2686b2f6ebca36dc95632b350
         let fecha_local = new Date();
         
         var utc;

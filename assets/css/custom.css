@@ -154,6 +154,9 @@ overflow:auto;
 	  
   }
   
+
+
+
   
   #sidebar::-webkit-scrollbar{
 	  width:5px;
@@ -165,7 +168,7 @@ overflow:auto;
   #sidebar::-webkit-scrollbar-thumbs{
 	  width:5px;
 	  border-radius:10px;
-	  background-color:#333;
+	  background-color:#eee;
 	  display:none;
   }
   
@@ -177,6 +180,43 @@ overflow:auto;
 	  display:block;
   }
   
+
+
+
+
+
+  #sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: #eee #eee;
+}
+
+#sidebar::-moz-scrollbar {
+    width: 5px;
+    border-radius: 10px;
+    background-color: rgb(189, 187, 187);
+    display: none;
+}
+
+#sidebar::-moz-scrollbar-thumb {
+    width: 5px;
+    border-radius: 10px;
+    background-color: #eee;
+    display: none;
+}
+
+#sidebar:hover::-moz-scrollbar-thumb {
+    display: block;
+}
+
+#sidebar:hover::-moz-scrollbar {
+    display: block;
+}
+
+
+
+
+
+
   #sidebar .sidebar-header{
 	  padding:20px;
 	  background-color:#fff;
@@ -353,8 +393,8 @@ overflow:auto;
 		
 		.xp-menubar{
          border-radius:50%;
-       width:45px;
-height:45px;
+       width:47px;
+height:47px;
 line-height:45px;
 text-align:center;
 margin-right:20px;
@@ -709,6 +749,7 @@ background-color:rgba(0,0,0,0.09);
 	   }
 	   .modal .modal-content{
 		   border-radius:3px;
+		   text-align: center;
 	   }
 	   
 	   .modal .modal-footer{
@@ -721,13 +762,14 @@ background-color:rgba(0,0,0,0.09);
 	   }
 	   
 	   .modal .form-control{
-		   border-radius:2px;
+		   border-radius:5px;
 		   box-shadow:none;
 		   border-color:#dddddd;
 	   }
 	   
-	    .modal textarea.form-control{
-			resize: horizontal;
+
+		.modal textarea.form-control {
+			resize: both;
 		}
 		
 		  .modal .btn{
