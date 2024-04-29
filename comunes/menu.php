@@ -40,14 +40,19 @@ if (isset($_SESSION['permisos'])) {
 		</div>
 		<ul class="list-unstyled component m-0">
 			<!-------1 PAGINA------------>
-			<li class="active">
+			<li class="">
 				<a href="?pagina=principal" class="">Inicio </a>
 			</li>
 			<!-------2 PAGINA------------>
 			<?php
 			if (in_array("consultar usuario", $nivel1)) {
+			if ($pagina=="usuarios") {
+				$variable="active";
+			}else{
+				$variable="";
+			}
 			?>
-				<li class="">
+				<li class="<?php echo $variable?>">
 					<a href="?pagina=usuarios"><img class="pr-3 " src="assets/icon/comment-user.png" />Usuarios </a>
 				</li>
 			<?php
@@ -56,8 +61,14 @@ if (isset($_SESSION['permisos'])) {
 			<!-------3 PAGINA------------>
 			<?php
 			if (in_array("consultar docente", $nivel1)) {
+				if ($pagina=="docente") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
+
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=docente"><img class="pr-3" src="assets/icon/usuario.png" />Docentes</a>
 			</li>
 			<?php
@@ -67,8 +78,13 @@ if (isset($_SESSION['permisos'])) {
 			<!-------4 PAGINA------------>
 			<?php
 			if (in_array("consultar representante", $nivel1)) {
+				if ($pagina=="representante") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=representante"><img class="pr-3" src="assets/icon/users.png" />Representantes </a>
 			</li>
 			<?php
@@ -77,8 +93,13 @@ if (isset($_SESSION['permisos'])) {
 			<!-------5 PAGINA------------>
 			<?php
 			if (in_array("consultar inscipcion", $nivel1)) {
+				if ($pagina=="inscripciones") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=inscripciones" class=""><img class="pr-3" src="assets/icon/comprobacion-de-comentarios.png" />Inscripciones </a>
 			</li>
 			<?php
@@ -87,8 +108,13 @@ if (isset($_SESSION['permisos'])) {
 			<!-------6 PAGINA------------>
 			<?php
 			if (in_array("consultar pagos", $nivel1)) {
+				if ($pagina=="pagos") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=pagos"><img class="pr-3" src="assets/icon/coins.png" />Pagos </a>
 			</li>
 			<?php
@@ -97,8 +123,13 @@ if (isset($_SESSION['permisos'])) {
 			<!-------6 PAGINA------------>
 			<?php
 			if (in_array("consultar materias", $nivel1)) {
+				if ($pagina=="materia") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-			<li class="">
+			<li class=" <?php echo $variable?>">
 				<a href="?pagina=materia"><img class="pr-3" src="assets/icon/books.png" />Materias </a>
 			</li>
 			<?php
@@ -108,8 +139,13 @@ if (isset($_SESSION['permisos'])) {
 			<!-------7 PAGINA------------>
 			<?php
 			if (in_array("consultar secciones", $nivel1)) {
+				if ($pagina=="seccion") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=seccion"><img class="pr-3" src="assets/icon/usuario-de-pizarra.png" />Secciones</a>
 			</li>
 			<?php
@@ -118,11 +154,16 @@ if (isset($_SESSION['permisos'])) {
 			<!-------8 PAGINA------------>
 			<?php
 			if (in_array("consultar ano_academico", $nivel1)) {
+				if ($pagina=="ano_academico" or $pagina=="eventos") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
 
-			<li class="dropdown">
+			<li class="dropdown <?php echo $variable?>">
 				<a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-					<img class="pr-3" src="assets/icon/calculadora.png" />Lapso Academico
+					<img class="pr-3 " src="assets/icon/calculadora.png" />Lapso Academico
 				</a>
 				<ul class="collapse list-unstyled menu" id="homeSubmenu2">
 					<li><a href="?pagina=ano_academico"><img class="pr-3" src="assets/icon/calendario2.png" />Año Academico</a>
@@ -136,9 +177,14 @@ if (isset($_SESSION['permisos'])) {
 			<!-------9 PAGINA------------>
 			<?php
 			if (in_array("consultar horario_docente", $nivel1)) {
+				if ($pagina=="horario_docente") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
 
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=horario_docente"><img class="pr-3" src="assets/icon/editar.png" />Horarios</a>
 			</li>
 			<?php
@@ -147,8 +193,14 @@ if (isset($_SESSION['permisos'])) {
 			<!-------11 PAGINA------------>
 			<?php
 			if (in_array("consultar seguridad", $nivel1)) {
+				if ($pagina=="seguridad") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
+				
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=seguridad" class=""><img class="pr-3" src="assets/icon/layout-fluid.png" />seguridad </a>
 			</li>
 			<?php
@@ -156,12 +208,15 @@ if (isset($_SESSION['permisos'])) {
 			?>
 			<!-------12 PAGINA------------>
 			<?php
-			if (in_array("consultar_reporte", $nivel1)) {
+			if (in_array("consultar seguridad", $nivel1)) {
+				if ($pagina=="reporte_egresos" or $pagina=="reporte_ingreso" or $pagina=="reporte_pagos") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-<?php
-			}
-			?>
-			<li class="dropdown">
+
+			<li class="dropdown <?php echo $variable?>">
 				<a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 					<img class="pr-3" src="assets/icon/grafico.png" />Reportes
 				</a>
@@ -171,11 +226,19 @@ if (isset($_SESSION['permisos'])) {
 					<li><a href="?pagina=reporte_pagos" class=""><img class="pr-3" src="assets/icon/grafico-simple-horizontal.png" />reporte de pagos </a></li>
 				</ul>
 			</li>
+			<?php
+			}
+			?>
 
 			<?php
 			if (in_array("Consultar Bitacora", $nivel1)) {
+				if ($pagina=="mantenimiento") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=mantenimiento" class=""><img class="pr-3" src="assets/icon/reloj.png" />mantenimiento</a>
 			</li>
 			<?php
@@ -184,8 +247,13 @@ if (isset($_SESSION['permisos'])) {
 			<!-------13 PAGINA------------>
 			<?php
 			if (in_array("Consultar Bitacora", $nivel1)) {
+				if ($pagina=="bitacora") {
+					$variable="active";
+				}else{
+					$variable="";
+				}
 			?>
-			<li class="">
+			<li class="<?php echo $variable?>">
 				<a href="?pagina=bitacora" class=""><img class="pr-3" src="assets/icon/ajustes.png" />bitacora</a>
 			</li>
 			<?php
