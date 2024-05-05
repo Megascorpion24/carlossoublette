@@ -6,7 +6,7 @@ require_once './mobile/validator/validacion.php';
 
 $login = new login();
 $data = json_decode(file_get_contents("php://input"));
-
+ 
 // Verifica si se recibieron los datos de usuario y contraseña
 if (isset($data->user) && isset($data->password)) {
    
