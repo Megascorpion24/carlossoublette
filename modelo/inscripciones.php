@@ -843,14 +843,30 @@ class inscripciones extends datos{
             }
     
 
-public function consultar($nivel1){
+public function consultar($nivel1, $id1){
     $co = $this->conecta();
 		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
+            if ($id1==0) {
+              
+            
+            $resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE estado=1");
+			$resultado->execute();
+           $respuesta='';
+            $posision=0;
+            foreach($resultado as $r){
+             
+                    $respuesta=$r['id'];
+
+            }
+            $id=$respuesta;
+        }else{
+            $id=$id1;
+        }
 			
-			
-			$resultado = $co->prepare("SELECT estudiantes.*, años.anos, secciones.secciones, secciones_años.id FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id INNER JOIN estudiantes on secciones_años.id=estudiantes.id_anos_secciones and estudiantes.estado=1 ORDER by años.anos, secciones.secciones");
+			 
+			$resultado = $co->prepare("SELECT estudiantes.*, años.anos, secciones.secciones, secciones_años.id FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id INNER JOIN estudiantes on secciones_años.id=estudiantes.id_anos_secciones INNER JOIN ano_estudiantes on ano_estudiantes.id_estudiantes=estudiantes.cedula INNER JOIN ano_academico ON ano_academico.id=ano_estudiantes.id_ano AND ano_academico.id=$id ORDER by años.anos, secciones.secciones");
 			$resultado->execute();
            $respuesta="";
 
@@ -885,6 +901,44 @@ public function consultar($nivel1){
             }
 
            
+            return $respuesta;
+         
+							
+							
+
+
+			
+			
+		}catch(Exception $e){
+			
+			return false;
+		}
+}
+
+public function consultar20(){
+    $co = $this->conecta();
+		
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+			
+			
+			$resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE 1");
+			$resultado->execute();
+           $respuesta='<select class="form-select" aria-label="select" id="ano">';
+            $posision=0;
+            foreach($resultado as $r){
+                if ($posision==0) {
+                    $respuesta=$respuesta.'<option value="'.$r['id'].'" selected>'.$r['ano_academico'].'</option>';
+                    
+                }else{
+                    $respuesta=$respuesta.'<option value="'.$r['id'].'">'.$r['ano_academico'].'</option>';
+                }
+                
+     
+                $posision++;
+            }
+
+            $respuesta=$respuesta.'</select>';
             return $respuesta;
          
 							
