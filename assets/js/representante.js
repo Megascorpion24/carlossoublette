@@ -382,13 +382,13 @@ function enviaAjax(datos){
                 LlamadaAlert(respuesta);     
              $("#consulta").val("consulta");            
              enviaAjax2($("#f4"));  
-<<<<<<< HEAD
+
        
-=======
+
                  setTimeout(function(){
                     window.location.reload();
                 }, 1000);
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
+
            
         },
             error: function(request, status, err){
