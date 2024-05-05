@@ -367,7 +367,7 @@ public function consultar($nivel1){
             GROUP_CONCAT(DISTINCT docentes.cedula ORDER BY docentes.nombre) AS docente_cedula
         FROM
             materias
-        LEFT JOIN
+        LEFT JOIN 
             años_materias ON materias.id = años_materias.id_materias
         LEFT JOIN
             años ON años_materias.id_anos = años.id
@@ -383,6 +383,14 @@ public function consultar($nivel1){
         
             ");
 			$resultado->execute();
+
+            //Consulta movil
+            if(in_array("request_app", $nivel1)){ // Corregido aquí
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
+            }
+      
+            //Consulta web
            $respuesta="";
 
             foreach($resultado as $r){
@@ -417,7 +425,7 @@ public function consultar($nivel1){
                 $respuesta.='<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id_materias'].'`)">
                 <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
                 </a>';
-               
+                
             }
             $respuesta.='</th>';
              $respuesta.='</tr>';
@@ -425,7 +433,8 @@ public function consultar($nivel1){
             }
  
             return $respuesta;
-         	
+        
+
 			
 		}catch(Exception $e){
 			
