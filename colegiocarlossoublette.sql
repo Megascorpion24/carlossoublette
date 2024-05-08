@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2024 a las 23:43:59
+-- Tiempo de generación: 08-05-2024 a las 04:19:11
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -140,7 +140,6 @@ CREATE TABLE `años_materias` (
 --
 
 INSERT INTO `años_materias` (`id`, `id_anos`, `id_materias`) VALUES
-(1, 1, 13),
 (2, 3, 14),
 (3, 4, 15),
 (4, 2, 16),
@@ -608,7 +607,6 @@ INSERT INTO `materias` (`id`, `nombre`, `estado`) VALUES
 (10, 'ssssssss', 0),
 (11, 'xzxzxzxzxzx', 0),
 (12, 'asdasddd', 0),
-(13, 'MATEMATICA', 1),
 (14, 'INGLES', 0),
 (15, 'INGLES', 1),
 (16, 'GAGAGA', 0),
@@ -641,11 +639,6 @@ INSERT INTO `materias_docentes` (`id`, `estado`, `id_materias`, `id_docente`) VA
 (8, 1, 15, '30019082'),
 (9, 0, 16, '000103'),
 (10, 0, 16, '000104'),
-(11, 0, 13, '000105'),
-(12, 0, 13, '000103'),
-(13, 0, 13, '000102'),
-(14, 0, 13, '000104'),
-(15, 0, 13, '000101'),
 (16, 0, 15, '000101'),
 (17, 1, 17, '000101'),
 (18, 1, 17, '000102'),
