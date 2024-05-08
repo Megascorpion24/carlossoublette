@@ -59,8 +59,8 @@ if (isset($_SESSION['permisos'])) {
 				    <div class="col-md-12">
 					   <div class="table">
 					     
-					   <div class="table-title  mb-3">
-					     <div class="row ">
+					   <div class="table-title  mb-3" id="call">
+					     <div class="row "id="call2">
 						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
 							    <h2 class="ml-lg-2">Registro de Años Academicos</h2>
 							 </div>
