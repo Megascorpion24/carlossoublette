@@ -69,15 +69,14 @@ if (isset($_SESSION['permisos'])) {
 									<h2 class="ml-lg-2">Tabla de registros</h2>
 								</div>
 								<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+								<select class="form-select" aria-label="select" id="ano">
 								<?php
 									if (!empty($consuta20)) {
 										echo $consuta20;
 									}
 									?>
+									</select>	
 										
-										<form id="8" class="ocultar">
-											<input type="text" id="inpF8" name="consultaAno">
-										</form>
 								
 									
 									<?PHP if (in_array("registrar inscipcion", $nivel1)) { ?>
