@@ -541,7 +541,7 @@ background-color:rgba(0,0,0,0.09);
 		   border-radius:20px 20px 0 0;
 	   }
 	   #call{	   /*--Parte externa del calendario , tabien afecta al datatable de santiago----*/ 
-		background:#ffffff;
+		background:#f7f7f7;
 		color:#000000;
 		position:sticky;
 		top:0;
@@ -549,6 +549,17 @@ background-color:rgba(0,0,0,0.09);
 		left:0;
 		padding:10px 30px;
 		border-radius:20px 20px 0 0;
+	}
+	#call2{	   /*--Parte externa del calendario , tabien afecta al datatable de santiago----*/ 
+		background:#2fb4a6;
+		color:#fff;
+		position:sticky;
+		top:0;
+		width:100%;
+		left:0;
+		padding:10px 30px;
+		border-radius:20px 20px 0 0;
+
 	}
 	   #calendar{ 	   /*--parte interna del calendario----*/ 
 		background:#e5fff9;

@@ -1,6 +1,6 @@
 <?php
 
-require_once('modelo/conexion.php');
+require_once('conexion.php');
 class horario extends datos
 {
 
@@ -505,6 +505,17 @@ class horario extends datos
 
             ORDER BY `horario_docente`.`id` DESC;");
             $resultado->execute();
+
+
+
+            //Consulta movil
+            if(in_array("request_app", $nivel1)){ // Corregido aquí
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
+            }
+
+
+
             $respuesta = "";
 
             foreach ($resultado as $r) {
