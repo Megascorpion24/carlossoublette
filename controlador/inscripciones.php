@@ -200,7 +200,25 @@ require_once("modelo/".$pagina.".php");
 			 }
 			
 			
-			$consuta=$o->consultar($nivel1);
+			$consuta=$o->consultar($nivel1,0);
+			
+			echo $consuta;
+			exit;
+			
+			
+		  }
+		  if(!empty($_POST['consultaAno'])){
+
+			if(isset($_SESSION['permisos'])){
+				$nivel1 = $_SESSION['permisos'];
+		   
+			 }
+			 else{
+				 $nivel1 = "";
+			 }
+			
+			
+			$consuta=$o->consultar($nivel1, $_POST['consultaAno']);
 			
 			echo $consuta;
 			exit;
@@ -208,7 +226,8 @@ require_once("modelo/".$pagina.".php");
 			
 		  }
 
-		  $consuta=$o->consultar($nivel1);
+		  $consuta=$o->consultar($nivel1, 0);
+		  $consuta20=$o->consultar20(); 
 		  $consuta1=$o->consultar1();
 		  $consuta2=$o->consultar2();
 		  $consuta3=$o->consultar3();

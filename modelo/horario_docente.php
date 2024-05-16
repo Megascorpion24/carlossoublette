@@ -1,6 +1,6 @@
 <?php
 
-require_once('modelo/conexion.php');
+require_once('conexion.php');
 class horario extends datos
 {
 
@@ -437,12 +437,29 @@ class horario extends datos
 
 
     //<!---------------------------------funcion consultar------------------------------------------------------------------>          
-    public function consultar($nivel1)
+    public function consultar($nivel1, $id1)
     {
         $co = $this->conecta();
 
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
+
+            if ($id1==0) {
+              
+            
+                $resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE estado=1");
+                $resultado->execute();
+               $respuesta='';
+                $posision=0;
+                foreach($resultado as $r){
+                 
+                        $respuesta=$r['id'];
+    
+                }
+                $id=$respuesta;
+            }else{
+                $id=$id1;
+            }
 
 
             $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,'-', docentes.cedula) as cedula,
@@ -481,12 +498,24 @@ class horario extends datos
             ON horario_docente.id = horario_ano.id_horario
             INNER JOIN ano_academico
             ON horario_ano.id_ano = ano_academico.id
+            AND ano_academico.id=$id
             
 
             WHERE horario_docente.estado = 1
 
             ORDER BY `horario_docente`.`id` DESC;");
             $resultado->execute();
+
+
+
+            //Consulta movil
+            if(in_array("request_app", $nivel1)){ // Corregido aquí
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
+            }
+
+
+
             $respuesta = "";
 
             foreach ($resultado as $r) {
@@ -857,6 +886,43 @@ class horario extends datos
 
 
 
+public function consultar20(){
+    $co = $this->conecta();
+		
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+			
+			
+			$resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE 1");
+			$resultado->execute();
+           $respuesta='';
+            $posision=0;
+            foreach($resultado as $r){
+                if ($posision==0) {
+                    $respuesta=$respuesta.'<option value="'.$r['id'].'" selected>'.$r['ano_academico'].'</option>';
+                    
+                }else{
+                    $respuesta=$respuesta.'<option value="'.$r['id'].'">'.$r['ano_academico'].'</option>';
+                }
+                
+     
+                $posision++;
+            }
+
+
+            return $respuesta;
+         
+							
+							
+
+
+			
+			
+		}catch(Exception $e){
+			
+			return false;
+		}
+}
 
 
 

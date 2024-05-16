@@ -154,6 +154,9 @@ overflow:auto;
 	  
   }
   
+
+
+
   
   #sidebar::-webkit-scrollbar{
 	  width:5px;
@@ -165,7 +168,7 @@ overflow:auto;
   #sidebar::-webkit-scrollbar-thumbs{
 	  width:5px;
 	  border-radius:10px;
-	  background-color:#333;
+	  background-color:#eee;
 	  display:none;
   }
   
@@ -177,6 +180,43 @@ overflow:auto;
 	  display:block;
   }
   
+
+
+
+
+
+  #sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: #eee #eee;
+}
+
+#sidebar::-moz-scrollbar {
+    width: 5px;
+    border-radius: 10px;
+    background-color: rgb(189, 187, 187);
+    display: none;
+}
+
+#sidebar::-moz-scrollbar-thumb {
+    width: 5px;
+    border-radius: 10px;
+    background-color: #eee;
+    display: none;
+}
+
+#sidebar:hover::-moz-scrollbar-thumb {
+    display: block;
+}
+
+#sidebar:hover::-moz-scrollbar {
+    display: block;
+}
+
+
+
+
+
+
   #sidebar .sidebar-header{
 	  padding:20px;
 	  background-color:#fff;
@@ -353,8 +393,8 @@ overflow:auto;
 		
 		.xp-menubar{
          border-radius:50%;
-       width:45px;
-height:45px;
+       width:47px;
+height:47px;
 line-height:45px;
 text-align:center;
 margin-right:20px;
@@ -498,8 +538,69 @@ background-color:rgba(0,0,0,0.09);
 		   width:100%;
 		   left:0;
 		   padding:10px 30px;
-		   border-radius:0px 0px 0 0;
+		   border-radius:20px 20px 0 0;
 	   }
+	   #call{	   /*--Parte externa del calendario , tabien afecta al datatable de santiago----*/ 
+		background:#f7f7f7;
+		color:#000000;
+		position:sticky;
+		top:0;
+		width:100%;
+		left:0;
+		padding:10px 30px;
+		border-radius:20px 20px 0 0;
+	}
+	#call2{	   /*--Parte externa del calendario , tabien afecta al datatable de santiago----*/ 
+		background:#2fb4a6;
+		color:#fff;
+		position:sticky;
+		top:0;
+		width:100%;
+		left:0;
+		padding:10px 30px;
+		border-radius:20px 20px 0 0;
+
+	}
+	   #calendar{ 	   /*--parte interna del calendario----*/ 
+		background:#e5fff9;
+		color:#8e5252;
+		position:sticky;
+		top:0;
+		width:100%;
+		left:0;
+		padding:10px 30px;
+		border-radius:20px 20px 0 0;
+	}	   
+
+	:root {
+	 --fc-small-font-size: .85em;
+	 --fc-page-bg-color: #fff;
+	 --fc-neutral-bg-color: hsla(0,0%,82%,.3);
+	 --fc-neutral-text-color: grey;
+	 --fc-border-color: #a3a2a2;
+	 --fc-button-text-color: #fff;
+	 --fc-button-bg-color: #2c3e50;
+	 --fc-button-border-color: #2c3e50;
+	 --fc-button-hover-bg-color: #1e2b37;
+	 --fc-button-hover-border-color: #1a252f;
+	 --fc-button-active-bg-color: #1a252f;
+	 --fc-button-active-border-color: #151e27;
+	 --fc-event-bg-color: #3788d8;
+	 --fc-event-border-color: #3788d8;
+	 --fc-event-text-color: #fff;
+	 --fc-event-selected-overlay-color: rgba(0,0,0,.25);
+	 --fc-more-link-bg-color: #d0d0d0;
+	 --fc-more-link-text-color: inherit;
+	 --fc-event-resizer-thickness: 8px;
+	 --fc-event-resizer-dot-total-width: 8px;
+	 --fc-event-resizer-dot-border-width: 1px;
+	 --fc-non-business-color: hsla(0,0%,84%,.3);
+	 --fc-bg-event-color: #8fdf82;
+	 --fc-bg-event-opacity: 0.3;
+	 --fc-highlight-color: rgba(188,232,241,.3);
+	 --fc-today-bg-color: rgba(255,220,40,.15);
+	 --fc-now-indicator-color: red;
+   }
 	   
 	   .table-title h2{
 		   margin:5px 0  0;
@@ -709,6 +810,7 @@ background-color:rgba(0,0,0,0.09);
 	   }
 	   .modal .modal-content{
 		   border-radius:3px;
+		   text-align: center;
 	   }
 	   
 	   .modal .modal-footer{
@@ -721,13 +823,14 @@ background-color:rgba(0,0,0,0.09);
 	   }
 	   
 	   .modal .form-control{
-		   border-radius:2px;
+		   border-radius:5px;
 		   box-shadow:none;
 		   border-color:#dddddd;
 	   }
 	   
-	    .modal textarea.form-control{
-			resize: horizontal;
+
+		.modal textarea.form-control {
+			resize: both;
 		}
 		
 		  .modal .btn{

@@ -42,7 +42,39 @@ $(document).ready(function() {
     },
   });
   
-  
+  $("#ano").on('change', function() {
+    $("#inpF8").val($("#ano").val());
+    enviaAjax3($("#8"));
+  })
+
+  function enviaAjax3(datos) {
+
+    $.ajax({
+        url: '',
+        type: 'POST',
+        data: datos.serialize(),
+        beforeSend: function () {
+
+        },
+
+        success: function (respuesta) {
+          $("#tabla").html(respuesta);
+            
+        },
+        error: function (request, status, err) {
+            if (status == "timeout") {
+                mensaje("Servidor ocupado, intente de nuevo");
+            } else {
+                mensaje("ERROR: <br/>" + request + status + err);
+            }
+        },
+        complete: function () {
+
+        }
+
+    });
+
+}
 
 
 
