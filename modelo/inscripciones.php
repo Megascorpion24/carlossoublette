@@ -924,7 +924,7 @@ public function consultar20(){
 			
 			$resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE 1");
 			$resultado->execute();
-           $respuesta='<select class="form-select" aria-label="select" id="ano">';
+           $respuesta='';
             $posision=0;
             foreach($resultado as $r){
                 if ($posision==0) {
@@ -938,7 +938,7 @@ public function consultar20(){
                 $posision++;
             }
 
-            $respuesta=$respuesta.'</select>';
+
             return $respuesta;
          
 							

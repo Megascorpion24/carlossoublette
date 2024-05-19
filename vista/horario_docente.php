@@ -71,12 +71,22 @@ if (isset($_SESSION['permisos'])) {
 									<h2 class="ml-lg-2">Registro de clases</h2>
 								</div>
 								<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-									<?PHP if (in_array("registrar horario_docente", $nivel1)) { ?>
+									
+									
+								<?PHP if (in_array("registrar horario_docente", $nivel1)) { ?>
 										<a href="#addClase" class="btn btn-success" data-toggle="modal">
 											<i class="material-icons">&#xE147;</i>
 											<span>Registrar</span>
 										</a>
 									<?php } ?>
+
+									<select id="ano">
+								<?php
+									if (!empty($consuta20)) {
+										echo $consuta20;
+									}
+									?>
+									</select>		
 
 								</div>
 							</div>
