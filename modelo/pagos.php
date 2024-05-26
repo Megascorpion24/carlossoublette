@@ -1,6 +1,6 @@
 <?php
 
-require_once('modelo/conexion.php');
+require_once('conexion.php');
 class pagos extends datos{
 
     
@@ -711,6 +711,14 @@ public function consultar($nivel1){
             INNER JOIN estudiantes_tutor et ON e.cedula = et.id_estudiantes 
             INNER JOIN tutor_legal tl ON et.id_tutor = tl.cedula WHERE p.estatus = 1 ");
             $resultado->execute(); 
+
+
+           //Consulta movil
+           if(in_array("request_app", $nivel1)){ // Corregido aquí
+            $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            return $r;
+        }
+
 
            $respuesta="";
             foreach($resultado as $r){

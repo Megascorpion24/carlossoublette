@@ -3,23 +3,27 @@
 require_once './mobile/class/login.php';
 require_once './JWT/GenerarToken.php';
 require_once './mobile/validator/validacion.php';
+require_once './auth/security.php';
 
 $login = new login();
 $data = json_decode(file_get_contents("php://input"));
+// var_dump($data);
 
 // Verifica si se recibieron los datos de usuario y contraseña
 if (isset($data->user) && isset($data->password)) {
-   
+
     // Establece los valores de usuario y contraseña
-    $username = $data->user;
-    $password = $data->password;
-   
-    $login->set_usuario($username);
-    $login->set_clave($password);
+    $username = decryptData(base64_decode($data->user));
+    $password = decryptData(base64_decode($data->password));
+//    var_dump('user: '. $username);
+//    var_dump('pass: '. $password);
 
     try { 
         validate_string('nameInputs', $username);  
-        $entrada = $login->Validate_login();
+        
+        $login->set_usuario($username);
+        $login->set_clave($password);
+           $entrada = $login->Validate_login();
  
         // Si el resultado es verdadero, crea un token y envía una respuesta JSON
         if ($entrada['success']) {

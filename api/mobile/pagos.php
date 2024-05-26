@@ -1,9 +1,9 @@
 <?php 
  
 // require_once('../class/materia.php');
-require_once('../../modelo/horario_docente.php');
+require_once('../../modelo/pagos.php');
   
-$m = new horario();
+$m = new pagos();
   
 $data = json_decode(file_get_contents("php://input"));
 
@@ -15,7 +15,7 @@ if (isset($data->dato)) {
 
   // Llama a la función de consulta con el dato recibido
   $n=array("request_app");
-  $consulta = $m->consultar_app($n);
+  $consulta = $m->consultar($n);
 
   // Imprime la consulta realizada
   echo json_encode($consulta);
