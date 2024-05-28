@@ -1,6 +1,6 @@
 <?php
 
-require_once('modelo/conexion.php');
+require_once('conexion.php');
 class inscripciones extends datos{
     private $cedula_repre;
 	private $estudiante;
@@ -868,6 +868,13 @@ public function consultar($nivel1, $id1){
 			 
 			$resultado = $co->prepare("SELECT estudiantes.*, años.anos, secciones.secciones, secciones_años.id FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id INNER JOIN estudiantes on secciones_años.id=estudiantes.id_anos_secciones INNER JOIN ano_estudiantes on ano_estudiantes.id_estudiantes=estudiantes.cedula INNER JOIN ano_academico ON ano_academico.id=ano_estudiantes.id_ano AND ano_academico.id=$id ORDER by años.anos, secciones.secciones");
 			$resultado->execute();
+            //Consulta movil
+            if(in_array("request_app", $nivel1)){ // Corregido aquí
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
+            }
+      
+            //Consulta web
            $respuesta="";
 
             foreach($resultado as $r){

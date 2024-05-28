@@ -15,7 +15,7 @@ if (isset($data->dato)) {
 
   // Llama a la función de consulta con el dato recibido
   $n=array("request_app");
-  $consulta = $m->consultar($n);
+  $consulta = $m->consultar_app($n);
 
   // Imprime la consulta realizada
   echo json_encode($consulta);

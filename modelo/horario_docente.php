@@ -594,7 +594,80 @@ class horario extends datos
         }
     }
 
+    public function consultar_app($nivel1)
+    {
+        $co = $this->conecta();
 
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+
+           
+
+
+            $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,'-', docentes.cedula) as cedula,
+            concat(años.anos,'-',secciones.secciones) as seccion, ano_academico.ano_academico as ano , case
+         when dia = 1 then 'Lunes'
+         when dia = 2 then 'Martes'
+          when dia = 3 then 'Miercoles'
+           when dia = 4 then 'Jueves'
+            when dia = 5 then 'Viernes'
+       end as dia2
+       FROM horario_docente
+                                                
+            
+            INNER JOIN docente_horario
+            ON horario_docente.id = docente_horario.id_horario_docente 
+            INNER JOIN docentes
+            ON docente_horario.id_docente = docentes.cedula
+            
+            
+            INNER JOIN materia_horario_docente
+            ON horario_docente.id= materia_horario_docente.id_horario_docente
+            INNER JOIN materias
+            ON materia_horario_docente.id_materias = materias.id
+            
+            
+            
+            INNER JOIN secciones_años
+            ON horario_docente.id_ano_seccion = secciones_años.id 
+         
+         INNER JOIN años
+         on secciones_años.id_anos=años.id 
+         INNER JOIN secciones 
+         on secciones_años.id_secciones=secciones.id 
+            
+            INNER JOIN horario_ano
+            ON horario_docente.id = horario_ano.id_horario
+            INNER JOIN ano_academico
+            ON horario_ano.id_ano = ano_academico.id
+          
+            
+
+            WHERE horario_docente.estado = 1
+
+            ORDER BY `horario_docente`.`id` DESC;");
+            $resultado->execute();
+
+
+
+            //Consulta movil
+            if(in_array("request_app", $nivel1)){ // Corregido aquí
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
+            }
+
+
+
+            $respuesta = "";
+
+            
+
+            return $respuesta;
+        } catch (Exception $e) {
+
+            return false;
+        }
+    }
 
 
 
