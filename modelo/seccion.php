@@ -558,6 +558,12 @@ private function modificar1(){
            "); 
  
             $resultado->execute();
+             //Consulta movil
+             if(in_array("request_app", $nivel1)){ 
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
+            }
+
            $respuesta="";
   
             foreach($resultado as $r){

@@ -7,7 +7,7 @@ class materias extends datos{
     private $id;
 	private $nombre;
     private $ano;
-    private $docente1;
+    private $docente1; 
     private $docente2;
     private $docente3;
     private $docente4;
@@ -385,10 +385,10 @@ public function consultar($nivel1){
 			$resultado->execute();
 
             //Consulta movil
-            if(in_array("request_app", $nivel1)){ // Corregido aquí
+            if(in_array("request_app", $nivel1)){ 
                 $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 return $r;
-            }
+            } 
       
             //Consulta web
            $respuesta="";
