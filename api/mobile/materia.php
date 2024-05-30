@@ -8,7 +8,6 @@ $data = json_decode(file_get_contents("php://input"));
 
 // Verifica si se ha enviado un dato por POST
 if (isset($data->token)){
-
   $token = $data->token;
 
   try {
