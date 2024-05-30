@@ -77,7 +77,7 @@ if (isset($_POST['ajaxPet']) && isset($_POST['action']) && $_POST['action'] == '
               'edad' => $valores['edad'],
               'observaciones' => $valores['observaciones']
             );
-         }
+         } 
         
           $jsonstring = json_encode($json);
           echo $jsonstring;    

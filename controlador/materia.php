@@ -185,7 +185,7 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
 				$mensaje = $o->eliminar();
 				echo $mensaje;
 			}else{
-				echo $retorno;
+				echo $retorno; 
 			}
 			
 			exit;			
@@ -203,6 +203,7 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
 			
 
 			$consulta=$o->consultar($nivel1);
+			$consulta = $o->consultar(!empty($_SESSION['permisos']) ? $_SESSION['permisos'] : '');
 			echo $consulta;
 			exit;
 		  }
