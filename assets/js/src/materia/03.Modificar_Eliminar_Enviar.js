@@ -138,8 +138,8 @@ function eliminar(id) {
                 },
                 
                 success: (respuesta) => {
-               
-                    LlamadaAlert(respuesta);
+            //    console.log(respuesta);
+                    LlamadaAlert(respuesta.trim());
         // --------------------------------------------
                     materias = [];//vaciar
                     Consulta_materia();//llenar

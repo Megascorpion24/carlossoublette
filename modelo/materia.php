@@ -1,116 +1,59 @@
 <?php
  
 require_once('conexion.php');
+require_once('validator/validations.php');
+
 
 class materias extends datos{
  
     private $id;
 	private $nombre;
     private $ano;
-    private $docente1; 
-    private $docente2;
-    private $docente3;
-    private $docente4;
-    private $docente5;
-    private $docente6;
+    private $docentes= []; 
     private $nivel;
-     
-  
-
-    public function set_id($valor){
-        if (preg_match("/^[0-9]{0,4}$/", $valor)) {
-		        $this->id = $valor; 
-            return true;
-            }else{
-                return false;
-            }
-        return true;
-	}
     
-    public function set_nombre($valor){
-        if (preg_match("/^[a-zA-ZÁáÉéÍíÓóÚúÑñ\s]+$/", $valor)) {
-            $valornombre = $valor; 
-             $this->nombre = mb_strtoupper($valornombre,'utf-8');
-            //  $this->nombre = $valor;
+    
+
+     //---VALIDACIONES BACKEND---
+     public function Validar_Materia($datos) {
+        try {
+            // Valida datos
+            $this->nombre = validate_value('name', $datos['nombre']);
+            $this->ano = validate_value('año', $datos['año']);
+            $this->docentes = validarDocentesFormulario('cedula', $datos['docentes']);
             return true;
-            }else{
-                return false;
-            }
-
-	}
-
-    public function set_ano($valor){
-        if (preg_match("/^[0-9]{1,3}$/", $valor)) {
-		    $this->ano = $valor; 
-        return true;
-        }else{
+        } catch (Exception $e) {
+            echo $e->getMessage();
             return false;
         }
-	}
+    }
 
     // --------------
 
-    public function validarDocentesFormulario($docentes) {
-        foreach ($docentes as $docente) {
-          if (!empty($docente)) {
-            if (!preg_match("/^[0-9]{4,8}$/", $docente)) {
-              return false;
-            }
-          }
-        }
-      
-        return true;
+   public function Registrar_Materia($datos) {
+        //Validar para Registrar
+         $val = $this->Validar_Materia($datos);
+         return $val ? $res=$this->registrar1() : null;
+          
+   }
+
+   public function Modificar_Materia($datos) {
+     //Validar para Modificar
+       $val = $this->Validar_Materia($datos);
+       return $val ? $this->modificar1() : null;
     }
 
-
-    public function set_docente1($valor){
-		$this->docente1 = $valor; 
-        // echo $this->docente1;
-	}
-    public function set_docente2($valor){
-		$this->docente2 = $valor; 
-        // echo $this->docente2;
-	}
-    public function set_docente3($valor){
-		$this->docente3 = $valor; 
-        // echo $this->docente3;
-	}
-    public function set_docente4($valor){
-		$this->docente4 = $valor; 
-        // echo $this->docente4;
-	}
-    public function set_docente5($valor){
-		$this->docente5 = $valor; 
-        // echo $this->docente5;
-	}
-    public function set_docente6($valor){
-		$this->docente6 = $valor; 
-        // echo $this->docente6;
-	}
-  
+    public function Eliminar_Materia($valor){
+        $this->id = $valor; 
+        return $this->eliminar1();
+    
+    }
     // ---------
     public function set_nivel($valor){
 		$this->nivel = $valor; 
         return true;
-        
 	}
-
-    // -----------
-	
-    public function registrar(){
-        $val=$this->registrar1();
-        echo $val;
-    }
-    public function modificar(){
-        $val=$this->modificar1();
-        echo $val;
-    }
-    public function eliminar(){
-        $val=$this->eliminar1();
-        echo $val;
-    }
-   
-
+ 
 
 
 private function registrar1() {
@@ -136,17 +79,15 @@ private function registrar1() {
 
             //Registrar Docentes
 
-            $docentes = array($this->docente1, $this->docente2, $this->docente3, $this->docente4, $this->docente5, $this->docente6);
+            // $docentes = array($this->docente1, $this->docente2, $this->docente3, $this->docente4, $this->docente5, $this->docente6);
 
-            foreach ($docentes as $index => $docente) {
-                if (!empty($docente)) {
+            foreach ($this->docentes as $docente) {   
                     $r = $co->prepare("INSERT INTO materias_docentes (estado, id_materias, id_docente) 
                     VALUES (1, :id_materia, :docente)");
 
                     $r->bindParam(':id_materia', $lid);
                     $r->bindParam(':docente', $docente);
                     $r->execute();
-                }
             }
 
 
@@ -292,15 +233,8 @@ private function off_Docente(){
 
 
     foreach ($docentesAsociados as $docente) {
-        if (
-            $docente !== $this->docente1 && 
-            $docente !== $this->docente2 && 
-            $docente !== $this->docente3 && 
-            $docente !== $this->docente4 && 
-            $docente !== $this->docente5 && 
-            $docente !== $this->docente6
-        ) {
-            $r = $co->prepare("DELETE from materias_docentes WHERE id_materias = :id  AND id_docente = :docente");
+        if (!in_array($docente, $this->docentes)) {
+            $r = $co->prepare("DELETE FROM materias_docentes WHERE id_materias = :id AND id_docente = :docente");
             $r->bindParam(':id', $this->id);
             $r->bindParam(':docente', $docente);
             $r->execute();
@@ -313,9 +247,8 @@ private function off_Docente(){
 
 private function insert_Docente(){
     $co = $this->conecta();
-    $docentes = array($this->docente1, $this->docente2, $this->docente3, $this->docente4, $this->docente5, $this->docente6);
     
-    foreach ($docentes as $index => $docente) {
+    foreach ($this->docentes as $index => $docente) {
         if (!empty($docente)) {
             // Verifica si la relación ya existe
             $exists = $this->verificarRelacionExistente($this->id, $docente);
@@ -329,7 +262,7 @@ private function insert_Docente(){
                     $r->execute();
                     // echo "Inserción exitosa";
                 } catch (Exception $e) {
-                    echo "Error en la inserción: " . $e->getMessage();
+                    return "Error en la inserción: " . $e->getMessage();
                 }
             }
         }
