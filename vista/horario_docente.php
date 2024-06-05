@@ -80,13 +80,7 @@ if (isset($_SESSION['permisos'])) {
 										</a>
 									<?php } ?>
 
-									<select id="ano">
-								<?php
-									if (!empty($consuta20)) {
-										echo $consuta20;
-									}
-									?>
-									</select>		
+										
 
 								</div>
 							</div>
@@ -263,6 +257,7 @@ if (isset($_SESSION['permisos'])) {
 														<th>Clase inicia</th>
 														<th>Clase termina</th>
 														<th>Año academico</th>
+														<th>Estado</th>
 														<th>Acciones</th>
 													</tr>
 												</thead>
