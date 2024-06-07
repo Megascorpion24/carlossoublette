@@ -989,43 +989,6 @@ class horario extends datos
 
 
 
-public function consultar20(){
-    $co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        try{
-			
-			
-			$resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE 1");
-			$resultado->execute();
-           $respuesta='';
-            $posision=0;
-            foreach($resultado as $r){
-                if ($posision==0) {
-                    $respuesta=$respuesta.'<option value="'.$r['id'].'" selected>'.$r['ano_academico'].'</option>';
-                    
-                }else{
-                    $respuesta=$respuesta.'<option value="'.$r['id'].'">'.$r['ano_academico'].'</option>';
-                }
-                
-     
-                $posision++;
-            }
-
-
-            return $respuesta;
-         
-							
-							
-
-
-			
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-}
 
 
 
