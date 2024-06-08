@@ -1,35 +1,3 @@
-<?php
-
-
-require 'vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
-$dotenv->load();
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
-$key = $_ENV['JWT_SECRET_KEY'];
-
-if(isset($_COOKIE['token'])){
-	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
-} else {
-	header('location:index.php');
-}
-
-if (empty($_SESSION)) {
-	session_start();
-}
-
-if (isset($_SESSION['permisos'])) {
-	$nivel1 = $_SESSION['permisos'];
-} else {
-	$nivel1 = "";
-}
-?>
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -63,7 +31,7 @@ if (isset($_SESSION['permisos'])) {
 		<div class="main-content">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="table">
+					<div class="table-wrapper">
 
 						<div class="table-title  mb-3" id="call">
 							<div class="row "id="call2">
@@ -85,21 +53,21 @@ if (isset($_SESSION['permisos'])) {
 								</div>
 							</div>
 
-							<div id=full>
+							
 								<!-- Nav tabs -->
 								<ul class="nav nav-tabs">
 									<li class="nav-item">
 										<a class="nav-link active" data-toggle="tab" href="#home">Horario</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#menu1">Tabla de registros</a>
+										<a class="nav-link" data-toggle="tab" href="#menu1" >Tabla de registros</a>
 									</li>
 								</ul>
 
 								<!-- Tab panes -->
 								<?PHP if (in_array("consultar horario_docente", $nivel1)) { ?>
 									<div id="body2" class="tab-content">
-										<div class="tab-pane container active" id="home">
+										<div class="tab-pane active" style="width:100%" id="home" style="width:100%">
 									
 										<div class="form-row">
 										<div class="form-group col-md-4">
@@ -242,9 +210,9 @@ if (isset($_SESSION['permisos'])) {
 
 										</div>
 
-										<div class="tab-pane container fade" id="menu1">
+										<div class="tab-pane fade" id="menu1" style="width:100%">
 
-											<table id="tablas" style="width:100%; color:black;" class="table table-hover table-dark">
+											<table id="tablas" style="width:100%" class="table table-striped ">
 
 												<thead>
 													<tr>
@@ -279,7 +247,7 @@ if (isset($_SESSION['permisos'])) {
 
 									</div>
 								<?php } ?>
-							</div>
+						
 
 
 
@@ -604,6 +572,8 @@ if (isset($_SESSION['permisos'])) {
 		font-family: 'Poppins',sans-serif;
                                                 
        }
+
+	   
 </style>
 </html>
 

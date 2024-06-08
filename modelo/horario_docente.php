@@ -192,9 +192,10 @@ class horario extends datos
                   
     
             
+            $co->exec("SET AUTOCOMMIT = 0");
 
-
-
+            $co->exec("LOCK TABLES horario_docente WRITE, docente_horario WRITE, materia_horario_docente WRITE, horario_ano WRITE");        
+            $co->exec("START TRANSACTION");
 
             $r = $co->prepare("Insert into horario_docente(
                     
@@ -305,7 +306,14 @@ class horario extends datos
             $r->bindParam(':id_horario',$lid);	
             $r->execute();
 
+            // Unlock tables
+            $co->exec("UNLOCK TABLES");
 
+    // Commit transaction
+             $co->exec("COMMIT");
+
+    // Set AutoCommit to 1
+        $co->exec("SET AUTOCOMMIT = 1");
 
 
 
@@ -359,7 +367,7 @@ class horario extends datos
 
                 $r->execute();
 
-                if ($r->rowCount() >1) {
+                if ($r->rowCount() >0) {
                     return "4Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
                 }
 
