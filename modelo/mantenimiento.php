@@ -23,6 +23,14 @@ public function set_nivel($valor)
             $d = date('Y-m-d');
            
             $dump->start('respaldo/'.$d.'respaldo.sql');
+
+            $zip = new ZipArchive();
+    $zip->open('respaldo/'.$d.'respaldo.zip', ZipArchive::CREATE);
+    $zip->addFile('respaldo/'.$d.'respaldo.sql');
+    $zip->close();
+    
+    // redirigir al usuario a una página de descarga del archivo .sql
+    header('Location: respaldo/'.$d.'respaldo.zip');
        
         } catch (\Exception $e) {
             echo 'mysqldump-php error: ' . $e->getMessage();
