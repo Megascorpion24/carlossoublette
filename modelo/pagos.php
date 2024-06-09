@@ -219,7 +219,7 @@ class pagos extends datos{
                 $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
                                   VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
 
-                $estado_pagos=1;
+                $estado_pagos=1; 
                 $estatus=1;    
                 $r->bindParam(':id_deudas',$this->id_deudas);	
                 $r->bindParam(':identificador',$this->identificador);	
