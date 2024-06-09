@@ -64,7 +64,7 @@ if(isset($_COOKIE['token'])){
 								</div>
 							</div>
 					   
-							<table id="tablas2" style="width:100%" class="table table-striped ">
+							<table id="tablas2" style="width:100%" class="table table-striped display nowrap">
 								<thead>
 									<tr>
 				
@@ -130,7 +130,7 @@ if(isset($_COOKIE['token'])){
 					   
 
 					   
-							<table id="tablas" style="width:100%" class="table table-striped ">
+							<table id="tablas" style="width:100%" class="table table-striped display nowrap ">
 								<thead>
 									<tr>
 				

@@ -331,10 +331,7 @@ public function consultar($nivel1){
                 $respuesta=$respuesta."<th>".$r['correo']."</th>";
                 $respuesta=$respuesta."<th>".$r['contacto_emer']."</th>";
                 $respuesta=$respuesta.'<th>';
-                if (in_array("modificar representante",$nivel1)) {
-                    # code...
-                
-                
+                if (in_array("modificar representante",$nivel1)) {               
                 $respuesta=$respuesta.'<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['cedula'].'`)">
                 <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
                </a>';
