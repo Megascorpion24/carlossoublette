@@ -33,6 +33,7 @@ if(isset($_COOKIE['token'])){
 		<head>
 			<?php  require_once('comunes/header.php');?>
 			<?php require_once('comunes/menu.php'); ?>
+		
 		</head>
 	<body>
 
@@ -130,7 +131,7 @@ if(isset($_COOKIE['token'])){
 					   
 
 					   
-							<table id="tablas" style="width:100%" class="table table-striped display nowrap ">
+							<table id="tablas" style="width:100% " class="table table-striped display nowrap ">
 								<thead>
 									<tr>
 				

@@ -15,7 +15,7 @@ $(document).ready(function() {
     
         responsive: true,   
 
-      
+
     
         lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
         columnDefs: [
@@ -78,11 +78,7 @@ $(document).ready(function() {
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  $("#tablas2").DataTable({
     
-    responsive: false,   
-
-    scrollX: true,
-    scrollCollapse: true,
-
+    responsive: true,   
     lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
     columnDefs: [
       { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },
@@ -1548,7 +1544,7 @@ function validarenviop() {
     return true;
 }
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
+mibuscador
 const input1 = document.getElementById("identificador");
 const input2 = document.getElementById("monto");
 const input3 = document.getElementById("meses");
@@ -1629,6 +1625,8 @@ input5.addEventListener("input", () => {
     const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input12, maxLength);
   });
+
+
 
 
 

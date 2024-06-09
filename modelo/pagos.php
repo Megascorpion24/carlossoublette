@@ -501,10 +501,6 @@ private function modificarMM(){
                     WHERE m.m_montos < d.monto )AND d.concepto = 'inscripcion'");
                 $r->execute();  
 
-      
-
-     
-
             $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          
             return "2REGISTRO MODIFICADO";	
