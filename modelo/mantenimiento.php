@@ -6,18 +6,27 @@ require_once('modelo/conexion.php');
 class mantenimiento extends datos
 {
 
-
+    private $filePath;
     private $nivel;
 
     public function set_nivel($valor)
     {
         $this->nivel = $valor;
     }
+    public function respaldo()
+    {
+        $val = $this->respaldo1();
+        return $val;
+    }
 
-
+    public function importarBaseDatos($filePath)
+    {
+        $val = $this->importarBaseDatos1($filePath);
+        return $val;
+    }
 
     //<!---------------------------------funcion respaldlo------------------------------------------------------------------>
-    public function respaldo()
+    private function respaldo1()
     {
 
 
@@ -44,7 +53,7 @@ class mantenimiento extends datos
 
 
 
-    public function importarBaseDatos($filePath)
+    private function importarBaseDatos1($filePath)
     {
         // Conexión a la base de datos
         $co = $this->conecta();
