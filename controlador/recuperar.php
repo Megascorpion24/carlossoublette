@@ -22,10 +22,10 @@ require_once("modelo/".$pagina.".php");
 				$o->set_usuario($_POST['user']);
 			}
 		
-			$resultado = $o->busca();
-			if ($resultado) {
-				$correo = $resultado[0];
-   				 $clave = $resultado[1];
+			$resultado2 = $o->busca();
+			if ($resultado2) {
+				$correo = $resultado2[0];
+   				 $token = $resultado2[1];
 				$mail = new PHPMailer(true);
 
 try {
@@ -45,7 +45,7 @@ try {
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Recuperacion de clave';
-    $mail->Body    = 'Hola! este link te enviara a la ventana donde podras cambiar tu clave, recuerda no compartir tu nueva clave con nadie http://localhost/git_proyecto/carlossoublette/?pagina=cambiar&clave='.$clave.'';
+    $mail->Body    = 'Hola! este link te enviara a la ventana donde podras cambiar tu clave, recuerda no compartir tu nueva clave con nadie http://localhost/git_proyecto/carlossoublette/?pagina=cambiar&token='.$token.'';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
