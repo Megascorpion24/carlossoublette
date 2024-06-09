@@ -33,7 +33,7 @@ class mantenimiento extends datos
             $zip->close();
 
             // redirigir al usuario a una página de descarga del archivo .sql
-            header('Location:.$d.respaldo.zip');
+            header('Location:respaldo/' . $d . 'respaldo.zip');
         } catch (\Exception $e) {
             echo 'mysqldump-php error: ' . $e->getMessage();
         }
