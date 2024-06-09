@@ -1,69 +1,74 @@
 <?php
 
 require_once('modelo/conexion.php');
-class entrada extends datos{
-    private $usuario;
+class entrada extends datos
+{
+	private $usuario;
 	private $clave;
+	private $privateKey;
 
 
-    public function set_usuario($valor){
-		$this->usuario = $valor; 
+	public function set_usuario($valor, $privateKey)
+	{
+		$this->usuario = $valor;
+		$this->privateKey = $privateKey;
 	}
-	public function set_clave($valor){
-		$this->clave = $valor; 
+	public function set_clave($valor)
+	{
+		$this->clave = $valor;
 	}
-	
-    public function busca(){
+
+	public function busca()
+	{
 		$co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		try{
-		
+		try {
 
 
+			$privateKeyResource = openssl_pkey_get_private($this->privateKey);
+
+			if (!$privateKeyResource) {
+				return ('Clave privada no válida');
+			}
+
+			$decryptedData = '';
+			openssl_private_decrypt(base64_decode($this->usuario), $decryptedData, $privateKeyResource);
+			openssl_free_key($privateKeyResource);
 
 
 			$resultado = $co->prepare("SELECT usuarios.clave, usuarios.id_rol, usuarios.id FROM usuarios WHERE usuarios.nombre =:usua");
-			
-			$resultado->bindParam(':usua',$this->usuario);
-		
+
+			$resultado->bindParam(':usua', $decryptedData);
+
 			$resultado->execute();
 
 
-			foreach($resultado as $r){
-				$fila= array($r["clave"],$r["id_rol"],$r["id"]);
-
-            }
-
-			
-			
-			if(!empty($fila[0])){
-
-			
-				return $fila;
-
-			    
-			}
-			else{
-				$fila=array("El usuario ingresado es incorrecto");
-				return $fila;
+			foreach ($resultado as $r) {
+				$fila = array($r["clave"], $r["id_rol"], $r["id"]);
 			}
 
 
-		
-			
-			
-			
-		}catch(Exception $e){
+
+			if (!empty($fila[0])) {
+
+
+				return $fila;
+			} else {
+				$fila = array("El usuario ingresado es incorrecto");
+				return $fila;
+			}
+		} catch (Exception $e) {
 			return $e;
 		}
 	}
 
 
-	public function permisos($rol){
+	public function permisos($rol)
+	{
 		$co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		try{
-		
+		try {
+
 
 
 
@@ -72,67 +77,49 @@ class entrada extends datos{
             INNER JOIN rol_permiso rp ON r.id=rp.id_rol INNER JOIN permisos p ON rp.id_permiso=p.id 
             WHERE r.id = :rol 
             ORDER BY rp.id_permiso");
-			
-			$resultado->bindParam(':rol',$rol);
-		
+
+			$resultado->bindParam(':rol', $rol);
+
 			$resultado->execute();
 
 			$permisos = [];
-            $i = 0;
-			foreach($resultado as $r){
+			$i = 0;
+			foreach ($resultado as $r) {
 				$permisos[$i] = $r["permiso"];
-                $i++;
-
-            }
-
-			
-			
-			if(!empty($permisos[0])){
-
-				
-				return $permisos;
-
-			    
+				$i++;
 			}
-			else{
-				
+
+
+
+			if (!empty($permisos[0])) {
+
+
+				return $permisos;
+			} else {
+
 				return "ha ocurrido un error";
 			}
-
-
-		
-			
-			
-			
-		}catch(Exception $e){
+		} catch (Exception $e) {
 			return $e;
 		}
 	}
 
 
 
-public function bitacora1($accion, $modulo,$id){
-	$var=$this->bitacora($accion, $modulo,$id);
-}
+	public function bitacora1($accion, $modulo, $id)
+	{
+		$var = $this->bitacora($accion, $modulo, $id);
+	}
 
-	private function bitacora($accion, $modulo,$id){
+	private function bitacora($accion, $modulo, $id)
+	{
 		try {
 			$co = $this->conecta();
 			$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		parent::registrar_bitacora($accion, $modulo,$id);
 
-					
-					
-					;
-			} catch(Exception $e) {
-				return $e->getMessage();
-			}
-		
+			parent::registrar_bitacora($accion, $modulo, $id);;
+		} catch (Exception $e) {
+			return $e->getMessage();
+		}
 	}
-
-
-
 }
-
-?>
