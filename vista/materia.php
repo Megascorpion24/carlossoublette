@@ -191,7 +191,7 @@ if(isset($_COOKIE['token'])){
 			<div class="form-group col-md-1" style="display:none;">
 				<label>Id</label>
 				<span id="id_v"></span> 
-				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" >
+				<input type="text" class="form-control" style="display: none;"  name="accion" value="registrar" >
 				<input type="text" class="form-control sm" name="id" id="id" placeholder="0000000">
 			</div>
 					
@@ -278,7 +278,7 @@ if(isset($_COOKIE['token'])){
 			<div class="form-group col-md-2" style="display:none;">
 				<label>Id</label>
 				<span id="id1_v"></span>
-				<input type="text" class="form-control" style="display: none;"  name="id_edit" value="id_edit" required>
+				<input type="text" class="form-control" style="display: none;"  name="accion" value="modificar" required>
 				<input type="text" class="form-control" name="id1" id="id1" required >
 			</div>
 			<div class="form-group col-md-6">
@@ -347,7 +347,7 @@ if(isset($_COOKIE['token'])){
 	  <form id="f3">
 
 		<input style="display: none;" type="text" name="id2" id="id2">
-		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
+		<input style="display: none;" type="text" name="accion" id="accion3" value="eliminar">
 
 	</form>
       <div class="modal-body">

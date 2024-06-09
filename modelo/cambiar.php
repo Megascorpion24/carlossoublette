@@ -42,7 +42,7 @@ class cambiar extends datos
                      
                        
                         where
-						clave =:url
+						token =:url
                                   
                         ");
 

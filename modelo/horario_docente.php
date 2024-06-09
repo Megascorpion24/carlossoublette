@@ -192,9 +192,10 @@ class horario extends datos
                   
     
             
+            $co->exec("SET AUTOCOMMIT = 0");
 
-
-
+            $co->exec("LOCK TABLES horario_docente WRITE, docente_horario WRITE, materia_horario_docente WRITE, horario_ano WRITE");        
+            $co->exec("START TRANSACTION");
 
             $r = $co->prepare("Insert into horario_docente(
                     
@@ -305,7 +306,14 @@ class horario extends datos
             $r->bindParam(':id_horario',$lid);	
             $r->execute();
 
+            // Unlock tables
+            $co->exec("UNLOCK TABLES");
 
+    // Commit transaction
+             $co->exec("COMMIT");
+
+    // Set AutoCommit to 1
+        $co->exec("SET AUTOCOMMIT = 1");
 
 
 
@@ -359,7 +367,7 @@ class horario extends datos
 
                 $r->execute();
 
-                if ($r->rowCount() >1) {
+                if ($r->rowCount() >0) {
                     return "4Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
                 }
 
@@ -437,30 +445,137 @@ class horario extends datos
 
 
     //<!---------------------------------funcion consultar------------------------------------------------------------------>          
-    public function consultar($nivel1, $id1)
+    public function consultar($nivel1)
     {
         $co = $this->conecta();
 
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
 
-            if ($id1==0) {
-              
             
-                $resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE estado=1");
-                $resultado->execute();
-               $respuesta='';
-                $posision=0;
-                foreach($resultado as $r){
-                 
-                        $respuesta=$r['id'];
-    
-                }
-                $id=$respuesta;
-            }else{
-                $id=$id1;
+
+
+            $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,'-', docentes.cedula) as cedula,
+            concat(años.anos,'-',secciones.secciones) as seccion, ano_academico.ano_academico as ano, case
+         when dia = 1 then 'Lunes'
+         when dia = 2 then 'Martes'
+          when dia = 3 then 'Miercoles'
+           when dia = 4 then 'Jueves'
+            when dia = 5 then 'Viernes'
+       end as dia2, 
+       CASE
+       when horario_docente.estado = 1 then 'activo'
+       when horario_docente.estado = 0 then 'inactivo'
+       end as estado2
+       FROM horario_docente
+                                                
+            
+            INNER JOIN docente_horario
+            ON horario_docente.id = docente_horario.id_horario_docente 
+            INNER JOIN docentes
+            ON docente_horario.id_docente = docentes.cedula
+            
+            
+            INNER JOIN materia_horario_docente
+            ON horario_docente.id= materia_horario_docente.id_horario_docente
+            INNER JOIN materias
+            ON materia_horario_docente.id_materias = materias.id
+            
+            
+            
+            INNER JOIN secciones_años
+            ON horario_docente.id_ano_seccion = secciones_años.id 
+         
+         INNER JOIN años
+         on secciones_años.id_anos=años.id 
+         INNER JOIN secciones 
+         on secciones_años.id_secciones=secciones.id 
+            
+            INNER JOIN horario_ano
+            ON horario_docente.id = horario_ano.id_horario
+            INNER JOIN ano_academico
+            ON horario_ano.id_ano = ano_academico.id
+          	
+            
+
+       
+
+            ORDER BY `horario_docente`.`id` asc;");
+            $resultado->execute();
+
+
+
+            //Consulta movil
+            if(in_array("request_app", $nivel1)){ // Corregido aquí
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
             }
 
+
+
+            $respuesta = "";
+
+            foreach ($resultado as $r) {
+                $respuesta = $respuesta . '<tr>';
+                $respuesta = $respuesta . "<th>" . $r['id'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['clase'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['cedula'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['seccion'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['dia'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['dia2'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['clase_inicia'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['clase_termina'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['ano'] . "</th>";
+                $respuesta = $respuesta . "<th>" . $r['estado2']."</th>";
+                $respuesta = $respuesta . '<th>';
+                if (in_array("modificar horario_docente", $nivel1)) {
+                    $estado= $r['estado'];
+                    if($estado > 0){
+                    
+                    $respuesta=$respuesta. '<a href="#editClase" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
+                   <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
+                   </a>';
+                   }
+                   else{
+                        $respuesta .= '<a href="#" onclick="delete_info(`'.$r['estado2'].'`)">
+                        <i class="material-icons"  title="MODIFICAR"><img style="width: 18px;" src="assets/icon/pencil2.png"/></i>    
+                        </a>';
+                    }
+                }
+                if (in_array("eliminar horario_docente", $nivel1)) {
+                    $estado= $r['estado'];
+                    if($estado > 0){
+                    
+
+                    $respuesta = $respuesta . '<a href="#deleteClase" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['id'] . '`)">
+               <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
+               </a>';
+            }
+            else{
+                 $respuesta .= '<a href="#" onclick="delete_info(`'.$r['estado2'].'`)">
+                 <i class="material-icons"  title="MODIFICAR"><img style="width: 18px;" src="assets/icon/basura.png"/></i>    
+                 </a>';
+             }
+                }
+                $respuesta = $respuesta . '</th>';
+                $respuesta = $respuesta . '</tr>';
+            }
+
+
+            return $respuesta;
+        } catch (Exception $e) {
+
+            return false;
+        }
+    }
+
+    public function consultar_app($nivel1)
+    {
+        $co = $this->conecta();
+
+        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+            
 
             $resultado = $co->prepare("SELECT horario_docente.*,materias.nombre as clase,concat(docentes.nombre ,'-', docentes.cedula) as cedula,
             concat(años.anos,'-',secciones.secciones) as seccion, ano_academico.ano_academico as ano , case
@@ -498,7 +613,6 @@ class horario extends datos
             ON horario_docente.id = horario_ano.id_horario
             INNER JOIN ano_academico
             ON horario_ano.id_ano = ano_academico.id
-            AND ano_academico.id=$id
             
 
             WHERE horario_docente.estado = 1
@@ -883,43 +997,6 @@ class horario extends datos
 
 
 
-public function consultar20(){
-    $co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        try{
-			
-			
-			$resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE 1");
-			$resultado->execute();
-           $respuesta='';
-            $posision=0;
-            foreach($resultado as $r){
-                if ($posision==0) {
-                    $respuesta=$respuesta.'<option value="'.$r['id'].'" selected>'.$r['ano_academico'].'</option>';
-                    
-                }else{
-                    $respuesta=$respuesta.'<option value="'.$r['id'].'">'.$r['ano_academico'].'</option>';
-                }
-                
-     
-                $posision++;
-            }
-
-
-            return $respuesta;
-         
-							
-							
-
-
-			
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-}
 
 
 

@@ -2,23 +2,38 @@
  
 // require_once('../class/materia.php');
 require_once('../../modelo/horario_docente.php');
+require_once('../JWT/ValidarToken.php');  
   
-$m = new horario();
-  
+$m = new horario();  
 $data = json_decode(file_get_contents("php://input"));
 
 // Verifica si se ha enviado un dato por POST
-if (isset($data->dato)) {
+if (isset($data->token)){
+  $token = $data->token;
+
+  try {
+     $r_json = validarTokenJWT($token);
+
+       if ($r_json->resultado->rol == 3) {
+          echo json_encode([
+               'success' => true,
+               'resultado'=> $m->consultar(array("request_app", 0))
+           ]);
+       } else {
+           echo json_encode(['success' => false, 'msg' => 'Unauthorized role']);
+       }
+
+  } catch (Exception $e) {
     
-  // Captura el dato enviado por POST
-  $d = $data->dato;
+    $exception = json_encode([
+      'success' => false,
+      'msg' => $e->getMessage()
+  ]);
+  echo $exception;
+  }
 
-  // Llama a la función de consulta con el dato recibido
-  $n=array("request_app");
-  $consulta = $m->consultar($n, 0);
-
-  // Imprime la consulta realizada
-  echo json_encode($consulta);
-} 
+} else {
+    echo json_encode(['error' => 'Token not provided']);
+}
  
 ?>
