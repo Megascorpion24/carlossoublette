@@ -273,6 +273,15 @@ public function consultar($nivel1){
             ORDER BY ano_academico.id DESC");
 
            $resultado->execute();
+
+           
+            //Consulta movil
+            if(in_array("request_app", $nivel1)){ // Corregido aquí
+                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                return $r;
+            }
+
+
            $respuesta="";
 
             foreach($resultado as $r){
@@ -364,6 +373,9 @@ public function consulta_E($id){
         return false;
     }
 }
+
+
+
 
 
 

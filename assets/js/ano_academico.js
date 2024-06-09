@@ -264,7 +264,7 @@ function handleRowClick(id,ano_academico, event) {
                         <td class="id">${eventos.id}</td>
                         <td class="fecha_ini">${eventos.fecha_ini}</td>
                         <td class="fecha_cierr">${eventos.fecha_cierr}</td>
-                        <td class="evento">${eventos.evento}</td>
+                        <td class="evento" style="font-size: 16px;">${eventos.evento}</td>
                     </tr>    
                     `;
 

@@ -93,6 +93,8 @@ if (isset($_SESSION['permisos'])) {
 										</li>
 									</ul>
 
+
+
 									<!-- Tab panes -->
 									<?PHP if (in_array("consultar ano_academico", $nivel1)) { ?>
 									<div class="tab-content">
@@ -131,11 +133,12 @@ if (isset($_SESSION['permisos'])) {
 													events: function(fetchInfo, successCallback, failureCallback) {
 													successCallback([<?php
 																		foreach ($evento as $r) {
+																			$end_date = date('Y-m-d', strtotime($r["fecha_cierr"] . ' +1 day'));
 																		?> {
 																id: "<?php echo $r["id"]; ?>",
 																title: "<?php echo $r["ano_academico"]; ?>",
 																start: "<?php echo $r["fecha_ini"]; ?>",
-																end: "<?php echo $r["fecha_cierr"]; ?>",
+																end: "<?php echo $end_date; ?>",
 
 															},
 
