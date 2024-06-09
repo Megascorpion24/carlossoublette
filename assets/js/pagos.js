@@ -291,7 +291,7 @@ $("#d_montosMM").on("keypress", function(e) {
     });
 
     $("#forma").on("keypress", function(e) {
-        validarkeypress(/^[-A-Z a-z\s]$/, e);
+        validarkeypress(/^[-A-Za-z\s]$/, e);
     });
 
     $("#forma").on("keyup", function() {
@@ -300,12 +300,12 @@ $("#d_montosMM").on("keypress", function(e) {
     });
 
     $("#estado").on("keypress", function(e) {
-        validarkeypress(/^[A-Z a-z\s]$/, e);
+        validarkeypress(/^[A-Za-z\s]$/, e);
     });
 
     $("#estado").on("keyup", function() {
-        validarkeyup(/^[A-Za-z\s]{4,10}$/,
-            $(this), $("#sestado"), "El formato puede ser valido");
+        validarkeyup(/^[A-Za-z\s]{4,20}$/,
+            $(this), $("#sestado"), "El formato debe ser valido");
     });
     $("#monto").on("keypress", function(e) {
         validarkeypress(/^[0-9-]$/, e);
@@ -369,7 +369,7 @@ $("#conceptop").on("keyup", function() {
 });
 
 $("#formap").on("keypress", function(e) {
-    validarkeypress(/^[-A-Z a-z\s]$/, e);
+    validarkeypress(/^[-A-Za-z\s]$/, e);
 });
 
 $("#formap").on("keyup", function() {
@@ -396,12 +396,12 @@ $("#mesesp").on("keyup", function() {
 });
 
 $("#estadop").on("keypress", function(e) {
-    validarkeypress(/^[A-Z a-z\s]$/, e);
+    validarkeypress(/^[A-Za-z\s]$/, e);
 });
 
 $("#estadop").on("keyup", function() {
     validarkeyup(/^[A-Za-z\s]{4,10}$/,
-        $(this), $("#sestadop"), "El formato puede ser valido");
+        $(this), $("#sestadop"), "El formato debe ser valido");
 });
 
 $("#estado_pagosp").on("keypress", function(e) {
@@ -470,12 +470,12 @@ $("#formar").on("keyup", function() {
 });
 
 $("#estador").on("keypress", function(e) {
-    validarkeypress(/^[A-Z a-z\s]$/, e);
+    validarkeypress(/^[A-Za-z\s]$/, e);
 });
 
 $("#estador").on("keyup", function() {
     validarkeyup(/^[A-Za-z\s]{4,20}$/,
-        $(this), $("#sestador"), "El formato puede ser valido");
+        $(this), $("#sestador"), "El formato debe ser valido");
 });
 
 $("#montor").on("keypress", function(e) {
@@ -1372,7 +1372,7 @@ function validarenvioMM() {
             return false;
 
         } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
-        $("#estado"), $("#sestado"), "El formato puede ser valido") == 0) {
+        $("#estado"), $("#sestado"), "El formato debe ser valido") == 0) {
             mensaje("El formato puede ser valido");
             return false;
 

@@ -21,8 +21,6 @@ if(isset($_COOKIE['token'])){
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
