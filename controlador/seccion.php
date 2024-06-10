@@ -182,12 +182,8 @@ if (!empty($_POST['id_edit'])) {
 
 				$secciones = $_POST['sec'];
 			
-				// Asegúrate de tener al menos 1 registro y como máximo 12
-				$secciones = array_slice($secciones, 0, 27);
-				
-				
-				//no esta vacio
-				if (!empty($secciones)) {
+				//no esta vacio y Asegúrate de tener al menos 1 registro y como máximo 21
+				if (!empty($secciones) && array_slice($secciones, 0, 21)) {
 					
 					$validacion2 = $o->validarAbecedarioFormulario($secciones);
 					if ($validacion2 == false) {

@@ -90,6 +90,14 @@ if(isset($_COOKIE['token'])){
 				display:none;
 			}
 		}
+		#contenido-seccion {
+			/* display: inline-block; Hace que el div se comporte como un elemento en línea */
+			/* vertical-align: middle; Alinea verticalmente con respecto al otro elemento */
+			margin-top:-7%;
+			margin-left: 42%; 
+			position: absolute;
+			z-index: 200;
+		}
 
 
 
@@ -272,19 +280,17 @@ if(isset($_COOKIE['token'])){
 		<span id="cantidad_msj"></span>
 			</div>
 	
-
 			<br>
 			<div class="ml-3 mt-4">
 				<?php
 					if (!empty($academico)) {
 					echo $academico;
 					} else {
-					echo '<p class="text-light bg-dark p-1">NO Año Académico Registrado!!</p>';
+					echo '<p class="text-light bg-dark p-1">NO Hay, Año Académico Registrado!!</p>';
 					}
 				?>
 			</div>
 
-       
       </div>
       <div class="modal-footer">
 	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

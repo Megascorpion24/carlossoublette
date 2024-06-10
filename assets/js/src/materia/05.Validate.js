@@ -40,7 +40,7 @@ $("#nombre").on("keyup", function() {
     validarkeyup(/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{5,30}$/,
         $(this), $("#nombre1_v"), "El formato puede ser A-Z a-z 5-30");
 });
-
+ 
 
 // ---------------------Validacion Modificar---------------------------------------------
 $("#nombre1").on("keypress", function(e) {

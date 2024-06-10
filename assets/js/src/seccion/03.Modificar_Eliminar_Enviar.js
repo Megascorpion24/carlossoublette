@@ -152,18 +152,17 @@ $('#editEmployeeModal').on('hidden.bs.modal', function () {
 //<!---------------------------------------------ELIMINAR------------------------------------------------------------------------------->
  
 function eliminar(id, s, a){
-    let se= s.toUpperCase();
-   $('#seccion_b').text(se);
+    let se = s.toUpperCase();
+    $('#seccion_b').text(se);
     $('#año_b').text(a);
-    // console.log(se);
-    // console.log(a);
-//    ----------
     $("#id2").val(id);
-    $("#borrar").on("click", () => {
-            
-         enviaAjax($("#f3"));
-        });
+
+    //Corregido
+    $("#borrar").off("click").on("click", () => {
+        enviaAjax($("#f3"));  
+    });
 }
+
 
 function delete_info(s,a){
     let se= s.toUpperCase();
@@ -185,13 +184,14 @@ function delete_info(s,a){
                 success: (respuesta) => {
                     // alert(respuesta);
                     LlamadaAlert(respuesta)
+                //Carga de informacion actualizada
                     abc();
                     abc2();
                  Doc_Guia2();
                  Doc_Guia3();
 
                     $("#consulta").val("consulta");
-                    enviaAjax2($("#f4"));
+                    enviaAjax2($("#f4"));  
 
                 },
                 error: function(request, status, err){
@@ -212,37 +212,51 @@ function delete_info(s,a){
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
-    function enviaAjax2(datos){
-    
-        $.ajax({
-                url: '', 
-                type: 'POST',
-                data: datos.serialize(),
-                beforeSend: function(){},
-                
-                success: function(respuesta) {
-                    // console.log(respuesta);
-                 $('#tablas').DataTable().destroy();
-                     $("#tabla").empty();
+function destruirDataTable() {
+    return new Promise((resolve, reject) => {
+        try {
+            $('#tablas').DataTable().destroy();
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
 
-                 $("#tabla").html(respuesta);//carga datos de la BD a la tabla  
-                 CargarDataTable(); 
+function actualizarTabla(respuesta) {
+    return new Promise((resolve, reject) => {
+        try {
+            $("#tabla").empty();
+            $("#tabla").html(respuesta); // Carga datos de la BD a la tabla
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
 
-                },
-                error: function(request, status, err){
-                    if (status == "timeout") {
-                        mensaje("Servidor ocupado, intente de nuevo");
-                    } else {
-                        mensaje("ERROR: <br/>" + request + status + err);
-                    }
-                },
-                complete: function(){
-                    
-                }
-                
-        });
-        
-    }
+function enviaAjax2(datos) {
+    $.ajax({
+        url: '',
+        type: 'POST',
+        data: datos.serialize(),
+        beforeSend: function(){},
+        success: function(respuesta) {
+            destruirDataTable()
+                .then(() => actualizarTabla(respuesta))
+                .then(() => CargarDataTable())
+                .catch(error => console.error("Error: ", error));
+        },
+        error: function(request, status, err) {
+            if (status == "timeout") {
+                mensaje("Servidor ocupado, intente de nuevo");
+            } else {
+                mensaje("ERROR: <br/>" + request + status + err);
+            }
+        },
+        complete: function(){}
+    });
+}
 
 
 
