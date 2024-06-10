@@ -1091,7 +1091,6 @@ function chect2(valo) {
         $("#estudiante").val("0")
     }
 
-    $("#materiae").attr("disabled","disabled");
     $("#mibuscador2").removeAttr("disabled");
 
     $("#cedulae").attr("disabled", "disabled");

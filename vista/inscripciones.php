@@ -69,13 +69,7 @@ if (isset($_SESSION['permisos'])) {
 									<h2 class="ml-lg-2">Tabla de registros</h2>
 								</div>
 								<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-								<select class="form-select" aria-label="select" id="ano">
-								<?php
-									if (!empty($consuta20)) {
-										echo $consuta20;
-									}
-									?>
-									</select>	
+					
 										
 								
 									
@@ -86,13 +80,7 @@ if (isset($_SESSION['permisos'])) {
 
 										</a>
 									<?php } ?>
-									<?PHP if (in_array("registrar inscipcion", $nivel1)) { ?>
-										<a href="#addEmployeeModalpre" class="btn btn-success" data-toggle="modal">
-											<i class="material-icons">&#xE147;</i>
-											<span>Pre-Inscripciones</span>
-
-										</a>
-									<?php } ?>
+								
 
 
 									<?PHP if (in_array("registrar inscipcion", $nivel1)) { ?>
@@ -124,7 +112,7 @@ if (isset($_SESSION['permisos'])) {
 										<th>año</th>
 										<th>seccion</th>
 										<th>accion</th>
-										<th> </th>
+							
 
 
 

@@ -18,7 +18,7 @@ public function consultar(){
 
             foreach($resultado as $r){
                 $respuesta= $respuesta.'<tr>';
-                $respuesta=$respuesta."<th>".$r['id']."</th>";
+           
                 $respuesta=$respuesta."<th>".$r['fecha']."</th>";
                 $respuesta=$respuesta."<th>".$r['accion']."</th>";
                 $respuesta=$respuesta."<th>".$r['modulo']."</th>";
