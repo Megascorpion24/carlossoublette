@@ -493,10 +493,13 @@ private function modificarMM(){
                 $r->bindParam(':d_montos',$this->d_montos);	
                 $r->execute();
   
-
-
-
-     
+                $r = $co->prepare("UPDATE deudas d
+                SET d.estado_deudas = 0
+                WHERE EXISTS (
+                    SELECT *
+                    FROM montos m
+                    WHERE m.m_montos < d.monto )AND d.concepto = 'inscripcion'");
+                $r->execute();  
 
             $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          

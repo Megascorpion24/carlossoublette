@@ -13,10 +13,9 @@ $(document).ready(function() {
 
     $("#tablas").DataTable({
     
-        responsive: false,   
+        responsive: true,   
 
-        scrollX: true,
-        scrollCollapse: true,
+
     
         lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
         columnDefs: [
@@ -79,11 +78,7 @@ $(document).ready(function() {
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  $("#tablas2").DataTable({
     
-    responsive: false,   
-
-    scrollX: true,
-    scrollCollapse: true,
-
+    responsive: true,   
     lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
     columnDefs: [
       { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },
@@ -244,10 +239,15 @@ $("#m_montosMM").on("keyup", function() {
     validarkeyup(/^[0-9-]{1,11}$/,
         $(this), $("#sm_montosMM"), "El formato puede ser 0000");
 });
+$("#d_montosMM").on("keyup", function() {
+    validarkeyup(/^[0-9-]{1,11}$/,
+        $(this), $("#sd_montosMM"), "El formato puede ser 0000");
+});
 
 $("#d_montosMM").on("keypress", function(e) {
     validarkeypress(/^[0-9-]$/, e);
 });
+
 
 
 
@@ -1337,6 +1337,11 @@ function validarenvioMM() {
         mensaje("El formato puede ser 0000");
         return false;
 
+    } else if (validarkeyup(/^[0-9-]{1,11}$/,
+    $("#d_montosMM"), $("#sd_montosMM"), "El formato puede ser 0000") == 0) {
+        mensaje("El formato puede ser 0000");
+        return false;
+
     }
     return true;
 }
@@ -1539,7 +1544,7 @@ function validarenviop() {
     return true;
 }
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
+mibuscador
 const input1 = document.getElementById("identificador");
 const input2 = document.getElementById("monto");
 const input3 = document.getElementById("meses");
@@ -1548,6 +1553,11 @@ const input5 = document.getElementById("montor");
 const input6 = document.getElementById("mesesr");
 const input7 = document.getElementById("identificadorM");
 const input8 = document.getElementById("montoM");
+const input9 = document.getElementById("d_montosMM");
+const input10 = document.getElementById("mesesp");
+const input11 = document.getElementById("montop");
+const input12 = document.getElementById("identificadorp");
+
 
 
 // Función para limitar la longitud del valor
@@ -1595,6 +1605,28 @@ input5.addEventListener("input", () => {
     const maxLength = 11; // Cambia este valor al límite máximo deseado
     limitarLongitud(input8, maxLength);
   });
+ 
+  input9.addEventListener("input", () => {
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input9, maxLength);
+  });
+
+  input10.addEventListener("input", () => {
+    const maxLength = 2; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input10, maxLength);
+  });
+
+  input11.addEventListener("input", () => {
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input11, maxLength);
+  });
+  
+  input12.addEventListener("input", () => {
+    const maxLength = 11; // Cambia este valor al límite máximo deseado
+    limitarLongitud(input12, maxLength);
+  });
+
+
 
 
 

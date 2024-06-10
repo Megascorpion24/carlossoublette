@@ -299,6 +299,12 @@ if(isset($_COOKIE['token'])){
     consultar
   </label>
 </div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="121" name="exampleRadios[]" id="70" >
+  <label class="form-check-label" for="70"  >
+    consultar montos
+  </label>
+</div>
 
 
 </div>

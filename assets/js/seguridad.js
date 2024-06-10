@@ -328,6 +328,7 @@ $("#descripcion1").on("keyup", function() {
             check("restaurar", "#60");
             check("pagos_reportes", "#61");
             check("Consultar Bitacora", "#63");
+            check("consultarmontos", "#70");
 
 
         }, 500);
