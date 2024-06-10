@@ -1,5 +1,5 @@
 -------------------------- 4. START TRANSACTION, COMMIT y ROLLBACK
-
+ 
 START TRANSACTION;
 -- Insertar la materia y obtener su ID
 INSERT INTO materias (nombre, estado) VALUES ('Deporte', 1);
@@ -16,6 +16,7 @@ START TRANSACTION;
 INSERT INTO materias (nombre, estado) VALUES ('Castellano', 1);
 SET @id_materia1 = LAST_INSERT_ID();
 INSERT INTO años_materias (id_anos, id_materias) VALUES (1, @id_materia1);
+
 SAVEPOINT sp1;
 
 -- Insertar la segunda materia
@@ -46,13 +47,4 @@ DELETE FROM materias WHERE id = 19;
 
 
 UNLOCK TABLES;
-COMMIT;
-
-
--------------------BLOQUEO DE FILA PARA ACTUALIZAR----------
--- InnoDB realiza por defecto un bloqueo a nivel de fila
-
-START TRANSACTION;
-SELECT * FROM materias WHERE id = 18 FOR UPDATE;
-UPDATE materias SET nombre = 'fISICA' WHERE id = 18;
 COMMIT;

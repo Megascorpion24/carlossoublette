@@ -139,32 +139,59 @@ if (filtros.year !== '') {
 // --------------------------------------------------------------------------------------------
 
 
+// var htmlSelect_Seccion = `
+// <div>
+//   <label for="secciones abc-filter" style="margin-left: 30px;">Filtrar:
+//       <select class="form-control" id="secciones-filter">
+//       </select>
+//   </label>
+// </div>
+// `;
+
+// // Obtener el elemento #tablas_length
+
+
+
+
+
+
+
+
+
 var htmlSelect_Seccion = `
-<label for="secciones abc-filter" style="margin-left: 30px;">Filtrar:
-    <select class="form-control" id="secciones-filter">
-    </select>
-</label>
+<div id="contenido-seccion">
+ <div class="form-group">
+    <label for="secciones-filter">Filtrar:</label>
+    <div class="d-inline-block">
+      <select class="form-control" id="secciones-filter">
+        <!-- Opciones del select -->
+      </select>
+    </div>
+  </div>
+</div>
 `;
 
-// Obtener el elemento #tablas_length
-const tablasLengthElement = document.getElementById('tablas_length');
-      tablasLengthElement.insertAdjacentHTML('beforeend', htmlSelect_Seccion);
-
-
-// Evento de cambio para el select de secciones
-$('#secciones-filter').on('change', function() {
-filtros.seccion = $(this).find("option:selected").text();
-console.log(filtros.seccion);
-filtros.seccion = (filtros.seccion == "todo") ? "" : filtros.seccion;
-table.column(1).search(filtros.seccion).draw();
-
+// Encuentra el primer 'col-sm-12 col-md-6'
+var colElement = document.querySelector('.col-sm-12.col-md-6');
+// Inserta el htmlSelect_Seccion después del 'dataTables_length'
+    var tablasLengthElement = colElement.querySelector('#tablas_length');
+        // Insertar el filtro después del div con id="tablas_length"
+        tablasLengthElement.insertAdjacentHTML('afterend', htmlSelect_Seccion);
+      
+        // Evento de cambio para el select de secciones
+        $('#secciones-filter').on('change', function() {
+    filtros.seccion = $(this).find("option:selected").text(); 
+    console.log(filtros.seccion);
+    filtros.seccion = (filtros.seccion == "todo") ? "" : filtros.seccion;
+    table.column(1).search(filtros.seccion).draw();
 });
-
 
 // Si filtros.seccion no está vacío, aplicar el filtro
 if (filtros.seccion !== '') {
-table.column(1).search(filtros.seccion).draw();
+    table.column(1).search(filtros.seccion).draw();
 }
+
+ 
 
 
 

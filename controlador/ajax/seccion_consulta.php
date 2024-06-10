@@ -6,7 +6,7 @@ $obj=new secciones();
 // -------------------
 if (isset($_POST['ajaxPet']) && $_POST['action'] == 'abc') {
   try {
-      
+       
       $resultado= $obj->abc();
 
       echo $resultado;
@@ -17,7 +17,7 @@ if (isset($_POST['ajaxPet']) && $_POST['action'] == 'abc') {
   }
 }
 
-
+  
 if (isset($_POST['ajaxPet']) && $_POST['action'] == 'abc2') {
   try {
       
@@ -69,7 +69,7 @@ if (isset($_POST['ajaxPet']) && isset($_POST['action']) && $_POST['action'] == '
         $json = array();
         foreach($resultado as $valores)
          {
-           
+            
             $json[] = array(
               'cedula' => $valores['cedula'],
               'nombre' => $valores['nombre'],
