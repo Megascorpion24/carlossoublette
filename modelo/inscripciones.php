@@ -878,16 +878,18 @@ public function consultar($nivel1, $id1){
            $respuesta="";
 
             foreach($resultado as $r){
-                $respuesta= $respuesta.'<tr></th>';
-                $respuesta=$respuesta."<th>".$r['cedula']."</th>";
-                $respuesta=$respuesta."<th>".$r['nombre']."</th>";
-                $respuesta=$respuesta."<th>".$r['apellido']."</th>";
-                $respuesta=$respuesta."<th>".$r['edad']."</th>";
-                $respuesta=$respuesta."<th>".$r['observaciones']."</th>";
-                $respuesta=$respuesta."<th>".$r['materias_pendientes']."</th>";
-                $respuesta=$respuesta."<th>".$r['anos']."</th>";
-                $respuesta=$respuesta."<th>".$r['secciones']."</th>";
-                $respuesta=$respuesta.'<th>';
+                $respuesta= $respuesta.'<tr>';
+                $respuesta=$respuesta."<td>".$r['id']."</td>";
+                $respuesta=$respuesta."<td>".$r['cedula']."</td>";
+                $respuesta=$respuesta."<td>".$r['nombre']."</td>";
+                $respuesta=$respuesta."<td>".$r['apellido']."</td>";
+                $respuesta=$respuesta."<td>".$r['edad']."</td>";
+                $respuesta=$respuesta."<td>".$r['observaciones']."</td>";
+                $respuesta=$respuesta."<td>".$r['materias_pendientes']."</td>";
+                $respuesta=$respuesta."<td>".$r['anos']."</td>";
+                $respuesta=$respuesta."<td>".$r['secciones']."</td>";
+                
+                $respuesta=$respuesta.'<td>';
                 if (in_array("modificar inscipcion",$nivel1)) {
                     # code...
                 
@@ -902,7 +904,8 @@ public function consultar($nivel1, $id1){
                </a>';
                
             }
-            $respuesta=$respuesta.'</th>';
+            $respuesta=$respuesta.'</td>';
+            
              $respuesta= $respuesta.'</tr>';
 
             }
