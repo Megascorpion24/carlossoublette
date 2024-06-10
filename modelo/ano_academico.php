@@ -522,7 +522,7 @@ private function eliminar1(){
 
                 $r->execute();
 
-                $r = $co->prepare("UPDATE `deudas` SET `estado`= 0 WHERE `estado`= 1"  );
+                $r = $co->prepare("UPDATE `deudas` SET `estado`= 0 WHERE `estado`= 1 AND `estado_deudas`= 0 "  );
 
                 $r->execute();
 
