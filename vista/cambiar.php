@@ -64,7 +64,7 @@
 
       <div class="container-form">
         <form method="post" id="f">
-        <input type="hidden" id="url" name="url" id="url" value="<?php echo $_GET['clave'] ?>"  />
+        <input type="hidden" id="url" name="url" id="url" value="<?php echo $_GET['token'] ?>"  />
           <div class="container-input">
             <label for="password">Nueva Contraseña</label>
 

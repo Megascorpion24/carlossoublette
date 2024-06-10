@@ -42,10 +42,7 @@ $(document).ready(function() {
     },
   });
   
-  $("#ano").on('change', function() {
-    $("#inpF8").val($("#ano").val());
-    enviaAjax3($("#8"));
-  })
+ 
 
   function enviaAjax3(datos) {
 

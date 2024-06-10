@@ -33,6 +33,7 @@ if(isset($_COOKIE['token'])){
 		<head>
 			<?php  require_once('comunes/header.php');?>
 			<?php require_once('comunes/menu.php'); ?>
+		
 		</head>
 	<body>
 
@@ -64,7 +65,7 @@ if(isset($_COOKIE['token'])){
 								</div>
 							</div>
 					   
-							<table id="tablas2" style="width:100%" class="table table-striped ">
+							<table id="tablas2" style="width:100%" class="table table-striped display nowrap">
 								<thead>
 									<tr>
 				
@@ -109,7 +110,7 @@ if(isset($_COOKIE['token'])){
 
 											<?php } ?>
 
-											<?PHP if (in_array("registrar pagos", $nivel1)) {?>
+											<?PHP if (in_array("Confirmar Pago", $nivel1)) {?>
 											<a href="#confirmarpagos" class="btn btn-primary" data-toggle="modal">
 												<i class="material-icons " style="width:100%" title="registrar"></i>
 												<span>Confirmar Pago</span>
@@ -130,7 +131,7 @@ if(isset($_COOKIE['token'])){
 					   
 
 					   
-							<table id="tablas" style="width:100%" class="table table-striped ">
+							<table id="tablas" style="width:100% " class="table table-striped display nowrap ">
 								<thead>
 									<tr>
 				

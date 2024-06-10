@@ -219,7 +219,7 @@ class pagos extends datos{
                 $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
                                   VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
 
-                $estado_pagos=1;
+                $estado_pagos=1; 
                 $estatus=1;    
                 $r->bindParam(':id_deudas',$this->id_deudas);	
                 $r->bindParam(':identificador',$this->identificador);	
@@ -493,10 +493,13 @@ private function modificarMM(){
                 $r->bindParam(':d_montos',$this->d_montos);	
                 $r->execute();
   
-
-
-
-     
+                $r = $co->prepare("UPDATE deudas d
+                SET d.estado_deudas = 0
+                WHERE EXISTS (
+                    SELECT *
+                    FROM montos m
+                    WHERE m.m_montos < d.monto )AND d.concepto = 'inscripcion'");
+                $r->execute();  
 
             $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          

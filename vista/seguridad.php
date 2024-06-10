@@ -271,32 +271,62 @@ if(isset($_COOKIE['token'])){
 		<div class="form-check">
   <input class="form-check-input" type="checkbox" value="74" name="exampleRadios[]" id="13"  >
   <label class="form-check-label" for="13">
-	 registrar
+	 Registrar Pagos
   </label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="111" name="exampleRadios[]" id="50" >
   <label class="form-check-label" for="50"  >
-    enviar pago
+   Registrar Pagos tutor
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="128" name="exampleRadios[]" id="71" >
+  <label class="form-check-label" for="71"  >
+   Confirmar Pagos
   </label>
 </div>
 
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="75" name="exampleRadios[]" id="14" >
   <label class="form-check-label" for="14"  >
-    modificar
+    Modificar Pagos
   </label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="76" name="exampleRadios[]" id="15" >
   <label class="form-check-label" for="15"  >
-    eliminar
+    Eliminar Pagos
   </label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="77" name="exampleRadios[]" id="16" >
   <label class="form-check-label" for="16"  >
-    consultar
+    Consultar Pagos
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="112" name="exampleRadios[]" id="72" >
+  <label class="form-check-label" for="72"  >
+    Consultar Pagos Tutor
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="121" name="exampleRadios[]" id="70" >
+  <label class="form-check-label" for="70"  >
+    Consultar Montos
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="122" name="exampleRadios[]" id="73" >
+  <label class="form-check-label" for="73"  >
+    Modificar Montos
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="127" name="exampleRadios[]" id="74" >
+  <label class="form-check-label" for="74"  >
+    Menu Pagos
   </label>
 </div>
 
