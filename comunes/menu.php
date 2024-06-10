@@ -107,7 +107,7 @@ if (isset($_SESSION['permisos'])) {
 			?>
 			<!-------6 PAGINA------------>
 			<?php
-			if (in_array("consultar pagos", $nivel1)) {
+			if (in_array("consultar pagos menu", $nivel1)) {
 				if ($pagina=="pagos") {
 					$variable="active";
 				}else{

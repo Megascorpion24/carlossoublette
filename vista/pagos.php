@@ -110,7 +110,7 @@ if(isset($_COOKIE['token'])){
 
 											<?php } ?>
 
-											<?PHP if (in_array("registrar pagos", $nivel1)) {?>
+											<?PHP if (in_array("Confirmar Pago", $nivel1)) {?>
 											<a href="#confirmarpagos" class="btn btn-primary" data-toggle="modal">
 												<i class="material-icons " style="width:100%" title="registrar"></i>
 												<span>Confirmar Pago</span>
