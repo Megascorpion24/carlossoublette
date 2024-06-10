@@ -99,7 +99,7 @@ if (isset($_SESSION['permisos'])) {
 							<table id="tablas" class="table table-striped table-hover">
 								<thead>
 									<tr>
-
+									<th>ID</th>
 
 										<th>Cedula </th>
 										<th>Nombre</th>
@@ -112,6 +112,8 @@ if (isset($_SESSION['permisos'])) {
 										<th>año</th>
 										<th>seccion</th>
 										<th>accion</th>
+										<th></th>
+										
 							
 
 
