@@ -3,15 +3,12 @@
 require_once('modelo/conexion.php');
 class cambiar extends datos
 {
-	private $usuario;
+	
 	private $clave;
 	private $url;
 	private $nivel;
 
-	public function set_usuario($valor)
-	{
-		$this->usuario = $valor;
-	}
+	
 	public function set_clave($valor){
         if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
 		$this->clave = $valor; 
@@ -30,6 +27,13 @@ class cambiar extends datos
 	}
 
 	public function cambiar()
+    {
+        $val = $this->cambiar1();
+        return $val;
+    }
+
+
+	private function cambiar1()
 	{
 		$co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

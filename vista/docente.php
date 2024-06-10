@@ -154,6 +154,7 @@ if(isset($_COOKIE['token'])){
         </button>
       </div>
       <div class="modal-body">
+		<div class="form-row" >
         <div class="form-group">
 		
 		    <label>Cedula</label>
@@ -162,65 +163,66 @@ if(isset($_COOKIE['token'])){
 			<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" required>
 			<input type="text" class="form-control" name="cedula" id="cedula" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Nombre</label>
 			<br>
 			<span id="snombre"></span>
 			<input type="text" class="form-control" name="nombre" id="nombre" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Apellido</label>
 			<br>
 			<span id="sapellido"></span>
 			<input type="text" class="form-control" name="apellido" id="apellido" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Categoria de trabajo</label>
 			<br>
 			<span id="scategoria"></span>
 			<input type="text" class="form-control" name="categoria" id="categoria" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Fecha de nacimiento</label>
 			<br>
 			<span id="sfecha"></span>
 			<input type="date" class="form-control" name="fecha" id="fecha" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Especializacion</label>
 			<br>
 			<span id="sespecializacion"></span>
 			<input type="text" class="form-control" name="especializacion" id="especializacion" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Profecion</label>
 			<br>
 			<span id="sprofecion"></span>
 			<input type="text" class="form-control" name="profecion" id="profecion" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Edad</label>
 			<br>
 			<span id="sedad"></span>
 			<input type="text" class="form-control" name="edad" id="edad" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Años de trabajo</label>
 			<br>
 			<span id="saños"></span>
 			<input type="text" class="form-control" name="años" id="años" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Correo</label>
 			<br>
 			<span id="scorreo"></span>
 			<input type="text" class="form-control" name="correo" id="correo" required>
 		</div>
-		<div class="form-group">
+		<div class="form-group col-md-4">
 		    <label>Direccion</label>
 			<br>
 			<span id="sdireccion"></span>
 			<input type="text" class="form-control" name="direccion" id="direccion" required>
+		</div>
 		</div>
       </div>
       <div class="modal-footer">

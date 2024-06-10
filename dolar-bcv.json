@@ -379,7 +379,11 @@
                                         <img alt="Disponible en Google Play" src="/img/icons/social-google-play-badge.webp" height="50px"/>
                                     </a>
                                     <div class="margin-10"></div>
+<<<<<<< HEAD
+                                <h1>Dólar BCV  Venezuela</h1><h2>36,52<small><small> BS/USD</small></small></h2><p>09-06-2024 03:36 pm</p>                    </div>
+=======
                                 <h1>Dólar BCV  Venezuela</h1><h2>36,52<small><small> BS/USD</small></small></h2><p>09-06-2024 03:59 pm</p>                    </div>
+>>>>>>> 7c20f7e74d54354ed329d39d48114a3dfa0a06c5
                     
                             <script>
 
@@ -537,9 +541,15 @@
                                             <div itemprop="text">
                                                 <!-- start NewsArticle -->
                                                 <div itemscope itemtype="https://schema.org/NewsArticle">        
+<<<<<<< HEAD
+        <meta itemprop="dateCreated"        content="2024-06-09T19:36 +00:00" />
+        <meta itemprop="datePublished"      content="2024-06-09T19:36 +00:00" />
+        <meta itemprop="dateModified"       content="2024-06-09T19:36 +00:00" />
+=======
         <meta itemprop="dateCreated"        content="2024-06-09T19:59 +00:00" />
         <meta itemprop="datePublished"      content="2024-06-09T19:59 +00:00" />
         <meta itemprop="dateModified"       content="2024-06-09T19:59 +00:00" />
+>>>>>>> 7c20f7e74d54354ed329d39d48114a3dfa0a06c5
         <meta itemprop="articleSection"     content="Venezuela" />
         <meta itemprop="description"        content="El precio del dólar BCV en Venezuela hoy domingo, 09 de Junio de 2024 es de 36,52 BS/USD. Consulta los gráficos estadísticos actualizados cada 5 minutos." />
         <meta itemprop="mainEntityOfPage"   itemscope itemtype="https://schema.org/WebPage" itemid="https://exchangemonitor.net/estadisticas/ve/dolar-bcv" />
@@ -756,7 +766,11 @@
         var formato = "%d/%m/%Y %H:%M";
         var tooltip = true;
         
+<<<<<<< HEAD
+        let fecha_utc = new Date('2024/06/09 19:36');
+=======
         let fecha_utc = new Date('2024/06/09 19:59');
+>>>>>>> 7c20f7e74d54354ed329d39d48114a3dfa0a06c5
         let fecha_local = new Date();
         
         var utc;

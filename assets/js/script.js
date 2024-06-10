@@ -4,7 +4,8 @@ $(document).ready(function() {
   $("#tablas").DataTable({
  
     responsive: true,
-    
+        "order": [[3, "desc"]],
+    "order": [[1, "desc"]],
     lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
     columnDefs: [
       { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },

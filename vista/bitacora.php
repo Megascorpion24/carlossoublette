@@ -61,7 +61,7 @@ if(isset($_COOKIE['token'])){
 					   <table id="tablas" style="width:100%" class="table table-striped ">
 					      <thead>
 						     <tr>		
-							 <th>id </th>
+					
 							 <th>fecha</th>				
 							 <th>accion</th>
 							 <th>modulo</th>
