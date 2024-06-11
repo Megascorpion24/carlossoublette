@@ -15,8 +15,11 @@ $(document).ready(function() {
              $('#addEmployeeModal').modal('hide');
              $('#f').trigger('reset');
            $("#docentes").val(null).trigger("change");
-               nombre_valor="";
-               seleccionado="";
+           año="";
+           nombre_Materia="";
+              //  nombre_valor="";
+              //  seleccionado="";
+               existe="";
            }
    }); 
 
@@ -32,8 +35,9 @@ $(document).ready(function() {
            $('#f2').trigger('reset');
            $("#docentes1").val(null).trigger("change");
            
-           nombre_valor2="";
-           seleccionado2="";
+           nombre_materia_edit="";
+           año_edit="";
+           existe2="";
            $('#existe_msj2').text('');
            $('#existe_msj3').text(''); 
 

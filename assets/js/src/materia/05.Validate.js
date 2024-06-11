@@ -111,9 +111,6 @@ $("#nombre1").on("keyup", function() {
         } 
     // -------------------------
 
-        if (año_edit == '') { 
-            return false;
-        }
     // -------------------------
 
         var selectedValues = $("#docentes1").val();

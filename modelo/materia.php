@@ -3,7 +3,6 @@
 require_once('conexion.php');
 require_once('validator/validations.php');
 
-
 class materias extends datos{
  
     private $id;
@@ -13,12 +12,12 @@ class materias extends datos{
     private $nivel;
     
     
-
+ 
      //---VALIDACIONES BACKEND---
      public function Validar_Materia($datos) {
         try {
             // Valida datos
-            $this->nombre = validate_value('name', $datos['nombre']);
+            $this->nombre = validate_value('nameMateria', $datos['nombre']);
             $this->ano = validate_value('año', $datos['año']);
             $this->docentes = validarDocentesFormulario('cedula', $datos['docentes']);
             return true;
@@ -27,7 +26,7 @@ class materias extends datos{
             return false;
         }
     }
-
+   
     // --------------
 
    public function Registrar_Materia($datos) {
@@ -39,7 +38,9 @@ class materias extends datos{
 
    public function Modificar_Materia($datos) {
      //Validar para Modificar
+    //  print_r($datos);
        $val = $this->Validar_Materia($datos);
+              $this->id = $datos['id']; 
        return $val ? $this->modificar1() : null;
     }
 
@@ -177,7 +178,7 @@ private function modificar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if (!$this->exists($this->nombre,$this->ano)) {
+    if (!$this->exists($this->nombre, $this->ano)) {
         try {
             // Actualiza la materia en la tabla materias
             $r = $co->prepare("UPDATE materias SET nombre = :nombre WHERE id = :id");
@@ -191,61 +192,61 @@ private function modificar1(){
             $r->bindParam(':id', $this->id);
             $r->execute();
 
-             
-        
-            $this->off_Docente(); // Llama a la función q elimina los docentes actuales
-            $this->insert_Docente(); //llamma a la funcion a registra los docentes nuevos
-
+            // Manejo de docentes
+            try {
+                $this->off_Docente(); // Llama a la función que elimina los docentes actuales
+                $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
+            } catch (Exception $e) {
+                return "Error al manejar docentes: " . $e->getMessage();
+            }
 
             $this->bitacora("se modificó una materia", "materias", $this->nivel);
-            return "2Registro Modificado";
+            return "Registro Modificado";
         } catch (Exception $e) {
             return $e->getMessage();
         }
-       
-
-   
-    } else { 
-
-        $this->off_Docente(); // Llama a la función q elimina los docentes actuales
-        $this->insert_Docente(); //llamma a la funcion a registra los docentes nuevos
+    } else {
+        try {
+            $this->off_Docente(); // Llama a la función que elimina los docentes actuales
+            $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
 
             $this->bitacora("se modificó Docente de una materia", "materias", $this->nivel);
-            return "2Registro Modificado";
-        
+            return "Registro Modificado";
+        } catch (Exception $e) {
+            return "Error al manejar docentes: " . $e->getMessage();
+        }
     }
-    
-
-
 }
+
 //<!---------------------------fin de funcion modificar--------------------------->
 
 
-private function off_Docente(){
-
-// ----ESTADO 0 A LOS QUE NO ESTEN EN LAS VARIABLES OBTENIDAS------
+private function off_Docente() {
+    try {
         $co = $this->conecta();
-    // Obtén la lista de docentes asociados a la materia antes de realizar la modificación
-    $r = $co->prepare("SELECT id_docente FROM materias_docentes WHERE id_materias = :id");
-    $r->bindParam(':id', $this->id);
-    $r->execute();
-    $docentesAsociados = $r->fetchAll(PDO::FETCH_COLUMN);
+        // Obtén la lista de docentes asociados a la materia antes de realizar la modificación
+        $r = $co->prepare("SELECT id_docente FROM materias_docentes WHERE id_materias = :id");
+        $r->bindParam(':id', $this->id);
+        $r->execute();
+        $docentesAsociados = $r->fetchAll(PDO::FETCH_COLUMN);
 
-
-    foreach ($docentesAsociados as $docente) {
-        if (!in_array($docente, $this->docentes)) {
-            $r = $co->prepare("DELETE FROM materias_docentes WHERE id_materias = :id AND id_docente = :docente");
-            $r->bindParam(':id', $this->id);
-            $r->bindParam(':docente', $docente);
-            $r->execute();
+        foreach ($docentesAsociados as $docente) {
+            if (!in_array($docente, $this->docentes)) {
+                $r = $co->prepare("DELETE FROM materias_docentes WHERE id_materias = :id AND id_docente = :docente");
+                $r->bindParam(':id', $this->id);
+                $r->bindParam(':docente', $docente);
+                $r->execute();
+            }
         }
+        return "Docentes eliminados correctamente";
+    } catch (Exception $e) {
+        throw new Exception("Error en off_Docente: " . $e->getMessage());
     }
-
-    return "entro en docente";
 }
+
  
 
-private function insert_Docente(){
+private function insert_Docente() {
     $co = $this->conecta();
     
     foreach ($this->docentes as $index => $docente) {
@@ -260,27 +261,34 @@ private function insert_Docente(){
                     $r->bindParam(':id_materia', $this->id);
                     $r->bindParam(':docente', $docente);
                     $r->execute();
-                    // echo "Inserción exitosa";
                 } catch (Exception $e) {
-                    return "Error en la inserción: " . $e->getMessage();
+                    throw new Exception("Error en la inserción de docente: " . $e->getMessage());
                 }
             }
         }
     }
+    return "Docentes insertados correctamente";
 }
+
 
 private function verificarRelacionExistente($materiaId, $docenteId) {
-    $co = $this->conecta();
-    $r = $co->prepare("SELECT COUNT(*) as count FROM materias_docentes 
-                       WHERE id_materias = :id_materia AND id_docente = :docente AND estado = 1");
-    $r->bindParam(':id_materia', $materiaId);
-    $r->bindParam(':docente', $docenteId);
-    $r->execute();
+    try {
+        $co = $this->conecta();
+        $r = $co->prepare("SELECT COUNT(*) as count FROM materias_docentes 
+                           WHERE id_materias = :id_materia AND id_docente = :docente AND estado = 1");
+        $r->bindParam(':id_materia', $materiaId);
+        $r->bindParam(':docente', $docenteId);
+        $r->execute();
 
-    $result = $r->fetch(PDO::FETCH_ASSOC);
+        $result = $r->fetch(PDO::FETCH_ASSOC);
 
-    return ($result['count'] > 0);
+        return ($result['count'] > 0);
+    } catch (Exception $e) {
+        // Maneja la excepción aquí, puedes registrar el error o devolver un mensaje personalizado
+        throw new Exception("Error al verificar la relación existente: " . $e->getMessage());
+    }
 }
+
 
 
   //<!--------------------------------funcion consultar------------------------------>          
@@ -437,7 +445,7 @@ public function exists($nombre, $ano) {
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    try {
+    try { 
         // Verificar si ya existe una materia con el mismo nombre en la tabla materias
         $r = $co->prepare("SELECT materias.nombre, materias.estado, años_materias.id_anos
          FROM materias 

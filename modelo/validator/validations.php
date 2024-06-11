@@ -3,10 +3,10 @@
         A partir de PHP 5.4 también se puede usar la sintaxis de array corta, la cual reemplaza array() con [].
         https://www.w3schools.com/php/php_variables_scope.asp
     */
-	$regExps = [    
+	$regExps = [   
         'cedula' => array('/^[0-9]{7,8}$/', "Formato de cedula incorrecto"),
-        'name' => array('/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,15}', 'Nombres no pueden contener caracteres especiales o númericos.'),
-        'nameMateria' => array('/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{5,25}', 'Nombres no pueden contener caracteres especiales o númericos.'),
+        'name' => array('/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,15}/', 'Nombres no pueden contener caracteres especiales o númericos.'),
+        'nameMateria' => array('/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{5,25}/', 'Nombres no pueden contener caracteres especiales o númericos.'),
         'año' => array('/^[0-9]{1,3}$/', 'El año no es valido'),
         'email' => array('/^[\w\.-]+@[\w\.-]+\.\w{2,4}$/', 'Correo invalido.'),
         'telefono' => array('/^[0-9]{4}[0-9]{7}$/', 'Telefono invalido.'),

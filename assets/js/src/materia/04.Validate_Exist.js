@@ -2,12 +2,18 @@
 // ----------------------CONSULTA SI EXISTE AL REGISTRAR-----------------------
 
 var año="";
+var nombre_Materia="";
 
 function Verifica_Datos(){
     if (nombre_Materia != "" && año != "") {
         consulta_existe(nombre_Materia, año);
         }
 }
+
+
+// --------------------------------------------
+
+
     $("#nombre").on("input", function() {
            nombre_Materia = $(this).val();
         Verifica_Datos();   
@@ -37,9 +43,10 @@ function Verifica_Datos(){
                  ano: seleccionado, 
                  action: 'getData'},
         success: function(respuesta) {
-            console.log(respuesta);
+            console.log(respuesta.trim());
+           
 
-                if (respuesta == 1) {
+                if (respuesta.trim() == 1) {
                 $('#existe_msj').text('Ya Existe la Materia con ese Año');
                     existe=true;
                 }
@@ -55,14 +62,15 @@ function Verifica_Datos(){
    
 // ----------------------------------------------------------------------------------------
 // -------------------------CONSULTA SI EXISTE AL EDITAR------------------------------
-
+ 
 
 var nombre_materia_edit="";
 var año_edit="";
 // ----------
 $("#nombre1").on("input", function() {
        nombre_materia_edit = $(this).val();
-       console.log(nombre_materia_edit.length);
+    //    console.log(nombre_materia_edit.length);
+       console.log(nombre_materia_edit);
 
        /*consulta solo si se cambio algo en el imput de materia
        y puede ser con el año modificado o no*/
@@ -103,10 +111,10 @@ function consulta_existe2(nombre_valor2, seleccionado2){
              ano: seleccionado2, 
              action: 'getData'},
     success: function(respuesta) {
-        console.log(respuesta);
-
+        console.log(respuesta.trim());
+        // respuesta.trim();
     
-        if (respuesta === "1") {
+        if (respuesta.trim() == 1) {
             
             // console.log("Los datos son los registrados");
             // console.log("Valor de id_Año: " + selected);

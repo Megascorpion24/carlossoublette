@@ -33,6 +33,7 @@ function modificar(id){
             
             Materia_R=$(this).find("th:eq(1)").text().trim();
             Año_R=$(this).find("th:eq(2)").attr("value");
+            console.log(Materia_R);
             console.log(Año_R);
             AgregarSelect_Año(Año_R);
             AgrgarSelectDocentes(dc1, dc2, dc3, dc4, dc5, dc6);

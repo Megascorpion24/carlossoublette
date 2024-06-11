@@ -1,18 +1,32 @@
 <?php 
 header('Content-Type: text/html; charset=UTF-8');
 
-//Carga de Modelo
-if (is_file("modelo/".$pagina.".php")){ require_once("modelo/".$pagina.".php"); }
-else{ echo "Falta definir la clase ".$pagina;  exit;  }
- 
-   // Iniciar sesión si no está iniciada
-   if (session_status() == PHP_SESSION_NONE) {
-	session_start();
+if (!is_file("modelo/".$pagina.".php")){
+	echo "Falta definir la clase ".$pagina;
+	exit;
 }
+require_once("modelo/".$pagina.".php"); 
 
-// Obtener nivel de usuario y permisos
-$nivel = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : "";
-$nivel1 = isset($_SESSION['permisos']) ? $_SESSION['permisos'] : "";
+	if(is_file("vista/".$pagina.".php")){
+		if(empty($_SESSION)){
+			session_start();
+			}
+
+			if(isset($_SESSION['usuario'])){
+			    $nivel = $_SESSION['usuario'];
+			}
+			else{
+				$nivel = "";
+			}
+			if(isset($_SESSION['permisos'])){
+				
+				$nivel1 = $_SESSION['permisos'];			  
+			}
+			else{
+				
+				$nivel1 = "";
+			}
+
 
 	$m = new materias(); 
 
@@ -23,7 +37,7 @@ if (isset($_POST['accion']) && !empty($_POST['accion'])) {
 		case 'registrar':
 				//Registrar (f)
 				$datos = [
-					'nombre' => trim($_POST['nombre']),
+					'nombre' =>mb_strtoupper(trim($_POST['nombre'])),//Mayuscula y limpia espacios
 					'año' => $_POST['año'],
 					'docentes' => $_POST['docentes']
 				];
@@ -35,7 +49,7 @@ if (isset($_POST['accion']) && !empty($_POST['accion'])) {
 				//Editar (f2)
 				$datos = [
 					'id' => $_POST['id1'],
-					'nombre' => trim($_POST['nombre1']),
+					'nombre' =>  mb_strtoupper(trim($_POST['nombre1'])),//Mayuscula y limpia espacios
 					'año' => $_POST['año1'],
 					'docentes' => $_POST['docentes1']
 				];
@@ -54,8 +68,7 @@ if (isset($_POST['accion']) && !empty($_POST['accion'])) {
 	
 }
  
-//Carga de Vista
-	if(is_file("vista/".$pagina.".php")){
+
 		
           //Consulta (f4)
 		  if(!empty($_POST['consulta'])){
