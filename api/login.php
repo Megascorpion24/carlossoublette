@@ -15,10 +15,9 @@ if (isset($data->user) && isset($data->password)) {
     // Establece los valores de usuario y contraseña
     $username = decryptData(base64_decode($data->user));
     $password = decryptData(base64_decode($data->password));
-//    var_dump('user: '. $username);
-//    var_dump('pass: '. $password);
 
-    try { 
+
+    try {  
         validate_string('nameInputs', $username);  
         
         $login->set_usuario($username);
@@ -29,13 +28,12 @@ if (isset($data->user) && isset($data->password)) {
         if ($entrada['success']) {
             $token = generateTokenJWT($entrada['resultado']);
             // Construir el array asociativo para la respuesta JSON
-            $data = array(
+            $data = [
                 'entrada' => $entrada['success'],
-                'token' => $token,
-                'resultado' => $entrada['resultado'][2]//cedula
-            );
-
-            echo json_encode($data);// Convertir el array asociativo a JSON y enviarlo como respuesta
+                'token' => $token
+            ];
+            
+            echo json_encode(encryptData($data));// Convertir el array asociativo a JSON y enviarlo como respuesta
             // http_response_code(200); 200 OK: Indica que la solicitud ha tenido éxito.
            
         } else { 

@@ -3,12 +3,25 @@
 function encryptData($data) {
     // $file = 'key/public.key';
     $file = '../api/auth/key/public.key';
+      $publicKey = openssl_pkey_get_public(file_get_contents($file));
+
+      // Encriptar con llave privada
+    if (is_array($data)) {
+        return array_map(function($element) use ($publicKey) {
+
+            if (!openssl_public_encrypt($element, $encryptedData, $publicKey)) {
+                throw new Exception("Error al encriptar los datos: " . openssl_error_string());
+            }
+            /* Codificación en base64: base64_encode($encryptedData) se asegura de que los datos encriptados sean codificados en base64 antes de ser devueltos, lo que facilita su almacenamiento y transmisión.*/
+            return base64_encode($encryptedData);
+        }, $data);
+    }
+    else{
+        openssl_public_encrypt($data, $encryptData, $publicKey);
+        return $encryptData;
+    }
+  
     
-    // Encriptar con llave privada
-    $publicKey = openssl_pkey_get_public(file_get_contents($file));
-    openssl_public_encrypt($data, $encryptData, $publicKey);
-    
-    return $encryptData;
 }
 
 function decryptData($data) {

@@ -63,14 +63,13 @@ if (isset($_POST['ajaxPet']) && $_POST['action'] == 'doc_guia_edit') {
 if (isset($_POST['ajaxPet']) && isset($_POST['action']) && $_POST['action'] == 'getData') {
     try {
       $id=$_POST['id'];
-
-        $resultado= $obj->consulta_E($id);
-
-        $json = array();
+      $a=array();
+        
+      $resultado= $obj->consulta_E($id);
         foreach($resultado as $valores)
          {
             
-            $json[] = array(
+            $a[] = array(
               'cedula' => $valores['cedula'],
               'nombre' => $valores['nombre'],
               'apellido' => $valores['apellido'],
@@ -79,7 +78,7 @@ if (isset($_POST['ajaxPet']) && isset($_POST['action']) && $_POST['action'] == '
             );
          } 
         
-          $jsonstring = json_encode($json);
+          $jsonstring = json_encode($a);
           echo $jsonstring;    
 
     } catch (PDOException $e) {
