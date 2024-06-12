@@ -329,7 +329,7 @@ public function consultar($nivel1){
             if(in_array("request_app", $nivel1)){ 
                 $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 return $r;
-            } 
+            }  
       
             //Consulta web
            $respuesta="";

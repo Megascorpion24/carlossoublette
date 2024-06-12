@@ -1,11 +1,15 @@
 <?php 
-header('Content-Type: text/html; charset=UTF-8');
+// header('Content-Type: text/html; charset=UTF-8');
 
-if (!is_file("modelo/".$pagina.".php")){
-	echo "Falta definir la clase ".$pagina;
-	exit;
+//Carga de Modelo  
+if (is_file("modelo/".$pagina.".php")){
+	
+    require_once("modelo/".$pagina.".php");
+	
 }
-require_once("modelo/".$pagina.".php"); 
+else{ echo "Falta definir la clase ".$pagina;  exit; }
+ 
+  
 
 	if(is_file("vista/".$pagina.".php")){
 		if(empty($_SESSION)){
@@ -54,7 +58,7 @@ if (isset($_POST['accion']) && !empty($_POST['accion'])) {
 					'docentes' => $_POST['docentes1']
 				];
 				
-				echo $resultado = $m->Modificar_Materia($datos);
+	 			echo $resultado = $m->Modificar_Materia($datos);
 				$m->set_nivel($nivel);
 			exit();
 		case 'eliminar':
@@ -82,7 +86,7 @@ if (isset($_POST['accion']) && !empty($_POST['accion'])) {
 			
 
 			$consulta=$m->consultar($nivel1);
-			$consulta = $m->consultar(!empty($_SESSION['permisos']) ? $_SESSION['permisos'] : '');
+			// $consulta = $m->consultar(!empty($_SESSION['permisos']) ? $_SESSION['permisos'] : '');
 			echo $consulta;
 			exit;
 		  }
