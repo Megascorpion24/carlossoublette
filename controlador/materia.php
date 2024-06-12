@@ -1,5 +1,9 @@
 <?php 
-// header('Content-Type: text/html; charset=UTF-8');
+
+// Inicia la sesión al principio del script
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 //Carga de Modelo  
 if (is_file("modelo/".$pagina.".php")){
@@ -12,9 +16,9 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
   
 
 	if(is_file("vista/".$pagina.".php")){
-		if(empty($_SESSION)){
-			session_start();
-			}
+		// if(empty($_SESSION)){
+		// 	session_start();
+		// 	}
 
 			if(isset($_SESSION['usuario'])){
 			    $nivel = $_SESSION['usuario'];

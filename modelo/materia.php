@@ -325,11 +325,16 @@ public function consultar($nivel1){
             ");
 			$resultado->execute();
 
-            //Consulta movil
-            if(in_array("request_app", $nivel1)){ 
-                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                return $r;
-            }  
+              // Make sure $nivel1 is an array before using in_array
+        if (!is_array($nivel1)) {
+            $nivel1 = explode(',', $nivel1);
+        }
+
+        //Consulta movil
+        if (in_array("request_app", $nivel1)) { 
+            $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            return $r;
+        }  
       
             //Consulta web
            $respuesta="";
