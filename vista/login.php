@@ -67,13 +67,15 @@
             <form  method="post" id="f">
             <label for="usuario">Nombre / Usuario</label>
             <span id="suser"></span>
-            <input type="text"id="user" name="user" placeholder="Introducir Nombre / Contraseña" autofocus/>
+            <input type="text"id="user" name="user" placeholder="Introducir Nombre / Contraseña" class="ocultar"/>
+            <input type="text"id="user1" name="user1" placeholder="Introducir Nombre / Contraseña" autofocus/>
 
             <div class="container-input">
               <label for="password">Contraseña</label>
 
               <span id="spassword"></span>
-              <input type="password"id="password" name="password" id="password" placeholder="Digite su Contrasena"/>
+              <input type="password"id="password" name="password" id="password" placeholder="Digite su Contrasena" class="ocultar"/>
+              <input type="password"id="password1" name="password1" id="password" placeholder="Digite su Contrasena"/>
               <i id="reveal-password" class="bi bi-eye-slash"></i>
             </div>
 

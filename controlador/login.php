@@ -1,19 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
-function encryptData($data, $publicKey) {
-    $publicKeyResource = openssl_pkey_get_public($publicKey);
-    
-    if (!$publicKeyResource) {
-        die('Clave pública no válida');
-    }
 
-    $encryptedData = '';
-    openssl_public_encrypt($data, $encryptedData, $publicKeyResource);
-    openssl_free_key($publicKeyResource);
-
-    return base64_encode($encryptedData);
-}
 
 use Firebase\JWT\JWT;
 
