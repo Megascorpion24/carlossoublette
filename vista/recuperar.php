@@ -38,7 +38,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     
-                    <h4 class="modal-title">Mensaje de Error</h4>
+                    <h4 class="modal-title">Mensaje</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -55,7 +55,7 @@
 
     <div class="container">
       <div class="card">
-        <div class="container-label">Recuperar Contraseña <span></span></div>
+        <div class="container-label">Cambiar Contraseña <span></span></div>
 
         <div class="container-icon">
          
@@ -85,7 +85,7 @@
     </div>
 
     <?php require_once('comunes/footer.php') ?> 
-    <script src="assets/js/login.js"></script>> 
+    <script src="assets/js/password.js"></script>> 
   </body>
 </html>
 
