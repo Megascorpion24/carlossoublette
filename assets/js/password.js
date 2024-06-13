@@ -3,6 +3,8 @@
 const revealPasswordButton = document.querySelector("#reveal-password");
 const inputPassword = document.querySelector("#password");
 
+
+
 const onChangeRevealPassword = () => {
   if (inputPassword.type === "password") {
     inputPassword.type = "text";
@@ -11,7 +13,9 @@ const onChangeRevealPassword = () => {
     inputPassword.type = "password";
     revealPasswordButton.classList.replace("bi-eye", "bi-eye-slash");
   }
+ 
 };
+
 
 revealPasswordButton.onclick = onChangeRevealPassword;
 
@@ -54,17 +58,33 @@ $(document).ready(function() {
               $(this), $("#spassword"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  4-10 caracteres ");
       });
   
+      $("#password1").on("keypress", function(e) {
+        validarkeypress(/^[0-9A-Za-z\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]$/, e);
+    });
+
+    $("#password1").on("keyup", function() {
+        validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
+            $(this), $("#spassword1"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  4-10 caracteres ");
+    });
+
   
       $("#enviar").on("click", function() {
         
           if (validarenvio()) {
-               $("#f").submit();
+            if($("#password").val()==$("#password1").val()){
+             
+                $("#f").submit();
+            }else{
+                //mensaje de retorno 
+            }
+              
                
   
           }
       });
       const input1 = document.getElementById("password");
       const input2 = document.getElementById("user");
+      const input3 = document.getElementById("password1");
   
   
     
@@ -84,6 +104,11 @@ $(document).ready(function() {
           const maxLength = 10; // Cambia este valor al límite máximo deseado
           limitarLongitud(input2, maxLength);
       });
+
+      input3.addEventListener("input", () => {
+        const maxLength = 10; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input3, maxLength);
+    });
 
 
 
@@ -152,11 +177,17 @@ $(document).ready(function() {
           mensaje("<p>El usuario debe coincidir con el formato <br/>" +
               "de 8 a 26 caracteres y puede llevar (.)(#)</p>");
           return false;
-      } else if (validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,16}$/,
+      } else if (validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
               $("#password"), $("#spassword"), "Solo letras entre 8 y 16 caracteres, numeros, (.),(#),(@)(*)") == 0) {
-          mensaje("<p>la clave debe tener entre 8 y 16 caracteres</p>");
+          mensaje("<p>la clave debe tener entre 8 y 10 caracteres</p>");
           return false;
   
       }
+      else if (validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
+        $("#password1"), $("#spassword1"), "Solo letras entre 8 y 16 caracteres, numeros, (.),(#),(@)(*)") == 0) {
+    mensaje("<p>la clave debe tener entre 8 y 10 caracteres</p>");
+    return false;
+
+}
       return true;
   }

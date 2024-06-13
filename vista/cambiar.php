@@ -71,6 +71,10 @@
             <span id="spassword"></span>
             <input type="password" id="password" name="password" id="password" placeholder="Digite su Contrasena" />
             <i id="reveal-password" class="bi bi-eye-slash"></i>
+          
+            <span id="spassword1"></span>
+            <input type="password" id="password1" name="password1" id="password1" placeholder="Repita su Contrasena" />
+            <i  id="reveal-password1" ></i>
             </div>
 
           <div class="change-password">
