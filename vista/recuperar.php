@@ -70,7 +70,7 @@
             <div class="container-input" display= none>
               
              
-              <i id="reveal-password" class="bi bi-eye-slash"></i>
+              <i id="reveal-password" ></i>
             </div>
 
           <div class="change-password">
