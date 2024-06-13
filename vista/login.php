@@ -10,7 +10,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-beta.1/bin/jsencrypt.min.js"></script>
+    
     <linkn href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
@@ -88,6 +88,7 @@
     </div>
 
     <?php require_once('comunes/footer.php') ?> 
+    <script src="assets/js/jsencrypt.min.js"></script>
     <script src="assets/js/login.js"></script>> 
   </body>
 </html>
