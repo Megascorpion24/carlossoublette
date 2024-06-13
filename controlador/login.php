@@ -31,34 +31,14 @@ require_once("modelo/" . $pagina . ".php");
 
 if (is_file("vista/" . $pagina . ".php")) {
 
-	$publicKeyPath = 'modelo/public_key.pem';
-
-	// Leer el contenido del archivo
-	$publicKey = file_get_contents($publicKeyPath);
-
-	// Verificar que se ha leído correctamente
-	if ($publicKey === false) {
-		die('No se pudo leer el archivo de la clave pública.');
-	}
-
-	// Ruta al archivo de la clave privada
-	$privateKeyPath = 'modelo/private_key.pem';
-
-	// Leer el contenido del archivo
-	$privateKey = file_get_contents($privateKeyPath);
-
-	// Verificar que se ha leído correctamente
-	if ($privateKey === false) {
-		die('No se pudo leer el archivo de la clave privada.');
-	}
-
-
 	if (!empty($_POST)) {
+
+
 
 		$o = new entrada();
 		if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $_POST['user'])) {
-			$encryptedData = encryptData($_POST['user'], $publicKey);
-			$o->set_usuario($encryptedData, $privateKey );
+			
+			$o->set_usuario(  $_POST['user'] );
 		}
 
 
@@ -68,11 +48,11 @@ if (is_file("vista/" . $pagina . ".php")) {
 		$entrada = true;
 		if (empty($resultado[1])) {
 			$entrada = false;
-			$mensaje = "El usuario ingresado es incorrecto";
+			$mensaje =  "usuario incorrecto " ;
 			$o->bitacora1("se intento ingresar al sistema", "login", "0000");
 		}
-
-		$verifica = password_verify($_POST['password'], $resultado[0]);
+		$cexryp=$o ->decryptMessage($_POST['password']);
+		$verifica = password_verify($cexryp, $resultado[0]);
 		if ($mensaje == "") {
 
 			if (!$verifica) {
