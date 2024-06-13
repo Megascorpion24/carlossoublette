@@ -10,6 +10,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     
     <linkn href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
     <!-- Bootstrap Icons -->
@@ -26,7 +27,7 @@
 
   <div id="texto" style="display:none;">
         <?php
-    if(!empty($mensaje) ){
+    if(!empty($mensaje ) ){
         echo $mensaje;
     }
 ?>
