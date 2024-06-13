@@ -329,6 +329,12 @@ $("#descripcion1").on("keyup", function() {
             check("pagos_reportes", "#61");
             check("Consultar Bitacora", "#63");
             check("consultarmontos", "#70");
+            check("Confirmar Pago", "#71");
+
+            check("Confirmar Pago", "#71");
+            check("consultar pagos_tutor", "#72");
+            check("modificarmontos", "#73");
+            check("consultar pagos menu", "#74");
 
 
         }, 500);
