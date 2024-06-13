@@ -412,34 +412,7 @@ public function consultar($nivel1){
 }
 
 //<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($id){
-		
-		$co = $this->conecta();
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-		try{
-			
-			$resultado = $co->prepare("SELECT * from materias where id=:id");
-			
-			$resultado->bindParam(':id',$id);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true;  
-			    
-			}
-            //necesario?
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}  
-	}
+  
 //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 public function exists($nombre, $ano) {
     $co = $this->conecta();
@@ -478,11 +451,12 @@ public function exists($nombre, $ano) {
 
 
 
+
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
  private function eliminar1(){
      $co = $this->conecta();
      $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-     if($this->existe($this->id)){
+     if($this->existe($this->id, "SELECT * from materias where id=:id", ':id')){
     
 
          try {

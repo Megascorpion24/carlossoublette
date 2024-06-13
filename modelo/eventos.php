@@ -108,7 +108,7 @@ class eventos extends datos{
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if(!$this->existe($this->id)){
+        if(!$this->existe($this->id, "Select * from eventos where id=:id", ':id')){
             try{
 
                 $estado = 1;
@@ -255,7 +255,7 @@ public function ano_academico(){
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->id)){
+            if($this->existe($this->id, "Select * from eventos where id=:id", ':id')){
                 try{
                     $r= $co->prepare("Update eventos set 
                             
@@ -456,43 +456,6 @@ public function eventos(){
 
 
 
-//<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($id){
-		
-		$co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		
-		try{
-			
-			
-			$resultado = $co->prepare("Select * from eventos where id=:id");
-			
-			$resultado->bindParam(':id',$id);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true; 
-			    
-			}
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-	}
-//<!---------------------------------fin de funcion existe------------------------------------------------------------------>
-
-
-
-
-
 
 
 
@@ -514,7 +477,7 @@ public function eventos(){
 private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)) {
+    if($this->existe($this->id, "Select * from eventos where id=:id", ':id')) {
     
 
         try {

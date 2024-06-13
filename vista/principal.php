@@ -15,9 +15,7 @@ $key = $_ENV['JWT_SECRET_KEY'];
 
 if(isset($_COOKIE['token'])){
 	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
-} else {
-	header('location:index.php');
-}
+} 
 
 ?>
 

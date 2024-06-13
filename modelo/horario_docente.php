@@ -350,9 +350,12 @@ class horario extends datos
     {
 
 
+
+
+
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if ($this->existe($this->id)) {
+        if ($this->existe($this->id, "SELECT * FROM `horario_docente` WHERE id= :id; ",':id' )) {
             try {
 
                 $consulta = "SELECT * FROM horario_docente WHERE dia = :dia AND id_ano_seccion = :id_ano_seccion AND estado = 1 AND clase_inicia <= :clase_termina AND clase_termina >= :clase_inicia;";
@@ -924,39 +927,8 @@ class horario extends datos
 
 
 
-
-
-
     //<!---------------------------------funcion existe------------------------------------------------------------------>
 
-    private function existe($id)
-    {
-
-        $co = $this->conecta();
-
-        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-        try {
-
-
-            $resultado = $co->prepare("SELECT * FROM `horario_docente` WHERE id= :id; ");
-
-            $resultado->bindParam(':id', $id);
-            $resultado->execute();
-            $fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-            if ($fila) {
-
-                return true;
-            } else {
-
-                return false;
-            }
-        } catch (Exception $e) {
-
-            return false;
-        }
-    }
 
     //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
@@ -1011,7 +983,7 @@ class horario extends datos
     {
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if ($this->existe($this->id)) {
+        if ($this->existe($this->id, "SELECT * FROM `horario_docente` WHERE id= :id; ",':id')) {
 
 
             try {
