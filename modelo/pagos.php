@@ -213,9 +213,6 @@ class pagos extends datos{
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-
-
         if(!$this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
             try{
               
