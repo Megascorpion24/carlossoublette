@@ -53,6 +53,7 @@
 <script src='assets/js/dataTables.responsive.min.js'></script>
 <script src='assets/js/dataTables.bootstrap4.min.js'></script>
 <script src="assets/select2/js/select2.js"></script>
+<script src="assets/js/jsencrypt.min.js"></script>
 <!-- --Alert-- -->
 <script src="assets/js/sweetalert2.js"></script>
 <script src="assets/js/Alert.js"></script>
