@@ -201,7 +201,7 @@ private function modificar1(){
             }
 
             $this->bitacora("se modificó una materia", "materias", $this->nivel);
-            return "Registro Modificado";
+            return "2Registro Modificado";
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -211,7 +211,7 @@ private function modificar1(){
             $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
 
             $this->bitacora("se modificó Docente de una materia", "materias", $this->nivel);
-            return "Registro Modificado";
+            return "2Registro Modificado";
         } catch (Exception $e) {
             return "Error al manejar docentes: " . $e->getMessage();
         }
@@ -326,9 +326,9 @@ public function consultar($nivel1){
 			$resultado->execute();
 
               // Make sure $nivel1 is an array before using in_array
-        if (!is_array($nivel1)) {
-            $nivel1 = explode(',', $nivel1);
-        }
+        // if (!is_array($nivel1)) {
+        //     $nivel1 = explode(',', $nivel1);
+        // }
 
         //Consulta movil
         if (in_array("request_app", $nivel1)) { 
