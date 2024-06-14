@@ -106,12 +106,14 @@ class tutor_legal extends datos{
 
 
 
+
+
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
     public function registrar1(){
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if(!$this->existe($this->cedula)){
+        if(!$this->existe($this->cedula, "Select * from tutor_legal where cedula=:cedula and estado = '1'", ':cedula')){
             try{
                 $r= $co->prepare("Insert into tutor_legal(
 						
@@ -241,7 +243,7 @@ class tutor_legal extends datos{
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->cedula)){
+            if($this->existe($this->cedula, "Select * from tutor_legal where cedula=:cedula and estado = '1'", ':cedula')){
                 try{
                     $r= $co->prepare("Update tutor_legal set 
                             
@@ -380,38 +382,6 @@ public function consultar($nivel1){
 
 
 
-
-//<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($cedula){
-		
-		$co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		
-		try{
-			
-			
-			$resultado = $co->prepare("Select * from tutor_legal where cedula=:cedula and estado = '1'");
-			
-			$resultado->bindParam(':cedula',$cedula);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true; 
-			    
-			}
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-	}
 //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
 
@@ -439,7 +409,7 @@ public function consultar($nivel1){
 public function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->cedula)){
+    if($this->existe($this->cedula, "Select * from tutor_legal where cedula=:cedula and estado = '1'", ':cedula')){
         try {
 
 

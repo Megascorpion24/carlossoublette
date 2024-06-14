@@ -33,12 +33,12 @@ try {
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'santiagocasamayor14@hotmail.com';                     //SMTP username
-    $mail->Password   = 'Santi2002.30019081';                               //SMTP password
+    $mail->Username   = 'colegioclave@hotmail.com';                     //SMTP username
+    $mail->Password   = 'Sistema2024.';                               //SMTP password
     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('santiagocasamayor14@hotmail.com', 'SISTEMA GPUECCS');
+    $mail->setFrom('colegioclave@hotmail.com', 'SISTEMA GPUECCS');
     $mail->addAddress($correo, $correo);     //Add a recipient
       
 
@@ -49,9 +49,9 @@ try {
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo 'Message has been sent';
+    $mensaje = "Se ha enviado un mensaje al correo afiliado al usuario!";
 } catch (Exception $e) {
-    echo "usuario ingresado no existe";
+    $mensaje = "usuario ingresado no existe";
 }
 			} else {
 				$mensaje = "El usuario ingresado no existe";

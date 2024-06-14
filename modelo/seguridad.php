@@ -97,9 +97,10 @@ public function bitacora1($accion, $modulo,$id){
   public function registrar1(){
 
 
+
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if(!$this->existe($this->rol)){
+    if(!$this->existe($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
         try{
             $estado=1;
             $r= $co->prepare("Insert into rol(
@@ -170,7 +171,7 @@ public function bitacora1($accion, $modulo,$id){
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->rol)){
+            if($this->existe($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
                 try{
                     $r= $co->prepare("Update rol set 
                             
@@ -349,38 +350,6 @@ public function consultar1(){
 
 
 
-
-//<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($cedula){
-		
-		$co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		
-		try{
-			
-			
-			$resultado = $co->prepare("Select * from rol where nombre=:cedula");
-			
-			$resultado->bindParam(':cedula',$cedula);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true; 
-			    
-			}
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-	}
 
 
     private function existe1($cedula){

@@ -28,7 +28,7 @@ require_once("modelo/".$pagina.".php");
 			$mensaje = $o->cambiar();
 			
 		
-			
+			header('Location:index.php');
 			
 		}
 		

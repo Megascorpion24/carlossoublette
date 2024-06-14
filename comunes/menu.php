@@ -13,9 +13,7 @@ $key = $_ENV['JWT_SECRET_KEY'];
 
 if (isset($_COOKIE['token'])) {
 	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
-} else {
-	header('location:index.php');
-}
+} 
 
 if (empty($_SESSION)) {
 	session_start();
@@ -318,10 +316,6 @@ if (isset($_SESSION['permisos'])) {
 											<span class="xp-user-live"></span>
 										</a>
 										<ul class="dropdown-menu small-menu">
-											<li><a href="#">
-													<img class="p-1" style="Width:20px; height:20px;" src="assets/icon/user-time.png" />
-													Cuenta
-												</a></li>
 											<li><a href="?pagina=salida">
 													<img class="p-1" style="Width:20px; height:20px;" src="assets/icon/sign-out-alt.png" />
 													Salir

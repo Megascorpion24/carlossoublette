@@ -10,6 +10,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    
     <linkn href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
@@ -25,7 +27,7 @@
 
   <div id="texto" style="display:none;">
         <?php
-    if(!empty($mensaje) ){
+    if(!empty($mensaje ) ){
         echo $mensaje;
     }
 ?>
@@ -65,13 +67,15 @@
             <form  method="post" id="f">
             <label for="usuario">Nombre / Usuario</label>
             <span id="suser"></span>
-            <input type="text"id="user" name="user" placeholder="Introducir Nombre / Contraseña" autofocus/>
+            <input type="text"id="user" name="user" placeholder="Introducir Nombre / Contraseña" class="ocultar"/>
+            <input type="text"id="user1" name="user1" placeholder="Introducir Nombre / Contraseña" autofocus/>
 
             <div class="container-input">
               <label for="password">Contraseña</label>
 
               <span id="spassword"></span>
-              <input type="password"id="password" name="password" id="password" placeholder="Digite su Contrasena"/>
+              <input type="password"id="password" name="password" id="password" placeholder="Digite su Contrasena" class="ocultar"/>
+              <input type="password"id="password1" name="password1" id="password" placeholder="Digite su Contrasena"/>
               <i id="reveal-password" class="bi bi-eye-slash"></i>
             </div>
 
@@ -87,6 +91,7 @@
     </div>
 
     <?php require_once('comunes/footer.php') ?> 
+    <script src="assets/js/jsencrypt.min.js"></script>
     <script src="assets/js/login.js"></script>> 
   </body>
 </html>
