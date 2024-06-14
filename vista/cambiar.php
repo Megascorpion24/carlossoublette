@@ -39,7 +39,7 @@
       <div class="modal-content">
         <div class="modal-header">
 
-          <h4 class="modal-title">Mensaje de Error</h4>
+          <h4 class="modal-title">Mensaje</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
@@ -71,6 +71,10 @@
             <span id="spassword"></span>
             <input type="password" id="password" name="password" id="password" placeholder="Digite su Contrasena" />
             <i id="reveal-password" class="bi bi-eye-slash"></i>
+          
+            <span id="spassword1"></span>
+            <input type="password" id="password1" name="password1" id="password1" placeholder="Repita su Contrasena" />
+            <i  id="reveal-password1" ></i>
             </div>
 
           <div class="change-password">
@@ -85,7 +89,7 @@
   </div>
 
   <?php require_once('comunes/footer.php') ?>
-  <script src="assets/js/login.js"></script>>
+  <script src="assets/js/password.js"></script>>
 </body>
 
 </html>

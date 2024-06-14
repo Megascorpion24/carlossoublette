@@ -5,13 +5,13 @@ class entrada extends datos
 {
 	private $usuario;
 	private $clave;
-	private $privateKey;
 
 
-	public function set_usuario($valor, $privateKey)
+
+	public function set_usuario($valor)
 	{
 		$this->usuario = $valor;
-		$this->privateKey = $privateKey;
+
 	}
 	public function set_clave($valor)
 	{
@@ -24,21 +24,10 @@ class entrada extends datos
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
 
-
-			$privateKeyResource = openssl_pkey_get_private($this->privateKey);
-
-			if (!$privateKeyResource) {
-				return ('Clave privada no válida');
-			}
-
-			$decryptedData = '';
-			openssl_private_decrypt(base64_decode($this->usuario), $decryptedData, $privateKeyResource);
-			openssl_free_key($privateKeyResource);
-
-
+			$cexryp=$this->decryptMessage($this->usuario );
 			$resultado = $co->prepare("SELECT usuarios.clave, usuarios.id_rol, usuarios.id FROM usuarios WHERE usuarios.nombre =:usua");
 
-			$resultado->bindParam(':usua', $decryptedData);
+			$resultado->bindParam(':usua', $cexryp );
 
 			$resultado->execute();
 

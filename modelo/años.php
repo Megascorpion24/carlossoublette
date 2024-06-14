@@ -44,12 +44,13 @@ class años extends datos{
 
 
 
+
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
 private function registrar1(){
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if(!$this->existe($this->id)){
+        if(!$this->existe($this->id, "Select * from años where id=:id",':id')){
             try{
                 $r= $co->prepare("Insert into años(
 						
@@ -106,7 +107,7 @@ private function modificar1(){
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->id)){
+            if($this->existe($this->id, "Select * from años where id=:id",':id')){
                 try{
                     $r= $co->prepare("Update años set 
                             
@@ -235,37 +236,6 @@ public function consultar($nivel1){
 
 
 
-//<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($id){
-		
-		$co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		
-		try{
-			
-			
-			$resultado = $co->prepare("Select * from años where id=:id");
-			
-			$resultado->bindParam(':id',$id);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true; 
-			    
-			}
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-	}
 //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
 
@@ -293,7 +263,7 @@ public function consultar($nivel1){
 private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
+    if($this->existe($this->id, "Select * from años where id=:id",':id')){
     
 
         try {

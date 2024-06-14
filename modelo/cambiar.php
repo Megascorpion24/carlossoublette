@@ -59,7 +59,7 @@ class cambiar extends datos
 			$r->execute();
 
 			$this->bitacora("se modifico un usuario", "recuperar", $this->nivel);
-			return "Registro modificado";
+			return "La clave fue cambiada con existo! ";
 		} catch (Exception $e) {
 			return $e->getMessage();
 		}
