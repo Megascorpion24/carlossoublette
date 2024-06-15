@@ -131,9 +131,10 @@ class docente extends datos{
     public function registrar1(){
 
 
+
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if(!$this->existe($this->cedula)){
+        if(!$this->existe($this->cedula, "Select * from docentes where cedula=:cedula", ':cedula')){
             try{
 
                 $estado=1;
@@ -212,7 +213,7 @@ class docente extends datos{
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->cedula)){
+            if($this->existe($this->cedula, "Select * from docentes where cedula=:cedula", ':cedula')){
                 try{
                     $r= $co->prepare("Update docentes set 
                             
@@ -342,42 +343,12 @@ public function consultar($nivel1){
 		}
 }
 
-    private function existe($cedula){
-		
-		$co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		
-		try{
-			
-			
-			$resultado = $co->prepare("Select * from docentes where cedula=:cedula");
-			
-			$resultado->bindParam(':cedula',$cedula);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true; 
-			    
-			}
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-	}
 
 
     public function eliminar1(){
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		if($this->existe($this->cedula)){
+		if($this->existe($this->cedula, "Select * from docentes where cedula=:cedula", ':cedula')){
 		
 
 			try {

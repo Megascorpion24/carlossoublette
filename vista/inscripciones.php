@@ -61,7 +61,7 @@ if (isset($_SESSION['permisos'])) {
 		<div class="main-content">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="table-wrapper">
+					<div class="table">
 
 						<div class="table-title mb-3">
 							<div class="row">
@@ -96,10 +96,10 @@ if (isset($_SESSION['permisos'])) {
 						</div>
 
 						<?PHP if (in_array("consultar inscipcion", $nivel1)) { ?>
-							<table id="tablas" class="table table-striped table-hover">
+							<table id="tablas" style="width: 100%;" class="table table-striped display nowrap">
 								<thead>
 									<tr>
-									<th>ID</th>
+						
 
 										<th>Cedula </th>
 										<th>Nombre</th>
@@ -112,7 +112,7 @@ if (isset($_SESSION['permisos'])) {
 										<th>año</th>
 										<th>seccion</th>
 										<th>accion</th>
-										<th></th>
+									
 										
 							
 

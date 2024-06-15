@@ -202,8 +202,12 @@ $(document).ready(function() {
     });
 
     $("#contacto_emer").on("keyup", function() {
-        validarkeyup(/^[0-9]{11}$/,
+        validarkeyup(/^[0-9\s]{11}$/,
         $(this), $("#scontacto_emer"), "El Telefono debe ser en el siguiente formato 00000000000");
+    });
+    $("#direccion").on("keyup", function() {
+        validarkeyup(/^[a-zA-Z0-9\s]{4,30}$/,
+            $(this), $("#sdireccion"), "El formato puede ser A-Z a-z 0-9 ejemplo: calle 5");
     });
 
 /*aqui termina registrar*/
@@ -227,22 +231,27 @@ $(document).ready(function() {
 
 
 /*validaciones para editar*/
-$("#cedula1").on("keypress", function(e) {
-    validarkeypress(/^[0-9-\b]*$/, e);
-    valor=$("#cedula1").val();
-    $("#tablas tr").each(function(){
+//$("#cedula1").on("keypress", function(e) {
+   // validarkeypress(/^[0-9-\b]*$/, e);
+   // valor=$("#cedula1").val();
+  //  $("#tablas tr").each(function(){
     
-        if(valor == $(this).find("th:eq(0)").text()){
+        //if(valor == $(this).find("th:eq(0)").text()){
            
-            $("#scedula1").text("la cedula ya esta registrada");
-            $("input").attr("readonly","readonly");
+           // $("#scedula1").text("la cedula ya esta registrada");
+          //  $("input").attr("readonly","readonly");
        
             
 
-        }else{
-            $("#editEmployeeModal input").removeAttr("readonly");
-        }
-    });
+        //}else{
+          //  $("#editEmployeeModal input").removeAttr("readonly");
+      //  }
+   // });
+
+//});
+
+$("#cedula1").on("keypress", function(e) {
+    validarkeypress(/^[0-9]$/, e);
 
 });
 
@@ -317,13 +326,15 @@ $("#contacto_emer1").on("keypress", function(e) {
 });
 
 $("#contacto_emer1").on("keyup", function() {
-    validarkeyup(/^[0-9]{11}$/,
+    validarkeyup(/^[0-9\s]{11}$/,
     $(this), $("#scontacto_emer1"), "El Telefono debe ser en el siguiente formato 00000000000");
+});
+$("#direccion1").on("keyup", function() {
+    validarkeyup(/^[a-zA-Z0-9\s]{4,30}$/,
+        $(this), $("#sdireccion1"), "El formato puede ser A-Z a-z 0-9 ejemplo: calle 5");
 });
 /*aqui termina editar*/    
 });
-
-
 
 
 
@@ -345,6 +356,7 @@ function modificar(id){
             $("#telefono1").val($(this).find("th:eq(5)").text());
             $("#correo1").val($(this).find("th:eq(6)").text());
             $("#contacto_emer1").val($(this).find("th:eq(7)").text());
+            $("#direccion1").val($(this).find("th:eq(8)").text());
            
             
 
@@ -383,13 +395,6 @@ function enviaAjax(datos){
              $("#consulta").val("consulta");            
              enviaAjax2($("#f4"));  
 
-       
-
-                 setTimeout(function(){
-                    window.location.reload();
-                }, 1000);
-
-           
         },
             error: function(request, status, err){
                 if (status == "timeout") {
@@ -532,9 +537,14 @@ function enviaAjax(datos){
         $("#contacto_emer"), $("#scontacto_emer"), "Solo numeros 0-9 en el formato 0000-0000000") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
+        }else if (validarkeyup(/^[a-zA-Z0-9\s]{4,30}$/,
+        $("#direccion"), $("#sdireccion"), "Solo numeros 0-9 en el formato calle 8") == 0) {
+            mensaje("<p>Solo numeros 0-9 en el formato calle 8</p>");
+            return false;
         }
         return true;
     }
+
 
 
 
@@ -581,6 +591,10 @@ function enviaAjax(datos){
         $("#contacto_emer1"), $("#scontacto_emer1"), "Solo numeros 0-9 en el formato 0000-0000000</p>") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
+        }else if (validarkeyup(/^[a-zA-Z0-9\s]{4,30}$/,
+        $("#direccion1"), $("#sdireccion1"), "Solo numeros 0-9 en el formato calle 8") == 0) {
+            mensaje("<p>Solo numeros 0-9 en el formato calle 8</p>");
+            return false;
         }
         return true;
     }
@@ -597,6 +611,7 @@ const input5 = document.getElementById("apellido2");
 const input6 = document.getElementById("telefono");
 const input7 = document.getElementById("correo");
 const input8 = document.getElementById("contacto_emer");
+const input17 = document.getElementById("direccion");
 /////////////////////////////////////////////////////////////////////
 const input9 = document.getElementById("cedula1");
 const input10 = document.getElementById("nombre11");
@@ -606,6 +621,7 @@ const input13 = document.getElementById("apellido21");
 const input14 = document.getElementById("telefono1");
 const input15 = document.getElementById("correo1");
 const input16 = document.getElementById("contacto_emer1");
+const input18 = document.getElementById("direccion1");
 
 // Función para limitar la longitud del valor
 const limitarLongitud = (input, maxLength) => {
@@ -689,3 +705,12 @@ input9.addEventListener("input", () => {
       const maxLength = 11; // Cambia este valor al límite máximo deseado
       limitarLongitud(input16, maxLength);
     });
+    input17.addEventListener("input", () => {
+        const maxLength = 30; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input17, maxLength);
+    });
+    
+    input18.addEventListener("input", () => {
+        const maxLength = 30; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input18, maxLength);
+      });

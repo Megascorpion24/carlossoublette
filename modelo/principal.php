@@ -286,121 +286,15 @@ public function consultar(){
 }
 //<!---------------------------------fin funcion consultar------------------------------------------------------------------>
 
-public function modificar(){
-
-
-    $co = $this->conecta();
-    $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
-        try{
-            $r= $co->prepare("Update notificaciones set 
-                    
-               
-            estado=0
-             
-                where
-                id =:id
-                
-        
-                 
-                    
-                    
-                ");
-            $r->bindParam(':id',$this->id);	
-          
-        
-         
-            $r->execute();
-
-         
-                return "Registro modificado";	
-            
-        }catch(Exception $e){
-            return $e->getMessage();
-        }
-            
-        }
-        else{
-            return "Año no registrado";
-        }
-
-
-    }
 
 //<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($id){
-		
-		$co = $this->conecta();
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-		try{
-			
-			$resultado = $co->prepare("SELECT * from materias where id=:id");
-			
-			$resultado->bindParam(':id',$id);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
 
-				return true; 
-			    
-			}
-            //necesario?
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-	}
 //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
 
 
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
- private function eliminar1(){
-     $co = $this->conecta();
-     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-     if($this->existe($this->id)){
-    
 
-         try {
-              
-                $estado=0;
-                $r= $co->prepare("Update materias set 
-                                            
-                                    
-                estado=:estado
-
-                where
-                id =:id
-
-                    
-                ");
-
-                 
-
-
-
-                 $r->bindParam(':id',$this->id);
-                 $r->bindParam(':estado',$estado);
-                 $r->execute();
-                 $this->bitacora("se elimino una materia", "materias",$this->nivel);
-                 return "Registro Eliminado";
-                
-         } catch(Exception $e) {
-             return $e->getMessage();
-         }
-        
-
-     }
-     else{
-         return "materia no registrada";
-     }
- }
 
 
 

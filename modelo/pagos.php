@@ -47,8 +47,9 @@ class pagos extends datos{
         }
 	}
 	public function set_identificador($valor){
-        if (preg_match("/^[a-zA-Z0-9-\s]+$/", $valor)) {
-		$this->identificador = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[a-zA-Z0-9-\s]+$/", $cexryp)) {
+		$this->identificador = $cexryp; 
         return true;
         }else{
             return false;
@@ -213,7 +214,7 @@ class pagos extends datos{
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if(!$this->existe($this->id)){
+        if(!$this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
             try{
               
                 $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
@@ -321,7 +322,7 @@ class pagos extends datos{
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if(!$this->existe($this->id)){
+            if(!$this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
                 try{
                     $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
                     VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
@@ -382,7 +383,7 @@ private function modificar1(){
 
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
+    if($this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
         try{
             
             $r= $co->prepare("UPDATE pagos SET 
@@ -543,7 +544,7 @@ private function registrarp1(){
 
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
+    if($this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
         try{
             
             
@@ -1135,28 +1136,6 @@ public function consultarr($var){
 
 
 
-
-//<!----------------------------------------------FUNCION EXISTE PAGOS ------------------------------------------------------------------>
-    private function existe($id){		
-		$co = $this->conecta();		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		try{
-			$resultado = $co->prepare("Select * from pagos where id=:id and estatus = '1'");			
-			$resultado->bindParam(':id',$id);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-				return true; 			    
-			}
-			else{				
-				return false; 
-			}			
-		}catch(Exception $e){			
-			return false;
-		}
-	}
-  //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
   //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
@@ -1203,7 +1182,7 @@ private function existe2($codigo){
 private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
+    if($this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
     
         try {
                 $r=$co->prepare("UPDATE pagos SET estatus = 0 , estado = 'ELIMINADO' WHERE id=:id");

@@ -201,7 +201,7 @@ private function modificar1(){
             }
 
             $this->bitacora("se modificó una materia", "materias", $this->nivel);
-            return "Registro Modificado";
+            return "2Registro Modificado";
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -211,7 +211,7 @@ private function modificar1(){
             $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
 
             $this->bitacora("se modificó Docente de una materia", "materias", $this->nivel);
-            return "Registro Modificado";
+            return "2Registro Modificado";
         } catch (Exception $e) {
             return "Error al manejar docentes: " . $e->getMessage();
         }
@@ -325,11 +325,16 @@ public function consultar($nivel1){
             ");
 			$resultado->execute();
 
-            //Consulta movil
-            if(in_array("request_app", $nivel1)){ 
-                $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                return $r;
-            }  
+              // Make sure $nivel1 is an array before using in_array
+        // if (!is_array($nivel1)) {
+        //     $nivel1 = explode(',', $nivel1);
+        // }
+
+        //Consulta movil
+        if (in_array("request_app", $nivel1)) { 
+            $r = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            return $r;
+        }  
       
             //Consulta web
            $respuesta="";
@@ -412,34 +417,7 @@ public function consultar($nivel1){
 }
 
 //<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($id){
-		
-		$co = $this->conecta();
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-		try{
-			
-			$resultado = $co->prepare("SELECT * from materias where id=:id");
-			
-			$resultado->bindParam(':id',$id);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true;  
-			    
-			}
-            //necesario?
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}  
-	}
+  
 //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 public function exists($nombre, $ano) {
     $co = $this->conecta();
@@ -478,11 +456,12 @@ public function exists($nombre, $ano) {
 
 
 
+
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
  private function eliminar1(){
      $co = $this->conecta();
      $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-     if($this->existe($this->id)){
+     if($this->existe($this->id, "SELECT * from materias where id=:id", ':id')){
     
 
          try {

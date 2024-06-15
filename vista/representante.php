@@ -90,6 +90,7 @@ if(isset($_COOKIE['token'])){
 							 <th>Telefono</th>						 
 							 <th>Correo</th>							
 							 <th>Contacto</th>
+							 <th>Dirección</th>
 							 <th>Acciones</th>
 							 </tr>
 						  </thead>
@@ -202,6 +203,7 @@ if(isset($_COOKIE['token'])){
 				<span style="color:#FF0000" id="scorreo"></span>
 				<input type="text" class="form-control" name="correo" id="correo" required placeholder="personal@gmail.com">
 			</div>
+
 		</div>
 		<hr>
 		<h5 class="modal-title">Contacto de Emergencia</h5>
@@ -269,8 +271,9 @@ if(isset($_COOKIE['token'])){
 				<label>Cedula</label>
 				<span style="color:#FF0000" id="scedula1"></span>
 				<input type="text" class="form-control" style="display: none;"  name="accion1" value="accion1" required>
-				<input type="text" class="form-control " name="cedula1" id="cedula1" required >
+				<input type="text" class="form-control sm"readonly="true" name="cedula1" id="cedula1" required placeholder="0000000">
 			</div>
+
 			<div class="form-group col-md-4">
 				<label>Primer Nombre</label>
 				<br>
@@ -307,6 +310,11 @@ if(isset($_COOKIE['token'])){
 				<label>Correo</label>
 				<span style="color:#FF0000" id="scorreo1"></span>		
 				<input type="text" class="form-control" name="correo1" id="correo1" required >
+			</div>
+			<div class="form-group col-md-4">
+				<label>Direccion</label>
+				<span style="color:#FF0000" id="sdireccion1"></span>
+				<input type="text" class="form-control" name="direccion1" id="direccion1" required placeholder="crrera # con calle #">
 			</div>
 		</div>
 		<hr>

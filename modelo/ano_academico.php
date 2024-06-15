@@ -165,9 +165,10 @@ class ano_academico extends datos{
         private function modificar1(){
 
 
+
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->id)){
+            if($this->existe($this->id, "Select * from ano_academico where id=:id", ':id')){
                 try{
 
             $consulta = "SELECT * FROM ano_academico WHERE estado = :estado;";
@@ -444,39 +445,6 @@ private function existe2() {
 
 
 
-//<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($id){
-		
-		$co = $this->conecta();
-		
-		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		
-		try{
-			
-			
-			$resultado = $co->prepare("Select * from ano_academico where id=:id");
-			
-			$resultado->bindParam(':id',$id);
-			$resultado->execute();
-			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
-			if($fila){ 
-
-				return true; 
-			    
-			}
-			else{
-				
-				return false; 
-			}
-			
-		}catch(Exception $e){
-			
-			return false;
-		}
-	}
-//<!---------------------------------fin de funcion existe------------------------------------------------------------------>
-
 
 
 
@@ -489,7 +457,7 @@ private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    if($this->existe($this->id) && $this->existe2()) {
+    if($this->existe($this->id, "Select * from ano_academico where id=:id", ':id') && $this->existe2()) {
     
 
         try {

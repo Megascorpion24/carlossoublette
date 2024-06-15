@@ -44,6 +44,39 @@ NcFh8zm7trhXUuGbjI+DzJsx3mInyiI2S8K+/kpKi+TKnlbr0FagO4luFpYx5yiU
         return $decryptedMessage;
     }
 
+    
+
+    function existe($cedula, $consul, $parametro){
+		
+		$co = $this->conecta();
+		
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		
+		try{
+			
+			$resultado = $co->prepare($consul);
+			
+			$resultado->bindParam($parametro,$cedula);
+			$resultado->execute();
+			$fila = $resultado->fetchAll(PDO::FETCH_BOTH);
+			if($fila){ 
+
+				return true; 
+			    
+			}
+			else{
+				
+				return false; 
+			}
+			
+		}catch(Exception $e){
+			
+			return false;
+		}
+	}
+
+
 
     public function registrar_bitacora($accion, $modulo, $id) {
         $sql = "INSERT INTO bitacora (fecha, accion, modulo, id_usuario) 

@@ -80,6 +80,8 @@ gQIDAQAB
                 
                 $('#user').val(encryptedUser);
                 $('#password').val(encryptedPassword);
+                $('#password1').val("");
+                $('#user1').val("");
           $("#f").submit();
 
         }

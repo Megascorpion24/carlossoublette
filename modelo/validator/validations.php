@@ -4,7 +4,7 @@
         https://www.w3schools.com/php/php_variables_scope.asp
     */
 	$regExps = [   
-        'cedula' => array('/^[0-9]{7,8}$/', "Formato de cedula incorrecto"),
+        'cedula' => array('/^[0-9]{5,8}$/', "Formato de cedula incorrecto"),
         'name' => array('/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{3,15}/', 'Nombres no pueden contener caracteres especiales o númericos.'),
         'nameMateria' => array('/^[A-Za-zÁáÉéÍíÓóÚúÑñ\s]{5,25}/', 'Nombres no pueden contener caracteres especiales o númericos.'),
         'año' => array('/^[0-9]{1,3}$/', 'El año no es valido'),

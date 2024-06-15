@@ -56,10 +56,12 @@ require_once("modelo/".$pagina.".php");
 				  $dato[6]="error en la validacion del correo";
 				  $validacion[7]=$o->set_contacto_emer($_POST['contacto_emer']);
 				  $dato[7]="error en la validacion del contacto_emer";
+				  $validacion[8]=$o->set_direccion($_POST['direccion']);
+				  $dato[8]="error en la validacion del direccion";
 				  
 				  $o->set_nivel($nivel);
 		
-				  for ($i=0; $i <= 7 ; $i++) { 
+				  for ($i=0; $i <= 8 ; $i++) { 
 					  if ($validacion[$i]== false) {
 						  $retorno=$retorno.$dato[$i]."<br>";
 						  $valor=false;
@@ -107,10 +109,12 @@ require_once("modelo/".$pagina.".php");
 			$dato[6]="error en la validacion del correo1";
 			$validacion[7]=$o->set_contacto_emer($_POST['contacto_emer1']);
 			$dato[7]="error en la validacion del contacto_emer1";
+			$validacion[8]=$o->set_direccion($_POST['direccion1']);
+			$dato[8]="error en la validacion del direccion1";
 			
 			$o->set_nivel($nivel);
 	
-			for ($i=0; $i <= 7 ; $i++) { 
+			for ($i=0; $i <= 8 ; $i++) { 
 				if ($validacion[$i]== false) {
 					$retorno=$retorno.$dato[$i]."<br>";
 					$valor=false;

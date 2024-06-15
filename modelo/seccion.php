@@ -642,31 +642,7 @@ public function consulta_E($id){
 
 
 //<!---------------------------------funcion existe------------------------------------------------------------------>
-    private function existe($id){
-        $co = $this->conecta();
-        $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        try {
-            $resultado = $co->prepare("SELECT
-             COUNT(*) AS cantidad_estudiantes
-            FROM estudiantes
-            WHERE id_anos_secciones = :id
-              AND estado = 1;
-            ");
-            $resultado->bindParam(':id', $id);
-            $resultado->execute();
-            
-            $cantidadEstudiantes = $resultado->fetchColumn();
-    
-            // Si no hay estudiantes asignados a esa sección
-            if ($cantidadEstudiantes == 0) {
-                return true; // La sección existe y no tiene estudiantes asignados
-            } else {
-                return false; // La sección existe y tiene estudiantes asignados
-            }
-        } catch (Exception $e) {
-            return false; // Manejo de excepciones
-        }
-	}
+
  
     public function exists($id_seccion, $ano, $ano_academico) {
         $co = $this->conecta();
@@ -750,11 +726,13 @@ public function consulta_E($id){
 //<!---------------------------------fin de funcion existe------------------------------------------------------------------>
 
 
+           
+
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
 private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id)){
+    if($this->existe($this->id, "SELECT COUNT(*) AS cantidad_estudiantes  FROM estudiantes WHERE id_anos_secciones = :id AND estado = 1; ", ':id')){
     
 
         try {
