@@ -71,7 +71,7 @@
             <span id="spassword"></span>
             <input type="password" id="password" name="password" id="password" placeholder="Digite su Contrasena" />
             <i id="reveal-password" class="bi bi-eye-slash"></i>
-          
+            <span id="password-alert" style="display: none;">Las contraseñas no son iguales</span>
             <span id="spassword1"></span>
             <input type="password" id="password1" name="password1" id="password1" placeholder="Repita su Contrasena" />
             <i  id="reveal-password1" ></i>
@@ -93,3 +93,12 @@
 </body>
 
 </html>
+
+<style>
+
+#password-alert {
+  color: red;
+  font-size: 16px;
+  display: none;
+}
+</style>

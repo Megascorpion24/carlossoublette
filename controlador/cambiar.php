@@ -25,7 +25,7 @@ require_once("modelo/".$pagina.".php");
 				$o->set_url($_POST['url']);
 			}
 		
-			$mensaje = $o->cambiar();
+			 $o->cambiar();
 			
 		
 			header('Location:index.php');
