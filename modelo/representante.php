@@ -11,6 +11,7 @@ class tutor_legal extends datos{
 	private $apellido2;
 	private $telefono;
 	private $correo;
+    private $direccion;
 	private $contacto_emer;
     private $nivel;
 
@@ -78,6 +79,15 @@ class tutor_legal extends datos{
                 return false;
             }
         }
+        public function set_direccion($valor){
+            if (preg_match("/^[a-zA-Z0-9\s]{4,30}$/", $valor)) {
+                $this->direccion = $valor; 
+                return true;
+                }else{
+                    return false;
+                }
+            }
+    
 
         public function set_nivel($valor){
             $this->nivel = $valor; 
@@ -117,26 +127,28 @@ class tutor_legal extends datos{
             try{
                 $r= $co->prepare("Insert into tutor_legal(
 						
-                            cedula,
-                            nombre1,
-                            nombre2,
-                            apellido1,
-                            apellido2,
-                            telefono,
-                            correo,
-                            contacto_emer,
-                            estado
-                            )
-            
-                    Values( :cedula,
-                            :nombre1,
-                            :nombre2,
-                            :apellido1,
-                            :apellido2,
-                            :telefono,
-                            :correo,
-                            :contacto_emer,
-                            :estado
+                    cedula,
+                    nombre1,
+                    nombre2,
+                    apellido1,
+                    apellido2,
+                    telefono,
+                    correo,
+                    contacto_emer,
+                    direccion,
+                    estado
+                    )
+    
+            Values( :cedula,
+                    :nombre1,
+                    :nombre2,
+                    :apellido1,
+                    :apellido2,
+                    :telefono,
+                    :correo,
+                    :contacto_emer,
+                    :direccion,
+                    :estado
                     )"
                 );
                 $estado=1;
@@ -148,6 +160,7 @@ class tutor_legal extends datos{
                 $r->bindParam(':telefono',$this->telefono);	
                 $r->bindParam(':correo',$this->correo);	
                 $r->bindParam(':contacto_emer',$this->contacto_emer);	
+                $r->bindParam(':direccion',$this->direccion);
                 $r->bindParam(':estado',$estado);	
             
              
@@ -248,30 +261,32 @@ class tutor_legal extends datos{
                     $r= $co->prepare("Update tutor_legal set 
                             
                        
-                        nombre1=:nombre1,
-                        nombre2=:nombre2,
-                        apellido1=:apellido1,
-                        apellido2=:apellido2,
-                        telefono=:telefono,                      
-                        correo=:correo,
-                        contacto_emer=:contacto_emer
-                        where
-						cedula =:cedula
+                    nombre1=:nombre1,
+                    nombre2=:nombre2,
+                    apellido1=:apellido1,
+                    apellido2=:apellido2,
+                    telefono=:telefono,                      
+                    correo=:correo,
+                    contacto_emer=:contacto_emer,
+                    direccion=:direccion
+                    where
+                    cedula =:cedula
+                    
+            
+                     
                         
-                
-                         
-                            
-                            
-                        ");
-                    $r->bindParam(':cedula',$this->cedula);	
-                    $r->bindParam(':nombre1',$this->nombre1);	
-                    $r->bindParam(':nombre2',$this->nombre2);	
-                    $r->bindParam(':apellido1',$this->apellido1);	
-                    $r->bindParam(':apellido2',$this->apellido2);	
-                    $r->bindParam(':telefono',$this->telefono);	
-                    $r->bindParam(':correo',$this->correo);	
-                    $r->bindParam(':contacto_emer',$this->contacto_emer);	                 
-                    $r->execute();
+                        
+                    ");
+                $r->bindParam(':cedula',$this->cedula);	
+                $r->bindParam(':nombre1',$this->nombre1);	
+                $r->bindParam(':nombre2',$this->nombre2);	
+                $r->bindParam(':apellido1',$this->apellido1);	
+                $r->bindParam(':apellido2',$this->apellido2);	
+                $r->bindParam(':telefono',$this->telefono);	
+                $r->bindParam(':correo',$this->correo);	
+                $r->bindParam(':contacto_emer',$this->contacto_emer);	     
+                $r->bindParam(':direccion',$this->direccion);	            
+                $r->execute();
 
                     
                     $this->bitacora("se modifico un representante", "representantes",$this->nivel);
@@ -332,6 +347,7 @@ public function consultar($nivel1){
                 $respuesta=$respuesta."<th>".$r['telefono']."</th>";
                 $respuesta=$respuesta."<th>".$r['correo']."</th>";
                 $respuesta=$respuesta."<th>".$r['contacto_emer']."</th>";
+                $respuesta=$respuesta."<th>".$r['direccion']."</th>";
                 $respuesta=$respuesta.'<th>';
                 if (in_array("modificar representante",$nivel1)) {               
                 $respuesta=$respuesta.'<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['cedula'].'`)">
