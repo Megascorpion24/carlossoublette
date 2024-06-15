@@ -395,13 +395,6 @@ function enviaAjax(datos){
              $("#consulta").val("consulta");            
              enviaAjax2($("#f4"));  
 
-       
-
-                 setTimeout(function(){
-                    window.location.reload();
-                }, 1000);
-
-           
         },
             error: function(request, status, err){
                 if (status == "timeout") {
