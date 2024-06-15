@@ -47,7 +47,8 @@ class pagos extends datos{
         }
 	}
 	public function set_identificador($valor){
-        if (preg_match("/^[a-zA-Z0-9-\s]+$/", $valor)) {
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[a-zA-Z0-9-\s]+$/", $cexryp)) {
 		$this->identificador = $valor; 
         return true;
         }else{
