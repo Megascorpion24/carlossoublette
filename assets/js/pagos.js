@@ -1249,7 +1249,10 @@ function enviaAjax(datos){
                     mensaje("ERROR: <br/>" + request + status + err);
                 }
             },
-            complete: function(){               
+            complete: function(){   
+                setTimeout(function(){
+                    window.location.reload();
+                }, 1000);            
             }            
     });    
 }
