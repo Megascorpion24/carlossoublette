@@ -1,14 +1,14 @@
 -------------------------- 4. START TRANSACTION, COMMIT y ROLLBACK
  
-START TRANSACTION;
 -- Insertar la materia y obtener su ID
-INSERT INTO materias (nombre, estado) VALUES ('Deporte', 1);
+START TRANSACTION;
+INSERT INTO materias (nombre, estado) VALUES ('TEATRO', 1);
 SET @id_materia = LAST_INSERT_ID();
+INSERT INTO años_materias (id_anos, id_materias) VALUES (1, @id_materia);
+COMMIT;
 
 -- Insertar el registro en años_materias con el ID de la materia insertada anteriormente
-INSERT INTO años_materias (id_anos, id_materias) VALUES (1, @id_materia);
 
-COMMIT;
 ---------------------------5. SAVEPOINT, ROLLBACK TO SAVEPOINT y RELEASE SAVEPOINT
 START TRANSACTION;
 
