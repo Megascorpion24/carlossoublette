@@ -828,7 +828,8 @@ class inscripciones extends datos
 
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
-      
+            if ($id1 == 0) {
+
 
                 $resultado = $co->prepare("SELECT * FROM `ano_academico` WHERE estado=1");
                 $resultado->execute();
@@ -839,7 +840,9 @@ class inscripciones extends datos
                     $respuesta = $r['id'];
                 }
                 $id = $respuesta;
-       
+            } else {
+                $id = $id1;
+            }
 
 
             $resultado = $co->prepare("SELECT estudiantes.*, años.anos, secciones.secciones, secciones_años.id FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id INNER JOIN estudiantes on secciones_años.id=estudiantes.id_anos_secciones INNER JOIN ano_estudiantes on ano_estudiantes.id_estudiantes=estudiantes.cedula INNER JOIN ano_academico ON ano_academico.id=ano_estudiantes.id_ano AND ano_academico.id=$id ORDER by años.anos, secciones.secciones");
@@ -855,7 +858,6 @@ class inscripciones extends datos
 
             foreach ($resultado as $r) {
                 $respuesta = $respuesta . '<tr>';
-            
                 $respuesta = $respuesta . "<td>" . $r['cedula'] . "</td>";
                 $respuesta = $respuesta . "<td>" . $r['nombre'] . "</td>";
                 $respuesta = $respuesta . "<td>" . $r['apellido'] . "</td>";
