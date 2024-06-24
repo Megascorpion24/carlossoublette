@@ -3,7 +3,9 @@
 --  **todo------------ Tabla Maestra y Tabla Detalle-----------
 -- 
 -- Tabla Maestra: materias 
--- Tabla Detalle: años_materias y materias_docentes
+-- Tabla Detalle: años_materias 
+--
+-- Tabla Puente: materias_docentes(para registra y eliminar correctamente)
 
 -- ***? ---------READ-UNCOMMITTED ----------- 
 
@@ -57,6 +59,7 @@ SELECT * FROM materias WHERE nombre='CASTELLANO';
 
 
 -- *****? ---------READ-COMMITTED----------- 
+-- consiste en establecer mecanismos para asegurar que las operaciones de lectura de datos, solo puedan obtener valores que se hayan confirmado 
 
 -- **** Transacción 1
 

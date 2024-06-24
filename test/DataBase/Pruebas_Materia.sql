@@ -40,7 +40,7 @@ COMMIT;
 
 -------------------BLOQUEO DE TABLA PARA ELIMINAR----------
 START TRANSACTION;
-LOCK TABLES años_materias WRITE, materias WRITE, años_materias WRITE;
+LOCK TABLES años_materias WRITE, materias WRITE, materias_docentes WRITE;
 
 
 DELETE FROM años_materias WHERE id_materias = 14;
