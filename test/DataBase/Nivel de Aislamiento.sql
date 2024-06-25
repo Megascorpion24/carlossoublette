@@ -41,19 +41,17 @@ SELECT * FROM materias WHERE nombre='CASTELLANO';
 --  READ UNCOMMITTED es el más bajo y permite que una transacción lea datos que aún no han 
 --  sido confirmados (committed) por otras transacciones. 
 
--- Abre una nueva sesión en otra consola o terminal y ejecuta:
 SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 START TRANSACTION;
 -- Leer los datos que aún no se han confirmado en Transacción 1
-SELECT * FROM materias WHERE nombre = 'QUIMICA' AND estado = 1;
+SELECT * FROM materias WHERE nombre = 'QUIMICA';
 -- Actualizar un registro basado en la lectura anterior
 UPDATE materias SET estado = 0 WHERE nombre = 'QUIMICA';
 COMMIT;
 
 
 -- Consulta final para verificar el estado de las tablas
-SELECT * FROM materias WHERE nombre='QUIMICA';
 SELECT * FROM materias WHERE nombre='CASTELLANO';
 
 
@@ -70,8 +68,6 @@ SET @id_materia = LAST_INSERT_ID();
 INSERT INTO años_materias (id_anos, id_materias) VALUES (2, @id_materia);
 INSERT INTO materias_docentes (estado, id_materias, id_docente) VALUES (1, @id_materia, 30019082);
 
-
--- T1 no ha confirmado la transacción aún
 -- Simulación de concurrencia (5seg)
 SELECT SLEEP(5);
 -- Ahora sí, el commit en Transacción 1
@@ -85,12 +81,13 @@ SELECT * FROM materias WHERE nombre = 'INGLES';
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 START TRANSACTION;
 
-SELECT * FROM materias WHERE nombre = 'INGLES' AND estado = 1;
-UPDATE materias SET estado = 0 WHERE nombre = 'INGLES';
+SELECT * FROM materias WHERE nombre = 'DEPORTE';
+
+SELECT * FROM materias WHERE nombre = 'INGLES' AND estado = 0;
+UPDATE materias SET estado = 1 WHERE nombre = 'INGLES';
 -- T2 NO verá la nueva materia, porque T1 no ha confirmado
 COMMIT;
 
-SELECT * FROM materias WHERE nombre = 'DEPORTE';
 SELECT * FROM materias WHERE nombre = 'INGLES';
 
 
@@ -109,6 +106,22 @@ SET @id_materia = LAST_INSERT_ID();
 INSERT INTO años_materias (id_anos, id_materias) VALUES (3, @id_materia);
 INSERT INTO materias_docentes (estado, id_materias, id_docente) VALUES (1, @id_materia, 30019082);
 
+-- Ejemplo de SELECT
+SELECT * FROM materias WHERE nombre = 'INGLES';
+SELECT * FROM materias WHERE nombre = 'DEPORTE';
+
+
+-- Simulación de concurrencia (5 segundos)
+SELECT SLEEP(5);
+-- Commit en Transacción 1
+COMMIT;
+
+
+
+-- **** Transacción 2
+
+START TRANSACTION;
+
 -- Ejemplo de UPDATE
 UPDATE materias SET nombre = "INGLÉS BASICO" WHERE nombre = 'INGLES';
 
@@ -119,26 +132,10 @@ DELETE FROM años_materias WHERE id_materias = @id_materia;
 DELETE FROM materias_docentes WHERE id_materias = @id_materia;
 DELETE FROM materias WHERE id = @id_materia;
 
-
--- Simulación de concurrencia (4 segundos)
-SELECT SLEEP(4);
--- Commit en Transacción 1
-COMMIT;
-
-SELECT * FROM materias WHERE nombre = 'INGLÉS BASICO';
-SELECT * FROM materias WHERE nombre = 'DEPORTE';
-
-
--- **** Transacción 2
-
-START TRANSACTION;
-
 -- Ejemplo de INSERT
 INSERT INTO materias (nombre, estado) VALUES ('CASTELLANO', 1);
 SET @id_materia = LAST_INSERT_ID();
 INSERT INTO años_materias (id_anos, id_materias) VALUES (3, @id_materia);
-
-ROLLBACK;
 
 -- SELECTs en Transacción 2
 SELECT * FROM materias WHERE nombre = 'MATEMÁTICA';
