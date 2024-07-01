@@ -1,5 +1,7 @@
 <?php 
 require 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
+$dotenv->load();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -31,14 +33,14 @@ require_once("modelo/".$pagina.".php");
 try {
     
     $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
+    $mail->Host       = $_ENV['HOST'];                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'colegioclave@hotmail.com';                     //SMTP username
-    $mail->Password   = 'Sistema2024.';                               //SMTP password
-    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Username   = $_ENV['USER'];                     //SMTP username
+    $mail->Password   = $_ENV['PASS'] ;                               //SMTP password
+    $mail->Port       = $_ENV['PORT'] ;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('colegioclave@hotmail.com', 'SISTEMA GPUECCS');
+    $mail->setFrom($_ENV['USER'], 'SISTEMA GPUECCS');
     $mail->addAddress($correo, $correo);     //Add a recipient
       
 

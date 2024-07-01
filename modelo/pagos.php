@@ -493,7 +493,7 @@ private function modificarMM(){
                 $r->bindParam(':m_montos',$this->m_montos);	
                 $r->bindParam(':d_montos',$this->d_montos);	
                 $r->execute();
-  
+//<!----Si al modificar el valor del monto de la inscripcion es inferior a lo ya pagado se se cancela la deuda pendiente ---> 
                 $r = $co->prepare("UPDATE deudas d
                 SET d.estado_deudas = 0
                 WHERE EXISTS (
@@ -501,6 +501,36 @@ private function modificarMM(){
                     FROM montos m
                     WHERE m.m_montos < d.monto )AND d.concepto = 'inscripcion'");
                 $r->execute();  
+//<!----Si al modificar el valor del monto de la mensualidad es inferior a o ya pagado se suma el mes como pago---> 
+                $r= $co->prepare("UPDATE deudas d 
+                SET d.estado_deudas = 0 
+                WHERE EXISTS (
+                    SELECT * 
+                    FROM montos 
+                    WHERE montos.m_montos <= d.monto 
+                        AND montos.tipo = 'mensualidad' ) 
+                        AND d.concepto = 'mensualidad'
+                        AND d.fecha >= CURRENT_DATE() ");               	    
+                $r->execute();
+//<!----Si al modificar el valor del monto de la mensualidad es inferior a o ya pagado se suma el mes como pago---> 
+                $r= $co->prepare("UPDATE deudas d
+                 SET d.monto = 0, d.fecha = DATE_ADD(d.fecha, INTERVAL 1 MONTH) 
+                 WHERE EXISTS (
+                    SELECT * 
+                    FROM montos 
+                    WHERE montos.m_montos <= d.monto 
+                        AND montos.tipo = 'mensualidad' ) 
+                        AND d.concepto = 'mensualidad'
+                        AND d.fecha <= CURRENT_DATE() ");  
+                $r->execute();
+
+
+
+
+
+
+
+
 
             $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          

@@ -24,8 +24,15 @@ class recuperar extends datos
 				$fila = $resultado->fetch(PDO::FETCH_ASSOC);
 
 				$token = bin2hex(random_bytes(32));
-				$r = $co->prepare("UPDATE usuarios SET token = :token WHERE nombre = :usua AND estado = 1");
+				$request = "1";
+				$tiempo = date('Y-m-d H:i:s', time() + 300);
+				$r = $co->prepare("UPDATE usuarios SET token = :token,
+				 request_password = :request_password,
+				 expirar = :expirar
+				   WHERE nombre = :usua AND estado = 1");
 				$r->bindParam(':token', $token);
+				$r->bindParam(':request_password', $request);
+				$r->bindParam(':expirar', $tiempo);
 				$r->bindParam(':usua', $this->usuario);
 				$r->execute();
 
