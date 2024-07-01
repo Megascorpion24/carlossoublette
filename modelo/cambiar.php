@@ -51,9 +51,10 @@ class cambiar extends datos
 			$resultado->execute();
 			$row = $resultado->fetch(PDO::FETCH_ASSOC);
 			$expirar = ($row['expirar']);
+			$request = ($row['request_password']);
 			$current_date = date('Y-m-d H:i:s');
 
-			if ($expirar < $current_date) {
+			if ($expirar < $current_date OR $request == 0) {
 				$r = $co->prepare("Update usuarios set           
                       
                         request_password=0
@@ -86,8 +87,8 @@ class cambiar extends datos
 			$claveencr = password_hash($this->clave, PASSWORD_DEFAULT, ['cost' => 10]);
 			$r = $co->prepare("Update usuarios set           
                       
-                        clave=:clave
-                     
+                        clave=:clave,
+                    	request_password=0
                        
                         where
 						token =:url
