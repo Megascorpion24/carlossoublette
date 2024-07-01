@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 04:19:11
+-- Tiempo de generación: 01-07-2024 a las 18:23:34
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -41,8 +41,8 @@ CREATE TABLE `ano_academico` (
 --
 
 INSERT INTO `ano_academico` (`id`, `fecha_ini`, `fecha_cierr`, `ano_academico`, `estatus`, `estado`) VALUES
-(1, '2024-01-01', '2024-01-31', '2023-2024', '', 1),
-(2, '2024-01-01', '2024-01-31', '2023-2025', '0', 0);
+(1, '2024-01-01', '2024-01-31', '2023-2024', '', 0),
+(2, '2024-01-01', '2024-01-31', '2023-2025', '0', 1);
 
 -- --------------------------------------------------------
 
@@ -62,20 +62,13 @@ CREATE TABLE `ano_estudiantes` (
 
 INSERT INTO `ano_estudiantes` (`id`, `id_ano`, `id_estudiantes`) VALUES
 (21, 1, '11111111'),
-(23, 2, '22222222'),
-(24, 1, '13123123');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `ano_horario`
---
-
-CREATE TABLE `ano_horario` (
-  `id` int(11) NOT NULL,
-  `id_ano` int(11) NOT NULL,
-  `id_horario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(23, 1, '22222222'),
+(24, 1, '13123123'),
+(25, 1, '12312312'),
+(26, 1, '12312313'),
+(27, 2, '23434343'),
+(28, 2, '24345435'),
+(29, 2, '23423465');
 
 -- --------------------------------------------------------
 
@@ -207,7 +200,73 @@ INSERT INTO `bitacora` (`id`, `fecha`, `accion`, `modulo`, `id_usuario`) VALUES
 (43, '2024-04-28', 'se registraron permisos', 'seguridad', '2827479'),
 (44, '2024-04-28', 'se registraron permisos', 'seguridad', '2827479'),
 (45, '2024-04-28', 'se intento ingresar al sistema', 'login', '0000'),
-(46, '2024-04-28', 'se registro un usuario', 'usuarios', '2827479');
+(46, '2024-04-28', 'se registro un usuario', 'usuarios', '2827479'),
+(47, '2024-06-04', 'se elimino una clase', 'Horario', '30019081'),
+(48, '2024-06-04', 'se elimino una clase', 'Horario', '30019081'),
+(49, '2024-06-06', 'se modifico una clase', 'Horario', '2827479'),
+(50, '2024-06-06', 'se modifico una clase', 'Horario', '2827479'),
+(51, '2024-06-06', 'se registro una clase', 'Horario', '2827479'),
+(52, '2024-06-08', 'se registro una clase', 'Horario', '2827479'),
+(53, '2024-06-08', 'se elimino una clase', 'Horario', '2827479'),
+(54, '2024-06-08', 'se registro una clase', 'Horario', '2827479'),
+(55, '2024-06-08', 'se elimino una clase', 'Horario', '2827479'),
+(56, '2024-06-08', 'se registro una clase', 'Horario', '2827479'),
+(57, '2024-06-08', 'se intento ingresar al sistema', 'login', '0000'),
+(58, '2024-06-08', 'se intento ingresar al sistema', 'login', '0000'),
+(59, '2024-06-08', 'se intento ingresar al sistema', 'login', '0000'),
+(60, '2024-06-08', 'se intento ingresar al sistema', 'login', '0000'),
+(61, '2024-06-09', 'se modifico una clase', 'Horario', '30019081'),
+(62, '2024-06-09', 'se modifico un rol', 'seguridad', '2827479'),
+(63, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(64, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(65, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(66, '2024-06-09', 'se registro un pago', 'Pagos', '28621409'),
+(67, '2024-06-09', 'se registro un pago', 'Pagos', '28621409'),
+(68, '2024-06-09', 'se registro un pago', 'Pagos', '2827479'),
+(69, '2024-06-09', 'se confirmo un pago', 'Pagos', '2827479'),
+(70, '2024-06-09', 'se modifico un pago', 'Pagos', '2827479'),
+(71, '2024-06-09', 'se modifico un pago', 'Pagos', '2827479'),
+(72, '2024-06-09', 'se modifico un pago', 'Pagos', '2827479'),
+(73, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(74, '2024-06-09', 'se registraron permisos', 'seguridad', '28621409'),
+(75, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(76, '2024-06-09', 'se modifico un pago', 'Pagos', '2827479'),
+(77, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(78, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(79, '2024-06-09', 'se genero una deuda', 'principal', '28621409'),
+(80, '2024-06-09', 'se genero una deuda', 'principal', '28621409'),
+(81, '2024-06-09', 'se genero una deuda', 'principal', '28621409'),
+(82, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(83, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(84, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(85, '2024-06-09', 'se registraron permisos', 'seguridad', '2827479'),
+(86, '2024-06-12', 'se registro un evento', 'eventos', '2827479'),
+(87, '2024-06-12', 'se registraron permisos', 'seguridad', '2827479'),
+(88, '2024-06-12', 'se registraron permisos', 'seguridad', '2827479'),
+(89, '2024-06-12', 'se registraron permisos', 'seguridad', '2827479'),
+(90, '2024-06-12', 'se registraron permisos', 'seguridad', '2827479'),
+(91, '2024-06-12', 'se registraron permisos', 'seguridad', '2827479'),
+(92, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(93, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(94, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(95, '2024-06-13', 'se inscribio un estudiante', 'inscripciones', '2827479'),
+(96, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(97, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(98, '2024-06-13', 'se inscribio un estudiante', 'inscripciones', '2827479'),
+(99, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(100, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(101, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(102, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(103, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(104, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(105, '2024-06-13', 'se inscribio un estudiante', 'inscripciones', '2827479'),
+(106, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(107, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(108, '2024-06-13', 'se modifico un estudiante', 'inscripciones', '2827479'),
+(109, '2024-06-14', 'se inscribio un estudiante', 'inscripciones', '2827479'),
+(110, '2024-06-14', 'se inscribio un estudiante', 'inscripciones', '2827479'),
+(111, '2024-06-24', 'se intento ingresar al sistema', 'login', '0000'),
+(112, '2024-06-29', 'se intento ingresar al sistema', 'login', '0000');
 
 -- --------------------------------------------------------
 
@@ -230,13 +289,26 @@ CREATE TABLE `deudas` (
 --
 
 INSERT INTO `deudas` (`id`, `id_estudiante`, `concepto`, `fecha`, `monto`, `estado`, `estado_deudas`) VALUES
-(57, '11111111', 'inscripcion', '2023-10-30', 2160, 1, 0),
+(57, '11111111', 'inscripcion', '2023-10-30', 2160, 1, 1),
 (58, '11111111', 'mensualidad', '2023-10-30', 0, 1, 1),
-(61, '22222222', 'inscripcion', '2023-08-30', 2160, 1, 0),
+(61, '22222222', 'inscripcion', '2023-08-30', 2160, 1, 1),
 (62, '22222222', 'mensualidad', '2023-09-30', 0, 1, 1),
-(63, '13123123', 'inscripcion', '2024-02-06', 0, 1, 1),
+(63, '13123123', 'inscripcion', '2024-02-06', 2160, 1, 1),
 (64, '13123123', 'mensualidad', '2024-02-06', 0, 1, 1),
-(65, '22222222', 'mensualidad', '2024-02-06', 20, 1, 1);
+(65, '22222222', 'mensualidad', '2024-02-06', 20, 1, 1),
+(66, '22222222', 'mensualidad', '2024-06-09', 0, 1, 1),
+(67, '22222222', 'mensualidad', '2024-06-09', 0, 1, 1),
+(68, '13123123', 'mensualidad', '2024-06-09', 0, 1, 1),
+(69, '12312312', 'inscripcion', '2024-06-13', 0, 1, 1),
+(70, '12312312', 'mensualidad', '2024-06-13', 0, 1, 1),
+(71, '12312313', 'inscripcion', '2024-06-13', 0, 1, 1),
+(72, '12312313', 'mensualidad', '2024-06-13', 0, 1, 1),
+(73, '23434343', 'inscripcion', '2024-06-13', 0, 1, 1),
+(74, '23434343', 'mensualidad', '2024-06-13', 0, 1, 1),
+(75, '24345435', 'inscripcion', '2024-06-15', 0, 1, 1),
+(76, '24345435', 'mensualidad', '2024-06-15', 0, 1, 1),
+(77, '23423465', 'inscripcion', '2024-06-15', 0, 1, 1),
+(78, '23423465', 'mensualidad', '2024-06-15', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -331,19 +403,47 @@ INSERT INTO `docente_horario` (`id`, `id_docente`, `id_horario_docente`) VALUES
 (14, '000103', 19),
 (15, '000102', 20),
 (16, '000103', 21),
-(17, '000104', 22);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `docente_horario_secciones`
---
-
-CREATE TABLE `docente_horario_secciones` (
-  `id` int(11) NOT NULL,
-  `id_docente` varchar(50) NOT NULL,
-  `id_horario_secciones` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(17, '000104', 22),
+(18, '000104', 24),
+(19, '000104', 25),
+(20, '000104', 26),
+(21, '000103', 27),
+(22, '000104', 28),
+(24, '30019082', 29),
+(26, '30019082', 30),
+(27, '28276731', 31),
+(28, '000102', 32),
+(29, '30019082', 33),
+(30, '000104', 34),
+(31, '000104', 35),
+(32, '000104', 36),
+(33, '000104', 37),
+(34, '000104', 38),
+(35, '000104', 39),
+(38, '000104', 21),
+(40, '000104', 43),
+(41, '000104', 44),
+(44, '000104', 47),
+(45, '000104', 48),
+(46, '000104', 49),
+(47, '000104', 50),
+(54, '000104', 57),
+(58, '000104', 61),
+(59, '000104', 43),
+(60, '000104', 62),
+(61, '000104', 63),
+(62, '000104', 64),
+(67, '000104', 69),
+(68, '000104', 70),
+(69, '000104', 71),
+(70, '000104', 72),
+(71, '000104', 73),
+(72, '000104', 74),
+(73, '000104', 75),
+(74, '000104', 76),
+(75, '000104', 77),
+(76, '000104', 78),
+(77, '000104', 79);
 
 -- --------------------------------------------------------
 
@@ -385,9 +485,14 @@ CREATE TABLE `estudiantes` (
 --
 
 INSERT INTO `estudiantes` (`cedula`, `nombre`, `apellido`, `edad`, `observaciones`, `materias_pendientes`, `id_anos_secciones`, `estado`) VALUES
-('11111111', 'Hijomanuel', 'Hijomanuel', 14, 'Ninguna', 'aprobado', 30, 1),
+('11111111', 'angel', 'Hijomanuel', 14, 'Ninguna', 'aprobado', 30, 1),
+('12312312', 'holccomoestas', 'asdasd', 12, 'asdasdasd', 'aprobado', 30, 1),
+('12312313', 'floresaaaa', 'qweqw', 12, 'qweqwe', 'aprobado', 30, 1),
 ('13123123', 'sdsdsdsdsdsdsss', 'asdasd', 12, 'asdasdasd', 'aprobado', 30, 1),
-('22222222', 'dddddddddddd', 'Hijojesus', 14, 'Ninguna', 'aprobado', 30, 1);
+('22222222', 'dddddddddddd', 'Hijojesus', 14, 'Ninguna', 'aprobado', 30, 1),
+('23423465', 'bbbbbbbbbbbbb', 'bbbbbbbbbbb', 34, 'bbbbbbbbbb', 'aprobado', 30, 1),
+('23434343', 'asdasd', 'asdasd', 12, 'aasdasd', 'aprobado', 30, 1),
+('24345435', 'asdasd', 'asdasdas', 22, 'asdasdas', 'aprobado', 30, 1);
 
 -- --------------------------------------------------------
 
@@ -408,7 +513,12 @@ CREATE TABLE `estudiantes_tutor` (
 INSERT INTO `estudiantes_tutor` (`id`, `id_estudiantes`, `id_tutor`) VALUES
 (8, '11111111', '28621408'),
 (10, '22222222', '28621409'),
-(11, '13123123', '28621408');
+(11, '13123123', '28621408'),
+(12, '12312312', '28621408'),
+(13, '12312313', '28621408'),
+(14, '23434343', '28621408'),
+(15, '24345435', '28621408'),
+(16, '23423465', '28621408');
 
 -- --------------------------------------------------------
 
@@ -429,7 +539,12 @@ CREATE TABLE `estudiante_ficha` (
 INSERT INTO `estudiante_ficha` (`id`, `id_estudiantes`, `id_ficha`) VALUES
 (9, '11111111', 9),
 (11, '22222222', 11),
-(12, '13123123', 12);
+(12, '13123123', 12),
+(13, '12312312', 13),
+(14, '12312313', 14),
+(15, '23434343', 15),
+(16, '24345435', 16),
+(17, '23423465', 17);
 
 -- --------------------------------------------------------
 
@@ -446,6 +561,13 @@ CREATE TABLE `eventos` (
   `estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `eventos`
+--
+
+INSERT INTO `eventos` (`id`, `fecha_ini`, `fecha_cierr`, `evento`, `id_ano_academico`, `estado`) VALUES
+(2, '2024-06-19', '2024-06-27', 'wqdasDASDASDAS', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -457,6 +579,13 @@ CREATE TABLE `eventos_docente` (
   `id_evento` int(11) NOT NULL,
   `id_docente` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `eventos_docente`
+--
+
+INSERT INTO `eventos_docente` (`id`, `id_evento`, `id_docente`) VALUES
+(1, 2, '000101');
 
 -- --------------------------------------------------------
 
@@ -481,7 +610,7 @@ CREATE TABLE `ficha_medica` (
 --
 
 INSERT INTO `ficha_medica` (`id`, `tratamientos`, `alergias`, `medicamentos`, `enfermedades`, `operaciones`, `vacunas`, `tipo_de_sangre`, `condicion_medica`) VALUES
-(1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'aprobado', 'N/A', 'N/A'),
+(1, 'asdasd', 'N/A', 'N/A', 'N/A', 'N/A', 'aprobado', 'N/A', 'N/A'),
 (2, 'fsdfsdfsd', 'fsdfsdfsdf', 'sdfsdfsdf', 'fsdfsdfsdf', 'fsadfsdf', 'fasdasdasd', 'dasdasdasd', 'fsdfsdf'),
 (3, 'ninguno', 'polvo', 'ninguno', 'ninguna', 'ninguna', 'aprobado', 'o', 'ninguna'),
 (4, 'fsdfsdfsd', 'fsdfsdfsdf', 'sdfsdfsdf', 'fsdfsdfsdf', 'fsadfsdf', 'fasdasdasd', 'dasdasdasd', 'fsdfsdf'),
@@ -492,7 +621,12 @@ INSERT INTO `ficha_medica` (`id`, `tratamientos`, `alergias`, `medicamentos`, `e
 (9, 'Ninguna', 'Ninguna', 'Ninguna', 'Ninguna', 'Ninguna', 'seleccionar,hepatitis b,BCG', 'a+', 'Ninguna'),
 (10, 'Ninguna', 'Ninguna', 'Ninguna', 'Ninguna', 'Ninguna', 'seleccionar,BCG', 'a+', 'Ninguna'),
 (11, 'Ninguna', 'Ninguna', 'Ninguna', 'Ninguna', 'Ninguna', 'hepatitis b,rotavirus', 'a+', 'Ninguna'),
-(12, 'asdasds', 'dasdasd', 'asdasdas', 'asdasd', 'asdasdad', 'seleccionar,pentavalente', 'ab-', 'asdasd');
+(12, 'asdasds', 'dasdasd', 'asdasdas', 'asdasd', 'asdasdad', 'seleccionar,pentavalente', 'ab-', 'asdasd'),
+(13, 'asdasd', 'asdasd', 'asdasd', 'asdasd', 'asdasdasd', 'seleccionar,hepatitis b', 'ab-', 'asdasd'),
+(14, 'asdasd', 'asdasd', 'sdasdas', 'asdaasd', 'asdasd', 'seleccionar,hepatitis b,BCG', 'a+', 'asdasd'),
+(15, 'asdasdasd', 'asdasdasd', 'asdasd', 'asdasd', 'asdasdasd', 'seleccionar,rotavirus', 'b+', 'asdasdasd'),
+(16, 'asdasd', 'asdasd', 'asdasdas', 'asdasd', 'asdasdasd', 'seleccionar,hepatitis b', 'ab-', 'asdasd'),
+(17, 'bbbbbbbbbbbbbb', 'bbbbbbbbbb', 'bbbbbbbbbbbbbb', 'bbbbbbbbbbbbb', 'bbbbbbbb', 'seleccionar,hepatitis b', 'ab-', 'bbbbbbbbbbbb');
 
 -- --------------------------------------------------------
 
@@ -516,7 +650,46 @@ INSERT INTO `horario_ano` (`id`, `id_ano`, `id_horario`) VALUES
 (3, 1, 19),
 (4, 1, 20),
 (5, 1, 21),
-(6, 1, 22);
+(24, 1, 21),
+(6, 1, 22),
+(7, 1, 25),
+(8, 1, 26),
+(10, 1, 28),
+(16, 1, 34),
+(17, 1, 35),
+(18, 1, 36),
+(19, 1, 37),
+(20, 1, 38),
+(21, 1, 39),
+(26, 1, 43),
+(45, 1, 43),
+(27, 1, 44),
+(30, 1, 47),
+(31, 1, 48),
+(32, 1, 49),
+(33, 1, 50),
+(40, 1, 57),
+(44, 1, 61),
+(46, 1, 62),
+(47, 1, 63),
+(48, 1, 64),
+(53, 1, 69),
+(54, 1, 70),
+(55, 1, 71),
+(56, 1, 72),
+(57, 1, 73),
+(58, 1, 74),
+(59, 1, 75),
+(60, 1, 76),
+(61, 1, 77),
+(62, 1, 78),
+(63, 1, 79),
+(9, 2, 27),
+(11, 2, 29),
+(12, 2, 30),
+(13, 2, 31),
+(14, 2, 32),
+(15, 2, 33);
 
 -- --------------------------------------------------------
 
@@ -540,43 +713,23 @@ CREATE TABLE `horario_docente` (
 --
 
 INSERT INTO `horario_docente` (`id`, `clase_inicia`, `clase_termina`, `dia`, `inicio`, `fin`, `id_ano_seccion`, `estado`) VALUES
-(1, '20:18:00', '22:18:00', 1, '2023-09-01', '2023-09-30', 5, 0),
-(2, '21:33:00', '12:33:00', 3, '2023-09-01', '2023-09-30', 6, 0),
-(3, '19:51:00', '20:50:00', 3, '2023-09-01', '2023-09-30', 6, 0),
-(4, '21:00:00', '22:01:00', 2, '2023-09-01', '2023-09-30', 5, 0),
-(5, '21:44:00', '21:44:00', 4, '2023-09-01', '2023-09-30', 6, 0),
-(6, '22:01:00', '23:01:00', 1, '2023-09-01', '2023-09-30', 5, 0),
-(7, '11:21:00', '13:22:00', 5, '2023-09-01', '2023-09-30', 7, 0),
-(8, '01:55:00', '04:55:00', 5, '2023-09-01', '2023-09-30', 5, 0),
-(9, '10:33:00', '00:33:00', 3, '2023-09-01', '2023-09-30', 7, 0),
-(10, '15:47:00', '17:47:00', 4, '2023-09-21', '2023-09-27', 1, 0),
-(11, '13:50:00', '17:50:00', 4, '2023-09-06', '2023-09-28', 6, 0),
-(12, '12:53:00', '17:50:00', 3, '2023-09-05', '2023-10-05', 7, 0),
-(13, '12:55:00', '16:56:00', 4, '2023-09-06', '2023-09-29', 1, 0),
-(14, '14:53:00', '18:53:00', 4, '2023-09-13', '2023-09-30', 15, 0),
-(15, '13:54:00', '17:54:00', 5, '2023-09-14', '2023-10-07', 8, 0),
-(16, '13:55:00', '15:55:00', 4, '2023-09-14', '2023-09-28', 1, 0),
-(17, '16:24:00', '17:24:00', 5, '2024-01-01', '2024-01-31', 30, 1),
-(18, '11:08:00', '11:14:00', 1, '2024-01-01', '2024-01-31', 30, 1),
-(19, '11:03:00', '11:25:00', 1, '2024-01-01', '2024-01-31', 30, 1),
 (20, '12:24:00', '13:24:00', 1, '2024-01-01', '2024-01-31', 36, 1),
-(21, '11:03:00', '11:23:00', 1, '2024-01-01', '2024-01-31', 36, 0),
-(22, '17:00:00', '17:30:00', 5, '2024-01-01', '2024-01-31', 30, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `horario_secciones`
---
-
-CREATE TABLE `horario_secciones` (
-  `id` int(11) NOT NULL,
-  `hora_inicio` varchar(100) NOT NULL,
-  `hora_cierre` varchar(100) NOT NULL,
-  `descripcion` varchar(100) NOT NULL,
-  `id_ano_seccion` int(11) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(28, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(29, '16:56:00', '17:56:00', 3, '2024-01-01', '2024-01-31', 30, 0),
+(30, '06:03:00', '07:03:00', 4, '2024-01-01', '2024-01-31', 30, 1),
+(32, '12:06:00', '14:06:00', 5, '2024-01-01', '2024-01-31', 30, 0),
+(57, '12:06:00', '17:56:00', 4, '2024-01-01', '2024-01-31', 30, 0),
+(62, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(63, '06:00:00', '08:00:00', 5, '2024-01-01', '2024-01-31', 30, 1),
+(64, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(69, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(70, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(71, '13:00:00', '16:00:00', 5, '2024-01-01', '2024-01-31', 30, 1),
+(72, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(73, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(74, '12:06:00', '17:56:00', 4, '2024-01-01', '2024-01-31', 30, 0),
+(78, '10:00:00', '11:00:00', 2, '2024-01-01', '2024-01-31', 30, 1),
+(79, '13:00:00', '16:00:00', 5, '2024-01-01', '2024-01-31', 30, 1);
 
 -- --------------------------------------------------------
 
@@ -610,7 +763,26 @@ INSERT INTO `materias` (`id`, `nombre`, `estado`) VALUES
 (14, 'INGLES', 0),
 (15, 'INGLES', 1),
 (16, 'GAGAGA', 0),
-(17, 'HISTO RIA', 0);
+(17, 'HISTO RIA', 0),
+(18, 'aritmetica', 1),
+(19, 'aritmetica', 1),
+(20, 'aritmetica', 1),
+(21, 'aritmetica', 1),
+(22, '21', 1),
+(23, 'aritmetica', 1),
+(24, 'aritmetica', 1),
+(25, 'aritmetica', 1),
+(26, 'aritmetica', 1),
+(27, '26', 1),
+(28, 'aritmetica', 1),
+(29, 'aritmetica', 1),
+(30, '29', 1),
+(31, 'aritmetica', 1),
+(32, '31', 1),
+(33, 'LICA', 1),
+(34, '33', 1),
+(35, 'LICA', 1),
+(36, '35', 1);
 
 -- --------------------------------------------------------
 
@@ -661,7 +833,6 @@ CREATE TABLE `materia_horario_docente` (
 --
 
 INSERT INTO `materia_horario_docente` (`id`, `id_materias`, `id_horario_docente`) VALUES
-(1, 3, 1),
 (2, 2, 2),
 (3, 1, 3),
 (4, 2, 4),
@@ -677,19 +848,46 @@ INSERT INTO `materia_horario_docente` (`id`, `id_materias`, `id_horario_docente`
 (14, 17, 19),
 (15, 17, 20),
 (16, 15, 21),
-(17, 15, 22);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `materi_horario_secciones`
---
-
-CREATE TABLE `materi_horario_secciones` (
-  `id` int(11) NOT NULL,
-  `id_materias` int(11) NOT NULL,
-  `id_horario_secciones` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(17, 15, 22),
+(18, 15, 25),
+(19, 15, 26),
+(20, 15, 27),
+(21, 15, 28),
+(22, 15, 29),
+(23, 15, 30),
+(24, 15, 31),
+(25, 15, 32),
+(26, 15, 33),
+(27, 15, 34),
+(28, 15, 35),
+(29, 15, 36),
+(30, 15, 37),
+(31, 15, 38),
+(32, 15, 39),
+(35, 15, 21),
+(37, 15, 43),
+(38, 15, 44),
+(41, 15, 47),
+(42, 15, 48),
+(43, 15, 49),
+(44, 15, 50),
+(51, 15, 57),
+(55, 15, 61),
+(56, 15, 43),
+(57, 15, 62),
+(58, 15, 63),
+(59, 15, 64),
+(64, 15, 69),
+(65, 15, 70),
+(66, 15, 71),
+(67, 15, 72),
+(68, 15, 73),
+(69, 15, 74),
+(70, 15, 75),
+(71, 15, 76),
+(72, 15, 77),
+(73, 15, 78),
+(74, 15, 79);
 
 -- --------------------------------------------------------
 
@@ -709,8 +907,8 @@ CREATE TABLE `montos` (
 --
 
 INSERT INTO `montos` (`codigo`, `tipo`, `m_montos`, `d_montos`) VALUES
-(1, 'inscripcion', 2160, 60),
-(2, 'mensualidad', 1440, 40);
+(1, 'inscripcion', 1800, 50),
+(2, 'mensualidad', 2160, 60);
 
 -- --------------------------------------------------------
 
@@ -762,7 +960,10 @@ CREATE TABLE `pagos` (
 INSERT INTO `pagos` (`id`, `id_deudas`, `identificador`, `fecha`, `fechad`, `concepto`, `forma`, `monto`, `meses`, `estado`, `estado_pagos`, `estatus`) VALUES
 (3469, 61, '2335', '2024-02-02', '2023-08-30', 'inscripcion', 'Efectivo', 2160, '1', 'ELIMINADO', 0, 0),
 (3470, 57, '12314', '2024-02-03', '2023-10-30', 'inscripcion', 'Transf', 2160, '1', 'ELIMINADO', 1, 0),
-(3471, 62, '1234', '2024-02-04', '2023-08-30', 'mensualidad', 'Transf', 1440, '1', 'Confirmado', 0, 1);
+(3471, 62, '8888', '2024-02-04', '2023-08-30', 'mensualidad', 'Pago Movil', 1440, '1', 'Confirmado', 0, 1),
+(3472, 62, '125215', '2024-06-10', '2023-09-30', 'mensualidad', 'Transf', 2160, '1', 'Pendiente', 0, 1),
+(3473, 65, '2342', '2024-06-10', '2024-02-06', 'mensualidad', 'Efectivo', 133, '1', 'Pendiente', 0, 1),
+(3474, 63, '65565', '2024-06-10', '2024-02-06', 'inscripcion', 'Transf', 2160, '1', 'Confirmado', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -845,7 +1046,9 @@ INSERT INTO `permisos` (`id`, `nombre`, `estado`) VALUES
 (123, 'respaldar', '1'),
 (124, 'restaurar', '1'),
 (125, 'pagos_reportes', '1'),
-(126, 'Consultar Bitacora', '1');
+(126, 'Consultar Bitacora', '1'),
+(127, 'consultar pagos menu', '1'),
+(128, 'Confirmar Pago', '1');
 
 -- --------------------------------------------------------
 
@@ -887,68 +1090,73 @@ CREATE TABLE `rol_permiso` (
 
 INSERT INTO `rol_permiso` (`id`, `id_rol`, `id_permiso`) VALUES
 (2456, 19, 101),
-(2457, 1, 111),
-(2458, 1, 75),
-(2459, 1, 76),
-(2461, 1, 112),
-(3136, 1, 121),
-(3533, 3, 62),
-(3534, 3, 63),
-(3535, 3, 64),
-(3536, 3, 65),
-(3537, 3, 66),
-(3538, 3, 67),
-(3539, 3, 68),
-(3540, 3, 69),
-(3541, 3, 70),
-(3542, 3, 71),
-(3543, 3, 72),
-(3544, 3, 73),
-(3545, 3, 74),
-(3546, 3, 75),
-(3547, 3, 76),
-(3548, 3, 77),
-(3549, 3, 78),
-(3550, 3, 79),
-(3551, 3, 80),
-(3552, 3, 81),
-(3553, 3, 82),
-(3554, 3, 83),
-(3555, 3, 84),
-(3556, 3, 85),
-(3557, 3, 86),
-(3558, 3, 87),
-(3559, 3, 88),
-(3560, 3, 89),
-(3561, 3, 90),
-(3562, 3, 91),
-(3563, 3, 92),
-(3564, 3, 93),
-(3565, 3, 98),
-(3566, 3, 99),
-(3567, 3, 100),
-(3568, 3, 101),
-(3569, 3, 102),
-(3570, 3, 103),
-(3571, 3, 104),
-(3572, 3, 105),
-(3573, 3, 106),
-(3574, 3, 107),
-(3575, 3, 108),
-(3576, 3, 109),
-(3577, 3, 110),
-(3578, 3, 116),
-(3579, 3, 114),
-(3580, 3, 113),
-(3581, 3, 115),
-(3582, 3, 125),
-(3583, 3, 117),
-(3584, 3, 118),
-(3585, 3, 119),
-(3586, 3, 120),
-(3587, 3, 123),
-(3588, 3, 124),
-(3589, 3, 126);
+(3783, 1, 111),
+(3784, 1, 112),
+(3785, 1, 121),
+(3786, 1, 127),
+(4211, 3, 62),
+(4212, 3, 63),
+(4213, 3, 64),
+(4214, 3, 65),
+(4215, 3, 66),
+(4216, 3, 67),
+(4217, 3, 68),
+(4218, 3, 69),
+(4219, 3, 70),
+(4220, 3, 71),
+(4221, 3, 72),
+(4222, 3, 73),
+(4223, 3, 74),
+(4224, 3, 111),
+(4225, 3, 128),
+(4226, 3, 75),
+(4227, 3, 76),
+(4228, 3, 77),
+(4229, 3, 112),
+(4230, 3, 121),
+(4231, 3, 122),
+(4232, 3, 127),
+(4233, 3, 78),
+(4234, 3, 79),
+(4235, 3, 80),
+(4236, 3, 81),
+(4237, 3, 82),
+(4238, 3, 83),
+(4239, 3, 84),
+(4240, 3, 85),
+(4241, 3, 86),
+(4242, 3, 87),
+(4243, 3, 88),
+(4244, 3, 89),
+(4245, 3, 90),
+(4246, 3, 91),
+(4247, 3, 92),
+(4248, 3, 93),
+(4249, 3, 98),
+(4250, 3, 99),
+(4251, 3, 100),
+(4252, 3, 101),
+(4253, 3, 102),
+(4254, 3, 103),
+(4255, 3, 104),
+(4256, 3, 105),
+(4257, 3, 106),
+(4258, 3, 107),
+(4259, 3, 108),
+(4260, 3, 109),
+(4261, 3, 110),
+(4262, 3, 116),
+(4263, 3, 114),
+(4264, 3, 113),
+(4265, 3, 115),
+(4266, 3, 125),
+(4267, 3, 117),
+(4268, 3, 118),
+(4269, 3, 119),
+(4270, 3, 120),
+(4271, 3, 123),
+(4272, 3, 124),
+(4273, 3, 126);
 
 -- --------------------------------------------------------
 
@@ -1035,7 +1243,7 @@ INSERT INTO `secciones_años` (`id`, `cantidad`, `id_secciones`, `id_anos`, `est
 (27, 20, 5, 5, 0),
 (28, 20, 5, 4, 0),
 (29, 19, 1, 1, 0),
-(30, 24, 3, 4, 1),
+(30, 19, 3, 4, 1),
 (31, 0, 0, 1, 1),
 (32, 0, 0, 2, 1),
 (33, 0, 0, 5, 1),
@@ -1083,19 +1291,22 @@ CREATE TABLE `usuarios` (
   `correo` varchar(100) NOT NULL,
   `clave` varchar(100) NOT NULL,
   `estado` varchar(25) NOT NULL,
-  `id_rol` int(11) NOT NULL
+  `id_rol` int(11) NOT NULL,
+  `token` varchar(256) NOT NULL,
+  `request_password` int(1) NOT NULL DEFAULT 0,
+  `expirar` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `estado`, `id_rol`) VALUES
-('2827479', 'admin', 'jesusfob2021@gmail.com', '$2y$10$psNZjqnhFQ8X/cBymADfhOpcHzvrzgwn213EOHkWzj8j/pUpSOu1a', '1', 3),
-('28276731', 'asdasddd', 'jesusfob2021@gmail.com', '$2y$10$sGOAx2JIvBjaSoAlCdzPguPuXZQWd.TEsMc81m.RwFHuwatTTUrTG', '1', 3),
-('28621408', 'Manuel', 'asdada@gmail.com', '$2y$10$lsb/q90vet6LifVqdUBOneMTK9BNZTZKuguczAMVSagTkZu/ViidW', '1', 1),
-('28621409', 'Jesus', 'asdasda@gmail.com', '$2y$10$3vHV.p2WAVG.WiO2r1QrRO7J7NK8OVdqtK7FajzTZ8btyCSVieCuO', '0', 1),
-('30019081', 'santiago', 'santiagocasamayor14@gmail.com', '$2y$10$74GbuOdxzEjhJBs2C6kpJ.GztPwtpQElPWd1AK.K3WmzIYDBhgIhS', '1', 3);
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `estado`, `id_rol`, `token`, `request_password`, `expirar`) VALUES
+('2827479', 'admin', 'jesusfob2021@gmail.com', '$2y$10$psNZjqnhFQ8X/cBymADfhOpcHzvrzgwn213EOHkWzj8j/pUpSOu1a', '1', 3, '', 0, NULL),
+('28276731', 'asdasddd', 'jesusfob2021@gmail.com', '$2y$10$sGOAx2JIvBjaSoAlCdzPguPuXZQWd.TEsMc81m.RwFHuwatTTUrTG', '1', 3, '', 0, NULL),
+('28621408', 'Manuel', 'asdada@gmail.com', '$2y$10$lsb/q90vet6LifVqdUBOneMTK9BNZTZKuguczAMVSagTkZu/ViidW', '1', 1, '', 0, NULL),
+('28621409', 'Jesus', 'asdasda@gmail.com', '$2y$10$3vHV.p2WAVG.WiO2r1QrRO7J7NK8OVdqtK7FajzTZ8btyCSVieCuO', '0', 1, '', 0, NULL),
+('30019081', 'santiago', 'santiagocasamayor14@gmail.com', '$2y$10$V9mM2hXLo58gjvz1EUQhkOTicPCBBmlFx45uay.GEBQbugK9VSC.S', '1', 3, '39bb27948d2c248ae05264c35109682ae7de9431e0940cf3eed40fcdaa59a7eb', 1, '2024-06-30 00:09:41');
 
 -- --------------------------------------------------------
 
@@ -1134,14 +1345,6 @@ ALTER TABLE `ano_estudiantes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_ano_2` (`id_ano`),
   ADD KEY `id_estudiantes_2` (`id_estudiantes`);
-
---
--- Indices de la tabla `ano_horario`
---
-ALTER TABLE `ano_horario`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_ano_2` (`id_ano`),
-  ADD KEY `id_horario_2` (`id_horario`);
 
 --
 -- Indices de la tabla `ano_secciones`
@@ -1199,14 +1402,6 @@ ALTER TABLE `docente_horario`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_docente_2` (`id_docente`),
   ADD KEY `id_horio_docente_2` (`id_horario_docente`);
-
---
--- Indices de la tabla `docente_horario_secciones`
---
-ALTER TABLE `docente_horario_secciones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_docente_2` (`id_docente`),
-  ADD KEY `id_horario_secciones_2` (`id_horario_secciones`);
 
 --
 -- Indices de la tabla `dolar_venezuela`
@@ -1274,13 +1469,6 @@ ALTER TABLE `horario_docente`
   ADD KEY `id_ano_seccion_2` (`id_ano_seccion`);
 
 --
--- Indices de la tabla `horario_secciones`
---
-ALTER TABLE `horario_secciones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_ano_seccion_2` (`id_ano_seccion`);
-
---
 -- Indices de la tabla `materias`
 --
 ALTER TABLE `materias`
@@ -1301,14 +1489,6 @@ ALTER TABLE `materia_horario_docente`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_materias_2` (`id_materias`),
   ADD KEY `id_horario_docente_2` (`id_horario_docente`);
-
---
--- Indices de la tabla `materi_horario_secciones`
---
-ALTER TABLE `materi_horario_secciones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_materias_2` (`id_materias`),
-  ADD KEY `id_horario_secciones_2` (`id_horario_secciones`);
 
 --
 -- Indices de la tabla `montos`
@@ -1398,13 +1578,7 @@ ALTER TABLE `ano_academico`
 -- AUTO_INCREMENT de la tabla `ano_estudiantes`
 --
 ALTER TABLE `ano_estudiantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT de la tabla `ano_horario`
---
-ALTER TABLE `ano_horario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `ano_secciones`
@@ -1428,13 +1602,13 @@ ALTER TABLE `años_materias`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT de la tabla `deudas`
 --
 ALTER TABLE `deudas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT de la tabla `docente_guia`
@@ -1446,13 +1620,7 @@ ALTER TABLE `docente_guia`
 -- AUTO_INCREMENT de la tabla `docente_horario`
 --
 ALTER TABLE `docente_horario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `docente_horario_secciones`
---
-ALTER TABLE `docente_horario_secciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar_venezuela`
@@ -1464,55 +1632,49 @@ ALTER TABLE `dolar_venezuela`
 -- AUTO_INCREMENT de la tabla `estudiantes_tutor`
 --
 ALTER TABLE `estudiantes_tutor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `estudiante_ficha`
 --
 ALTER TABLE `estudiante_ficha`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `eventos_docente`
 --
 ALTER TABLE `eventos_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `ficha_medica`
 --
 ALTER TABLE `ficha_medica`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `horario_ano`
 --
 ALTER TABLE `horario_ano`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `horario_docente`
 --
 ALTER TABLE `horario_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT de la tabla `horario_secciones`
---
-ALTER TABLE `horario_secciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `materias`
 --
 ALTER TABLE `materias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `materias_docentes`
@@ -1524,13 +1686,7 @@ ALTER TABLE `materias_docentes`
 -- AUTO_INCREMENT de la tabla `materia_horario_docente`
 --
 ALTER TABLE `materia_horario_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `materi_horario_secciones`
---
-ALTER TABLE `materi_horario_secciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `montos`
@@ -1548,13 +1704,13 @@ ALTER TABLE `notificaciones`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3472;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3475;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -1566,7 +1722,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `rol_permiso`
 --
 ALTER TABLE `rol_permiso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3590;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4274;
 
 --
 -- AUTO_INCREMENT de la tabla `secciones`
@@ -1596,13 +1752,6 @@ ALTER TABLE `usuarios_tutor`
 ALTER TABLE `ano_estudiantes`
   ADD CONSTRAINT `ano_estudiantes_ibfk_1` FOREIGN KEY (`id_estudiantes`) REFERENCES `estudiantes` (`cedula`),
   ADD CONSTRAINT `ano_estudiantes_ibfk_2` FOREIGN KEY (`id_ano`) REFERENCES `ano_academico` (`id`);
-
---
--- Filtros para la tabla `ano_horario`
---
-ALTER TABLE `ano_horario`
-  ADD CONSTRAINT `ano_horario_ibfk_1` FOREIGN KEY (`id_ano`) REFERENCES `ano_academico` (`id`),
-  ADD CONSTRAINT `ano_horario_ibfk_2` FOREIGN KEY (`id_horario`) REFERENCES `horario_secciones` (`id`);
 
 --
 -- Filtros para la tabla `ano_secciones`
@@ -1637,13 +1786,6 @@ ALTER TABLE `docente_guia`
 ALTER TABLE `docente_horario`
   ADD CONSTRAINT `docente_horario_ibfk_1` FOREIGN KEY (`id_docente`) REFERENCES `docentes` (`cedula`),
   ADD CONSTRAINT `docente_horario_ibfk_2` FOREIGN KEY (`id_horario_docente`) REFERENCES `horario_docente` (`id`);
-
---
--- Filtros para la tabla `docente_horario_secciones`
---
-ALTER TABLE `docente_horario_secciones`
-  ADD CONSTRAINT `docente_horario_secciones_ibfk_1` FOREIGN KEY (`id_docente`) REFERENCES `docentes` (`cedula`),
-  ADD CONSTRAINT `docente_horario_secciones_ibfk_2` FOREIGN KEY (`id_horario_secciones`) REFERENCES `horario_secciones` (`id`);
 
 --
 -- Filtros para la tabla `estudiantes`
@@ -1704,13 +1846,6 @@ ALTER TABLE `materias_docentes`
 ALTER TABLE `materia_horario_docente`
   ADD CONSTRAINT `materia_horario_docente_ibfk_1` FOREIGN KEY (`id_horario_docente`) REFERENCES `horario_docente` (`id`),
   ADD CONSTRAINT `materia_horario_docente_ibfk_2` FOREIGN KEY (`id_materias`) REFERENCES `materias` (`id`);
-
---
--- Filtros para la tabla `materi_horario_secciones`
---
-ALTER TABLE `materi_horario_secciones`
-  ADD CONSTRAINT `materi_horario_secciones_ibfk_1` FOREIGN KEY (`id_horario_secciones`) REFERENCES `horario_secciones` (`id`),
-  ADD CONSTRAINT `materi_horario_secciones_ibfk_2` FOREIGN KEY (`id_materias`) REFERENCES `materias` (`id`);
 
 --
 -- Filtros para la tabla `pagos`
