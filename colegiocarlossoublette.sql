@@ -1293,6 +1293,7 @@ CREATE TABLE `usuarios` (
   `estado` varchar(25) NOT NULL,
   `id_rol` int(11) NOT NULL,
   `token` varchar(256) NOT NULL,
+  `codigo` int(6) DEFAULT NULL,
   `request_password` int(1) NOT NULL DEFAULT 0,
   `expirar` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -1300,13 +1301,13 @@ CREATE TABLE `usuarios` (
 --
 -- Volcado de datos para la tabla `usuarios`
 --
-
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `estado`, `id_rol`, `token`, `request_password`, `expirar`) VALUES
-('2827479', 'admin', 'jesusfob2021@gmail.com', '$2y$10$psNZjqnhFQ8X/cBymADfhOpcHzvrzgwn213EOHkWzj8j/pUpSOu1a', '1', 3, '', 0, NULL),
-('28276731', 'asdasddd', 'jesusfob2021@gmail.com', '$2y$10$sGOAx2JIvBjaSoAlCdzPguPuXZQWd.TEsMc81m.RwFHuwatTTUrTG', '1', 3, '', 0, NULL),
-('28621408', 'Manuel', 'asdada@gmail.com', '$2y$10$lsb/q90vet6LifVqdUBOneMTK9BNZTZKuguczAMVSagTkZu/ViidW', '1', 1, '', 0, NULL),
-('28621409', 'Jesus', 'asdasda@gmail.com', '$2y$10$3vHV.p2WAVG.WiO2r1QrRO7J7NK8OVdqtK7FajzTZ8btyCSVieCuO', '0', 1, '', 0, NULL),
-('30019081', 'santiago', 'santiagocasamayor14@gmail.com', '$2y$10$V9mM2hXLo58gjvz1EUQhkOTicPCBBmlFx45uay.GEBQbugK9VSC.S', '1', 3, '39bb27948d2c248ae05264c35109682ae7de9431e0940cf3eed40fcdaa59a7eb', 1, '2024-06-30 00:09:41');
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `estado`, `id_rol`, `token`, `codigo`, `request_password`, `expirar`) VALUES
+('2827479', 'admin', 'jesusfob2021@gmail.com', '$2y$10$psNZjqnhFQ8X/cBymADfhOpcHzvrzgwn213EOHkWzj8j/pUpSOu1a', '1', 3, '', NULL, 0, NULL),
+('28276731', 'asdasddd', 'jesusfob2021@gmail.com', '$2y$10$sGOAx2JIvBjaSoAlCdzPguPuXZQWd.TEsMc81m.RwFHuwatTTUrTG', '1', 3, '', NULL, 0, NULL),
+('28621408', 'Manuel', 'asdada@gmail.com', '$2y$10$lsb/q90vet6LifVqdUBOneMTK9BNZTZKuguczAMVSagTkZu/ViidW', '1', 1, '', NULL, 0, NULL),
+('28621409', 'Jesus', 'asdasda@gmail.com', '$2y$10$3vHV.p2WAVG.WiO2r1QrRO7J7NK8OVdqtK7FajzTZ8btyCSVieCuO', '0', 1, '', NULL, 0, NULL),
+('30019081', 'santiago', 'santiagocasamayor14@gmail.com', '$2y$10$V9mM2hXLo58gjvz1EUQhkOTicPCBBmlFx45uay.GEBQbugK9VSC.S', '1', 3, '39bb27948d2c248ae05264c35109682ae7de9431e0940cf3eed40fcdaa59a7eb', NULL, 1, '2024-06-30 00:09:41'),
+('30664129', 'Yeisson', 'yeissoncolmenarez@gmail.com', '$2y$10$1BJHb6tgObbLUJHToZtvPuAv0Nr6x7a64Oz/4yExlySXmMXsdg5XO', '1', 19, '5ba246443a2c9372cb5a019bfaf2fe09e9bfbe3f4fffccc41883016ddb51f456', 764860, 1, '2024-07-03 00:52:39');
 
 -- --------------------------------------------------------
 
