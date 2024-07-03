@@ -59,6 +59,35 @@ $(document).ready(function () {
         
 
         $("#cedula1").removeAttr("disabled");
+        var publicKey = `-----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl/s/lMg8oJcuiz4vRlYu
+    Q96OFjlwhIy/cpEXgYxtr/NV47BNISKv+4L0IulDkcYsTj8YjuCX6dZV0dy60yOr
+    MxTVWb162pfVvOQmHDzB4OUQGy+ksjvuUFnpmZ20vY7BzWIp2a2esBluiHAnAz8I
+    rWmZvgok6iaOunkcdmfbb88ZYnPucPIy0g0f1ndQgs9oRQ4VdNC6fQYyH3gZMBHf
+    fy8naxxpz8ew8CT2bM1QbLZUWVsB3ISn7zge3+GzIgUn8s2DolSlZ1/DCEVhf1sA
+    Ok9k828PnOT4EW/L++7I+JlZ5ExuEXLm45zccpoKrwDllrbDjVTtVo3ASmeE5jJU
+    gQIDAQAB
+    -----END PUBLIC KEY-----`;
+    var cedula1 = $('#cedula1').val();
+    var nombre1 = $('#nombre1').val();
+    var apellido3 = $('#apellido3').val();
+    var edad1 = $('#edad1').val();
+
+                var encrypt = new JSEncrypt();
+                encrypt.setPublicKey(publicKey);
+        
+                var encryptedcedula1 = encrypt.encrypt(cedula1);
+                var encryptednombre1 = encrypt.encrypt(nombre1);
+                var encryptedapellido3 = encrypt.encrypt(apellido3);
+                var encryptededad1 = encrypt.encrypt(edad1);
+
+                
+
+                $('#cedula1').val(encryptedcedula1);
+                $('#nombre1').val(encryptednombre1);
+                $('#apellido3').val(encryptedapellido3);
+                $('#edad1').val(encryptededad1);
+
         enviaAjax($("#f2"));
         $("#f2S").trigger("reset");
         $("#editEmployeeModal").modal("hide");
@@ -617,7 +646,28 @@ function morocidad(valu) {
 function eliminar(id) {
     $("#cedula3").val(id);
     $("#borrar").on("click", function () {
-
+        var publicKey = `-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl/s/lMg8oJcuiz4vRlYu
+        Q96OFjlwhIy/cpEXgYxtr/NV47BNISKv+4L0IulDkcYsTj8YjuCX6dZV0dy60yOr
+        MxTVWb162pfVvOQmHDzB4OUQGy+ksjvuUFnpmZ20vY7BzWIp2a2esBluiHAnAz8I
+        rWmZvgok6iaOunkcdmfbb88ZYnPucPIy0g0f1ndQgs9oRQ4VdNC6fQYyH3gZMBHf
+        fy8naxxpz8ew8CT2bM1QbLZUWVsB3ISn7zge3+GzIgUn8s2DolSlZ1/DCEVhf1sA
+        Ok9k828PnOT4EW/L++7I+JlZ5ExuEXLm45zccpoKrwDllrbDjVTtVo3ASmeE5jJU
+        gQIDAQAB
+        -----END PUBLIC KEY-----`;
+        var cedula3 = $('#cedula3').val();
+    
+    
+                    var encrypt = new JSEncrypt();
+                    encrypt.setPublicKey(publicKey);
+            
+                    var encryptedcedula3 = encrypt.encrypt(cedula3);
+                 
+    
+                    
+    
+                    $('#cedula3').val(encryptedcedula3);
+                  
         enviaAjax($("#f3"));
     });
 
@@ -809,13 +859,25 @@ function enviar() {
     gQIDAQAB
     -----END PUBLIC KEY-----`;
     var cedulae = $('#cedulae').val();
+    var nombree = $('#nombree').val();
+    var apellidoe = $('#apellidoe').val();
+    var edade = $('#edade').val();
+
                 var encrypt = new JSEncrypt();
                 encrypt.setPublicKey(publicKey);
         
                 var encryptedcedulae = encrypt.encrypt(cedulae);
+                var encryptednombree = encrypt.encrypt(nombree);
+                var encryptedapellidoe = encrypt.encrypt(apellidoe);
+                var encryptededade = encrypt.encrypt(edade);
+
                 
 
                 $('#cedulae').val(encryptedcedulae);
+                $('#nombree').val(encryptednombree);
+                $('#apellidoe').val(encryptedapellidoe);
+                $('#edade').val(encryptededade);
+
               
 
     enviaAjax($("#f"));
