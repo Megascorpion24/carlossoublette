@@ -48,8 +48,9 @@ class inscripciones extends datos
     }
     public function set_cedula_estudiante($valor)
     {
-        if (preg_match("/^[0-9\s]{7,8}$/", $valor)) {
-            $this->cedula_estudiante = $valor;
+        $cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[0-9\s]{7,8}$/", $cexryp)) {
+            $this->cedula_estudiante = $cexryp;
             return true;
         } else {
             return false;
