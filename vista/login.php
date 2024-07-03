@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <!-- Style -->
-    <link rel="stylesheet" href="assets/css/login.css" />
+   
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,22 +15,46 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
     <?php  require_once('comunes/header.php');?>
-  </head>
+
+    <!--===============================================================================================-->	
+ 
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+<iframe width="110" height="200" src="https://www.myinstants.com/instant/dios-mio-salvame-85455/embed/" frameborder="0" scrolling="no"></iframe>
 
 
 
-  <body>
-
-   
-
-
-  <div id="texto" style="display:none;">
+<div id="texto" style="display:none;">
         <?php
     if(!empty($mensaje ) ){
         echo $mensaje;
     }
 ?>
-    </div>
+</div>
+
+
+
+
 
     <!-- Modal de Error -->
     <div id="errorModal" class="modal fade" role="dialog">
@@ -55,44 +78,90 @@
 
 
 
-    <div class="container">
-      <div class="card">
-        <div class="container-label">Bienvenido <span></span></div>
+    
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(assets/img/bg-01.png);">
+					<span class="login100-form-title-1">
+						Bienvenido
+					</span>
+				</div>
 
-        <div class="container-icon">
-         
+
+     
+
+        <form  method="post" id="f" class="login100-form validate-form">
+
+
+
+        <div class="container">
+          <!-- Usuario -->
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">        
+          <span for="usuario" class="label-input100">Usuario</span>
+          <span id="suser"></span>
+          <input type="text"id="user" name="user" class="ocultar"/>
+          <input class="input100" type="text"id="user1" name="user1" placeholder="Introducir Usuario" autofocus/>
+          <span class="focus-input100"></span>
         </div>
 
-        <div class="container-form">
-            <form  method="post" id="f">
-            <label for="usuario">Nombre / Usuario</label>
-            <span id="suser"></span>
-            <input type="text"id="user" name="user" placeholder="Introducir Nombre / Contraseña" class="ocultar"/>
-            <input type="text"id="user1" name="user1" placeholder="Introducir Nombre / Contraseña" autofocus/>
+        
+          <!-- Contraseña -->
+        <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">        
+          <span for="password"class="label-input100">Contraseña</span>
+            <span id="spassword"></span>
+            <input type="password"id="password" name="password" class="ocultar"/>
+            <input class="input100" type="password"id="password1" name="password1" id="password1" placeholder="Introducir Contraseña"/>
+            <span class="focus-input100"></span>                   
+        </div>
 
-            <div class="container-input">
-              <label for="password">Contraseña</label>
-
-              <span id="spassword"></span>
-              <input type="password"id="password" name="password" id="password" placeholder="Digite su Contrasena" class="ocultar"/>
-              <input type="password"id="password1" name="password1" id="password" placeholder="Digite su Contrasena"/>
-              <i id="reveal-password" class="bi bi-eye-slash"></i>
-            </div>
-
+        
+          <!-- Boton Recuperar Contraseña -->  
+          <br>
           <div class="change-password">
-              Recuperar contraseña <a href="?pagina=recuperar" class="">Clique aqui</a>
-            </div>
-            
-            <div class="boton" id="enviar" >Ingresar</div>
-            
-            </form>
-        </div>
-      </div>
-    </div>
+            <a href="?pagina=recuperar" class="">Recuperar contraseña</a>
+          </div>
 
-    <?php require_once('comunes/footer.php') ?> 
+          <!-- Boton Envio de formulario -->
+          <br>
+          <div class="boton container-login100-form-btn" >
+						<button class="login100-form-btn" id="enviar">
+							INGRESAR
+						</button>
+					</div>
+          </div>
+          </form>
+          
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+  <?php require_once('comunes/footer.php') ?> 
     <script src="assets/js/jsencrypt.min.js"></script>
-    <script src="assets/js/login.js"></script>> 
-  </body>
+    <script src="assets/js/login.js"></script>
+</body>
+
 </html>
 

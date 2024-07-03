@@ -1,8 +1,5 @@
 <?php 
 require 'vendor/autoload.php';
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
 
 if (!is_file("modelo/".$pagina.".php")){
@@ -12,12 +9,27 @@ if (!is_file("modelo/".$pagina.".php")){
 }
 require_once("modelo/".$pagina.".php"); 
 
+$o = new cambiar();
 
 	if(is_file("vista/".$pagina.".php")){
-
+		
+	$dato =$_GET['token'];
+		$o->set_url($dato);
+		$expiracion=$o->expiracion();
+		if ($expiracion === "token expirado") {
+			// El token ha expirado, puedes mostrar un mensaje de error o redirigir al usuario a la página de inicio de sesión
+			header('Location:index.php');
+		} elseif ($expiracion === "token valido") {
+			// El token es válido, puedes continuar con la sesión del usuario
+			echo "El token es válido, puedes continuar con tu sesión.";
+		} else {
+			// Si el mensaje devuelto no es "token expirado" ni "token valido", puedes mostrar un mensaje de error
+			echo "Ha ocurrido un error en la función expiracion1().";
+		}
+			
 		
 		if (!empty($_POST)) {
-			$o = new cambiar();
+		
 			if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $_POST['password'])) {
 				$o->set_clave($_POST['password']);
 			}
@@ -25,7 +37,7 @@ require_once("modelo/".$pagina.".php");
 				$o->set_url($_POST['url']);
 			}
 		
-			$mensaje = $o->cambiar();
+			 $o->cambiar();
 			
 		
 			header('Location:index.php');
