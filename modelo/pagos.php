@@ -216,7 +216,9 @@ class pagos extends datos{
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if(!$this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
             try{
-              
+                $co->exec("SET AUTOCOMMIT = 0");
+                $co->exec("START TRANSACTION");
+
                 $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
                                   VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
 
@@ -276,9 +278,6 @@ class pagos extends datos{
                 $r->bindParam(':estado',$this->estado);
                 $r->execute();
 
-
-
-
 //<!-----------------------------SE EJECUTA SI CONCEPTO ES INSCRIPCION----------------------------------------------------------------------------------------------------------------------->    
                 $r= $co->prepare("UPDATE deudas d SET d.monto = d.monto + :monto WHERE d.id = :id_deudas AND :concepto = 'inscripcion'AND :estado = 'Confirmado' ");                  	
                 $r->bindParam(':id_deudas',$this->id_deudas);                    
@@ -294,7 +293,9 @@ class pagos extends datos{
                 $r->execute();
 //<!----------------------------PAGO UNICO DE MENSUALIDAD-----------------------------------------------------------------------------------------------------------------------> 
 
-
+  
+                $co->exec("COMMIT");
+                $co->exec("SET AUTOCOMMIT = 1");
 
                 $this->bitacora("se registro un pago", "Pagos",$this->nivel);
                 return "1PAGO REGISTRADO CON EXITO";	
@@ -324,6 +325,10 @@ class pagos extends datos{
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if(!$this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
                 try{
+
+                    $co->exec("SET AUTOCOMMIT = 0");
+                    $co->exec("START TRANSACTION");
+
                     $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
                     VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
 
@@ -342,7 +347,9 @@ class pagos extends datos{
                     $r->bindParam(':estatus',$estatus);	
                     $r->execute();
             
-   
+                    $co->exec("COMMIT");
+                    $co->exec("SET AUTOCOMMIT = 1");
+
                     $this->bitacora("se registro un pago", "Pagos",$this->nivel);
                     return "1PAGO REGISTRADO CON EXITO";	
                     
