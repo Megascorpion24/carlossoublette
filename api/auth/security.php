@@ -2,10 +2,11 @@
 
 function encryptData($data) {
     // $file = 'key/public.key';
-    $file = '../api/auth/key/public.key';
+    $file = __DIR__ .'/key/public.key';
+    // $file = '../api/auth/key/public.key';
       $publicKey = openssl_pkey_get_public(file_get_contents($file));
 
-      // Encriptar con llave privada
+      // Encriptar con llave publica
     if (is_array($data)) {
         return array_map(function($element) use ($publicKey) {
 
@@ -17,16 +18,20 @@ function encryptData($data) {
         }, $data);
     }
     else{
-        openssl_public_encrypt($data, $encryptData, $publicKey);
-        return $encryptData;
+        if(!openssl_public_encrypt($data, $encryptData, $publicKey)){
+            throw new Exception("Error al encriptar los datos: " . openssl_error_string());
+        }
+        // return $encryptData);
+        return base64_encode($encryptData);
+
     }
   
     
 }
 
 function decryptData($data) {
-    // $file = 'key/private.key';
-    $file = '../api/auth/key/private.key';
+    $file = __DIR__ .'/key/private.key';
+    // $file = '../api/auth/key/private.key';
     
     // Desencriptar con llave privada
     $privKey = openssl_pkey_get_private(file_get_contents($file));
@@ -43,6 +48,18 @@ function decryptData($data) {
 //     echo json_encode($r);
 // }
 
+// $data = json_decode(file_get_contents("php://input"));
+// // Verifica si se recibieron los datos de usuario y contraseña
+// if (isset($data->User)) {
+//     try {
+//         //code...
+//         // print json_encode("entrooo");
+//     echo json_encode(encryptData($data->User));
+//     } catch (Exception $e) {
+//         return $e;
+//     }
+    
+// }
 
 
 ?>

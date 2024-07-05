@@ -1,5 +1,6 @@
 <?php
 require_once('../../../modelo/conexion.php');
+require_once '../../auth/security.php';
 
 class confirmar extends datos{
     public function confirmar_code($Usuario,$Codigo) {
@@ -26,13 +27,13 @@ class confirmar extends datos{
                     'msg' => ($row['request_password'] != 1) ? 'No hay solicitud de cambio de Clave' : 'Token expirado'
                 ]);
             }
-
+ 
         } catch (Exception $e) {
             return $exception = json_encode([
             'success' => false,
             'msg' => $e->getMessage()
             ]);
-        }
+        } 
     }
 }
 
@@ -41,10 +42,8 @@ $c = new confirmar();
 $data = json_decode(file_get_contents("php://input"));
 
 if (isset($data->Usuario) && isset($data->Codigo) &&  $_SERVER['REQUEST_METHOD'] == 'POST') {
-    // $Usuarios = decryptData(base64_decode($data->Usuario));
-    // $Codigo =  decryptData(base64_decode($data->codigo));
-    $Usuario =$data->Usuario;
-    $Codigo =$data->Codigo;
+    $Usuario = decryptData(base64_decode($data->Usuario));
+    $Codigo =  decryptData(base64_decode($data->Codigo));
     echo $c->confirmar_code($Usuario,$Codigo);
 
 }
