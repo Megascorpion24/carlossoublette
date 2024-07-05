@@ -2,7 +2,7 @@
 require_once('../modelo/conexion.php');
  
 class login extends datos{
-    private $usuario;
+    private $usuario; 
 	private $clave;
        
     public function set_usuario($valor){
@@ -45,12 +45,7 @@ class login extends datos{
 					}
 				}
 			
-				if($entrada == true && $resultado[1] !== 3){
-					$entrada= false;
-					$mensaje = "El Usuario no es un Administrador";
-				}
-			
-			 
+
 				 return $retorna= array(
 					'success' =>$entrada,
 					'msg' =>$mensaje,

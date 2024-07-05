@@ -27,7 +27,7 @@ class New_Password extends datos {
             $r->bindParam(':clave', $Clave);
             $r->execute();
  
-            return ['change'=>true, 'msj'=>"La clave fue cambiada con exito "];
+            return ['change'=>true, 'msj'=>"La clave fue cambiada con exito"];
         } catch (Exception $e) {
             return ['change'=>false,'msj'=>$e->getMessage()];
         }
@@ -37,9 +37,9 @@ class New_Password extends datos {
 $data = json_decode(file_get_contents("php://input"));
 
 if (isset($data->Usuario) && isset($data->Clave) && isset($data->Code)) {
-    $User = $data->Usuario;
-    $Clave = $data->Clave;
-    $Code = $data->Code;
+    $User = decryptData(base64_decode($data->Usuario));
+    $Clave = decryptData(base64_decode($data->Clave));
+    $Code = decryptData(base64_decode($data->Code));
 
     $confirmar = new confirmar();
     $resp = $confirmar->confirmar_code($User, $Code);
