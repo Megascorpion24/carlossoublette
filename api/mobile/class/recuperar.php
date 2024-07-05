@@ -4,7 +4,6 @@ require_once('../../../vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../..');
 $dotenv->load(); 
 require_once('../../../modelo/recuperar.php');
-//encriptamiento
 require_once '../../auth/security.php';
 
 $r = new recuperar();
@@ -22,12 +21,11 @@ if (isset($data->User) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $resultado = $r->busca(); 
        $codigo = $r->get_codigo();
-    //    echo json_encode($codigo);
-        // Procesar el resultado usando operador ternario en json_encode
+   
         echo json_encode(
         $resultado
-            ? ['success' => true, 'resultado' => $codigo]
-            : ['success' => false, 'msg' => $resultado]
+            ? ['success' => true, 'codigo' => $codigo]
+            : ['success' => false, 'msg' =>'El Usuario no existe']
         );
        
     } catch (Exception $e) {
@@ -39,15 +37,5 @@ if (isset($data->User) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
 } 
 
-if (isset($data->Usuario) && isset($data->Codigo) &&  $_SERVER['REQUEST_METHOD'] == 'POST') {
-    // $Usuarios = decryptData(base64_decode($data->Usuario));
-    // $Codigo =  decryptData(base64_decode($data->codigo));
-    $Usuario =$data->Usuario;
-    $Codigo =$data->Codigo;
-    require_once('confirmar.php');
-    $c = new confirmar();
-    $msj=$c->confirmar_code($Usuario,$Codigo);
 
-    echo $msj;
-}
 
