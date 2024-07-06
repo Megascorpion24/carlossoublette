@@ -26,9 +26,9 @@ try {
     $mail->Subject = 'Recuperacion de clave';
     // $mail->Body    = 'Hola! este link te enviara a la ventana donde podras cambiar tu clave, recuerda no compartir tu nueva clave con nadie http://localhost/git_proyecto/carlossoublette/?pagina=cambiar&token='.$token.'';
 	$mail->Body = '
-    <p style="color: #fff;">Hola!</p>
-    <p style="color: #fff;"><strong>Recuperación por Web:</strong></p>
-    <p style="color: #fff;">Este link te enviará a la ventana donde podrás cambiar tu clave, recuerda no compartir tu nueva clave con nadie:</p>
+    <p>Hola!</p>
+    <p><strong>Recuperación por Web:</strong></p>
+    <p>Este link te enviará a la ventana donde podrás cambiar tu clave, recuerda no compartir tu nueva clave con nadie:</p>
     <p>http://localhost/carlossoublette/?pagina=cambiar&token=' . $this->token . '</p>
     <p><strong>Recuperación por Aplicación:</strong></p>
     <p style="text-align: center; font-size: 18px; font-weight: bold; margin-top: 20px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9;">' . $this->codigo . '</p>
