@@ -110,7 +110,7 @@
             <br>
             <div class="boton container-login100-form-btn" >
               <button class="login100-form-btn" id="enviar">
-                ENVIAR
+                RECUPERAR
               </button>
             </div>
           </div>
