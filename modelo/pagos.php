@@ -56,16 +56,18 @@ class pagos extends datos{
         }
 	}
     public function set_concepto($valor){
-        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
-		$this->concepto = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $cexryp)) {
+		$this->concepto = $cexryp; 
         return true;
         }else{
             return false;
         }
 	}
     public function set_forma($valor){
-        if (preg_match("/^[-a-zA-Z0-9\s]+$/", $valor)) {
-		$this->forma = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[-a-zA-Z0-9\s]+$/", $cexryp)) {
+		$this->forma = $cexryp; 
         return true;
         }else{
             return false;
@@ -80,8 +82,9 @@ class pagos extends datos{
         }
 	}
     public function set_fechad($valor){
-        if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $valor)) {
-		$this->fechad = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $cexryp)) {
+		$this->fechad = $cexryp; 
         return true;
         }else{
             return false;
@@ -112,8 +115,9 @@ class pagos extends datos{
         }
 	} 
     public function set_monto($valor){
-        if (preg_match("/^[0-9-\s]+$/", $valor)) {
-		$this->monto = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[0-9-\s]+$/", $cexryp)) {
+		$this->monto = $cexryp; 
         return true;
         }else{
             return false;
@@ -413,7 +417,7 @@ private function modificar1(){
                 $r->bindParam(':identificador',$this->identificador);	
                 $r->bindParam(':concepto',$this->concepto);	
                 $r->bindParam(':forma',$this->forma);	
-                $r->bindParam(':fecha',$this->fecha);	
+                $r->bindParam(':fecha',$this->fechad);	
                 $r->bindParam(':monto',$this->monto);	              
                 $r->bindParam(':estado',$this->estado);	
          

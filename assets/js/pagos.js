@@ -161,11 +161,26 @@ $('#mibuscador3').select2({
     $("#registrar").on("click", function() {
         if (validarenvio()) {
             var identificador = $('#identificador').val();
+            var monto = $('#monto').val();
+            var concepto = $('#concepto').val();
+            var fecha = $('#fecha').val();
+            var forma = $('#forma').val();
+
             var encrypt = new JSEncrypt();
             encrypt.setPublicKey(publicKey);
             
             var encrypted= encrypt.encrypt(identificador);
+            var encryptedmonto= encrypt.encrypt(monto);
+            var encryptedconcepto= encrypt.encrypt(concepto);
+            var encryptedfecha= encrypt.encrypt(fecha);
+            var encryptedforma= encrypt.encrypt(forma);
+
             $('#identificador').val(encrypted);
+            $('#monto').val(encryptedmonto);
+            $('#concepto').val(encryptedconcepto);
+            $('#fecha0').val(encryptedfecha);
+            $('#forma0').val(encryptedforma);
+
             enviaAjax($("#f"));
             $('#addpago').modal('hide');
             $('#f').trigger('reset');          
@@ -177,6 +192,27 @@ $('#mibuscador3').select2({
 
     $("#registrarp").on("click", function() {
         if (validarenviop()) {
+
+            var identificador = $('#identificadorp').val();
+            var monto = $('#montop').val();
+            var concepto = $('#conceptop').val();
+            var fecha = $('#fechadp').val();
+            var forma = $('#formap').val();
+
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+            
+            var encrypted= encrypt.encrypt(identificador);
+            var encryptedmonto= encrypt.encrypt(monto);
+            var encryptedconcepto= encrypt.encrypt(concepto);
+            var encryptedfecha= encrypt.encrypt(fecha);
+            var encryptedforma= encrypt.encrypt(forma);
+
+            $('#identificadorp').val(encrypted);
+            $('#montop').val(encryptedmonto);
+            $('#conceptop').val(encryptedconcepto);
+            $('#fechadp0').val(encryptedfecha);
+            $('#formap0').val(encryptedforma);
           
             enviaAjax($("#fp"));
             $('#confirmarpagos').modal('hide');
@@ -189,6 +225,26 @@ $('#mibuscador3').select2({
 
     $("#registrarr").on("click", function() {
         if (validarenvio2()) {
+            var identificador = $('#identificadorr').val();
+            var monto = $('#montor').val();
+            var concepto = $('#conceptor').val();
+            var fecha = $('#fechar').val();
+            var forma = $('#formar').val();
+
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+            
+            var encrypted= encrypt.encrypt(identificador);
+            var encryptedmonto= encrypt.encrypt(monto);
+            var encryptedconcepto= encrypt.encrypt(concepto);
+            var encryptedfecha= encrypt.encrypt(fecha);
+            var encryptedforma= encrypt.encrypt(forma);
+
+            $('#identificadorr').val(encrypted);
+            $('#montor').val(encryptedmonto);
+            $('#conceptor').val(encryptedconcepto);
+            $('#fechar0').val(encryptedfecha);
+            $('#formar0').val(encryptedforma);
           
             enviaAjax($("#fr"));
             $('#addpagorepre').modal('hide');
@@ -202,7 +258,27 @@ $('#mibuscador3').select2({
 
     $("#registrar2").on("click", function() {
         if (validarenvio1()) {
-          
+            var identificador = $('#identificadorM').val();
+            var monto = $('#montoM').val();
+            var concepto = $('#conceptoM').val();
+            var fecha = $('#fechaM').val();
+            var forma = $('#formaM').val();
+
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+            
+            var encrypted= encrypt.encrypt(identificador);
+            var encryptedmonto= encrypt.encrypt(monto);
+            var encryptedconcepto= encrypt.encrypt(concepto);
+            var encryptedfecha= encrypt.encrypt(fecha);
+            var encryptedforma= encrypt.encrypt(forma);
+
+            $('#identificadorM').val(encrypted);
+            $('#montoM').val(encryptedmonto);
+            $('#conceptoM').val(encryptedconcepto);
+            $('#fechaM0').val(encryptedfecha);
+            $('#formaM0').val(encryptedforma);
+
             enviaAjax($("#f2"));
             $('#editpago').modal('hide');
        }
@@ -212,6 +288,8 @@ $('#mibuscador3').select2({
 
     $("#registrarMM").on("click", function() {
         if (validarenvioMM()) {
+
+
           
             enviaAjax($("#fMM"));
             $('#editmontos').modal('hide');

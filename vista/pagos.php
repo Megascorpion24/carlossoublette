@@ -305,7 +305,8 @@ if(isset($_COOKIE['token'])){
 						<div class="form-group col-md-3">
 							<label>Deuda Generada</label>
 								<span style="color:#FF0000" id="sfecha"></span>
-							<input type="date" class="form-control "  readonly="true" name="fecha" id="fecha"required  >							
+							<input type="date" class="form-control "  readonly="true" name="fecha" id="fecha"required  >
+							<input type="text" class="form-control ocultar" name="fecha0" id="fecha0"  >							
 						</div>
 						<div class="form-group col-md-3 " >
 							<label>Monto</label>
@@ -333,6 +334,7 @@ if(isset($_COOKIE['token'])){
 								
 									<option value="Otro">Otro</option>																			
 							</select>
+							<input type="text" class="form-control ocultar" name="forma0" id="forma0"  >							
 						</div>				
 						<div class="form-group col-md-3">
 							<label>Estado</label>
@@ -556,6 +558,7 @@ if(isset($_COOKIE['token'])){
 								<label>Deuda Generada</label>
 									<span style="color:#FF0000" id="sfechadp"></span>
 								<input type="date" class="form-control "  readonly="true" name="fechadp" id="fechadp"required  >							
+								<input type="text" class="form-control ocultar" name="fechadp0" id="fechadp0"required  >							
 							</div>
 						<div class="form-group col-md-3">
 							<label>Forma de pago</label>
@@ -568,6 +571,7 @@ if(isset($_COOKIE['token'])){
 								
 									<option value="Otro">Otro</option>																			
 							</select>
+							<input type="text" class="form-control ocultar " name="formap0" id="formap0"required  >							
 						</div>		
 						<div class="form-group col-md-3 " >
 								<label>Monto</label>
@@ -853,6 +857,7 @@ if(isset($_COOKIE['token'])){
 						<label>Fecha De Pago</label>
 							<span style="color:#FF0000" id="sfechaM"></span>			
 						<input type="text" class="form-control"readonly="true" name="fechaM" id="fechaM" required >
+						<input type="text" class="form-control ocultar" name="fechaM0" id="fechaM0"  >
 					</div>
 					<div class="form-group col-md-4">
 						<label>Fecha Deuda</label>
@@ -891,6 +896,7 @@ if(isset($_COOKIE['token'])){
 
 									<option value="Otro">Otro</option>																		
 							</select>
+							<input type="text" class="form-control ocultar" name="formaM0" id="formaM0"  >
 						</div>
 					</div>
 					<div class="form-row">
@@ -1360,7 +1366,8 @@ if(isset($_COOKIE['token'])){
 							<label>Fecha</label>
 								<span style="color:#FF0000" id="sfechar"></span>
 								<input type="date" class="form-control "  readonly="true" name="fechar" id="fechar"required >
-						</div>
+								<input type="text" class="form-control ocultar "   name="fechar0"  id="fechar0" >
+							</div>
 						<div class="form-group col-md-3 " >
 							<label>Monto</label>
 								<span style="color:#FF0000" id="smontor"></span>
@@ -1388,6 +1395,7 @@ if(isset($_COOKIE['token'])){
 	
 									<option value="Otro">Otro</option>											
 							</select>
+							<input type="text" class="form-control ocultar"   name="formar0"  id="formar0" >
 						</div>
 
 						<div class="form-group col-md-3">
