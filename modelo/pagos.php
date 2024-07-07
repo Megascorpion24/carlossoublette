@@ -143,29 +143,33 @@ class pagos extends datos{
         }
 	}
     public function set_tipo($valor){
-        if (preg_match("/^[a-zA-Z1-9\s]+$/", $valor)) {
-		$this->tipo = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[a-zA-Z1-9\s]+$/", $cexryp)) {
+		$this->tipo = $cexryp; 
         return true;
         }else{
             return false;
         }
 	}
     public function set_m_montos($valor){
-        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
-		$this->m_montos = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $cexryp)) {
+		$this->m_montos = $cexryp; 
         return true;
         }else{
             return false;
         }
 	}
     public function set_d_montos($valor){
-        if (preg_match("/^[a-zA-Z0-9\s]+$/", $valor)) {
-		$this->d_montos = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[a-zA-Z0-9\s]+$/", $cexryp)) {
+		$this->d_montos = $cexryp; 
         return true;
         }else{
             return false;
         }
 	}
+    
     public function set_nivel($valor){
 		$this->nivel = $valor; 
 	}
