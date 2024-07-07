@@ -45,7 +45,7 @@ $(document).ready(function() {
             targets: -1
           }
         ],
-        pageLength: 5,
+       
         destroy: true,
         language: {
         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
@@ -70,7 +70,7 @@ $(document).ready(function() {
           },
         }
         
-        
+
       });
 
     
@@ -1326,13 +1326,42 @@ function enviaAjax(datos){
             beforeSend: function(){            
             },            
             success: function(respuesta) {
-                LlamadaAlert(respuesta);     
-             $("#consulta").val("consulta");            
-             enviaAjax2($("#f4"));  
-                 setTimeout(function(){
-                    window.location.reload();
-                }, 1000);
-           
+                LlamadaAlert(respuesta);   
+                $("#tablas").load(location.href + " #tablas>*", function() {
+                    // Reinitialize the DataTable after the content has been loaded
+                    $('#tablas').DataTable().destroy();
+                    $('#tablas').DataTable({
+                        
+                      language: {
+                        "decimal": ",",
+                        "thousands": ".",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "zeroRecords": "No se encontraron resultados",
+                        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                          "first": "Primero",
+                          "last": "Último",
+                          "next": "Siguiente",
+                          "previous": "Anterior"
+                        }
+                      }
+                    });
+                  });
+            
+                  $("#tablas2").load(location.href + " #tablas2>*", function() {
+                    // Reinitialize the DataTable after the content has been loaded
+                    $('#tablas2').DataTable().destroy();
+                    $('#tablas2').DataTable({
+                        info: false,                       
+                        "paging": false,
+                        searching: false // Disable the search functionality
+                    });
+                  });
+          
+            
         },
             error: function(request, status, err){
                 if (status == "timeout") {
@@ -1342,36 +1371,11 @@ function enviaAjax(datos){
                 }
             },
             complete: function(){   
-                setTimeout(function(){
-                    window.location.reload();
-                }, 1000);            
+                     
             }            
     });    
 }
 //<!---------------------------------------------------------------------------------------------------------------------------->
-function enviaAjax2(datos){
-    $.ajax({
-            url: '', 
-            type: 'POST',
-            data: datos.serialize(),
-            beforeSend: function(){     
-            },           
-            success: function(respuesta) {                                
-             $("#tabla").html(respuesta); 
-                          
-            },
-            error: function(request, status, err){
-                if (status == "timeout") {
-                    mensaje("Servidor ocupado, intente de nuevo");
-                } else {
-                    mensaje("ERROR: <br/>" + request + status + err);
-                }
-            },
-            complete: function(){    
-                          
-            }           
-    });  
-}
 
 
 
