@@ -121,6 +121,15 @@
       </div>
     </div>
 
+    <script>
+    // Add event listener for form submission on Enter key press
+    document.getElementById('f').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            document.getElementById('enviar').click();
+        }
+    });
+</script>
+
     
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>

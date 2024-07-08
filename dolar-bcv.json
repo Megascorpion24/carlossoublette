@@ -381,7 +381,7 @@
                                         <img alt="Disponible en Google Play" src="/img/icons/social-google-play-badge.webp" height="50px"/>
                                     </a>
                                     <div class="margin-10"></div>
-                                <h1>Dólar BCV  Venezuela</h1><h2>36,51<small><small> BS/USD</small></small></h2><p>07-07-2024 07:01 pm</p>                    </div>
+                                <h1>Dólar BCV  Venezuela</h1><h2>36,51<small><small> BS/USD</small></small></h2><p>07-07-2024 07:58 pm</p>                    </div>
                 </div>  
                 <!-- end inicio -->
                 
@@ -479,9 +479,9 @@
                                             <div itemprop="text">
                                                 <!-- start NewsArticle -->
                                                 <div itemscope itemtype="https://schema.org/NewsArticle">        
-        <meta itemprop="dateCreated"        content="2024-07-07T23:01 +00:00" />
-        <meta itemprop="datePublished"      content="2024-07-07T23:01 +00:00" />
-        <meta itemprop="dateModified"       content="2024-07-07T23:01 +00:00" />
+        <meta itemprop="dateCreated"        content="2024-07-07T23:58 +00:00" />
+        <meta itemprop="datePublished"      content="2024-07-07T23:58 +00:00" />
+        <meta itemprop="dateModified"       content="2024-07-07T23:58 +00:00" />
         <meta itemprop="articleSection"     content="Venezuela" />
         <meta itemprop="description"        content="El precio del dólar BCV en Venezuela hoy domingo, 07 de Julio de 2024 es de 36,51 BS/USD. Consulta los gráficos estadísticos actualizados cada 5 minutos." />
         <meta itemprop="mainEntityOfPage"   itemscope itemtype="https://schema.org/WebPage" itemid="https://exchangemonitor.net/estadisticas/ve/dolar-bcv" />
@@ -659,7 +659,7 @@
         var formato = "%d/%m/%Y %H:%M";
         var tooltip = true;
         
-        let fecha_utc = new Date('2024/07/07 23:01');
+        let fecha_utc = new Date('2024/07/07 23:58');
         let fecha_local = new Date();
         
         var utc;

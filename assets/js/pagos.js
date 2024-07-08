@@ -288,7 +288,20 @@ $('#mibuscador3').select2({
 
     $("#registrarMM").on("click", function() {
         if (validarenvioMM()) {
+            var tipo = $('#tipoMM').val();
+            var m_montos = $('#m_montosMM').val();
+            var d_montos = $('#d_montosMM').val();
+           
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
 
+            var encryptedtipo= encrypt.encrypt(tipo);
+            var encryptedm_montos= encrypt.encrypt(m_montos);
+            var encryptedd_montos= encrypt.encrypt(d_montos);
+
+            $('#tipoMM').val(encryptedtipo);
+            $('#m_montosMM').val(encryptedm_montos);
+            $('#d_montosMM').val(encryptedd_montos);
 
           
             enviaAjax($("#fMM"));
@@ -752,6 +765,15 @@ function ver(id){
 function eliminar(id){
     $("#idE").val(id);
     $("#borrar").on("click", function(){
+
+        var idE = $('#idE').val();
+
+        var encrypt = new JSEncrypt();
+        encrypt.setPublicKey(publicKey);
+
+        var encryptedid = encrypt.encrypt(idE);
+
+        $('#idE').val(encryptedid);
        
     enviaAjax($("#f3"));
     $('#deletepago').modal('hide');
@@ -761,7 +783,6 @@ function eliminar(id){
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
 
 
 
