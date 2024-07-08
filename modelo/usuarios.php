@@ -13,8 +13,9 @@ class usuarios extends datos{
 
 
 	public function set_nombre($valor){
-        if (preg_match("/^[a-zA-Z'-]+$/", $valor)) {
-		$this->nombre = $valor; 
+        $cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[a-zA-Z'-]+$/", $cexryp)) {
+		$this->nombre = $cexryp; 
         return true;
         }else{
             return false;
@@ -46,8 +47,9 @@ class usuarios extends datos{
         }
 	}
     public function set_contraceña($valor){
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
-		$this->contraceña = $valor; 
+        $cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $cexryp)) {
+		$this->contraceña = $cexryp; 
         return true;
         }else{
             return false;
@@ -125,7 +127,7 @@ class usuarios extends datos{
                 $r->execute();
                 $this->bitacora("se registro un usuario", "usuarios",$this->nivel);
              
-                    return "Registro incluido";	
+                    return "1Registro incluido";	
                 
             }catch(Exception $e){
                 return $e->getMessage();
@@ -133,7 +135,7 @@ class usuarios extends datos{
                 
             }
             else{
-                return "cedula registrada registrado";
+                return "4cedula registrada registrado";
             }
     
 
@@ -193,7 +195,7 @@ class usuarios extends datos{
                     $r->execute();
     
                     $this->bitacora("se modifico un usuario", "usuarios",$this->nivel);
-                        return "Registro modificado";	
+                        return "2Registro modificado";	
                     
                 }catch(Exception $e){
                     return $e->getMessage();
@@ -201,7 +203,7 @@ class usuarios extends datos{
                     
                 }
                 else{
-                    return "el usuario no esta registrado";
+                    return "4el usuario no esta registrado";
                 }
         
     
@@ -317,15 +319,15 @@ public function consultar($nivel1){
     public function eliminar1(){
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		if($this->existe($this->cedula,"Select * from usuarios where id=:cedula",':cedula')){
+		if($this->existe($this->contraceña,"Select * from usuarios where id=:cedula",':cedula')){
 		
 
 			try {
                 $r = $co->prepare("UPDATE `usuarios` SET `estado`= 0 WHERE id=:id");
-                $r->bindParam(':id', $this->cedula);
+                $r->bindParam(':id', $this->contraceña);
                 $r->execute();
                 $this->bitacora("se elimino un usuario", "usuarios", $this->nivel);
-                return "Registro Eliminado";
+                return "3Registro Eliminado";
                     
 			} catch(Exception $e) {
 				return $e->getMessage();
@@ -335,7 +337,7 @@ public function consultar($nivel1){
 
 		}
 		else{
-			return "Usuario no registrado";
+			return "4Usuario no registrado";
 		}
     }
 
