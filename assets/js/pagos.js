@@ -45,7 +45,7 @@ $(document).ready(function() {
             targets: -1
           }
         ],
-        pageLength: 5,
+       
         destroy: true,
         language: {
         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
@@ -70,7 +70,7 @@ $(document).ready(function() {
           },
         }
         
-        
+
       });
 
     
@@ -288,7 +288,20 @@ $('#mibuscador3').select2({
 
     $("#registrarMM").on("click", function() {
         if (validarenvioMM()) {
+            var tipo = $('#tipoMM').val();
+            var m_montos = $('#m_montosMM').val();
+            var d_montos = $('#d_montosMM').val();
+           
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
 
+            var encryptedtipo= encrypt.encrypt(tipo);
+            var encryptedm_montos= encrypt.encrypt(m_montos);
+            var encryptedd_montos= encrypt.encrypt(d_montos);
+
+            $('#tipoMM').val(encryptedtipo);
+            $('#m_montosMM').val(encryptedm_montos);
+            $('#d_montosMM').val(encryptedd_montos);
 
           
             enviaAjax($("#fMM"));
@@ -752,6 +765,15 @@ function ver(id){
 function eliminar(id){
     $("#idE").val(id);
     $("#borrar").on("click", function(){
+
+        var idE = $('#idE').val();
+
+        var encrypt = new JSEncrypt();
+        encrypt.setPublicKey(publicKey);
+
+        var encryptedid = encrypt.encrypt(idE);
+
+        $('#idE').val(encryptedid);
        
     enviaAjax($("#f3"));
     $('#deletepago').modal('hide');
@@ -761,7 +783,6 @@ function eliminar(id){
 
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
-
 
 
 
@@ -1326,13 +1347,42 @@ function enviaAjax(datos){
             beforeSend: function(){            
             },            
             success: function(respuesta) {
-                LlamadaAlert(respuesta);     
-             $("#consulta").val("consulta");            
-             enviaAjax2($("#f4"));  
-                 setTimeout(function(){
-                    window.location.reload();
-                }, 1000);
-           
+                LlamadaAlert(respuesta);   
+                $("#tablas").load(location.href + " #tablas>*", function() {
+                    // Reinitialize the DataTable after the content has been loaded
+                    $('#tablas').DataTable().destroy();
+                    $('#tablas').DataTable({
+                        
+                      language: {
+                        "decimal": ",",
+                        "thousands": ".",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "zeroRecords": "No se encontraron resultados",
+                        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                          "first": "Primero",
+                          "last": "Último",
+                          "next": "Siguiente",
+                          "previous": "Anterior"
+                        }
+                      }
+                    });
+                  });
+            
+                  $("#tablas2").load(location.href + " #tablas2>*", function() {
+                    // Reinitialize the DataTable after the content has been loaded
+                    $('#tablas2').DataTable().destroy();
+                    $('#tablas2').DataTable({
+                        info: false,                       
+                        "paging": false,
+                        searching: false // Disable the search functionality
+                    });
+                  });
+          
+            
         },
             error: function(request, status, err){
                 if (status == "timeout") {
@@ -1342,36 +1392,11 @@ function enviaAjax(datos){
                 }
             },
             complete: function(){   
-                setTimeout(function(){
-                    window.location.reload();
-                }, 1000);            
+                     
             }            
     });    
 }
 //<!---------------------------------------------------------------------------------------------------------------------------->
-function enviaAjax2(datos){
-    $.ajax({
-            url: '', 
-            type: 'POST',
-            data: datos.serialize(),
-            beforeSend: function(){     
-            },           
-            success: function(respuesta) {                                
-             $("#tabla").html(respuesta); 
-                          
-            },
-            error: function(request, status, err){
-                if (status == "timeout") {
-                    mensaje("Servidor ocupado, intente de nuevo");
-                } else {
-                    mensaje("ERROR: <br/>" + request + status + err);
-                }
-            },
-            complete: function(){    
-                          
-            }           
-    });  
-}
 
 
 
