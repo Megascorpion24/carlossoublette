@@ -95,13 +95,14 @@
 
       <div class="container">
      
- 
+ <input type="hidden" id="url" name="url" id="url" value="<?php echo $_GET['token'] ?>" />
             
             <div class="wrap-input100 validate-input m-b-26" > 
               <span for="password" class="label-input100">Contraseña</span> 
               <span id="spassword"></span>
-              <input class="input100" type="password" id="password" name="password" id="password" placeholder="Digite su Contrasena" />
-              <i id="reveal-password" ></i>
+              <input type="password"id="password" name="password" class="ocultar"/>
+            <input class="input100" type="password" name="password2" id="password2" placeholder="Introducir Contraseña"/>
+            <span class="focus-input100"></span>                   
 
               <span id="password-alert" style="display: none;">Las contraseñas no son iguales</span>
               <span id="spassword1" ></span>
@@ -113,7 +114,7 @@
 
 
             <br>           
-        <div class="change-password "id="enviar">
+        <div class="change-password "id="enviar2">
         <a  class="">RECUPERAR</a></div>
         <br>
   
