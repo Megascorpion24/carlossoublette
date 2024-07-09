@@ -93,6 +93,28 @@ class entrada extends datos
 		}
 	}
 
+	public function rol_name($rol)
+	{
+		$co = $this->conecta();
+		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		try {
+
+
+			$resultado2 = $co->prepare("SELECT nombre  FROM rol WHERE id=:rol");
+
+			$resultado2->bindParam(':rol', $rol);
+
+			$resultado2->execute();
+			$result = $resultado2->fetch(PDO::FETCH_ASSOC);
+
+			$name = $result['nombre'];
+	
+			return $name;
+		} catch (Exception $e) {
+			return $e;
+		}
+	}
+
 
 
 	public function bitacora1($accion, $modulo, $id)

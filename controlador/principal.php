@@ -15,6 +15,7 @@ require_once("modelo/".$pagina.".php");
   
 			  if(isset($_SESSION['usuario'])){
 			   $nivel = $_SESSION['usuario'];
+			
 			}
 			else{
 				$nivel = "";
