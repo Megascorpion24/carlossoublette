@@ -17,16 +17,16 @@ class login extends datos{
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try{
 
-			$result = $co->prepare("SELECT clave, id_rol, id 
+			$result = $co->prepare("SELECT *
 			FROM usuarios 
-			WHERE nombre = :usua AND estado = 1;");
+			WHERE nombre = :usua AND estado = 1");
 
 			$result->bindParam(':usua',$this->usuario);
 			$result->execute();
 
 			$resultado = null; // Inicializa $resultado antes del bucle foreach
 			foreach($result as $r){
-				$resultado= array($r["clave"],$r["id_rol"],$r["id"]);
+				$resultado= array($r["clave"],$r["id_rol"],$r["nombre"],$r["correo"]);
             }
             
 				$mensaje="";

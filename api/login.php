@@ -4,7 +4,7 @@ require_once './mobile/class/login.php';
 require_once './JWT/GenerarToken.php';
 require_once './mobile/validator/validacion.php';
 require_once './auth/security.php';
-
+ 
 $login = new login();
 $data = json_decode(file_get_contents("php://input"));
 // var_dump($data);
@@ -27,13 +27,14 @@ if (isset($data->user) && isset($data->password)) {
         // Si el resultado es verdadero, crea un token y envía una respuesta JSON
         if ($entrada['success']) {
             $token = generateTokenJWT($entrada['resultado']);
+            $encryptedToken = encryptData($token);
             // Construir el array asociativo para la respuesta JSON
             $data = [
                 'entrada' => $entrada['success'],
-                'token' => $token
+                'token' => $encryptedToken
             ];
             
-            echo json_encode(encryptData($data));// Convertir el array asociativo a JSON y enviarlo como respuesta
+            echo json_encode($data);// Convertir el array asociativo a JSON y enviarlo como respuesta
             // http_response_code(200); 200 OK: Indica que la solicitud ha tenido éxito.
            
         } else { 
