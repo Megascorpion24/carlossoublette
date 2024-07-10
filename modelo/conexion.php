@@ -33,6 +33,14 @@ NcFh8zm7trhXUuGbjI+DzJsx3mInyiI2S8K+/kpKi+TKnlbr0FagO4luFpYx5yiU
 6psYvBmL4ATI4ARJHHdPufjf/7oRVMF7671H/Fb71u3Ef42c0ffjRNfUtcNedemU
 1EQk5kXb2ILhr/SQrbA/ECc=
 -----END PRIVATE KEY-----';
+
+public function __construct() {
+    if (isset($_SESSION['name'])) {
+        $this->usuario = $_SESSION['name'];
+    }
+}
+
+
     protected function conecta() {
         $pdo = new PDO("mysql:host=".$this->ip.";dbname=".$this->bd."", $this->usuario, $this->contrasena);
         $pdo->exec("set names utf8");

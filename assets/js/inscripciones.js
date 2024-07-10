@@ -921,8 +921,29 @@ function enviaAjax(datos) {
 
         success: function (respuesta) {
             LlamadaAlert(respuesta);
-            $("#tablas").load(location.href + " #tablas>*", "");
-
+            $("#tablas").load(location.href + " #tablas>*", function() {
+                // Reinitialize the DataTable after the content has been loaded
+                $('#tablas').DataTable().destroy();
+                $('#tablas').DataTable({
+                    
+                  language: {
+                    "decimal": ",",
+                    "thousands": ".",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "paginate": {
+                      "first": "Primero",
+                      "last": "Último",
+                      "next": "Siguiente",
+                      "previous": "Anterior"
+                    }
+                  }
+                });
+              });
         },
         error: function (request, status, err) {
             if (status == "timeout") {

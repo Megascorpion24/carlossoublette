@@ -11,9 +11,10 @@ class cambiar extends datos
 
 	public function set_clave($valor)
 	{
-		if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $valor)) {
-			$this->clave = $valor;
-			return true;
+		$cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $cexryp)) {
+            $this->clave = $cexryp;
+            return true;
 		} else {
 			return false;
 		}
@@ -46,6 +47,7 @@ class cambiar extends datos
 		$co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
+			
 			$resultado = $co->prepare("SELECT * FROM usuarios WHERE token = :ur AND usuarios.estado = 1");
 			$resultado->bindParam(':ur', $this->url);
 			$resultado->execute();
@@ -83,7 +85,7 @@ class cambiar extends datos
 		$co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
-
+			
 			$claveencr = password_hash($this->clave, PASSWORD_DEFAULT, ['cost' => 10]);
 			$r = $co->prepare("Update usuarios set           
                       

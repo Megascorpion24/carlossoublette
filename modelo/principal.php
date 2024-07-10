@@ -33,62 +33,73 @@ class principal extends datos{
                     //Existe el id
 
                     try{
-                        $resultado = $co->prepare("SELECT d.id_estudiante,pagos.id, estudiantes.nombre,pagos.fecha, tutor_legal.correo FROM pagos INNER JOIN deudas d on d.id=pagos.id_deudas INNER JOIn estudiantes on estudiantes.cedula=d.id_estudiante INNER JOIN deudas de on pagos.id_deudas=de.id INNER JOIN estudiantes es on de.id_estudiante = es.cedula INNER JOIN estudiantes_tutor ON es.cedula = estudiantes_tutor.id_estudiantes INNER JOIN tutor_legal on estudiantes_tutor.id_tutor = tutor_legal.cedula WHERE pagos.estado_pagos=1 and pagos.estatus=1");
-                    $resultado->execute();
+                        $resultado = $co->prepare("SELECT d.id_estudiante,pagos.id, estudiantes.nombre,pagos.fecha, tutor_legal.correo 
+                        FROM pagos 
+                        INNER JOIN deudas d on d.id=pagos.id_deudas 
+                        INNER JOIn estudiantes on estudiantes.cedula=d.id_estudiante 
+                        INNER JOIN deudas de on pagos.id_deudas=de.id 
+                        INNER JOIN estudiantes es on de.id_estudiante = es.cedula 
+                        INNER JOIN estudiantes_tutor ON es.cedula = estudiantes_tutor.id_estudiantes 
+                        INNER JOIN tutor_legal on estudiantes_tutor.id_tutor = tutor_legal.cedula 
+                        WHERE pagos.estado_pagos=1 and pagos.estatus=1");
+                        $resultado->execute();
+                      
                         $r1="";
                         $r2="";
                         $r3="";
                         $r4="";
                         date_default_timezone_set('America/Caracas');
                         $fecha= date('Y-m-d');
+
                     foreach($resultado as $r){
                         $r1=$r['id_estudiante'];
                         $r2=$r['nombre'];
                         $r3=$r['id'];
                         $r5=$r['correo'];
                         $fecha1 = $r["fecha"]; 
-$nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
-                        if(strtotime($fecha) == strtotime($nueva_fecha)){
-                            $r= $co->prepare("Insert into notificaciones(
-						
+                        $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
+
+                    if(strtotime($fecha) == strtotime($nueva_fecha)){
+                            $r= $co->prepare("Insert into notificaciones(						
                                 mensaje,
                                 estado,
                                 titulo,
                                 cedula_estudiante
-                                )
-                
+                                )                
                         Values( 'la deuda se vence en 7 dias del estudiante: $r2',
                                 1,
                                 'pago de deuda',
                                 '$r1'
-                        )"
+                                )"
                     );
                     $r->execute();
-                    $mail = new PHPMailer(true);
 
-                  
-                        
+
+
+
+                    $mail = new PHPMailer(true);
                         $mail->isSMTP();                                            //Send using SMTP
                         $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
                         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
                         $mail->Username   = 'santiagocasamayor14@hotmail.com';                     //SMTP username
                         $mail->Password   = 'Santi2002.30019081';                               //SMTP password
-                        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                    
+                        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`                  
                         //Recipients
                         $mail->setFrom('santiagocasamayor14@hotmail.com', 'SISTEMA GPUECCS');
                         $mail->addAddress($r5, $r5);     //Add a recipient
-                          
-                    
                         //Content
                         $mail->isHTML(true);                                  //Set email format to HTML
                         $mail->Subject = 'U.E.Carlos Soublette-recordatorio';
                         $mail->Body    = 'Hola! este es un recordatorio automatico para recordarle se aproxima el apago de la mensualidad del estudiante '.$r2.'-'.$r1.' ';
-                        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                    
-                        $mail->send();
-                        
+                        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';                   
+                        $mail->send();                       
                         }
+
+
+
+
+
+
 
                         if (strtotime($fecha) >= strtotime($nueva_fecha)) {
                             $r= $co->prepare("Insert into deudas(
@@ -100,19 +111,14 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
                                 estado,
                                 estado_deudas
                                 )
-                        
-            
                                 Values(
                                 :id_estudiante,
                                 :monto,
                                 :concepto,
                                 :fecha,
                                 :estado,
-                                :estado_deudas
-                                
-                                
-                                )");
-        
+                                :estado_deudas                                                            
+                                )");       
                                 $fecha= date('Y-m-d');
                                 $monto="0";
                                 $concepto="mensualidad";
@@ -126,26 +132,12 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
                             $r->execute();
 
 
-                            $r= $co->prepare("UPDATE pagos set 
-                        
-                        estado_pagos=0  
-                           
-                            where
-                            id =:id
-          
-                            ");
-                        $r->bindParam(':id',$r3);
-                       	
-                    
-                     
-                        $r->execute();
+                            $r= $co->prepare("UPDATE pagos set estado_pagos=0 where id =:id ");
+                            $r->bindParam(':id',$r3);                       	                           
+                            $r->execute();
 
-                        $this->bitacora("se genero una deuda", "principal",$this->nivel);
-
-        
+                        $this->bitacora("se genero una deuda", "principal",$this->nivel);        
                         }
-
-        
                     }
         
                     $r= $co->prepare("UPDATE deudas SET estado_deudas = 1 WHERE fecha <= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND estado = 1 AND concepto = 'mensualidad'");                      
@@ -155,18 +147,19 @@ $nueva_fecha = date('Y-m-d', strtotime('-7 days', strtotime($fecha1)));
                     $r->bindParam(':estado_deudas',$estado);
                     $r->execute();
         
-        
-                        
-                            return $fecha;	
-                        
-                    }
-            catch(Exception $e){  return $e->getMessage(); }
-       
-
-  }
+                     return $fecha;	                       
+                    }catch(Exception $e){ return $e->getMessage(); }
+                   }
 
  //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
         
+
+
+
+
+
+
+
 
 
 //<!---------------------------------funcion modificar------------------------------------------------------------------>

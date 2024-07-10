@@ -1,30 +1,24 @@
 
 
-const revealPasswordButton = document.querySelector("#reveal-password");
-const inputPassword = document.querySelector("#password");
 
 
 
-const onChangeRevealPassword = () => {
-  if (inputPassword.type === "password") {
-    inputPassword.type = "text";
-    revealPasswordButton.classList.replace("bi-eye-slash", "bi-eye");
-  } else {
-    inputPassword.type = "password";
-    revealPasswordButton.classList.replace("bi-eye", "bi-eye-slash");
-  }
 
-};
-
-
-revealPasswordButton.onclick = onChangeRevealPassword;
 
 
 
 $(document).ready(function () {
 
 
-
+  var publicKey = `-----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl/s/lMg8oJcuiz4vRlYu
+  Q96OFjlwhIy/cpEXgYxtr/NV47BNISKv+4L0IulDkcYsTj8YjuCX6dZV0dy60yOr
+  MxTVWb162pfVvOQmHDzB4OUQGy+ksjvuUFnpmZ20vY7BzWIp2a2esBluiHAnAz8I
+  rWmZvgok6iaOunkcdmfbb88ZYnPucPIy0g0f1ndQgs9oRQ4VdNC6fQYyH3gZMBHf
+  fy8naxxpz8ew8CT2bM1QbLZUWVsB3ISn7zge3+GzIgUn8s2DolSlZ1/DCEVhf1sA
+  Ok9k828PnOT4EW/L++7I+JlZ5ExuEXLm45zccpoKrwDllrbDjVTtVo3ASmeE5jJU
+  gQIDAQAB
+  -----END PUBLIC KEY-----`;
 
 
 
@@ -39,21 +33,21 @@ $(document).ready(function () {
 
   }
 
-  $("#user").on("keypress", function (e) {
+  $("#user1").on("keypress", function (e) {
     validarkeypress(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]$/, e);
 
   });
 
-  $("#user").on("keyup", function () {
+  $("#user1").on("keyup", function () {
     validarkeyup(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,10}$/,
       $(this), $("#suser"), "El formato puede ser A-Z a-z (.)(#)(@)(*) 4-10");
   });
 
-  $("#password").on("keypress", function (e) {
+  $("#password2").on("keypress", function (e) {
     validarkeypress(/^[0-9A-Za-z\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]$/, e);
   });
 
-  $("#password").on("keyup", function () {
+  $("#password2").on("keyup", function () {
     validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
       $(this), $("#spassword"), "la contraseña puede llevar: A-Z a-z (.),(#),(@)(*),  4-10 caracteres ");
   });
@@ -71,7 +65,38 @@ $(document).ready(function () {
   $("#enviar").on("click", function () {
 
     if (validarenvio()) {
-      if ($("#password").val() == $("#password1").val()) {
+      var user = $('#user1').val();
+          
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+            
+            var encryptedUser = encrypt.encrypt(user);
+          
+            
+            $('#user').val(encryptedUser);
+          
+            $('#user1').val("");
+      $("#f").submit();
+
+    }
+  });
+
+  $("#enviar2").on("click", function () {
+
+    if (validarenvio()) {
+      if ($("#password2").val() == $("#password1").val()) {
+        var password = $('#password2').val();
+                var encrypt = new JSEncrypt();
+                encrypt.setPublicKey(publicKey);
+                
+                
+                var encryptedPassword = encrypt.encrypt(password);
+                
+              
+                $('#password').val(encryptedPassword);
+                $('#password2').val("");
+                $('#password1').val("");
+               
 
         $("#f").submit();
       } else {
@@ -88,8 +113,8 @@ $(document).ready(function () {
 
     }
   });
-  const input1 = document.getElementById("password");
-  const input2 = document.getElementById("user");
+  const input1 = document.getElementById("password2");
+  const input2 = document.getElementById("user1");
   const input3 = document.getElementById("password1");
 
 
@@ -178,13 +203,13 @@ function mensaje(mensaje) {
 }
 
 function validarenvio() {
-  if (validarkeyup(/^[0-9A-Za-z\b\s\u002A\u002E\u00F1\u00D1]{4,26}$/, $("#user"),
+  if (validarkeyup(/^[0-9A-Za-z\b\s\u002A\u002E\u00F1\u00D1]{4,26}$/, $("#user1"),
     $("#suser"), "El usuario debe tener de [8 - 26] caracteres, solo(.)(#)") == 0) {
     mensaje("<p>El usuario debe coincidir con el formato <br/>" +
       "de 8 a 26 caracteres y puede llevar (.)(#)</p>");
     return false;
   } else if (validarkeyup(/^[0-9A-Za-z\b\s\u00f1\u002E\u0040\u00d1\u00E0-\u00FC\u0023\u002A]{8,10}$/,
-    $("#password"), $("#spassword"), "Solo letras entre 8 y 16 caracteres, numeros, (.),(#),(@)(*)") == 0) {
+    $("#password2"), $("#spassword"), "Solo letras entre 8 y 16 caracteres, numeros, (.),(#),(@)(*)") == 0) {
     mensaje("<p>la clave debe tener entre 8 y 10 caracteres</p>");
     return false;
 

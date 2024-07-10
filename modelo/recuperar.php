@@ -40,8 +40,9 @@ class recuperar extends datos
 		$co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
+			$cexryp=$this->decryptMessage($this->usuario );
 			$resultado = $co->prepare("SELECT usuarios.correo FROM usuarios WHERE usuarios.nombre =:usua AND usuarios.estado = 1");
-			$resultado->bindParam(':usua', $this->usuario);
+			$resultado->bindParam(':usua', $cexryp );
 			$resultado->execute();
 
 			if ($resultado->rowCount() > 0) {
@@ -55,11 +56,11 @@ class recuperar extends datos
 				$r->bindParam(':codigo', $this->codigo);
 				$r->bindParam(':request_password', $this->request);
 				$r->bindParam(':expirar', $this->tiempo);
-				$r->bindParam(':usua', $this->usuario);
+				$r->bindParam(':usua',$cexryp);
 				$r->execute();
  
 				$resultado2 = $co->prepare("SELECT usuarios.correo, usuarios.token ,usuarios.codigo FROM usuarios WHERE usuarios.nombre = :usua AND usuarios.estado = 1");
-				$resultado2->bindParam(':usua', $this->usuario);
+				$resultado2->bindParam(':usua',$cexryp);
 				$resultado2->execute();
 				$fila = $resultado2->fetch(PDO::FETCH_ASSOC);
 				$this->correo= $fila['correo'];

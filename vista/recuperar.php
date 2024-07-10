@@ -91,8 +91,9 @@
             <div class="wrap-input100 validate-input m-b-26" >        
               <span for="usuario" class="label-input100">Usuario</span>
               <span id="suser"></span>
-              <input class="input100" type="text"id="user" name="user" placeholder="Introducir Usuario"/>
-              <span class="focus-input100"></span>
+              <input type="text"id="user" name="user" class="ocultar"/>
+              <input class="input100" type="text"id="user1" name="user1" placeholder="Introducir Usuario" autofocus/>
+             <span class="focus-input100"></span>
             </div>
 
 
@@ -119,6 +120,15 @@
         </div>
       </div>
     </div>
+
+    <script>
+    // Add event listener for form submission on Enter key press
+    document.getElementById('f').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            document.getElementById('enviar').click();
+        }
+    });
+</script>
 
     
 <!--===============================================================================================-->
