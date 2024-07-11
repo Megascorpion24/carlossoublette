@@ -16,7 +16,7 @@ if (isset($data->token) && isset($data->request)) {
   try {
     $r_json = validarTokenJWT($token);
 
-    if ($r_json->resultado->rol == 3) {
+    if ($r_json->resultado->rol == 3 || $r_json->resultado->rol == 19) {
       switch($request) {
         case 'secciones':
           echo json_encode([

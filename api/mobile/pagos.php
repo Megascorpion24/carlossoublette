@@ -14,7 +14,7 @@
    try {
       $r_json = validarTokenJWT($token);
  
-        if ($r_json->resultado->rol == 3) {
+        if ($r_json->resultado->rol == 3 || $r_json->resultado->rol == 1) {
            echo json_encode([
                 'success' => true,
                 'resultado'=> $m->consultar(array("request_app"))
