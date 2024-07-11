@@ -13,8 +13,10 @@ function generateTokenJWT($resultado){
 					'nbf'		=>	time(),
 					'exp'		=>	time() + 3600,
 					'resultado'	=> array(
-						'user'	=>	$resultado[2],// cedula ejemplo 2827479
-						'rol'	=>	$resultado[1] // varia del 1 al 100
+						'rol'	=>	$resultado[1],// id_rol
+						'user'	=>	$resultado[2],// nombre
+						//NOTA: no mas datos,xq sino muy largo para encriptar
+						// 'email'=>	$resultado[3] // correo
 					)
 				),$key,'HS256'
 			);

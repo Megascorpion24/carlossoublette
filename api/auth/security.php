@@ -3,6 +3,7 @@
 function encryptData($data) {
     // $file = 'key/public.key';
     $file = __DIR__ .'/key/public.key';
+
     // $file = '../api/auth/key/public.key';
       $publicKey = openssl_pkey_get_public(file_get_contents($file));
 
