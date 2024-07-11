@@ -1351,7 +1351,7 @@ function enviaAjax(datos){
                 $("#tablas").load(location.href + " #tablas>*", function() {
                     // Reinitialize the DataTable after the content has been loaded
                     $('#tablas').DataTable().destroy();
-                    var table = $('#tablas').DataTable({
+                    $('#tablas').DataTable({
                       responsive: true,
                       language: {
                         "decimal": ",",
@@ -1389,9 +1389,21 @@ function enviaAjax(datos){
                     // Reinitialize the DataTable after the content has been loaded
                     $('#tablas2').DataTable().destroy();
                     $('#tablas2').DataTable({
+                        responsive: true,
                         info: false,                       
                         "paging": false,
+                        columnDefs: [
+                            {
+                              responsivePriority: 1,
+                              targets: 0
+                            },
+                            {
+                              responsivePriority: 2,
+                              targets: -1
+                            }
+                          ],
                         searching: false // Disable the search functionality
+                        
                     });
                   });
           
