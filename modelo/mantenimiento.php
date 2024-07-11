@@ -31,7 +31,7 @@ class mantenimiento extends datos
 
 
         try {
-            $dump = new IMysqldump\Mysqldump('mysql:host=localhost;dbname=colegiocarlossoublette', 'root', '');
+            $dump = new IMysqldump\Mysqldump('mysql:host=localhost;dbname=colegiocarlossoublette', 'superusuario', '');
             $d = date('Y-m-d');
 
             $dump->start('respaldo/' . $d . 'respaldo.sql');
