@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 
     
-        lengthMenu: [3, 5, 10, 15, 20, 100, 200, 500],
+        lengthMenu: [ 10, 15, 20, 100, 200, 500],
         columnDefs: [
           { className: 'centered', targets: [0, 1, 2, 3, 4, 5] },
           { orderable: false, targets: [2] },
@@ -1351,8 +1351,8 @@ function enviaAjax(datos){
                 $("#tablas").load(location.href + " #tablas>*", function() {
                     // Reinitialize the DataTable after the content has been loaded
                     $('#tablas').DataTable().destroy();
-                    $('#tablas').DataTable({
-                        
+                    var table = $('#tablas').DataTable({
+                      responsive: true,
                       language: {
                         "decimal": ",",
                         "thousands": ".",
@@ -1368,7 +1368,20 @@ function enviaAjax(datos){
                           "next": "Siguiente",
                           "previous": "Anterior"
                         }
-                      }
+                      },
+
+                      columnDefs: [
+                        {
+                          responsivePriority: 1,
+                          targets: 0
+                        },
+                        {
+                          responsivePriority: 2,
+                          targets: -1
+                        }
+                      ],
+                     
+             
                     });
                   });
             
