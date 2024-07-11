@@ -54,6 +54,8 @@ if (is_file("vista/" . $pagina . ".php")) {
 
 		if ($entrada) {
 			$permisos = $o->permisos($resultado[1]);
+			$name = $o->rol_name($resultado[1]);
+		
 			if ($permisos != "ha ocurrido un error") {
 
 				session_start();
@@ -79,6 +81,8 @@ if (is_file("vista/" . $pagina . ".php")) {
 				$_SESSION['usuario'] = $resultado[2];
 				$_SESSION['rol'] = $resultado[1];
 				$_SESSION['permisos'] = $permisos;
+				$_SESSION['name'] = $name;
+				
 				$pagina = "principal";
 		
 			} else {

@@ -40,7 +40,6 @@
 <!--===============================================================================================-->
 </head>
 <body>
-<iframe width="110" height="200" src="https://www.myinstants.com/instant/dios-mio-salvame-85455/embed/" frameborder="0" scrolling="no"></iframe>
 
 
 
@@ -63,7 +62,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     
-                    <h4 class="modal-title">Mensaje de Error</h4>
+                    <h4 class="modal-title">Nuevo Mensaje</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -138,7 +137,14 @@
 	</div>
 
 
-
+  <script>
+    // Add event listener for form submission on Enter key press
+    document.getElementById('f').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            document.getElementById('enviar').click();
+        }
+    });
+</script>
 
 
 

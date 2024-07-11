@@ -48,8 +48,9 @@ class inscripciones extends datos
     }
     public function set_cedula_estudiante($valor)
     {
-        if (preg_match("/^[0-9\s]{7,8}$/", $valor)) {
-            $this->cedula_estudiante = $valor;
+        $cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[0-9\s]{7,8}$/", $cexryp)) {
+            $this->cedula_estudiante = $cexryp;
             return true;
         } else {
             return false;
@@ -57,8 +58,9 @@ class inscripciones extends datos
     }
     public function set_nombre_estudiante($valor)
     {
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
-            $this->nombre_estudiante = $valor;
+        $cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $cexryp)) {
+            $this->nombre_estudiante = $cexryp;
             return true;
         } else {
             return false;
@@ -66,8 +68,9 @@ class inscripciones extends datos
     }
     public function set_apellido_estudiante($valor)
     {
-        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
-            $this->apellido_estudiante = $valor;
+        $cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $cexryp)) {
+            $this->apellido_estudiante = $cexryp;
             return true;
         } else {
             return false;
@@ -75,8 +78,9 @@ class inscripciones extends datos
     }
     public function set_edad_estudiante($valor)
     {
-        if (preg_match("/^[0-9\s]{1,2}$/", $valor)) {
-            $this->edad_estudiante = $valor;
+        $cexryp=$this->decryptMessage($valor );
+        if (preg_match("/^[0-9\s]{1,2}$/", $cexryp)) {
+            $this->edad_estudiante = $cexryp;
             return true;
         } else {
             return false;

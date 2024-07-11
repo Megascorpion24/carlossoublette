@@ -12,7 +12,7 @@ require_once("modelo/" . $pagina . ".php");
 if (is_file("vista/" . $pagina . ".php")) {
 
 
-	/*if(empty($_SESSION)){
+	if(empty($_SESSION)){
 		session_start();
 		}
 
@@ -30,7 +30,7 @@ if (is_file("vista/" . $pagina . ".php")) {
 			}
 			else{
 				$nivel1 = "";
-			}*/
+			}
 
 	$o = new mantenimiento();
 
