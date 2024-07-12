@@ -26,6 +26,33 @@ if (isset($_SESSION['permisos'])) {
 }
 ?>
 
+<?php
+function generateEncryptedLink($url, $img) {
+    // Generar una clave de encriptación segura
+    $key = openssl_random_pseudo_bytes(32); // AES-256 requiere una clave de 32 bytes
+    $encoded_key = base64_encode($key); // Codificar la clave en base64 para almacenarla o transmitirla
+
+    // Método de encriptación (AES-256-CBC en este caso)
+    $method = "AES-256-CBC";
+
+    // Generar un IV (vector de inicialización) aleatorio
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+
+    // Encriptar la URL
+    $encrypted_url = openssl_encrypt($url, $method, $key, 0, $iv);
+
+    // Codificar el resultado en base64, incluyendo el IV
+    $encrypted_url = base64_encode($encrypted_url . '::' . base64_encode($iv));
+
+    // Codificar la URL encriptada para que sea segura en una URL
+    $encoded_encrypted_url = urlencode($encrypted_url);
+
+    // Generar la etiqueta <a> con la URL encriptada y la clave como parámetros
+    return '<a href="?pagina=' . $encoded_encrypted_url . '&key=' . urlencode($encoded_key) . '">' . $img . '</a>';
+}
+?>
+
+
 <div class="wrapper">
 
 	<div class="body-overlay"></div>
@@ -51,7 +78,8 @@ if (isset($_SESSION['permisos'])) {
 			}
 			?>
 				<li class="<?php echo $variable?>">
-					<a href="?pagina=usuarios"><img class="pr-3 " src="assets/icon/comment-user.png" />Usuarios </a>
+				<?php echo generateEncryptedLink("usuarios", '<img class="pr-3 " src="assets/icon/comment-user.png" />Usuarios ');?>
+				
 				</li>
 			<?php
 			}
@@ -67,7 +95,8 @@ if (isset($_SESSION['permisos'])) {
 
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=docente"><img class="pr-3" src="assets/icon/usuario.png" />Docentes</a>
+			<?php echo generateEncryptedLink("docente", '<img class="pr-3" src="assets/icon/usuario.png" />Docentes');?>
+			
 			</li>
 			<?php
 			}
@@ -83,7 +112,8 @@ if (isset($_SESSION['permisos'])) {
 				}
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=representante"><img class="pr-3" src="assets/icon/users.png" />Representantes </a>
+			<?php echo generateEncryptedLink("representante", '<img class="pr-3" src="assets/icon/users.png" />Representantes ');?>
+			
 			</li>
 			<?php
 			}
@@ -98,7 +128,8 @@ if (isset($_SESSION['permisos'])) {
 				}
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=inscripciones" class=""><img class="pr-3" src="assets/icon/comprobacion-de-comentarios.png" />Inscripciones </a>
+			<?php echo generateEncryptedLink("inscripciones", '<img class="pr-3" src="assets/icon/comprobacion-de-comentarios.png" />Inscripciones ');?>
+				
 			</li>
 			<?php
 			}
@@ -113,7 +144,8 @@ if (isset($_SESSION['permisos'])) {
 				}
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=pagos"><img class="pr-3" src="assets/icon/coins.png" />Pagos </a>
+			<?php echo generateEncryptedLink("pagos", '<img class="pr-3" src="assets/icon/coins.png" />Pagos');?>
+
 			</li>
 			<?php
 			}
@@ -128,7 +160,8 @@ if (isset($_SESSION['permisos'])) {
 				}
 			?>
 			<li class=" <?php echo $variable?>">
-				<a href="?pagina=materia"><img class="pr-3" src="assets/icon/books.png" />Materias </a>
+			<?php echo generateEncryptedLink("materia", '<img class="pr-3" src="assets/icon/books.png" />Materias');?>
+		
 			</li>
 			<?php
 			}
@@ -144,7 +177,8 @@ if (isset($_SESSION['permisos'])) {
 				}
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=seccion"><img class="pr-3" src="assets/icon/usuario-de-pizarra.png" />Secciones</a>
+			<?php echo generateEncryptedLink("seccion", '<img class="pr-3" src="assets/icon/usuario-de-pizarra.png" />Secciones');?>
+				
 			</li>
 			<?php
 			}
@@ -164,8 +198,9 @@ if (isset($_SESSION['permisos'])) {
 					<img class="pr-3 " src="assets/icon/calculadora.png" />Lapso Academico
 				</a>
 				<ul class="collapse list-unstyled menu" id="homeSubmenu2">
-					<li><a href="?pagina=ano_academico"><img class="pr-3" src="assets/icon/calendario2.png" />Año Academico</a>
-					<li><a href="?pagina=eventos"><img class="pr-3" src="assets/icon/calendario.png" />Eventos</a></li>
+				
+					<li><?php echo generateEncryptedLink("ano_academico", '<img class="pr-3" src="assets/icon/calendario2.png" />Año Academico');?>
+					<li><?php echo generateEncryptedLink("eventos", '<img class="pr-3" src="assets/icon/calendario.png" />Eventos');?></li>
 				</ul>
 			</li>
 
@@ -183,7 +218,9 @@ if (isset($_SESSION['permisos'])) {
 			?>
 
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=horario_docente"><img class="pr-3" src="assets/icon/editar.png" />Horarios</a>
+			<?php echo generateEncryptedLink("horario_docente", '<img class="pr-3" src="assets/icon/editar.png" />Horarios');?>
+		
+				
 			</li>
 			<?php
 			}
@@ -199,7 +236,8 @@ if (isset($_SESSION['permisos'])) {
 				
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=seguridad" class=""><img class="pr-3" src="assets/icon/layout-fluid.png" />seguridad </a>
+			<?php echo generateEncryptedLink("seguridad", '<img class="pr-3" src="assets/icon/layout-fluid.png" />seguridad');?>
+				
 			</li>
 			<?php
 			}
@@ -219,9 +257,11 @@ if (isset($_SESSION['permisos'])) {
 					<img class="pr-3" src="assets/icon/grafico.png" />Reportes
 				</a>
 				<ul class="collapse list-unstyled menu" id="homeSubmenu3">
-					<li><a href="?pagina=reporte_ingreso" class=""><img class="pr-3" src="assets/icon/grafico-simple.png" />reporte de ingresos </a></li>
-					<li><a href="?pagina=reporte_egresos" class=""><img class="pr-3" src="assets/icon/grafico-simple-horizontal.png" />reporte de egresos </a></li>
-					<li><a href="?pagina=reporte_pagos" class=""><img class="pr-3" src="assets/icon/grafico-simple-horizontal.png" />reporte de pagos </a></li>
+				
+					<li><?php echo generateEncryptedLink("reporte_ingreso", '<img class="pr-3" src="assets/icon/grafico-simple.png" />reporte de ingresos');?></li>
+					<li><?php echo generateEncryptedLink("reporte_egresos", '<img class="pr-3" src="assets/icon/grafico-simple-horizontal.png" />reporte de egresos ');?></li>
+					
+					<li><?php echo generateEncryptedLink("reporte_pagos", '<img class="pr-3" src="assets/icon/grafico-simple-horizontal.png" />reporte de pagos ');?></li>
 				</ul>
 			</li>
 			<?php
@@ -237,7 +277,8 @@ if (isset($_SESSION['permisos'])) {
 				}
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=mantenimiento" class=""><img class="pr-3" src="assets/icon/reloj.png" />mantenimiento</a>
+			<?php echo generateEncryptedLink("mantenimiento", '<img class="pr-3" src="assets/icon/reloj.png" />mantenimiento');?>
+				
 			</li>
 			<?php
 			}
@@ -252,12 +293,14 @@ if (isset($_SESSION['permisos'])) {
 				}
 			?>
 			<li class="<?php echo $variable?>">
-				<a href="?pagina=bitacora" class=""><img class="pr-3" src="assets/icon/ajustes.png" />bitacora</a>
+			<?php echo generateEncryptedLink("bitacora", '<img class="pr-3" src="assets/icon/ajustes.png" />bitacora');?>
+
 			</li>
 			<?php
 			}
 			?>
 			<li class="">
+				
 				<a href="?pagina=manual" target="_blank" class=""><img class="pr-3" src="assets/icon/ajustes.png" />manual de usuario</a>
 			</li>
 
