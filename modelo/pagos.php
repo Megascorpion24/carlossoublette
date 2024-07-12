@@ -547,7 +547,7 @@ private function modificarMM(){
 
 
 
-            $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
+            $this->bitacora("se modifico un monto", "Pagos",$this->nivel);
          
             return "2REGISTRO MODIFICADO";	
             
