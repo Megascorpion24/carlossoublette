@@ -360,10 +360,9 @@ function generateEncryptedLink($url, $img) {
 											<span class="xp-user-live"></span>
 										</a>
 										<ul class="dropdown-menu small-menu">
-											<li><a href="?pagina=salida">
-													<img class="p-1" style="Width:20px; height:20px;" src="assets/icon/sign-out-alt.png" />
-													Salir
-												</a></li>
+										
+											<li><?php echo generateEncryptedLink("salida", '<img class="p-1" style="Width:20px; height:20px;" src="assets/icon/sign-out-alt.png" />
+													Salir');?></li>
 
 										</ul>
 									</li>

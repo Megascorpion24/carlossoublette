@@ -21,7 +21,7 @@ function decryptUrl($encoded_encrypted_url, $encoded_key) {
 
 $pagina = "login";
 
-if (!empty($_GET['pagina'])&& $_GET['pagina']!== "manual") {
+if (!empty($_GET['pagina'])&& $_GET['pagina']!== "manual" && $_GET['pagina']!== "token") {
     if (isset($_GET['pagina']) && isset($_GET['key'])) {
         $encoded_encrypted_url = $_GET['pagina'];
         $encoded_key = $_GET['key'];
