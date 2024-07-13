@@ -66,7 +66,8 @@ function generateEncryptedLink($url, $img) {
 		<ul class="list-unstyled component m-0">
 			<!-------1 PAGINA------------>
 			<li class="">
-				<a href="?pagina=principal" class="">Inicio </a>
+			<?php echo generateEncryptedLink("principal", 'Inicio');?>
+
 			</li>
 			<!-------2 PAGINA------------>
 			<?php
