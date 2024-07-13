@@ -1120,9 +1120,9 @@ class inscripciones extends datos
 
             $resultado = $co->prepare("SELECT secciones_años.id, años.anos, secciones.secciones, secciones_años.cantidad,secciones_años.estado FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id ORDER by  años.anos, secciones.secciones AND secciones.estado=1 and años.estado=1 and secciones_años.cantidad=0;");
             $resultado->execute();
-            $respuesta = "";
+
             $respuesta2 = "";
-            $respuesta2 = $respuesta2 . '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
+            $respuesta2 =  '<option value="seleccionar" selected hidden>-Seleccionar-</option>';
 
             foreach ($resultado as $r) {
                 if ($r['cantidad'] > 0 && $r['secciones'] != "vacia" && $r['estado'] != 0) {
