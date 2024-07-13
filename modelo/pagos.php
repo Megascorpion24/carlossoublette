@@ -31,8 +31,9 @@ class pagos extends datos{
     
 
     public function set_id($valor){
-        if (preg_match("/^[0-9]{1,5}$/", $valor)) {
-            $this->id = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[0-9]{1,5}$/", $cexryp)) {
+            $this->id = $cexryp; 
             return true;
             }else{
                 return false;
