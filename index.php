@@ -37,7 +37,7 @@ if (!empty($_GET['pagina'])&& $_GET['pagina']!== "manual") {
     } else {
         echo "No se proporcionó una URL o clave encriptada.";
     }
-}else{
+}else if($pagina !== "login"){
 	$pagina = $_GET['pagina'];
 }
 
