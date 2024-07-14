@@ -763,15 +763,24 @@ function ver(id){
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 function eliminar(id){
+    var publicKey = `-----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl/s/lMg8oJcuiz4vRlYu
+    Q96OFjlwhIy/cpEXgYxtr/NV47BNISKv+4L0IulDkcYsTj8YjuCX6dZV0dy60yOr
+    MxTVWb162pfVvOQmHDzB4OUQGy+ksjvuUFnpmZ20vY7BzWIp2a2esBluiHAnAz8I
+    rWmZvgok6iaOunkcdmfbb88ZYnPucPIy0g0f1ndQgs9oRQ4VdNC6fQYyH3gZMBHf
+    fy8naxxpz8ew8CT2bM1QbLZUWVsB3ISn7zge3+GzIgUn8s2DolSlZ1/DCEVhf1sA
+    Ok9k828PnOT4EW/L++7I+JlZ5ExuEXLm45zccpoKrwDllrbDjVTtVo3ASmeE5jJU
+    gQIDAQAB
+    -----END PUBLIC KEY-----`;
     $("#idE").val(id);
     $("#borrar").on("click", function(){
 
-        var idE = $('#idE').val();
+        var id = $('#idE').val();
 
         var encrypt = new JSEncrypt();
         encrypt.setPublicKey(publicKey);
 
-        var encryptedid = encrypt.encrypt(idE);
+        var encryptedid = encrypt.encrypt(id);
 
         $('#idE').val(encryptedid);
        
