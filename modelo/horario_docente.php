@@ -172,7 +172,7 @@ class horario extends datos
                 return $result;
             }
 
-            $resultado2 = $co->prepare("SELECT * from  ano_academico");
+            $resultado2 = $co->prepare("SELECT * from  ano_academico where estado = 1");
 			
     
     
@@ -181,12 +181,21 @@ class horario extends datos
                     $fecha_ini="";
                     $fecha_cierr="";
         
-                    foreach($resultado2 as $r){
+                    if ($resultado2->rowCount() > 0) {
+                        // Si hay algún resultado, then it means there is an academic year in progress
+                        foreach($resultado2 as $r){
                        
-                        $respuesta2=$r["id"];
-                        $fecha_ini=$r["fecha_ini"];
-                        $fecha_cierr=$r["fecha_cierr"];
+                            $respuesta2=$r["id"];
+                            $fecha_ini=$r["fecha_ini"];
+                            $fecha_cierr=$r["fecha_cierr"];
+                        }
+                    } else {
+                        // Si no hay resultado, then it means there is no academic year in progress
+                        $respuesta2 = "4No hay un año académico en curso";
+                        return $respuesta2;
                     }
+
+                    
                   
                   
                   
