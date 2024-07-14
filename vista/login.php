@@ -119,7 +119,8 @@
           <!-- Boton Recuperar Contraseña -->  
           <br>
           <div class="change-password">
-            <a href="?pagina=recuperar" class="">Recuperar contraseña</a>
+          <?php echo generateEncryptedLink("recuperar", 'Recuperar contraseña');?>
+
           </div>
 
           <!-- Boton Envio de formulario -->
@@ -171,3 +172,28 @@
 
 </html>
 
+<?php
+function generateEncryptedLink($url, $img) {
+    // Generar una clave de encriptación segura
+    $key = openssl_random_pseudo_bytes(32); // AES-256 requiere una clave de 32 bytes
+    $encoded_key = base64_encode($key); // Codificar la clave en base64 para almacenarla o transmitirla
+
+    // Método de encriptación (AES-256-CBC en este caso)
+    $method = "AES-256-CBC";
+
+    // Generar un IV (vector de inicialización) aleatorio
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+
+    // Encriptar la URL
+    $encrypted_url = openssl_encrypt($url, $method, $key, 0, $iv);
+
+    // Codificar el resultado en base64, incluyendo el IV
+    $encrypted_url = base64_encode($encrypted_url . '::' . base64_encode($iv));
+
+    // Codificar la URL encriptada para que sea segura en una URL
+    $encoded_encrypted_url = urlencode($encrypted_url);
+
+    // Generar la etiqueta <a> con la URL encriptada y la clave como parámetros
+    return '<a href="?pagina=' . $encoded_encrypted_url . '&key=' . urlencode($encoded_key) . '">' . $img . '</a>';
+}
+?>
