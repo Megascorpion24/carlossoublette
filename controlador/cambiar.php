@@ -21,10 +21,10 @@ $o = new cambiar();
 			header('Location:index.php');
 		} elseif ($expiracion === "token valido") {
 			// El token es válido, puedes continuar con la sesión del usuario
-			echo "El token es válido, puedes continuar con tu sesión.";
+		
 		} else {
 			// Si el mensaje devuelto no es "token expirado" ni "token valido", puedes mostrar un mensaje de error
-			echo "Ha ocurrido un error en la función expiracion1().";
+			echo "Ha ocurrido un error";
 		}
 			
 		

@@ -335,6 +335,9 @@ class horario extends datos
            
         } catch (Exception $e) {
             return $e->getMessage();
+            $co->exec("ROOLBACK");
+            $co->exec("COMMIT");
+
         }
     }
     //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
