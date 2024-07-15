@@ -226,6 +226,7 @@ class pagos extends datos{
         if(!$this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
             try{
                 $co->exec("SET AUTOCOMMIT = 0");
+                $co->exec("LOCK TABLES pagos WRITE, deudas WRITE");                    
                 $co->exec("START TRANSACTION");
 
                 $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
@@ -301,16 +302,20 @@ class pagos extends datos{
                 $r->bindParam(':estado',$this->estado);
                 $r->execute();
 //<!----------------------------PAGO UNICO DE MENSUALIDAD-----------------------------------------------------------------------------------------------------------------------> 
+           
 
-  
-                $co->exec("COMMIT");
-                $co->exec("SET AUTOCOMMIT = 1");
+                
 
                 $this->bitacora("se registro un pago", "Pagos",$this->nivel);
                 return "1PAGO REGISTRADO CON EXITO";	
                 
+                $co->exec("UNLOCK TABLES");
+                $co->exec("SET AUTOCOMMIT = 1");
+
             }catch(Exception $e){
                 return $e->getMessage();
+                $co->exec("ROOLBACK");
+                $co->exec("COMMIT");
             }
             }
             else{
