@@ -94,6 +94,15 @@ class ano_academico extends datos{
         
             try{
 
+
+                $co->exec("SET AUTOCOMMIT = 0");
+                $co->exec("LOCK TABLES ano_academico WRITE");                    
+                $co->exec("START TRANSACTION");
+                $co->exec("SAVEPOINT savepoint1");
+
+
+
+
                 $estado = 1;
 
                 $estatus = "HABILITADO";
@@ -151,9 +160,14 @@ class ano_academico extends datos{
              
                     return "1Registro Incluido";	
                 
-            }catch(Exception $e){
-                return $e->getMessage();
-            }
+                    $co->exec("UNLOCK TABLES");
+                    $co->exec("SET AUTOCOMMIT = 1");
+    
+                }catch(Exception $e){
+                    return $e->getMessage();
+                    $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                    $co->exec("COMMIT");
+                }
   }
 
  //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
@@ -170,6 +184,13 @@ class ano_academico extends datos{
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if($this->existe($this->id, "Select * from ano_academico where id=:id", ':id')){
                 try{
+
+                    $co->exec("SET AUTOCOMMIT = 0");
+                    $co->exec("LOCK TABLES ano_academico WRITE");                    
+                    $co->exec("START TRANSACTION");
+                    $co->exec("SAVEPOINT savepoint1");
+
+
 
             $consulta = "SELECT * FROM ano_academico WHERE estado = :estado;";
             $r = $co->prepare($consulta);
@@ -224,9 +245,14 @@ class ano_academico extends datos{
                  
                         return "2Registro modificado";	
                     
-                }catch(Exception $e){
-                    return $e->getMessage();
-                }
+                        $co->exec("UNLOCK TABLES");
+                        $co->exec("SET AUTOCOMMIT = 1");
+        
+                    }catch(Exception $e){
+                        return $e->getMessage();
+                        $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                        $co->exec("COMMIT");
+                    }
                     
                 }
                 else{
@@ -462,7 +488,13 @@ private function eliminar1(){
 
         try {
 
-        
+                $co->exec("SET AUTOCOMMIT = 0");
+                $co->exec("LOCK TABLES ano_academico WRITE,ano_estudiantes WRITE,estudiantes WRITE,horario_ano WRITE,horario_docente WRITE,ano_secciones WRITE,secciones_años WRITE,deudas WRITE,eventos WRITE");                    
+                $co->exec("START TRANSACTION");
+                $co->exec("SAVEPOINT savepoint1");
+
+
+                
                 $r=$co->prepare("UPDATE ano_academico 
 
                 INNER JOIN ano_estudiantes 
@@ -505,9 +537,14 @@ private function eliminar1(){
                 return "3Registro Eliminado";
 
                 
-        } catch(Exception $e) {
-            return $e->getMessage();
-        }
+                $co->exec("UNLOCK TABLES");
+                $co->exec("SET AUTOCOMMIT = 1");
+
+            }catch(Exception $e){
+                return $e->getMessage();
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                $co->exec("COMMIT");
+            }
         
     
 

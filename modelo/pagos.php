@@ -228,6 +228,7 @@ class pagos extends datos{
                 $co->exec("SET AUTOCOMMIT = 0");
                 $co->exec("LOCK TABLES pagos WRITE, deudas WRITE");                    
                 $co->exec("START TRANSACTION");
+                $co->exec("SAVEPOINT savepoint1");
 
                 $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
                                   VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
@@ -314,7 +315,7 @@ class pagos extends datos{
 
             }catch(Exception $e){
                 return $e->getMessage();
-                $co->exec("ROOLBACK");
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
                 $co->exec("COMMIT");
             }
             }
@@ -341,7 +342,9 @@ class pagos extends datos{
                 try{
 
                     $co->exec("SET AUTOCOMMIT = 0");
+                    $co->exec("LOCK TABLES pagos WRITE");                    
                     $co->exec("START TRANSACTION");
+                    $co->exec("SAVEPOINT savepoint1");
 
                     $r= $co->prepare("INSERT INTO pagos( id_deudas, identificador, concepto, forma, fecha, fechad, monto, meses, estado, estado_pagos,estatus )
                     VALUES(:id_deudas,:identificador,:concepto, :forma, :fecha, :fechad, :monto, :meses, :estado ,:estado_pagos,:estatus)  ");
@@ -360,15 +363,20 @@ class pagos extends datos{
                     $r->bindParam(':estado_pagos',$estado_pagos);	
                     $r->bindParam(':estatus',$estatus);	
                     $r->execute();
-            
-                    $co->exec("COMMIT");
-                    $co->exec("SET AUTOCOMMIT = 1");
+
+
+              
 
                     $this->bitacora("se registro un pago", "Pagos",$this->nivel);
                     return "1PAGO REGISTRADO CON EXITO";	
                     
+                    $co->exec("UNLOCK TABLES");
+                    $co->exec("SET AUTOCOMMIT = 1");
+
                 }catch(Exception $e){
                     return $e->getMessage();
+                    $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                    $co->exec("COMMIT");
                 }
                     
                 }
@@ -406,6 +414,11 @@ private function modificar1(){
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
         try{
+
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES pagos WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
             
             $r= $co->prepare("UPDATE pagos SET 
                     
@@ -437,10 +450,15 @@ private function modificar1(){
             $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          
                 return "2REGISTRO MODIFICADO";
-            
-        }catch(Exception $e){
-            return $e->getMessage();
-        }
+               
+                $co->exec("UNLOCK TABLES");
+                $co->exec("SET AUTOCOMMIT = 1");
+
+            }catch(Exception $e){
+                return $e->getMessage();
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                $co->exec("COMMIT");
+            }
             
         }
         else{
@@ -492,7 +510,10 @@ private function modificarMM(){
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe2($this->codigo)){
         try{
-
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES montos WRITE, deudas WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
 
             $fechaActual = date("Y-m-d");
             $file = "dolar-bcv.json";
@@ -557,8 +578,13 @@ private function modificarMM(){
          
             return "2REGISTRO MODIFICADO";	
             
+            $co->exec("UNLOCK TABLES");
+            $co->exec("SET AUTOCOMMIT = 1");
+
         }catch(Exception $e){
             return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            $co->exec("COMMIT");
         }
     }
     else{
@@ -597,7 +623,10 @@ private function registrarp1(){
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe($this->id, "Select * from pagos where id=:id and estatus = '1'", ':id')){
         try{
-            
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES pagos WRITE, deudas WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
             
             $r= $co->prepare("UPDATE pagos SET 
                     
@@ -688,8 +717,13 @@ private function registrarp1(){
          
                 return "1PAGO CONFIRMADO";	
             
+            $co->exec("UNLOCK TABLES");
+            $co->exec("SET AUTOCOMMIT = 1");
+
         }catch(Exception $e){
             return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            $co->exec("COMMIT");
         }
             
         }

@@ -42,7 +42,7 @@ public function __construct() {
 
 
     protected function conecta() {
-        $pdo = new PDO("mysql:host=".$this->ip.";dbname=".$this->bd."", $this->usuario, $this->contrasena);
+        $pdo = new PDO("mysql:host=".$this->ip.";dbname=".$this->bd."2000", $this->usuario, $this->contrasena);
         $pdo->exec("set names utf8");
         return $pdo;
     }
