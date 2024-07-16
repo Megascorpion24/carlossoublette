@@ -133,9 +133,9 @@
 			<select name="rol" id="rol" class="form-control" >
 
 			<?php
-    if(!empty($rol) ){
+    if(!empty($rolr) ){
 
-        echo $rol;
+        echo $rolr;
     }
 ?>
 			</select>
@@ -203,9 +203,9 @@
 			<select name="rol1" id="rol1" class="form-control" >
 
 			<?php
-    if(!empty($rol) ){
+    if(!empty($rolr) ){
 
-        echo $rol;
+        echo $rolr;
     }
 ?>
 			</select>
