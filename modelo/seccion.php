@@ -452,9 +452,15 @@ private function modificar1(){
 
             $this->bitacora("se modifico una seccion", "secciones",$this->nivel);
 
+            $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
             return "2Registro Modificado";
-        } catch (Exception $e) {
+            $co->exec("SET AUTOCOMMIT = 1");
+ 
+        }catch(Exception $e){
             return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            
         }
     } else { 
  
@@ -484,10 +490,15 @@ private function modificar1(){
        
             $this->bitacora("se modifico Docente Guia o Cantidad de la Seccion", "secciones",$this->nivel);
 
-
+            $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
             return "2Registro Modificado"; 
-        } catch (Exception $e) {
+            $co->exec("SET AUTOCOMMIT = 1");
+ 
+        }catch(Exception $e){
             return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            
         }
     } 
 
