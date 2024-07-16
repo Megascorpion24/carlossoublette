@@ -232,9 +232,16 @@ private function modificar1(){
             }
 
             $this->bitacora("se modificó una materia", "materias", $this->nivel);
+
+            $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
             return "2Registro Modificado";
-        } catch (Exception $e) {
+            $co->exec("SET AUTOCOMMIT = 1");
+
+        }catch(Exception $e){
             return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+           
         }
     } else {
         try {
@@ -242,9 +249,16 @@ private function modificar1(){
             $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
 
             $this->bitacora("se modificó Docente de una materia", "materias", $this->nivel);
+
+            $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
             return "2Registro Modificado";
-        } catch (Exception $e) {
-            return "Error al manejar docentes: " . $e->getMessage();
+            $co->exec("SET AUTOCOMMIT = 1");
+
+        }catch(Exception $e){
+            return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+           
         }
     }
 }
