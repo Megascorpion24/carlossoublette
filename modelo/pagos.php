@@ -308,15 +308,15 @@ class pagos extends datos{
                 
 
                 $this->bitacora("se registro un pago", "Pagos",$this->nivel);
+
+                $co->exec("UNLOCK TABLES");            
+                $co->exec("COMMIT");
                 return "1PAGO REGISTRADO CON EXITO";	
-                
-                $co->exec("UNLOCK TABLES");
-                $co->exec("SET AUTOCOMMIT = 1");
+                $co->exec("SET AUTOCOMMIT = 1");            
 
             }catch(Exception $e){
                 return $e->getMessage();
-                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                $co->exec("COMMIT");
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");                
             }
             }
             else{
@@ -368,9 +368,11 @@ class pagos extends datos{
               
 
                     $this->bitacora("se registro un pago", "Pagos",$this->nivel);
-                    return "1PAGO REGISTRADO CON EXITO";	
+               
                     
                     $co->exec("UNLOCK TABLES");
+                    $co->exec("COMMIT");
+                    return "1PAGO REGISTRADO CON EXITO";	
                     $co->exec("SET AUTOCOMMIT = 1");
 
                 }catch(Exception $e){
@@ -576,15 +578,17 @@ private function modificarMM(){
 
             $this->bitacora("se modifico un monto", "Pagos",$this->nivel);
          
-            return "2REGISTRO MODIFICADO";	
+        
             
             $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
+            return "2REGISTRO MODIFICADO";	
             $co->exec("SET AUTOCOMMIT = 1");
 
         }catch(Exception $e){
             return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-            $co->exec("COMMIT");
+         
         }
     }
     else{
@@ -715,15 +719,17 @@ private function registrarp1(){
 
             $this->bitacora("se confirmo un pago", "Pagos",$this->nivel);
          
-                return "1PAGO CONFIRMADO";	
+            
             
             $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
+            return "1PAGO CONFIRMADO";	
             $co->exec("SET AUTOCOMMIT = 1");
 
         }catch(Exception $e){
             return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-            $co->exec("COMMIT");
+          
         }
             
         }
