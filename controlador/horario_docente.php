@@ -10,6 +10,10 @@ $key = $_ENV['JWT_SECRET_KEY'];
 
 if(isset($_COOKIE['token'])){
 	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+	$nivel = $decoded->resultado->user;
+    $rol =  $decoded->resultado->rol;
+    $nivel1 = $decoded->resultado->permisos;
+    $name = $decoded->resultado->name;
 } else {
 	header('location:index.php');
 }
@@ -26,26 +30,7 @@ require_once("modelo/".$pagina.".php");
 
 
 
-		if(empty($_SESSION)){
-			session_start();
-			}
-  
-			  if(isset($_SESSION['usuario'])){
-			   $nivel = $_SESSION['usuario'];
-			}
-			else{
-				$nivel = "";
-			}
-			
-	  
-				  if(isset($_SESSION['permisos'])){
-				   $nivel1 = $_SESSION['permisos'];
-			  
-				}
-				else{
-					$nivel1 = "";
-				}
-
+		
 		
 		$o = new horario();
 		if(!empty($_POST['accion'])){
@@ -143,15 +128,7 @@ require_once("modelo/".$pagina.".php");
 
 		  if(!empty($_POST['consultaAno'])){
 
-			if(isset($_SESSION['permisos'])){
-				$nivel1 = $_SESSION['permisos'];
-		   
-			 }
-			 else{
-				 $nivel1 = "";
-			 }
-			
-			
+						
 			$consuta=$o->consultar($nivel1, $_POST['consultaAno']);
 			
 			echo $consuta;
@@ -179,13 +156,6 @@ require_once("modelo/".$pagina.".php");
 
 		  if(!empty($_POST['consulta'])){
 	
-			if(isset($_SESSION['permisos'])){
-				$nivel1 = $_SESSION['permisos'];
-		   
-			 }
-			 else{
-				 $nivel1 = "";
-			 }
 			
 			
 			$consuta=$o->consultar($nivel1, 0);

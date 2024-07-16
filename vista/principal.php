@@ -1,23 +1,5 @@
 
-<?php
 
-
-
-
-
-require 'vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
-$dotenv->load();
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
-$key = $_ENV['JWT_SECRET_KEY'];
-
-if(isset($_COOKIE['token'])){
-	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
-} 
-
-?>
 
 <!DOCTYPE html>
 <html lang="es">

@@ -111,6 +111,15 @@ class eventos extends datos{
         if(!$this->existe($this->id, "Select * from eventos where id=:id", ':id')){
             try{
 
+
+
+                $co->exec("SET AUTOCOMMIT = 0");
+                $co->exec("LOCK TABLES eventos WRITE, eventos_docente WRITE");                    
+                $co->exec("START TRANSACTION");
+                $co->exec("SAVEPOINT savepoint1");
+
+
+
                 $estado = 1;
 
                 $r= $co->prepare("Insert into eventos(
@@ -171,11 +180,14 @@ class eventos extends datos{
 
                 $this->bitacora("se registro un evento", "eventos", $this->nivel);
 
-             
+                    $co->exec("UNLOCK TABLES");
+                    $co->exec("COMMIT");
                     return "1Registro Incluido";	
+                    $co->exec("SET AUTOCOMMIT = 1");
                 
             }catch(Exception $e){
                 return $e->getMessage();
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
             }
         }
             else{
@@ -257,6 +269,15 @@ public function ano_academico(){
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if($this->existe($this->id, "Select * from eventos where id=:id", ':id')){
                 try{
+
+
+                    $co->exec("SET AUTOCOMMIT = 0");
+                    $co->exec("LOCK TABLES eventos WRITE");                    
+                    $co->exec("START TRANSACTION");
+                    $co->exec("SAVEPOINT savepoint1");
+
+
+
                     $r= $co->prepare("Update eventos set 
                             
                        
@@ -291,12 +312,15 @@ public function ano_academico(){
 
                     $this->bitacora("se modifico un evento", "eventos", $this->nivel);
     
-                 
+                        $co->exec("UNLOCK TABLES");
+                        $co->exec("COMMIT");
                         return "2Registro modificado";	
-                    
-                }catch(Exception $e){
-                    return $e->getMessage();
-                }
+                        $co->exec("SET AUTOCOMMIT = 1");
+                
+                    }catch(Exception $e){
+                        return $e->getMessage();
+                        $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                    }
                     
                 }
                 else{
@@ -481,18 +505,31 @@ private function eliminar1(){
     
 
         try {
+
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES eventos WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
+
+
+
+
         
                 $r=$co->prepare("UPDATE `eventos` SET `estado`= 0 WHERE id=:id");
                 $r->bindParam(':id', $this->id);
                 $r->execute();
 
                 $this->bitacora("se elimino un evento", "eventos", $this->nivel);
+              
+                $co->exec("UNLOCK TABLES");
+                $co->exec("COMMIT");
                 return "3Registro Eliminado";
-
+                $co->exec("SET AUTOCOMMIT = 1");
                 
-        } catch(Exception $e) {
-            return $e->getMessage();
-        }
+            }catch(Exception $e){
+                return $e->getMessage();
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            }
         
     
 

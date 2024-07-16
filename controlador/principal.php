@@ -1,4 +1,21 @@
 <?php 
+require 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
+$dotenv->load();
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+$key = $_ENV['JWT_SECRET_KEY'];
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+	$nivel = $decoded->resultado->user;
+    $rol =  $decoded->resultado->rol;
+    $nivel1 = $decoded->resultado->permisos;
+    $name = $decoded->resultado->name;
+} else {
+	header('location:index.php');
+}
 if (!is_file("modelo/".$pagina.".php")){
 	
 	echo "Falta definir la clase ".$pagina;

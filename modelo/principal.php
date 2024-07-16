@@ -101,45 +101,8 @@ class principal extends datos{
 
 
 
-                        if (strtotime($fecha) >= strtotime($nueva_fecha)) {
-                            $r= $co->prepare("Insert into deudas(
-						
-                                id_estudiante,
-                                monto,
-                                concepto,
-                                fecha,
-                                estado,
-                                estado_deudas
-                                )
-                                Values(
-                                :id_estudiante,
-                                :monto,
-                                :concepto,
-                                :fecha,
-                                :estado,
-                                :estado_deudas                                                            
-                                )");       
-                                $fecha= date('Y-m-d');
-                                $monto="0";
-                                $concepto="mensualidad";
-                                $estado=1;
-                            $r->bindParam(':id_estudiante', $r1);	
-                            $r->bindParam(':monto',$monto);	
-                            $r->bindParam(':concepto', $concepto);	
-                            $r->bindParam(':fecha',$fecha);	
-                            $r->bindParam(':estado',$estado);	
-                            $r->bindParam(':estado_deudas',$estado);
-                            $r->execute();
-
-
-                            $r= $co->prepare("UPDATE pagos set estado_pagos=0 where id =:id ");
-                            $r->bindParam(':id',$r3);                       	                           
-                            $r->execute();
-
-                        $this->bitacora("se genero una deuda", "principal",$this->nivel);        
-                        }
                     }
-        
+   
                     $r= $co->prepare("UPDATE deudas SET estado_deudas = 1 WHERE fecha <= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND estado = 1 AND concepto = 'mensualidad'");                      
                     $r->bindParam(':concepto', $concepto);	
                     $r->bindParam(':fecha',$fecha);	
@@ -173,44 +136,44 @@ class principal extends datos{
                     $resultado->execute();
                     $resultado1 = $co->prepare("SELECT * FROM notificaciones WHERE notificaciones.estado=1");
                     $resultado1->execute();
-    if (!empty($resultado)) {
-        $r1="";
-        $r2="";
-        $r3="";
-        $r4="";
-        $r5="";
-        $p1="";
-        foreach($resultado1 as $r){
-        $p1=$r['mensaje'];
+                    if (!empty($resultado)) {
+                        $r1="";
+                        $r2="";
+                        $r3="";
+                        $r4="";
+                        $r5="";
+                        $p1="";
+                        foreach($resultado1 as $r){
+                        $p1=$r['mensaje'];
 
-        }
-        foreach($resultado as $r){
-            $r1=$r['id'];
-            $r2=$r['id_estudiante'];
-            $r3=$r['nombre'];
-            $r4=$r['concepto'];
-            $r5=$r['correo'];
+                        }
+                        foreach($resultado as $r){
+                            $r1=$r['id'];
+                            $r2=$r['id_estudiante'];
+                            $r3=$r['nombre'];
+                            $r4=$r['concepto'];
+                            $r5=$r['correo'];
            
 
-if (!$p1=='hay una deuda pendiente con concepto de: $r4 que corresponde al estudiante: $r3, $r2') {
-    
+                if (!$p1=='hay una deuda pendiente con concepto de: $r4 que corresponde al estudiante: $r3, $r2') {
+                    
 
 
-        
-            $r= $co->prepare("Insert into notificaciones(
-						
-                mensaje,
-                estado,
-                titulo
-                )
+                        
+                            $r= $co->prepare("Insert into notificaciones(
+                                        
+                                mensaje,
+                                estado,
+                                titulo
+                                )
 
-        Values( 'hay una deuda pendiente con concepto de: $r4 que corresponde al estudiante: $r3, $r2',
-                1,
-                'pago de deuda'
-        )"
-    );
-    $r->execute();
-    $mail = new PHPMailer(true);
+                        Values( 'hay una deuda pendiente con concepto de: $r4 que corresponde al estudiante: $r3, $r2',
+                                1,
+                                'pago de deuda'
+                        )"
+                    );
+                    $r->execute();
+                    $mail = new PHPMailer(true);
 
                   
                         
