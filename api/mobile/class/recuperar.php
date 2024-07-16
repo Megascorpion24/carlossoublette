@@ -4,7 +4,7 @@ require_once('../../../vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../..');
 $dotenv->load(); 
 require_once('../../../modelo/recuperar.php');
-require_once '../../auth/security.php';
+// require_once '../../auth/security.php';
  
 $r = new recuperar();
 $data = json_decode(file_get_contents("php://input"));
@@ -13,10 +13,11 @@ $data = json_decode(file_get_contents("php://input"));
 if (isset($data->User) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
-        $UserDecrypt = decryptData(base64_decode($data->User));
+        // $UserDecrypt = decryptData(base64_decode($data->User));
+    $User=$data->User;
 
-    preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $UserDecrypt)
-    ? $r->set_usuario($UserDecrypt) 
+    preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]*$/", $User)
+    ? $r->set_usuario($User) 
     : throw new InvalidArgumentException("El usuario no cumple con el formato permitido");
 
     $resultado = $r->busca(); 
