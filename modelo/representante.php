@@ -125,6 +125,17 @@ class tutor_legal extends datos{
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if(!$this->existe($this->cedula, "Select * from tutor_legal where cedula=:cedula and estado = '1'", ':cedula')){
             try{
+
+
+
+                $co->exec("SET AUTOCOMMIT = 0");
+                $co->exec("LOCK TABLES tutor_legal WRITE, usuarios WRITE, usuarios_tutor WRITE");                    
+                $co->exec("START TRANSACTION");
+                $co->exec("SAVEPOINT savepoint1");
+
+
+
+
                 $r= $co->prepare("Insert into tutor_legal(
 						
                     cedula,
@@ -221,11 +232,14 @@ class tutor_legal extends datos{
 
                 $this->bitacora("se registro un representante", "representantes",$this->nivel);
              
+                $co->exec("UNLOCK TABLES");            
+                $co->exec("COMMIT");
                 return "1REGISTRADO CON EXITO";
-                
+                $co->exec("SET AUTOCOMMIT = 1");            
+
             }catch(Exception $e){
-                
                 return $e->getMessage();
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");                
             }
         }
             else{
@@ -258,6 +272,16 @@ class tutor_legal extends datos{
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if($this->existe($this->cedula, "Select * from tutor_legal where cedula=:cedula and estado = '1'", ':cedula')){
                 try{
+
+
+                    $co->exec("SET AUTOCOMMIT = 0");
+                    $co->exec("LOCK TABLES tutor_legal WRITE");                    
+                    $co->exec("START TRANSACTION");
+                    $co->exec("SAVEPOINT savepoint1");
+
+
+
+
                     $r= $co->prepare("Update tutor_legal set 
                             
                        
@@ -290,11 +314,15 @@ class tutor_legal extends datos{
 
                     
                     $this->bitacora("se modifico un representante", "representantes",$this->nivel);
-                    
-                    return "2REGISTRO MODIFICADO";
-                    
+
+                    $co->exec("UNLOCK TABLES");            
+                    $co->exec("COMMIT");
+                    return "2REGISTRO MODIFICADO";                   
+                    $co->exec("SET AUTOCOMMIT = 1");            
+
                 }catch(Exception $e){
                     return $e->getMessage();
+                    $co->exec("ROLLBACK TO SAVEPOINT savepoint1");                
                 }
                     
                 }
@@ -428,7 +456,10 @@ public function eliminar1(){
     if($this->existe($this->cedula, "Select * from tutor_legal where cedula=:cedula and estado = '1'", ':cedula')){
         try {
 
-
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES tutor_legal WRITE,estudiantes_tutor WRITE,estudiantes WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
 
 
         $resultado = $co->prepare("SELECT e.*, et.*
@@ -452,13 +483,19 @@ public function eliminar1(){
                 $r->execute();
 
                 $this->bitacora("Se Elimino Un Representante", "Pagos",$this->nivel);
+
+                $co->exec("UNLOCK TABLES");            
+                $co->exec("COMMIT");
                     return "3REGISTRO ELIMINADO";
                     }else{
                     return "4No se puede eliminar Tiene estudiante activo";
                     }                       
-                } catch(Exception $e) {
+                    $co->exec("SET AUTOCOMMIT = 1");            
+
+                }catch(Exception $e){
                     return $e->getMessage();
-                }        
+                    $co->exec("ROLLBACK TO SAVEPOINT savepoint1");                
+                }       
             }
       else{
             return "4CEDULA NO REGISTRADA";
