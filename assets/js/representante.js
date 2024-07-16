@@ -80,18 +80,62 @@ function CargarDataTable(){
 
 $(document).ready(function() { 
    
+
+
+
+
+    var publicKey = `-----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl/s/lMg8oJcuiz4vRlYu
+    Q96OFjlwhIy/cpEXgYxtr/NV47BNISKv+4L0IulDkcYsTj8YjuCX6dZV0dy60yOr
+    MxTVWb162pfVvOQmHDzB4OUQGy+ksjvuUFnpmZ20vY7BzWIp2a2esBluiHAnAz8I
+    rWmZvgok6iaOunkcdmfbb88ZYnPucPIy0g0f1ndQgs9oRQ4VdNC6fQYyH3gZMBHf
+    fy8naxxpz8ew8CT2bM1QbLZUWVsB3ISn7zge3+GzIgUn8s2DolSlZ1/DCEVhf1sA
+    Ok9k828PnOT4EW/L++7I+JlZ5ExuEXLm45zccpoKrwDllrbDjVTtVo3ASmeE5jJU
+    gQIDAQAB
+    -----END PUBLIC KEY-----`;
+
+
+
+
+
+
+
+
   
     CargarDataTable();
-
-
-
-
-
     
 
     $("#registrar").on("click", function() {
         if (validarenvio()) {
           
+            var cedula = $('#cedula').val();
+            var telefono = $('#telefono').val();
+            var apellido1 = $('#apellido1').val();
+            var apellido2 = $('#apellido2').val();
+            var correo = $('#correo').val();
+            var direccion = $('#direccion').val();
+            var contacto_emer = $('#contacto_emer').val();
+
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+            
+            var encryptedcedula= encrypt.encrypt(cedula);
+            var encryptedtelefono= encrypt.encrypt(telefono);
+            var encryptedapellido1= encrypt.encrypt(apellido1);
+            var encryptedapellido2= encrypt.encrypt(apellido2);
+            var encryptedcorreo= encrypt.encrypt(correo);
+            var encrypteddireccion= encrypt.encrypt(direccion);
+            var encryptedcontacto_emer= encrypt.encrypt(contacto_emer);
+
+            $('#cedula').val(encryptedcedula);
+            $('#telefono').val(encryptedtelefono);
+            $('#apellido1').val(encryptedapellido1);
+            $('#apellido2').val(encryptedapellido2);
+            $('#correo').val(encryptedcorreo);
+            $('#direccion').val(encrypteddireccion);
+            $('#contacto_emer').val(encryptedcontacto_emer);
+
+
             enviaAjax($("#f"));
             $('#addEmployeeModal').modal('hide');
             $('#f').trigger('reset');
@@ -106,6 +150,36 @@ $(document).ready(function() {
     $("#registrar2").on("click", function() {
         if (validarenvio1()) {
           
+
+            var cedula = $('#cedula1').val();
+            var telefono = $('#telefono1').val();
+            var apellido1 = $('#apellido11').val();
+            var apellido2 = $('#apellido21').val();
+            var correo = $('#correo1').val();
+            var direccion = $('#direccion1').val();
+            var contacto_emer = $('#contacto_emer1').val();
+
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+            
+            var encryptedcedula= encrypt.encrypt(cedula);
+            var encryptedtelefono= encrypt.encrypt(telefono);
+            var encryptedapellido1= encrypt.encrypt(apellido1);
+            var encryptedapellido2= encrypt.encrypt(apellido2);
+            var encryptedcorreo= encrypt.encrypt(correo);
+            var encrypteddireccion= encrypt.encrypt(direccion);
+            var encryptedcontacto_emer= encrypt.encrypt(contacto_emer);
+
+            $('#cedula1').val(encryptedcedula);
+            $('#telefono1').val(encryptedtelefono);
+            $('#apellido11').val(encryptedapellido1);
+            $('#apellido21').val(encryptedapellido2);
+            $('#correo1').val(encryptedcorreo);
+            $('#direccion1').val(encrypteddireccion);
+            $('#contacto_emer1').val(encryptedcontacto_emer);
+
+
+
             enviaAjax($("#f2"));
             $('#editEmployeeModal').modal('hide');
          
@@ -369,9 +443,35 @@ function modificar(id){
 
 
 
-    function eliminar(id){
-        $("#cedula2").val(id);
+    function eliminar(cedula){
+
+
+        var publicKey = `-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl/s/lMg8oJcuiz4vRlYu
+        Q96OFjlwhIy/cpEXgYxtr/NV47BNISKv+4L0IulDkcYsTj8YjuCX6dZV0dy60yOr
+        MxTVWb162pfVvOQmHDzB4OUQGy+ksjvuUFnpmZ20vY7BzWIp2a2esBluiHAnAz8I
+        rWmZvgok6iaOunkcdmfbb88ZYnPucPIy0g0f1ndQgs9oRQ4VdNC6fQYyH3gZMBHf
+        fy8naxxpz8ew8CT2bM1QbLZUWVsB3ISn7zge3+GzIgUn8s2DolSlZ1/DCEVhf1sA
+        Ok9k828PnOT4EW/L++7I+JlZ5ExuEXLm45zccpoKrwDllrbDjVTtVo3ASmeE5jJU
+        gQIDAQAB
+        -----END PUBLIC KEY-----`;
+
+
+
+        $("#cedula2").val(cedula);
         $("#borrar").on("click", function(){
+
+
+
+            var cedula = $('#cedula2').val();
+
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+    
+            var encryptedcedula = encrypt.encrypt(cedula);
+    
+            $('#cedula2').val(encryptedcedula);
+
            
         enviaAjax($("#f3"));   
         $('#deleteEmployeeModal').modal('hide');

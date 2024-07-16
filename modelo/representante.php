@@ -16,8 +16,9 @@ class tutor_legal extends datos{
     private $nivel;
 
     public function set_cedula($valor){
-        if (preg_match("/^[0-9]{6,8}$/", $valor)) {
-            $this->cedula = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[0-9]{6,8}$/", $cexryp)) {
+            $this->cedula = $cexryp; 
             return true;
             }else{
                 return false;
@@ -40,48 +41,54 @@ class tutor_legal extends datos{
             }
         }
     public function set_apellido1($valor){
-        if (preg_match("/^[A-Za-z]{4,20}$/", $valor)) {
-            $this->apellido1 = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[A-Za-z]{4,20}$/", $cexryp)) {
+            $this->apellido1 = $cexryp; 
             return true;
             }else{
                 return false;
             }
         }
 	public function set_apellido2($valor){
-        if (preg_match("/^[A-Za-z]{4,20}$/", $valor)) {
-            $this->apellido2 = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[A-Za-z]{4,20}$/", $cexryp)) {
+            $this->apellido2 = $cexryp; 
             return true;
             }else{
                 return false;
             }
         }
 	public function set_telefono($valor){
-        if (preg_match("/^[0-9]{11}$/", $valor)) {
-            $this->telefono = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[0-9]{11}$/", $cexryp)) {
+            $this->telefono = $cexryp; 
             return true;
             }else{
                 return false;
             }
         }
 	public function set_correo($valor){
-        if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $valor)) {
-            $this->correo = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $cexryp)) {
+            $this->correo = $cexryp; 
             return true;
             }else{
                 return false;
             }
         }
 	public function set_contacto_emer($valor){
-        if (preg_match("/^[0-9]{11}$/", $valor)) {
-            $this->contacto_emer = $valor; 
+        $cexryp=$this->decryptMessage($valor);
+        if (preg_match("/^[0-9]{11}$/", $cexryp)) {
+            $this->contacto_emer = $cexryp; 
             return true;
             }else{
                 return false;
             }
         }
         public function set_direccion($valor){
-            if (preg_match("/^[a-zA-Z0-9\s]{4,30}$/", $valor)) {
-                $this->direccion = $valor; 
+            $cexryp=$this->decryptMessage($valor);
+            if (preg_match("/^[a-zA-Z0-9\s]{4,30}$/", $cexryp)) {
+                $this->direccion = $cexryp; 
                 return true;
                 }else{
                     return false;
