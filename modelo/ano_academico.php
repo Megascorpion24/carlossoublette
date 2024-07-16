@@ -158,15 +158,17 @@ class ano_academico extends datos{
                 $this->bitacora("se registro un año academico", "ano_academico", $this->nivel);
 
              
-                    return "1Registro Incluido";	
+                    
                 
                     $co->exec("UNLOCK TABLES");
+                    $co->exec("COMMIT");
+                    return "1Registro Incluido";	
                     $co->exec("SET AUTOCOMMIT = 1");
     
                 }catch(Exception $e){
                     return $e->getMessage();
                     $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                    $co->exec("COMMIT");
+                    
                 }
   }
 
@@ -243,15 +245,17 @@ class ano_academico extends datos{
                     $this->bitacora("se modifico un año academico", "ano_academico", $this->nivel);
     
                  
-                        return "2Registro modificado";	
+                  
                     
                         $co->exec("UNLOCK TABLES");
+                        $co->exec("COMMIT");
+                        return "2Registro modificado";	
                         $co->exec("SET AUTOCOMMIT = 1");
         
                     }catch(Exception $e){
                         return $e->getMessage();
                         $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                        $co->exec("COMMIT");
+                        
                     }
                     
                 }
@@ -534,16 +538,18 @@ private function eliminar1(){
                 $this->bitacora("se elimino un año academico", "ano_academico", $this->nivel);
 
 
-                return "3Registro Eliminado";
+                
 
                 
                 $co->exec("UNLOCK TABLES");
+                $co->exec("COMMIT");
+                return "3Registro Eliminado";
                 $co->exec("SET AUTOCOMMIT = 1");
 
             }catch(Exception $e){
                 return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                $co->exec("COMMIT");
+                
             }
         
     

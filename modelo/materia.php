@@ -105,15 +105,17 @@ private function registrar1() {
 
 
             $this->bitacora("se registró una materia", "materias", $this->nivel);
-            return "1Registro Incluido";
+         
 
                 $co->exec("UNLOCK TABLES");
+                $co->exec("COMMIT");
+                return "1Registro Incluido";
                 $co->exec("SET AUTOCOMMIT = 1");
 
             }catch(Exception $e){
                 return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                $co->exec("COMMIT");
+               
             }
     } else {
         return "MATERIA Ya esta Registrada";
@@ -517,15 +519,17 @@ public function exists($nombre, $ano) {
                  $r->bindParam(':estado',$estado);
                  $r->execute();
                  $this->bitacora("se elimino una materia", "materias",$this->nivel);
-                 return "3Registro Eliminado";
+                 
                 
                  $co->exec("UNLOCK TABLES");
+                 $co->exec("COMMIT");
+                 return "3Registro Eliminado";
                  $co->exec("SET AUTOCOMMIT = 1");
  
              }catch(Exception $e){
                  return $e->getMessage();
                  $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                 $co->exec("COMMIT");
+                 
              }
         
 
