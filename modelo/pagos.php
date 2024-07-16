@@ -378,7 +378,7 @@ class pagos extends datos{
                 }catch(Exception $e){
                     return $e->getMessage();
                     $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                    $co->exec("COMMIT");
+            
                 }
                     
                 }
@@ -451,15 +451,17 @@ private function modificar1(){
 
             $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          
-                return "2REGISTRO MODIFICADO";
+              
                
                 $co->exec("UNLOCK TABLES");
+                $co->exec("COMMIT");
+                return "2REGISTRO MODIFICADO";
                 $co->exec("SET AUTOCOMMIT = 1");
 
             }catch(Exception $e){
                 return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
-                $co->exec("COMMIT");
+           
             }
             
         }
