@@ -476,7 +476,7 @@ private function modificar1(){
   //<!---------------------------------------------------------------------------------------------------------------------------------------------------->          
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
- public function dolar(){
+ /*public function dolar(){
 
 
     $co = $this->conecta();
@@ -500,7 +500,8 @@ private function modificar1(){
         }catch(Exception $e){
             return $e->getMessage();
         }
-    }
+    }*/
+
 
 
     
@@ -519,13 +520,12 @@ private function modificarMM(){
             $co->exec("START TRANSACTION");
             $co->exec("SAVEPOINT savepoint1");
 
-            $fechaActual = date("Y-m-d");
-            $file = "dolar-bcv.json";
-            $precio = obtenerPrecioBCVOnline($fechaActual, $file);
-            $r = $co->prepare("UPDATE dolar_venezuela SET  valor = :valor WHERE id = 1");    
+              /*$fechaActual = date("Y-m-d");
+                $file = "dolar-bcv.json";
+                $precio = obtenerPrecioBCVOnline($fechaActual, $file);
+                $r = $co->prepare("UPDATE dolar_venezuela SET  valor = :valor WHERE id = 1");    
                 $r->bindParam(':valor',$precio);	         
-                $r->execute();
-
+                $r->execute();*/
 
                 $r = $co->prepare("UPDATE montos SET 
                 tipo = :tipo,
