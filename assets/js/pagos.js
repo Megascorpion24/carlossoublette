@@ -158,37 +158,38 @@ $('#mibuscador3').select2({
 
 
 
-    $("#registrar").on("click", function() {
-        if (validarenvio()) {
-            var identificador = $('#identificador').val();
-            var monto = $('#monto').val();
-            var concepto = $('#concepto').val();
-            var fecha = $('#fecha').val();
-            var forma = $('#forma').val();
 
-            var encrypt = new JSEncrypt();
-            encrypt.setPublicKey(publicKey);
-            
-            var encrypted= encrypt.encrypt(identificador);
-            var encryptedmonto= encrypt.encrypt(monto);
-            var encryptedconcepto= encrypt.encrypt(concepto);
-            var encryptedfecha= encrypt.encrypt(fecha);
-            var encryptedforma= encrypt.encrypt(forma);
+$("#registrar").on("click", function() {
+    if (validarenvio()) {
+        var identificador = $('#identificador').val();
+        var monto = $('#monto').val();
+        var concepto = $('#concepto').val();
+        var fecha = $('#fecha').val();
+        var forma = $('#forma').val();
 
-            $('#identificador').val(encrypted);
-            $('#monto').val(encryptedmonto);
-            $('#concepto').val(encryptedconcepto);
-            $('#fecha0').val(encryptedfecha);
-            $('#forma0').val(encryptedforma);
-
-            enviaAjax($("#f"));
-            $('#addpago').modal('hide');
-            $('#f').trigger('reset');          
-           
-       }
+        var encrypt = new JSEncrypt();
+        encrypt.setPublicKey(publicKey);
         
+        var encrypted= encrypt.encrypt(identificador);
+        var encryptedmonto= encrypt.encrypt(monto);
+        var encryptedconcepto= encrypt.encrypt(concepto);
+        var encryptedfecha= encrypt.encrypt(fecha);
+        var encryptedforma= encrypt.encrypt(forma);
+
+        $('#identificador').val(encrypted);
+        $('#monto').val(encryptedmonto);
+        $('#concepto').val(encryptedconcepto);
+        $('#fecha0').val(encryptedfecha);
+        $('#forma0').val(encryptedforma);
+
+        enviaAjax($("#f"));
+        $('#addpago').modal('hide');
+        $('#f').trigger('reset');          
        
-    });
+   }
+    
+   
+});
 
     $("#registrarp").on("click", function() {
         if (validarenviop()) {
@@ -1511,45 +1512,46 @@ function validarenvioMM() {
 
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
-    function validarenvio() {
-        if (validarkeyup(/^[0-9]{1,5}$/,
-        $("#id_deudas"), $("#sid_deudas"), "La ID debe ser en el siguiente formato 0000") == 0) {
-            mensaje("La ID debe ser en el siguiente formato 0000");
-            return false;
-    
-        } else if (validarkeyup(/^[0-9-]{1,11}$/,
-        $("#monto"), $("#smonto"), "El formato puede ser valido") == 0) {
-            mensaje("El formato puede ser valido");
-            return false;
+function validarenvio() {
+    if (validarkeyup(/^[0-9]{1,5}$/,
+    $("#id_deudas"), $("#sid_deudas"), "La ID debe ser en el siguiente formato 0000") == 0) {
+        mensaje("La ID debe ser en el siguiente formato 0000");
+        return false;
 
-        } else if (validarkeyup(/^[0-9-]{4,11}$/,
-        $("#identificador"), $("#sidentificador"), "El formato puede ser 0000") == 0) {
-            mensaje("El formato puede ser 0000");
-            return false;
+    } else if (validarkeyup(/^[0-9-]{1,11}$/,
+    $("#monto"), $("#smonto"), "El formato puede ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
 
-        }  else if (validarkeyup(/^[A-Za-z]{4,20}$/,
-        $("#concepto"), $("#sconcepto"), "El formato debe ser valido") == 0) {
-            mensaje("El formato debe ser valido");
-            return false;
+    } else if (validarkeyup(/^[0-9-]{4,11}$/,
+    $("#identificador"), $("#sidentificador"), "El formato puede ser 0000") == 0) {
+        mensaje("El formato puede ser 0000");
+        return false;
 
-        } else if (validarkeyup(/^[-A-Za-z\s]{4,25}$/,
-        $("#forma"), $("#sforma"), "El formato debe ser valido") == 0) {
-            mensaje("El formato debe ser valido");
-            return false;
+    }  else if (validarkeyup(/^[A-Za-z]{4,20}$/,
+    $("#concepto"), $("#sconcepto"), "El formato debe ser valido") == 0) {
+        mensaje("El formato debe ser valido");
+        return false;
 
-        } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
-        $("#estado"), $("#sestado"), "El formato debe ser valido") == 0) {
-            mensaje("El formato puede ser valido");
-            return false;
+    } else if (validarkeyup(/^[-A-Za-z\s]{4,25}$/,
+    $("#forma"), $("#sforma"), "El formato debe ser valido") == 0) {
+        mensaje("El formato debe ser valido");
+        return false;
 
-        }  else if (validarkeyup(/^[1-9]{1,2}$/,
-        $("#meses"), $("#smeses"), "El formato puede ser valido") == 0) {
-            mensaje("El formato puede ser valido");
-            return false;
+  
+    } else if (validarkeyup(/^[A-Za-z\s]{4,20}$/,
+    $("#estado"), $("#sestado"), "El formato debe ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
 
-        } 
-        return true;
-    }
+    }  else if (validarkeyup(/^[1-9]{1,2}$/,
+    $("#meses"), $("#smeses"), "El formato puede ser valido") == 0) {
+        mensaje("El formato puede ser valido");
+        return false;
+
+    } 
+    return true;
+}
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
