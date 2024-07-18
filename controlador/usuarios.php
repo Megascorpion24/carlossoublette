@@ -1,5 +1,18 @@
 <?php 
+require 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable("../carlossoublette/");
+$dotenv->load();
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
+$key = $_ENV['JWT_SECRET_KEY'];
+
+if(isset($_COOKIE['token'])){
+	$decoded = JWT::decode($_COOKIE['token'], new Key($key, 'HS256'));
+	
+} else {
+	header('location:index.php');
+}
 if (!is_file("modelo/".$pagina.".php")){
 	
 	echo "Falta definir la clase ".$pagina;
@@ -155,7 +168,7 @@ require_once("modelo/".$pagina.".php");
 			
 			
 		  }
-		  $rol=$o->roles();
+		  $rolr=$o->roles();
 
 		  $consuta=$o->consultar($nivel1);
 		require_once("vista/".$pagina.".php");

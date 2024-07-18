@@ -107,6 +107,7 @@ class principal extends datos
 
 
 
+<<<<<<< HEAD
                 if (strtotime($fecha) >= strtotime($nueva_fecha) and  strtotime($fecha)<= strtotime($fecha1) ) {
                     $r = $co->prepare(
                         "Insert into notificaciones(						
@@ -121,6 +122,15 @@ class principal extends datos
                                 '$r1'
                                 )"
                     );
+=======
+                    }
+   
+                    $r= $co->prepare("UPDATE deudas SET estado_deudas = 1 WHERE fecha <= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND estado = 1 AND concepto = 'mensualidad'");                      
+                    $r->bindParam(':concepto', $concepto);	
+                    $r->bindParam(':fecha',$fecha);	
+                    $r->bindParam(':estado',$estado);	
+                    $r->bindParam(':estado_deudas',$estado);
+>>>>>>> 6a49ad086aaa04cd75b35daf0c7f00631b88c176
                     $r->execute();
 
                 }
@@ -128,6 +138,7 @@ class principal extends datos
             
 
 
+<<<<<<< HEAD
             }
             
             $r = $co->prepare("UPDATE deudas SET estado_deudas = 1 WHERE fecha <= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND estado = 1 AND concepto = 'mensualidad'");
@@ -206,6 +217,64 @@ class principal extends datos
                         $mail = new PHPMailer(true);
 
 
+=======
+
+
+
+
+
+
+
+//<!---------------------------------funcion modificar------------------------------------------------------------------>
+        public function notificaciones(){
+
+            $co = $this->conecta();
+            $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+         
+                try{
+                    $resultado = $co->prepare("SELECT deudas.id,deudas.concepto, deudas.id_estudiante, es.nombre, tutor_legal.correo FROM deudas INNER JOIN estudiantes on deudas.id_estudiante=estudiantes.cedula INNER JOIN estudiantes es on deudas.id_estudiante = es.cedula INNER JOIN estudiantes_tutor ON es.cedula = estudiantes_tutor.id_estudiantes INNER JOIN tutor_legal on estudiantes_tutor.id_tutor = tutor_legal.cedula WHERE deudas.estado_deudas=1 AND deudas.concepto='mensualidad'");
+                    $resultado->execute();
+                    $resultado1 = $co->prepare("SELECT * FROM notificaciones WHERE notificaciones.estado=1");
+                    $resultado1->execute();
+                    if (!empty($resultado)) {
+                        $r1="";
+                        $r2="";
+                        $r3="";
+                        $r4="";
+                        $r5="";
+                        $p1="";
+                        foreach($resultado1 as $r){
+                        $p1=$r['mensaje'];
+
+                        }
+                        foreach($resultado as $r){
+                            $r1=$r['id'];
+                            $r2=$r['id_estudiante'];
+                            $r3=$r['nombre'];
+                            $r4=$r['concepto'];
+                            $r5=$r['correo'];
+           
+
+                if (!$p1=='hay una deuda pendiente con concepto de: $r4 que corresponde al estudiante: $r3, $r2') {
+                    
+
+
+                        
+                            $r= $co->prepare("Insert into notificaciones(
+                                        
+                                mensaje,
+                                estado,
+                                titulo
+                                )
+
+                        Values( 'hay una deuda pendiente con concepto de: $r4 que corresponde al estudiante: $r3, $r2',
+                                1,
+                                'pago de deuda'
+                        )"
+                    );
+                    $r->execute();
+                    $mail = new PHPMailer(true);
+>>>>>>> 6a49ad086aaa04cd75b35daf0c7f00631b88c176
 
                         $mail->isSMTP();                                            //Send using SMTP
                         $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through

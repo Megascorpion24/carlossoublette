@@ -54,7 +54,6 @@ class materias extends datos{
 		$this->nivel = $valor; 
         return true;
 	}
- 
 
 
 private function registrar1() {
@@ -63,6 +62,18 @@ private function registrar1() {
 
     if (!$this->exists($this->nombre,$this->ano)) {
         try {
+
+
+
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES materias WRITE, años_materias WRITE, materias_docentes WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
+
+
+
+
+
             // ------Materia---
             $r = $co->prepare("INSERT into materias (nombre, estado) Values(:nombre, 1)");
             $r->bindParam(':nombre', $this->nombre);
@@ -94,10 +105,18 @@ private function registrar1() {
 
 
             $this->bitacora("se registró una materia", "materias", $this->nivel);
-            return "1Registro Incluido";
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
+         
+
+                $co->exec("UNLOCK TABLES");
+                $co->exec("COMMIT");
+                return "1Registro Incluido";
+                $co->exec("SET AUTOCOMMIT = 1");
+
+            }catch(Exception $e){
+                return $e->getMessage();
+                $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+               
+            }
     } else {
         return "MATERIA Ya esta Registrada";
     }
@@ -180,6 +199,18 @@ private function modificar1(){
 
     if (!$this->exists($this->nombre, $this->ano)) {
         try {
+
+
+
+
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES materias WRITE, años_materias WRITE, materias_docentes WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
+
+
+
+
             // Actualiza la materia en la tabla materias
             $r = $co->prepare("UPDATE materias SET nombre = :nombre WHERE id = :id");
             $r->bindParam(':nombre', $this->nombre);
@@ -201,9 +232,16 @@ private function modificar1(){
             }
 
             $this->bitacora("se modificó una materia", "materias", $this->nivel);
+
+            $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
             return "2Registro Modificado";
-        } catch (Exception $e) {
+            $co->exec("SET AUTOCOMMIT = 1");
+
+        }catch(Exception $e){
             return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+           
         }
     } else {
         try {
@@ -211,9 +249,16 @@ private function modificar1(){
             $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
 
             $this->bitacora("se modificó Docente de una materia", "materias", $this->nivel);
+
+            $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
             return "2Registro Modificado";
-        } catch (Exception $e) {
-            return "Error al manejar docentes: " . $e->getMessage();
+            $co->exec("SET AUTOCOMMIT = 1");
+
+        }catch(Exception $e){
+            return $e->getMessage();
+            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+           
         }
     }
 }
@@ -465,6 +510,12 @@ public function exists($nombre, $ano) {
     
 
          try {
+
+
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES materias WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
               
                 $estado=0;
                 $r= $co->prepare("UPDATE materias set 
@@ -482,11 +533,18 @@ public function exists($nombre, $ano) {
                  $r->bindParam(':estado',$estado);
                  $r->execute();
                  $this->bitacora("se elimino una materia", "materias",$this->nivel);
-                 return "3Registro Eliminado";
+                 
                 
-         } catch(Exception $e) {
-             return $e->getMessage();
-         }
+                 $co->exec("UNLOCK TABLES");
+                 $co->exec("COMMIT");
+                 return "3Registro Eliminado";
+                 $co->exec("SET AUTOCOMMIT = 1");
+ 
+             }catch(Exception $e){
+                 return $e->getMessage();
+                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                 
+             }
         
 
      }

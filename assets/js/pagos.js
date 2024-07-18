@@ -193,6 +193,7 @@ $('#mibuscador3').select2({
     $("#registrarp").on("click", function() {
         if (validarenviop()) {
 
+            var id = $('#idp').val();
             var identificador = $('#identificadorp').val();
             var monto = $('#montop').val();
             var concepto = $('#conceptop').val();
@@ -202,13 +203,15 @@ $('#mibuscador3').select2({
             var encrypt = new JSEncrypt();
             encrypt.setPublicKey(publicKey);
             
-            var encrypted= encrypt.encrypt(identificador);
+            var encryptedid= encrypt.encrypt(id);
+            var encryptedidentificador= encrypt.encrypt(identificador);
             var encryptedmonto= encrypt.encrypt(monto);
             var encryptedconcepto= encrypt.encrypt(concepto);
             var encryptedfecha= encrypt.encrypt(fecha);
             var encryptedforma= encrypt.encrypt(forma);
 
-            $('#identificadorp').val(encrypted);
+            $('#idp').val(encryptedid);
+            $('#identificadorp').val(encryptedidentificador);
             $('#montop').val(encryptedmonto);
             $('#conceptop').val(encryptedconcepto);
             $('#fechadp0').val(encryptedfecha);
@@ -258,6 +261,8 @@ $('#mibuscador3').select2({
 
     $("#registrar2").on("click", function() {
         if (validarenvio1()) {
+          
+            var id = $('#idM').val();
             var identificador = $('#identificadorM').val();
             var monto = $('#montoM').val();
             var concepto = $('#conceptoM').val();
@@ -267,13 +272,15 @@ $('#mibuscador3').select2({
             var encrypt = new JSEncrypt();
             encrypt.setPublicKey(publicKey);
             
-            var encrypted= encrypt.encrypt(identificador);
+            var encryptedid= encrypt.encrypt(id);
+            var encryptedidentificador= encrypt.encrypt(identificador);
             var encryptedmonto= encrypt.encrypt(monto);
             var encryptedconcepto= encrypt.encrypt(concepto);
             var encryptedfecha= encrypt.encrypt(fecha);
             var encryptedforma= encrypt.encrypt(forma);
 
-            $('#identificadorM').val(encrypted);
+            $('#idM').val(encryptedid);
+            $('#identificadorM').val(encryptedidentificador);
             $('#montoM').val(encryptedmonto);
             $('#conceptoM').val(encryptedconcepto);
             $('#fechaM0').val(encryptedfecha);

@@ -335,6 +335,9 @@ class horario extends datos
            
         } catch (Exception $e) {
             return $e->getMessage();
+            $co->exec("ROOLBACK");
+            $co->exec("COMMIT");
+
         }
     }
     //<!---------------------------------fin de funcion registrar------------------------------------------------------------------>  
@@ -385,7 +388,10 @@ class horario extends datos
 
 
 
+                $co->exec("SET AUTOCOMMIT = 0");
 
+                $co->exec("LOCK TABLES horario_docente WRITE");        
+                $co->exec("START TRANSACTION");
 
 
                 $r = $co->prepare("UPDATE horario_docente SET
@@ -420,6 +426,16 @@ class horario extends datos
                 $r->execute();
 
 
+  // Unlock tables
+  $co->exec("UNLOCK TABLES");
+
+  // Commit transaction
+           $co->exec("COMMIT");
+
+  // Set AutoCommit to 1
+      $co->exec("SET AUTOCOMMIT = 1");
+
+
 
                 $this->bitacora("se modifico una clase", "Horario", $this->nivel);
                 
@@ -428,6 +444,9 @@ class horario extends datos
                 
             } catch (Exception $e) {
                 return $e->getMessage();
+                $co->exec("ROOLBACK");
+                $co->exec("COMMIT");
+    
             }
         } else {
             return "4clase no registrada";
