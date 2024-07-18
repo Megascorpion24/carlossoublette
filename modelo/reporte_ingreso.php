@@ -1,9 +1,11 @@
 <?php
-require_once('dompdf/vendor/autoload.php'); 
+require_once __DIR__.'../../config.php';
+require_once BASE_PATH . '/dompdf/vendor/autoload.php';
+
 
 use Dompdf\Dompdf; 
 
-require_once('modelo/conexion.php');
+require_once('conexion.php');
 class reporte_ingreso extends datos{
     
 
