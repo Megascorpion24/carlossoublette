@@ -111,11 +111,7 @@ var suma2=0;
 
 
 
-<<<<<<< HEAD
-    var i3=0;
-=======
     var i1=0;
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 var suma3=0;
     
         $("#morocidad3 tr").each(function () {
@@ -124,30 +120,18 @@ var suma3=0;
             if( "inscripcion"==$(this).find("th:eq(0)").text()  ){
                
         
-<<<<<<< HEAD
-                miArray6[i3] =  $(this).find("th:eq(1)").text();
-                suma3=suma3+parseFloat($(this).find("th:eq(1)").text());
-                miArray7[i3] = "inscripcion" ;
-=======
                 miArray6[i1] =  $(this).find("th:eq(1)").text();
                 suma3=suma3+parseFloat($(this).find("th:eq(1)").text());
                 miArray7[i1] = "inscripcion" ;
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                 
     
             }
             if( "mensualidad"==$(this).find("th:eq(0)").text()  ){
                
         
-<<<<<<< HEAD
-                miArray6[i3] =   $(this).find("th:eq(1)").text();
-                suma3=suma3+parseFloat($(this).find("th:eq(1)").text());
-                miArray7[i3] = "mensualidad" ;
-=======
                 miArray6[i1] =   $(this).find("th:eq(1)").text();
                 suma3=suma3+parseFloat($(this).find("th:eq(1)").text());
                 miArray7[i1] = "mensualidad" ;
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
                 
     
             }
@@ -329,51 +313,11 @@ var suma3=0;
     $("#total").text(suma);
     $("#cantidad1").text(i1);
     $("#total1").text(suma1);
-<<<<<<< HEAD
-
-    $("#cantidad3").text(i2);
-    $("#total3").text(suma2);
-    $("#cantidad4").text(i3);
-    $("#total4").text(suma3);
-
-
-
-
-    $("#tipo").on("click", function() {
-        if (myChart.config.type == 'bar' && myChart2.config.type == 'bar' && myChart3.config.type == 'bar' && myChart4.config.type == 'bar') {
-            myChart.config.type = 'pie';
-            myChart2.config.type = 'pie';
-            myChart3.config.type = 'pie';
-            myChart4.config.type = 'pie';
-            $("#tipo").text("Cambiar a gráfico barra");
-        } else {
-            myChart.config.type = 'bar';
-            myChart2.config.type = 'bar';
-            myChart3.config.type = 'bar';
-            myChart4.config.type = 'bar';
-            $("#tipo").text("Cambiar a gráfico circular");
-        }
-    
-        myChart.update();
-        myChart2.update();
-        myChart3.update();
-        myChart4.update();
-
-    });
-   
-
-    
-=======
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
     
 });
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
@@ -537,11 +481,6 @@ function modificar(id){
 
 
 
-<<<<<<< HEAD
-   
-=======
-
->>>>>>> 33cf14292824ec608e833437634995fe4045c6c7
 //<!---------------------------------------------------------------------------------------------------------------------------->
 
 
