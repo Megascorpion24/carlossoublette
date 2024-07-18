@@ -115,4 +115,13 @@
 
 </body>
 
+<style>
+
+.col-lg-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 100%;
+}
+</style>
+
 </html>
