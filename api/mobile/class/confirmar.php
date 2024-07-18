@@ -24,7 +24,7 @@ class confirmar extends datos{
             } else {
                 return json_encode([
                     'success' => false,
-                    'msg' => ($row['request_password'] != 1) ? 'No hay solicitud de cambio de Clave' : 'Token expirado'
+                    'msg' => ($row['request_password'] != 1) ? 'No hay solicitud de cambio de Clave' : 'Codigo expiro'
                 ]);
             }
  
