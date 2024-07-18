@@ -313,7 +313,7 @@ class pagos extends datos{
                 $co->exec("COMMIT");
                 return "1PAGO REGISTRADO CON EXITO";	
                 $co->exec("SET AUTOCOMMIT = 1");            
-
+         
             }catch(Exception $e){
                 return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");                
@@ -727,7 +727,7 @@ private function registrarp1(){
             $co->exec("COMMIT");
             return "1PAGO CONFIRMADO";	
             $co->exec("SET AUTOCOMMIT = 1");
-
+    
         }catch(Exception $e){
             return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
