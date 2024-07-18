@@ -178,7 +178,7 @@ class entrada extends datos
                     $r = $co->prepare(
                         "Insert into notificaciones(						
                                 mensaje,
-                                estado,
+                                estados,
                                 titulo,
                                 cedula_estudiante
                                 )                
@@ -221,7 +221,7 @@ class entrada extends datos
                     $r = $co->prepare(
                         "Insert into notificaciones(						
                                 mensaje,
-                                estado,
+                                estados,
                                 titulo,
                                 cedula_estudiante
                                 )                
@@ -274,7 +274,7 @@ class entrada extends datos
         try {
             $resultado = $co->prepare("SELECT deudas.id,deudas.concepto, deudas.id_estudiante, es.nombre, tutor_legal.correo FROM deudas INNER JOIN estudiantes on deudas.id_estudiante=estudiantes.cedula INNER JOIN estudiantes es on deudas.id_estudiante = es.cedula INNER JOIN estudiantes_tutor ON es.cedula = estudiantes_tutor.id_estudiantes INNER JOIN tutor_legal on estudiantes_tutor.id_tutor = tutor_legal.cedula WHERE deudas.estado_deudas=1 AND deudas.concepto='mensualidad'");
             $resultado->execute();
-            $resultado1 = $co->prepare("SELECT * FROM notificaciones WHERE notificaciones.estado=1");
+            $resultado1 = $co->prepare("SELECT * FROM notificaciones WHERE notificaciones.estados=1");
             $resultado1->execute();
             if (!empty($resultado)) {
                 $r1 = "";
@@ -303,7 +303,7 @@ class entrada extends datos
                             "Insert into notificaciones(
 						
                 mensaje,
-                estado,
+                estados,
                 titulo
                 )
 
@@ -359,12 +359,12 @@ class entrada extends datos
         try {
 
 
-            $resultado = $co->prepare("SELECT * FROM `notificaciones` WHERE notificaciones.estado=1");
+            $resultado = $co->prepare("SELECT * FROM `notificaciones` WHERE notificaciones.estados=1");
             $resultado->execute();
             $respuesta = "";
             $coun = 0;
             foreach ($resultado as $r) {
-                $respuesta = $respuesta . '<li><a href="?pagina=pagos">' . $r["titulo"] . '</a><input type="text" value="' . $r["id"] . '" class="ocultar" name="estado" id="estado" onclick="funcion_estado()"></li><hr>';
+                $respuesta = $respuesta . '<li><a href="?pagina=pagos">' . $r["titulo"] . '</a><input type="text" value="' . $r["id"] . '" class="ocultar" name="estados" id="estados" onclick="funcion_estado()"></li><hr>';
                 $coun++;
             }
             $fila = array($respuesta, $coun);
