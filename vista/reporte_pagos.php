@@ -155,7 +155,7 @@ if(isset($_COOKIE['token'])){
 
 
 						
-                        <table class="table table-striped table-hover ocultar">
+                        <table class="table table-striped table-hover ">
 					      <thead>
 						 
 						  </thead>

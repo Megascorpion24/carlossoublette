@@ -9,9 +9,6 @@ class reporte_pagos extends datos{
 
     public function generarPDF(){
 		
-		//El primer paso es generar una consulta SQl tal cual como lo hemos hecho en las 
-		//clases anteriores, en este caso la consulta sera sobre la tabla usuarios
-		//y tendra como parametros para filtro la cedula y el usuario
 		
 		$co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -353,10 +350,10 @@ public function consultar5(){
 			$men="";
 			foreach($resultado as $r){
 				if ($r['tipo']=="inscripcion") {
-					$ins=$r['m_montos'];
+					$ins=20;
 				} 
 				 if ($r['tipo']=="mensualidad") {
-					$men=$r['m_montos'];
+					$men=3;
 				}
 		
 			

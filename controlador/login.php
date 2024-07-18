@@ -82,6 +82,11 @@ if (is_file("vista/" . $pagina . ".php")) {
 				$_SESSION['rol'] = $resultado[1];
 				$_SESSION['permisos'] = $permisos;
 				$_SESSION['name'] = $name;
+				$var=$o->morocidad();
+				$var=$o->notificaciones();
+				$notificaciones_concepto=$o->consultar();
+				$_SESSION['notificaciones'] = $notificaciones_concepto[0];
+				$_SESSION['cantidad'] = $notificaciones_concepto[1];
 				
 				$pagina = "principal";
 		

@@ -23,7 +23,7 @@ require_once("modelo/".$pagina.".php");
 
 			if(!empty($_POST['estado'])){
 				$o->set_id($_POST['estado']);
-				$o->modificar();
+			
 				$notificaciones_concepto=$o->consultar();
 		$_SESSION['notificaciones'] = $notificaciones_concepto[0];
 		$_SESSION['cantidad'] = $notificaciones_concepto[1];

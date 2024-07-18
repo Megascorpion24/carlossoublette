@@ -173,6 +173,7 @@
 </html>
 
 <?php
+
 function generateEncryptedLink($url, $img) {
     // Generar una clave de encriptación segura
     $key = openssl_random_pseudo_bytes(32); // AES-256 requiere una clave de 32 bytes

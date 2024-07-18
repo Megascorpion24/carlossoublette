@@ -33,6 +33,7 @@ if (!empty($_GET['pagina'])) {
             $pagina = $decrypted_url;
         } else {
             echo "Error al desencriptar la URL.";
+            
         }
     } else {
         $pagina = $_GET['pagina'];
