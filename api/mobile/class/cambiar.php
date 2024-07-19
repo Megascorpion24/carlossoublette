@@ -36,7 +36,7 @@ class New_Password extends datos {
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (isset($data->Usuario) && isset($data->Clave) && isset($data->Code)) {
+if (isset($data->Usuario) && isset($data->Clave) && isset($data->Code) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $User = decryptData(base64_decode($data->Usuario));
     $Clave = decryptData(base64_decode($data->Clave));
     $Code = decryptData(base64_decode($data->Code));

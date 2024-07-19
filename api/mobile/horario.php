@@ -8,7 +8,7 @@ $m = new horario();
 $data = json_decode(file_get_contents("php://input"));
 
 // Verifica si se ha enviado un dato por POST
-if (isset($data->token)){
+if (isset($data->token) && $_SERVER['REQUEST_METHOD'] == 'POST'){
   $token = $data->token;
 
   try {

@@ -21,9 +21,16 @@
 			position: absolute;
 			z-index: 200;
 		}
+		/* Lo oculte para moviles  */
+		@media (max-width: 425px) {
+			.btn-filter {
+				display:none;
+			}
+		}
 		@media (max-width: 768px) {
 			.btn-filter {
-				margin-left: 35%; /* Cambia el margen cuando el ancho de la pantalla sea menor a 768px */
+				display:none;
+				/* margin-left: 35%; Cambia el margen cuando el ancho de la pantalla sea menor a 768px */
 			}
 		}
 		@media (max-width: 1024px) {
@@ -31,13 +38,7 @@
 				margin-left: 35%;
 			}
 		}
-
-		/* Lo oculte para moviles  */
-		@media (max-width: 425px) {
-			.btn-filter {
-				display:none;
-			}
-		}
+		
 </style>
 
 </head>

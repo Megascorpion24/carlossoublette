@@ -7,7 +7,7 @@ $r = new reporte_ingreso();
 $data = json_decode(file_get_contents("php://input"));
 
 // Verifica si se ha enviado un dato por POST
-if (isset($data->token)){
+if (isset($data->token) && $_SERVER['REQUEST_METHOD'] == 'POST'){
   $token = $data->token;
 
   try {
@@ -16,12 +16,12 @@ if (isset($data->token)){
        if ($r_json->resultado->rol == 3) {
           echo json_encode([
                'success' => true,
-               'resultado'=> [
-                    "Repo1"=>$r->consultar1(),               
-                    "Repo2"=>$r->consultar2(),               
-                    "Repo3"=>$r->consultar3(),               
-                    "Repo4"=>$r->consultar4(),               
-                    "Repo5"=>$r->consultar5()               
+               'reportes'=> [
+                    "1er"=>$r->consultar1(),               
+                    "2do"=>$r->consultar2(),               
+                    "3er"=>$r->consultar3(),               
+                    "4to"=>$r->consultar4(),               
+                    "5to"=>$r->consultar5()               
                ]
            ]);
        } else {
