@@ -67,9 +67,6 @@ if (is_file("vista/" . $pagina . ".php")) {
 						'nbf'		=>	time(),
 						'exp'		=>	time() + 3600,
 						'resultado'	=> array(
-							'user'	=>	$resultado[2],
-							'rol'	=>	$resultado[1],
-							'permisos' => $permisos,
 							'name' => $name
 						)
 					),
