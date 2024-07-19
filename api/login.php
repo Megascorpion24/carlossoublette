@@ -10,7 +10,7 @@ $data = json_decode(file_get_contents("php://input"));
 // var_dump($data);
 
 // Verifica si se recibieron los datos de usuario y contraseña
-if (isset($data->user) && isset($data->password)) {
+if (isset($data->user) && isset($data->password) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Establece los valores de usuario y contraseña
     $username = decryptData(base64_decode($data->user));
@@ -18,7 +18,7 @@ if (isset($data->user) && isset($data->password)) {
 
 
     try {  
-        validate_string('nameInputs', $username);  
+        validate_string('nameInputs', $username);   
         
         $login->set_usuario($username);
         $login->set_clave($password);
