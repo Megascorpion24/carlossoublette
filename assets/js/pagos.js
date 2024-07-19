@@ -1362,9 +1362,49 @@ function enviaAjax(datos){
             type: 'POST',
             data: datos.serialize(),
             beforeSend: function(){            
-            },            
+            },       
             success: function(respuesta) {
-                LlamadaAlert(respuesta);   
+                LlamadaAlert(respuesta);  
+               
+
+                  $.get(location.href, function(data) {
+                    $("#f4").html($(data).find("#f4").html());
+                  }); 
+
+
+                  $.get(location.href, function(data) {
+                    $("#select").html($(data).find("#select").html());
+                  });
+
+                  $.get(location.href, function(data) {
+                    $("#mibuscador").html($(data).find("#mibuscador").html());
+                  });
+
+                  $.get(location.href, function(data) {
+                    $("#selectp").html($(data).find("#selectp").html());
+                  });
+
+                  $.get(location.href, function(data) {
+                    $("#mibuscador3").html($(data).find("#mibuscador3").html());
+                  });
+
+                  $.get(location.href, function(data) {
+                    $("#selectr").html($(data).find("#selectr").html());
+                  });
+
+                  $.get(location.href, function(data) {
+                    $("#mibuscador2").html($(data).find("#mibuscador2").html());
+                  });
+
+             
+                
+                
+       
+              /*  $("#mibuscador3").load(location.href + " #mibuscador3>*");                       
+                $("#selectp").load(location.href + " #selectp>*");*/
+        
+        
+
                 $("#tablas").load(location.href + " #tablas>*", function() {
                     // Reinitialize the DataTable after the content has been loaded
                     $('#tablas').DataTable().destroy();
