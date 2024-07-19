@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="assets/css/modal.css">
 
 	<style>
+		/*---Filter Año---------*/
+
 		.btn-filter{
 			margin-left: 10%; 
 			position: absolute;
@@ -36,11 +38,17 @@
 			}
 		}
 
-		/*-------------*/
+		/*------FFilter Seccion-------*/
 		.abc-filter{
 			margin-left: 45%; 
 			/* position: absolute; */
 
+		}
+		/* Lo oculte para moviles  */
+		@media (max-width: 425px) {
+			.abc-filter {
+				display:none;
+			}
 		}
 		@media (max-width: 768px) {
 			.abc-filter {
@@ -52,13 +60,12 @@
 				margin-left: 10%;
 			}
 		}
-
-		/* Lo oculte para moviles  */
-		@media (max-width: 425px) {
+		@media (min-width: 1440px) {
 			.abc-filter {
-				display:none;
+				margin-top: 50%;
 			}
 		}
+		
 		#contenido-seccion {
 			/* display: inline-block; Hace que el div se comporte como un elemento en línea */
 			/* vertical-align: middle; Alinea verticalmente con respecto al otro elemento */
