@@ -16,8 +16,15 @@ if (is_file("vista/$pagina.php")) {
             $o->set_usuario($_POST['user']);
         }
         $resultado = $o->busca();
-        $mensaje = $resultado ? "Se envió un mensaje de recuperación a su correo" : "El usuario ingresado no existe";
+        echo $resultado;
+        $mensaje = $resultado ? "Se envió un mensaje de recuperación a su correo"  : "El usuario ingresado no existe";
         if (!$resultado) echo $resultado;
+       $bit = $mensaje;
+        if ($bit = "Se envió un mensaje de recuperación a su correo") {
+            $o->bitacora1("se solicito un cambio de clave", "recuperar", "0000");
+        } else {
+            $o->bitacora1("se solicito un cambio de clave a un usuario inexistente", "recuperar", "0000");
+        }
     }
     require_once("vista/$pagina.php");
 } else {
