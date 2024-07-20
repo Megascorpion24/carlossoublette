@@ -39,7 +39,10 @@ if (isset($data->user) && isset($data->password) && $_SERVER['REQUEST_METHOD'] =
            
         } else { 
             //http_response_code(403); 403 Forbidden: Indica que el servidor ha entendido la solicitud, pero se niega a completarla debido a que el cliente no tiene permiso para acceder al recurso solicitado.
-            echo json_encode($entrada); 
+            echo json_encode([
+               'success'=> $entrada['success'],
+               'msg'=>$entrada['msg']
+            ]); 
         }
     } catch (Exception $e) {
         // 500 Internal Server Error: Indica que ha ocurrido un error interno en el servidor mientras procesaba la solicitud.

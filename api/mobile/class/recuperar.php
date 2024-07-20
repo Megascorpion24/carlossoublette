@@ -21,7 +21,7 @@ if (isset($data->User) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     : throw new InvalidArgumentException("El usuario no cumple con el formato permitido");
 
     $resultado = $r->busca(); 
-       $codigo = $r->get_codigo();
+    //    $codigo = $r->get_codigo();   
    
         echo json_encode(
         $resultado
