@@ -2,7 +2,8 @@
 class datos {
     private $ip = "localhost";
     private $bd = "colegiocarlossoublette";
-    private $usuario = "login";
+    private $usuario = "root";
+    
     private $contrasena = "";
 
     private $privateKey = '-----BEGIN PRIVATE KEY-----
