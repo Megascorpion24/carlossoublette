@@ -1573,7 +1573,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`, `estado`, `id_rol`, `
 ('30019081', 'santiago', 'santiagocasamayor14@gmail.com', '$2y$10$kjbPggW5B09YvUQRV99PKu4U8m9Zx5HTXaIhsCxBJBtuz6dfHJjLu', '1', 3, '9af029c1cd15aeb83bd012a454ef5f785ab45137d4477163fd4c86f179c0ce22', 454942, 0, '2024-07-18 04:30:52'),
 ('30019085', 'santiagox', 'santiagocasamayor14@gmail.com', '$2y$10$i8WubU1TY4qUT9olB.di4.5IH6o0EuW6g5MTq14G4PSKdVMsRJbVG', '1', 1, 'd4ce6d0434665742fa29bbb5781f2ee410d2230a62b8d36d90004b3241c60053', 509203, 0, '2024-07-12 01:43:11'),
 ('30019111', 'matemat', 'santiagocasamayor@gmail.com', '$2y$10$aqNA0pwG7jwaqclkJugg8e7vMF3VauXOS.A8GYdgAMlGZSUkcMXkK', '1', 19, '', NULL, 0, NULL),
-('30664129', 'Yeisson', 'yeissoncolmenarez@gmail.com', '$2y$10$1BJHb6tgObbLUJHToZtvPuAv0Nr6x7a64Oz/4yExlySXmMXsdg5XO', '1', 19, '5ba246443a2c9372cb5a019bfaf2fe09e9bfbe3f4fffccc41883016ddb51f456', 764860, 1, '2024-07-03 00:52:39');
+('30664129', 'Yeisson', 'yeissoncolmenarez@gmail.com', '$2y$10$7vWxPK.prNZ0gh5CLb4qPOoxEu20LosDAKUXQ.AqwPFHc3NVZmm2K', '1', 19, '5ba246443a2c9372cb5a019bfaf2fe09e9bfbe3f4fffccc41883016ddb51f456', 764860, 1, '2024-07-03 00:52:39');
 
 -- --------------------------------------------------------
 
