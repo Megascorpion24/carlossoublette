@@ -35,11 +35,7 @@ NcFh8zm7trhXUuGbjI+DzJsx3mInyiI2S8K+/kpKi+TKnlbr0FagO4luFpYx5yiU
 1EQk5kXb2ILhr/SQrbA/ECc=
 -----END PRIVATE KEY-----';
 
-public function __construct() {
-    if (isset($_SESSION)) {
-        $this->usuario = "usuario_sistema";
-    }
-}
+
 
 
     protected function conecta() {

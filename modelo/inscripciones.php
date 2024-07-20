@@ -919,7 +919,7 @@ class inscripciones extends datos
             }
 
 
-            $resultado = $co->prepare("SELECT estudiantes.*, años.anos, secciones.secciones, secciones_años.id FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id INNER JOIN estudiantes on secciones_años.id=estudiantes.id_anos_secciones INNER JOIN ano_estudiantes on ano_estudiantes.id_estudiantes=estudiantes.cedula INNER JOIN ano_academico ON ano_academico.id=ano_estudiantes.id_ano AND ano_academico.id=$id ORDER by años.anos, secciones.secciones");
+            $resultado = $co->prepare("SELECT estudiantes.*, años.anos, secciones.secciones, secciones_años.id, estudiantes.estado validacion FROM secciones_años INNER JOIN años on secciones_años.id_anos=años.id INNER JOIN secciones on secciones_años.id_secciones=secciones.id INNER JOIN estudiantes on secciones_años.id=estudiantes.id_anos_secciones INNER JOIN ano_estudiantes on ano_estudiantes.id_estudiantes=estudiantes.cedula INNER JOIN ano_academico ON ano_academico.id=ano_estudiantes.id_ano ORDER by años.anos, secciones.secciones;");
             $resultado->execute();
             //Consulta movil
             if (in_array("request_app", $nivel1)) { // Corregido aquí
@@ -942,18 +942,42 @@ class inscripciones extends datos
                 $respuesta = $respuesta . "<td>" . $r['secciones'] . "</td>";
 
                 $respuesta = $respuesta . '<td>';
+                
                 if (in_array("modificar inscipcion", $nivel1)) {
-                    # code...
+                    $estado= $r['estado'];
+                    if($estado > 0){
+                    
+                        $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['cedula'] . '`,`' . $r['anos'] . ' - ' . $r['secciones'] . '`)">
+                        <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
+                       </a>';
+                   }
+                   else{
+                    $respuesta = $respuesta . '<a href="#" class="edit" data-toggle="modal" >
+                    <i class="material-icons"  title="MODIFICAR"><img style="width: 18px;" src="assets/icon/pencil2.png"/></i>
+                   </a>';
+                    }
 
 
-                    $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['cedula'] . '`,`' . $r['anos'] . ' - ' . $r['secciones'] . '`)">
-                <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
-               </a>';
+                    
                 }
                 if (in_array("eliminar inscipcion", $nivel1)) {
-                    $respuesta = $respuesta . '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['cedula'] . '`)">
-               <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
-               </a>';
+                    $estado= $r['estado'];
+                    if($estado > 0){
+                    
+
+                        $respuesta = $respuesta . '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['cedula'] . '`)">
+                        <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
+                        </a>';
+            }
+            else{
+                
+                $respuesta = $respuesta . '<a href="#" class="delete" data-toggle="modal" >
+                <i class="material-icons"  title="BORRAR"><img  style="width: 18px;" src="assets/icon/basura.png"/></i>    
+                </a>';
+
+           
+             }
+             
                 }
                 $respuesta = $respuesta . '</td>';
 
