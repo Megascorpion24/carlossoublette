@@ -26,8 +26,18 @@ class New_Password extends datos {
             $r->bindParam(':usuario', $this->usuario);
             $r->bindParam(':clave', $Clave);
             $r->execute();
- 
-            return ['change'=>true, 'msj'=>"La clave fue cambiada con exito"];
+            
+            // Selecciona el ID del usuario para registrar en la bitácora
+            $re = $co->prepare("SELECT id FROM `usuarios` WHERE nombre = :nombre LIMIT 1");
+            $re->bindParam(':nombre', $this->usuario);
+            $re->execute();
+            $usuario = $re->fetch(PDO::FETCH_ASSOC);
+
+            if ($usuario) {
+                parent::registrar_bitacora("Cambio de contraseña", "recuperar", $usuario['id']);
+            }
+
+            return ['change' => true, 'msj' => "La clave fue cambiada con éxito"];
         } catch (Exception $e) {
             return ['change'=>false,'msj'=>$e->getMessage()];
         }
@@ -36,7 +46,7 @@ class New_Password extends datos {
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (isset($data->Usuario) && isset($data->Clave) && isset($data->Code)) {
+if (isset($data->Usuario) && isset($data->Clave) && isset($data->Code) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $User = decryptData(base64_decode($data->Usuario));
     $Clave = decryptData(base64_decode($data->Clave));
     $Code = decryptData(base64_decode($data->Code));

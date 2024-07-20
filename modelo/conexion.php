@@ -3,6 +3,7 @@ class datos {
     private $ip = "localhost";
     private $bd = "colegiocarlossoublette";
     private $usuario = "root";
+    
     private $contrasena = "";
 
     private $privateKey = '-----BEGIN PRIVATE KEY-----
@@ -35,8 +36,8 @@ NcFh8zm7trhXUuGbjI+DzJsx3mInyiI2S8K+/kpKi+TKnlbr0FagO4luFpYx5yiU
 -----END PRIVATE KEY-----';
 
 public function __construct() {
-    if (isset($_SESSION['name'])) {
-        $this->usuario = $_SESSION['name'];
+    if (isset($_SESSION)) {
+        $this->usuario = "usuario_sistema";
     }
 }
 

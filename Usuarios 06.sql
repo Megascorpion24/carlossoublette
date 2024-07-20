@@ -94,6 +94,10 @@ GRANT SELECT, INSERT, UPDATE, REFERENCES ON `colegiocarlossoublette`.`usuarios_t
 GRANT SELECT ON `colegiocarlossoublette`.`notificaciones` TO 'login'@'localhost'; 
 GRANT LOCK TABLES ON `colegiocarlossoublette`.* TO 'login'@'localhost';
 
+CREATE USER 'usuario_sistema'@'localhost' IDENTIFIED VIA mysql_native_password USING '***';GRANT USAGE ON *.* TO 'usuario_sistema'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
+GRANT SELECT, INSERT, UPDATE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, EVENT, TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON `colegiocarlossoublette`.* TO 'usuario_sistema'@'localhost' WITH GRANT OPTION;
+
+
 SELECT * FROM mysql.user;
 
 
