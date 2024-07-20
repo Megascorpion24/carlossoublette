@@ -56,11 +56,31 @@ class inscripciones extends datos
             return false;
         }
     }
+    public function set_cedula_estudiante1($valor)
+    {
+       
+        if (preg_match("/^[0-9\s]{7,8}$/", $valor)) {
+            $this->cedula_estudiante = $valor;
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function set_nombre_estudiante($valor)
     {
         $cexryp = $this->decryptMessage($valor);
         if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $cexryp)) {
             $this->nombre_estudiante = $cexryp;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function set_nombre_estudiante1($valor)
+    {
+      
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
+            $this->nombre_estudiante = $valor;
             return true;
         } else {
             return false;
@@ -76,11 +96,31 @@ class inscripciones extends datos
             return false;
         }
     }
+    public function set_apellido_estudiante1($valor)
+    {
+
+        if (preg_match("/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?\s]*$/", $valor)) {
+            $this->apellido_estudiante = $valor;
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function set_edad_estudiante($valor)
     {
         $cexryp = $this->decryptMessage($valor);
         if (preg_match("/^[0-9\s]{1,2}$/", $cexryp)) {
             $this->edad_estudiante = $cexryp;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function set_edad_estudiante1($valor)
+    {
+
+        if (preg_match("/^[0-9\s]{1,2}$/", $valor)) {
+            $this->edad_estudiante = $valor;
             return true;
         } else {
             return false;
@@ -1362,7 +1402,16 @@ class inscripciones extends datos
 
 
 
+
+
+
+
                     $estado = 1;
+
+                    $co->exec("SET AUTOCOMMIT = 0");
+
+                    $co->exec("LOCK TABLES estudiantes WRITE, ficha_medica WRITE, estudiantes_tutor WRITE, estudiante_ficha WRITE, ano_academico WRITE,ano_estudiantes WRITE,deudas WRITE");
+                    $co->exec("START TRANSACTION");
 
                     $r = $co->prepare("Insert into estudiantes(
 						
@@ -1539,6 +1588,7 @@ class inscripciones extends datos
                         
                         
                         )");
+
                     $fecha = date('Y-m-d');
                     $monto = "0";
                     $concepto = "inscripcion";
@@ -1572,6 +1622,7 @@ class inscripciones extends datos
                         
                         
                         )");
+
                     $fecha = date('Y-m-d');
                     $monto = "0";
                     $concepto = "mensualidad";
@@ -1583,6 +1634,7 @@ class inscripciones extends datos
                     $r->bindParam(':estado', $estado);
                     $r->bindParam(':estado_deudas', $estado);
                     $r->execute();
+               
                 } else {
                     return "cedula registrada";
                 }
@@ -1745,7 +1797,14 @@ class inscripciones extends datos
 
 
 
+ // Unlock tables
+ $co->exec("UNLOCK TABLES");
 
+ // Commit transaction
+ $co->exec("COMMIT");
+
+ // Set AutoCommit to 1
+ $co->exec("SET AUTOCOMMIT = 1");
 
             $this->bitacora("se inscribio un estudiante", "inscripciones", $this->nivel);
 

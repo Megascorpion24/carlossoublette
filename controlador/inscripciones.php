@@ -279,16 +279,16 @@ if(isset($_POST['save_excel_data']))
 			$o->set_estudiante($estudiante);
 			
 			$cedula_estudiante = $row['2'];
-			$o->set_cedula_estudiante($cedula_estudiante);
+			$o->set_cedula_estudiante1($cedula_estudiante);
 			
 			$nombre_estudiante = $row['3'];
-			$o->set_nombre_estudiante($nombre_estudiante);
+			$o->set_nombre_estudiante1($nombre_estudiante);
 			
 			$apellido_estudiante = $row['4'];
-			$o->set_apellido_estudiante($apellido_estudiante);
+			$o->set_apellido_estudiante1($apellido_estudiante);
 			
 			$edad_estudinate = $row['5'];
-			$o->set_edad_estudiante($edad_estudinate);
+			$o->set_edad_estudiante1($edad_estudinate);
 		
 			$materia = $row['6'];
 			$o->set_materia($materia);
@@ -340,7 +340,9 @@ if(isset($_POST['save_excel_data']))
 
 
 
-                $o->importar();
+			$consuta=$o->importar();
+				echo $consuta;
+			exit;
 
             }
             else
