@@ -58,30 +58,29 @@ require_once("modelo/".$pagina.".php");
   //<!----------------------------------------------------------------------------------------------------------------------------------------------------> 
 
 
-  // Agregamos la función obtenerPrecioBCVOnline()
-  /* function obtenerPrecioBCVOnline($fechaActual, $file) {
-	  $moneda = "bcv";
-	  $urlDolarBcv = "https://exchangemonitor.net/estadisticas/ve/dolar-bcv";
-	  $ch = curl_init();
-	  curl_setopt($ch, CURLOPT_URL, $urlDolarBcv);
-	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	  curl_setopt($ch, CURLOPT_HEADER, 0);
-	  $output = curl_exec($ch);
-	  curl_close($ch);
-	  
-		  file_put_contents($file, $output);
-		  $exchange = file_get_contents($file);
-		  $posILen = strlen('<meta name="description" content="');
-		  $posI = strpos($exchange, '<meta name="description" content="');
-		  $posF = strpos($exchange, '<meta name="keywords"');
-		  $string = substr($exchange, ($posI + $posILen), ($posF - $posI) - 10);
-		  $posI2 = strpos($string, 'es de');
-		  $string2 = substr($string, ($posI2 + 6));
-		  $posF2 = strpos($string2, 'BS');
-		  $precio = substr($string, ($posI2 + 6), $posF2 - 1);
-		  return $precio;
+  function obtenerPrecioBCVOnline($file) {
+    $moneda = "bcv";
+    $urlDolarBcv = "https://exchangemonitor.net/calculadora/usd-a-ves";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $urlDolarBcv);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $output = curl_exec($ch);
+    curl_close($ch);
 
-  }*/
+    file_put_contents($file, $output);
+    $exchange = file_get_contents($file);
+
+    $posI = strpos($exchange, '<meta name="description" content="');
+    $posF = strpos($exchange, '" />') + 4;
+    $string = substr($exchange, $posI + strlen('<meta name="description" content="'), $posF - $posI - strlen('<meta name="description" content="') - 4);
+    $posI2 = strpos($string, 'equivale a');
+    $string2 = substr($string, $posI2 + 10);
+    $posF2 = strpos($string2, 'VES');
+    $precio = trim(substr($string2, 0, $posF2));
+
+    return $precio;
+}
   
 
 

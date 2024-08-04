@@ -2,24 +2,33 @@
 <html lang="es">
 
     <head>
-        <title>Error - Exchange Monitor</title>
-<link rel="icon" href="/favicon.ico" />
+        <title>USD a VES - Dólar estadounidense a Bolívar soberano | Exchange Monitor</title>
+<link rel="icon" href="/favicon.ico">
 
 <!-- HTML Tags -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="Página no encontrada." />
-<meta name="author" content="Exchange Monitor" />
-<meta name="copyright" content="Exchange Monitor" />
-<meta name="theme-color" content="#292929" />
-<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="1 USD equivale a 36,55 VES. Convierte Dólar estadounidense a Bolívar soberano u otra moneda o criptomoneda con la mejor calculadora.">
+<meta name="author" content="Exchange Monitor">
+<meta name="copyright" content="Exchange Monitor">
+<meta name="theme-color" content="#051a2b">
+<meta charset="UTF-8">
+
+<!-- Canonicals urls -->
+<link rel="canonical" href="https://exchangemonitor.net/calculadora/usd-a-ves">
+
+<!-- Index robots -->
+<meta name="robots" content="all">
+<meta name="googlebot" content="all">
+<meta name="googlebot-news" content="all">
+<meta name="AdsBot-Google" content="all">
 
 <!-- Open Graph Tags -->
 <meta property="og:locale" content="es_LA">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Error - Exchange Monitor">
-<meta property="og:description" content="Página no encontrada.">
-<meta property="og:url" content="https://exchangemonitor.net/estadisticas/ve/dolar-bcv">
+<meta property="og:title" content="USD a VES - Dólar estadounidense a Bolívar soberano | Exchange Monitor">
+<meta property="og:description" content="1 USD equivale a 36,55 VES. Convierte Dólar estadounidense a Bolívar soberano u otra moneda o criptomoneda con la mejor calculadora.">
+<meta property="og:url" content="https://exchangemonitor.net/calculadora/usd-a-ves">
 <meta property="og:site_name" content="Exchange Monitor">
 <meta property="og:image" content="https://exchangemonitor.net/assets/img/seo/logo.png">
 <meta property="og:image:secure_url" content="https://exchangemonitor.net/assets/img/seo/logo.png">
@@ -29,48 +38,36 @@
 
 <!-- Twitter Tags -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:description" content="Página no encontrada.">
-<meta name="twitter:title" content="Error - Exchange Monitor">
+<meta name="twitter:description" content="1 USD equivale a 36,55 VES. Convierte Dólar estadounidense a Bolívar soberano u otra moneda o criptomoneda con la mejor calculadora.">
+<meta name="twitter:title" content="USD a VES - Dólar estadounidense a Bolívar soberano | Exchange Monitor">
 <meta name="twitter:site" content="Exchange Monitor">
 <meta name="twitter:image" content="https://exchangemonitor.net/assets/img/seo/logo.png">
 <meta name="twitter:creator" content="">
 
 <!-- Styles -->
-<link rel="stylesheet" type="text/css" href="/imports/bootstrap-icons-1.10.5.css" />
-<link rel="stylesheet" type="text/css" href="/imports/bootstrap-5.2.3.min.css" />
-<link rel="stylesheet" type="text/css" href="/imports/select2-4.1.0-rc.0.min.css" />
-<link rel="stylesheet" type="text/css" href="/imports/select2-bootstrap-5-theme-1.3.0.min.css" />
+<link rel="stylesheet" type="text/css" href="/imports/bootstrap-icons-1.11.3.css">
+<link rel="stylesheet" type="text/css" href="/imports/bootstrap-5.2.3.min.css">
+<link rel="stylesheet" type="text/css" href="/imports/select2-4.1.0-rc.0.min.css">
+<link rel="stylesheet" type="text/css" href="/imports/select2-bootstrap-5-theme-1.3.0.min.css">
 
-<link rel="stylesheet" type="text/css" href="/css/general-002.css" />
-<link rel="stylesheet" type="text/css" href="/css/menus-001.css" />
+<link rel="stylesheet" type="text/css" href="/css/general-009.css">
+<link rel="stylesheet" type="text/css" href="/css/menus-006.css">
+<link rel="stylesheet" type="text/css" href="/css/forms-002.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EX1BVR4NDT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EX1BVR4NDT');
+    </script>
 
-<!-- Google Analytics
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-169902086-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-169902086-1');
-</script>  -->
+    <!-- Google Adsence -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5327490266190788" 
+        crossorigin="anonymous"></script>
+    </head>
 
-<!-- Facebook Pixel
-<script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1062762764558484');
-    fbq('track', 'PageView');
-</script>
-<noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1062762764558484&ev=PageView&noscript=1"/>
-</noscript>  -->    </head>
-
-    <body module="" class="padding-top public-site">
+    <body module="calculator" class="padding-top public-site">
         <div id="loading" class="dialog loading">
     <div class="background"></div>
     <div class="body">
@@ -84,30 +81,83 @@
     <nav class="navbar navbar-expand-md fixed-top">
         <div class="container-fluid">
             
-            <a class="navbar-brand me-auto" href="/">
+            <a class="navbar-brand ms-md-1 me-auto" href="/">
                 <img src="/assets/img/logo-large.webp" class="d-inline-block align-top" alt="">
             </a>
             
-            <!--
             <div class="d-md-none ms-auto">
+                <button class="navbar-toggler navbar-toggler-reload reload-view" type="button">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </div>
+            
+            <div class="d-md-none ms-3">
                 <div class="dropdown navbar-toggler-dropdown">
     <button id="navbar-dropdown-LANGUAGE" class="navbar-toggler toggler-lang dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <span class="toggler-label">ES</span>
-        <svg><use xlink:href="/assets/icons/languages.svg#svg-lang-es"/></svg>
+        <i class="bi bi-globe2"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end">
         <li class="d-inline">
+                <a class="dropdown-item load-lang disabled" lang="en" href="#" >
+                    <img src="/assets/img/lang/en.png" alt="">
+                    <span>English</span>
+                </a>
+            </li><li class="d-inline">
                 <a class="dropdown-item load-lang " lang="es" href="#" >
-                    <svg><use xlink:href="/assets/icons/languages.svg#svg-lang-es"/></svg>
+                    <img src="/assets/img/lang/es.png" alt="">
                     <span>Español</span>
                 </a>
             </li>    </ul>
-</div>            </div> -->
+</div>            </div>
 
             
             <div class="collapse navbar-collapse d-none d-md-block" id="menuDropdown">
                 <ul class="navbar-nav ms-auto">
-                                    </ul>
+                    <li class="nav-item">
+                                <div class="nav-content mx-lg-2">
+                                    <a module="public-home" href="/"  class="nav-link load-view  ">
+                                        <span class="nav-icon"><i class="bi bi-house-fill"></i></span>
+                                        <span class="nav-label">Inicio</span>
+                                    </a>
+                                </div>
+                            </li><li class="nav-item dropdown mx-lg-2 ">
+                                <a class="nav-link dropdown-toggle " href="#" id="navbar-dropdown-rates-data" role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="nav-icon"><i class="bi bi-globe-americas"></i></span><span class="nav-label">Países</span></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-rates-data"><li>
+                                            <a href="/dolar-argentina"   class="dropdown-item nav-link load-view   "><span class="nav-image"><img src="/assets/img/countries/AR.png" alt=""></span><span class="nav-label">Argentina</span></a>
+                                        </li><li>
+                                            <a href="/dolar-chile"   class="dropdown-item nav-link load-view   "><span class="nav-image"><img src="/assets/img/countries/CL.png" alt=""></span><span class="nav-label">Chile</span></a>
+                                        </li><li>
+                                            <a href="/dolar-colombia"   class="dropdown-item nav-link load-view   "><span class="nav-image"><img src="/assets/img/countries/CO.png" alt=""></span><span class="nav-label">Colombia</span></a>
+                                        </li><li>
+                                            <a href="/dolar-venezuela"   class="dropdown-item nav-link load-view   "><span class="nav-image"><img src="/assets/img/countries/VE.png" alt=""></span><span class="nav-label">Venezuela</span></a>
+                                        </li></ul>
+                            </li><li class="nav-item">
+                                <div class="nav-content mx-lg-2">
+                                    <a module="rates-currencies" href="/divisas"  class="nav-link load-view  ">
+                                        <span class="nav-icon"><i class="bi bi-currency-dollar"></i></span>
+                                        <span class="nav-label">Divisas</span>
+                                    </a>
+                                </div>
+                            </li><li class="nav-item">
+                                <div class="nav-content mx-lg-2">
+                                    <a module="rates-cryptos" href="/criptos"  class="nav-link load-view  ">
+                                        <span class="nav-icon"><i class="bi bi-currency-bitcoin"></i></span>
+                                        <span class="nav-label">Criptos</span>
+                                    </a>
+                                </div>
+                            </li><li class="nav-item dropdown mx-lg-2 ">
+                                <a class="nav-link dropdown-toggle " href="#" id="navbar-dropdown-MORE" role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="nav-icon"><i class="bi bi-plus-circle"></i></span><span class="nav-label">Más</span></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-MORE"><li>
+                                            <a href="/calculadora"   class="dropdown-item nav-link load-view   "><span class="nav-icon"><i class="bi bi-calculator-fill"></i></span><span class="nav-label">Calculadora</span></a>
+                                        </li></ul>
+                            </li><li class="nav-item dropdown mx-lg-2 d-none d-md-block">
+                                <a class="nav-link dropdown-toggle " href="#" id="navbar-dropdown-LANGUAGE" role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="nav-image"><img src="/assets/img/lang/es.png" alt=""></span><span class="nav-label">ES</span></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-LANGUAGE"><li>
+                                            <a href="#"   class="dropdown-item nav-link load-view   disabled"><span class="nav-image"><img src="/assets/img/lang/en.png" alt=""></span><span class="nav-label">English</span></a>
+                                        </li><li>
+                                            <a href="#" lang="es"  class="dropdown-item nav-link load-view load-lang  "><span class="nav-image"><img src="/assets/img/lang/es.png" alt=""></span><span class="nav-label">Español</span></a>
+                                        </li></ul>
+                            </li>                </ul>
                 <!--
                 <form class="navbar-btn form-inline text-center d-none d-md-inline">
                                     </form>-->
@@ -115,41 +165,278 @@
             
                         
         </div>
-
-        <nav class="nav nav-mobile flex-row d-md-none">
-                    </nav>
+        
+        <ul class="nav nav-mobile d-md-none">
+            <li class="nav-item">
+                        <a module="public-home" href="/"  class="text-center nav-link load-view  "  >
+                            <span class="nav-icon"><i class="bi bi-house-fill"></i></span>
+                            <span class="nav-label">Inicio</span>
+                        </a>
+                    </li><li class="nav-item dropdown text-center">
+                        <a module="rates-data" class="nav-link dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            <span class="nav-icon"><i class="bi bi-globe-americas"></i></span>
+                            <span class="nav-label">Países</span>
+                        </a>
+                        <ul class="mx-1 dropdown-menu dropdown-menu-start"><li>
+                                    <a module="rates-data-ar" href="/dolar-argentina"  class="dropdown-item nav-link load-view  "><span class="nav-image"><img src="/assets/img/countries/AR.png" alt=""></span><span class="nav-label">Argentina</span></a>
+                                </li><li>
+                                    <a module="rates-data-cl" href="/dolar-chile"  class="dropdown-item nav-link load-view  "><span class="nav-image"><img src="/assets/img/countries/CL.png" alt=""></span><span class="nav-label">Chile</span></a>
+                                </li><li>
+                                    <a module="rates-data-co" href="/dolar-colombia"  class="dropdown-item nav-link load-view  "><span class="nav-image"><img src="/assets/img/countries/CO.png" alt=""></span><span class="nav-label">Colombia</span></a>
+                                </li><li>
+                                    <a module="rates-data-ve" href="/dolar-venezuela"  class="dropdown-item nav-link load-view  "><span class="nav-image"><img src="/assets/img/countries/VE.png" alt=""></span><span class="nav-label">Venezuela</span></a>
+                                </li></ul>
+                    </li><li class="nav-item">
+                        <a module="rates-currencies" href="/divisas"  class="text-center nav-link load-view  "  >
+                            <span class="nav-icon"><i class="bi bi-currency-dollar"></i></span>
+                            <span class="nav-label">Divisas</span>
+                        </a>
+                    </li><li class="nav-item">
+                        <a module="rates-cryptos" href="/criptos"  class="text-center nav-link load-view  "  >
+                            <span class="nav-icon"><i class="bi bi-currency-bitcoin"></i></span>
+                            <span class="nav-label">Criptos</span>
+                        </a>
+                    </li><li class="nav-item dropdown text-center">
+                        <a module="MORE" class="nav-link dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            <span class="nav-icon"><i class="bi bi-plus-circle"></i></span>
+                            <span class="nav-label">Más</span>
+                        </a>
+                        <ul class="mx-1 dropdown-menu dropdown-menu-end"><li>
+                                    <a module="calculator" href="/calculadora"  class="dropdown-item nav-link load-view  "><span class="nav-icon"><i class="bi bi-calculator-fill"></i></span><span class="nav-label">Calculadora</span></a>
+                                </li></ul>
+                    </li>        </ul>
     </nav>
 
     
 </header><div id="content" >
-                <script type="text/javascript" src="/js/messages-001.js" ></script>
+                
+<section class="scrollable height-content calculator-view">
+    <div class="ad display">
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-5327490266190788"
+        data-ad-slot="3690877892"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script type="text/javascript">
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>    <div class="container-md">
+        <div class="my-4 text-sm-center">
+            <h1 id="view-title">Calculadora de monedas</h1><h4 id="view-subtitle-1">Dólar estadounidense a Bolívar soberano</h4><h4 id="view-subtitle-2">USD a VES</h4>        </div>
+        <div class="row position-relative mt-4">
+            <div id="form-group-fr" class="form-group col-12 col-sm-6">
+    <h5 class="text-sm-center mb-2 my-sm-3">Tengo</h5>
+    <div class="input-group mb-2 skeleton" style="height: 37.6px;">
+        <select id="select-group-fr" 
+            class="select-group custom-select form-control d-skeleton d-none" 
+            data-placeholder="Grupo" 
+            >
+        </select>
+    </div>
+    <div class="input-group mb-2 skeleton" style="height: 37.6px;">
+        <select id="select-rates-fr" 
+            class="select-rates custom-select form-control d-skeleton d-none" 
+            data-placeholder="Moneda" 
+            disabled>
+        </select>
+    </div>
+    <div class="input-group mb-1 skeleton" style="height: 37.6px;">
+        <input id="input-amount-fr" 
+            class="form-control custom-text-number border-end-0 pe-0 d-skeleton d-none" 
+            type="text" inputmode="numeric" 
+            placeholder="Cantidad" 
+            value="1" 
+            format-currency="18">
+        <span id="text-code-fr" 
+            class="input-group-text custom-text-number border-start-0 bg-transparent d-skeleton d-none">
+        </span>
+    </div>
+    <div class="skeleton" style="width:150px; height:15px; margin: 9px 0 5px;">
+        <p class="custom-text-number form-text m-0 d-skeleton d-none" style="min-height:25px;">
+            <small id="text-rate-fr"></small>
+        </p>
+    </div>
+</div>            <div class="btn-calculator-invert">
+                <div id="btn-invert" class="disabled skeleton" title="Invertir">
+                    <svg class="bi" width="20" height="20" fill="currentColor">
+                        <use xlink:href="/assets/icons/bootstrap.svg#arrow-left-right"/>
+                    </svg>
+                </div>
+            </div>
+            <div id="form-group-to" class="form-group col-12 col-sm-6">
+    <h5 class="text-sm-center mb-2 my-sm-3">Quiero</h5>
+    <div class="input-group mb-2 skeleton" style="height: 37.6px;">
+        <select id="select-group-to" 
+            class="select-group custom-select form-control d-skeleton d-none" 
+            data-placeholder="Grupo" 
+            >
+        </select>
+    </div>
+    <div class="input-group mb-2 skeleton" style="height: 37.6px;">
+        <select id="select-rates-to" 
+            class="select-rates custom-select form-control d-skeleton d-none" 
+            data-placeholder="Moneda" 
+            disabled>
+        </select>
+    </div>
+    <div class="input-group mb-1 skeleton" style="height: 37.6px;">
+        <input id="input-amount-to" 
+            class="form-control custom-text-number border-end-0 pe-0 d-skeleton d-none" 
+            type="text" inputmode="numeric" 
+            placeholder="Cantidad" 
+            value="" 
+            format-currency="18">
+        <span id="text-code-to" 
+            class="input-group-text custom-text-number border-start-0 bg-transparent d-skeleton d-none">
+        </span>
+    </div>
+    <div class="skeleton" style="width:150px; height:15px; margin: 9px 0 5px;">
+        <p class="custom-text-number form-text m-0 d-skeleton d-none" style="min-height:25px;">
+            <small id="text-rate-to"></small>
+        </p>
+    </div>
+</div>            <div class="text-center custom-text custom-text-number my-4">
+                <div class="text-nowrap rounded skeleton" style="width:140px; height:40.80px; margin: 7px auto;">
+                    <span id="result-rate-inp" class="fw-bold fs-1 d-skeleton d-none">0,00</span> 
+                    <span id="result-code-inp" class="fw-bold fs-4 d-skeleton d-none"></span>
+                    <span id="result-sign-inp" class="fw-bold fs-4 d-skeleton d-none"> = </span>
+                </div>
+                <div class="text-nowrap rounded skeleton" style="width:250px; height:70.40px; margin: 2.5px auto;">
+                    <span id="result-rate-out" class="fw-bold display-2 d-skeleton d-none">0,00</span> 
+                    <span id="result-code-out" class="fw-bold display-6 d-skeleton d-none"></span>
+                </div>
+            </div>
+        </div>
+        <input id="is-conv" type="hidden" value="1">
+        <input id="is-rate" type="hidden" value="">
+        <input id="type-cryptos" type="hidden" value="cryptos">
+        <input id="type-currencies" type="hidden" value="currencies">
+        <input id="select-option" type="hidden" value="Tasas de ">
+        <input id="selected-group-fr" type="hidden" value="currencies"><input id="selected-group-to" type="hidden" value="currencies"><input id="selected-rate-fr" type="hidden" value="USD"><input id="selected-rate-to" type="hidden" value="VES">    </div>
+    <div class="ad display">
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-5327490266190788"
+        data-ad-slot="3690877892"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script type="text/javascript">
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>    <footer class="py-3">
+    <div class="container-md">
+        
+        <div class="row links aling-items-center">
 
-<!--
-<section class="message-view p-0">
-    <div class="image-view">
-        <img src="/assets/img/error/404.png" />
+            <div class="col-6 col-sm-3 col-lg-2">
+                <div class="logo">
+                    <a href="/">
+                        <img src="/assets/img/logo-large.webp" alt="Exchange Monitor">
+                    </a>
+                </div>
+                <div class="social">
+                                    </div>
+                <div class="btn-group dropup mt-2">
+                    <button class="btn btn-sm custom-secondary-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class='btn-image'><img src="/assets/img/lang/es.png" alt=""></span>
+                        <span class='btn-text'>Español</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                                    <a href='#' class='dropdown-item disabled' lang='en' onclick='loadLang(this)'>
+                                        <span class='item-image'><img src='/assets/img/lang/en.png' alt=''></span>
+                                        <span class='item-text'>English</span>
+                                    </a>
+                                </li><li>
+                                    <a href='#' class='dropdown-item ' lang='es' onclick='loadLang(this)'>
+                                        <span class='item-image'><img src='/assets/img/lang/es.png' alt=''></span>
+                                        <span class='item-text'>Español</span>
+                                    </a>
+                                </li>                    </ul>
+                </div>
+            </div>
+
+            <div class="d-none d-lg-block col"></div>
+
+            <div class="col-6 col-sm-3 col-lg-2">
+                <p class="title">Contacto</p>
+                <a target="blank" href="/contacto">Formulario de contacto</a>
+                <a href="mailto:exchangemonitor.net@gmail.com">Correo electrónico</a>
+            </div>
+
+            <div class="d-none d-lg-block col"></div>
+
+            <div class="col-6 col-sm-3 col-lg-2">
+                <p class="title mt">Legal</p>
+                <a target="blank" href="/legal/politica-de-cookies">Política de cookies</a>
+                <a target="blank" href="/legal/politica-de-privacidad">Política de privacidad</a>
+            </div>
+
+            <div class="d-none d-lg-block col"></div>
+
+            <div class="col-6 col-sm-3 col-lg-2">
+                <p class="title mt">Herramientas</p>
+                <a href="#">API para desarrolladores</a>
+                <a href="#">Widgets para web</a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+         
+        <div class="copyright text-center mt-2">
+            <p class="m-0">Exchange Monitor</p>
+            <p class="m-0">Copyright © 2024 - Todos los derechos reservados</p>
+        </div>
+
+        <div class="message mt-2">
+            <p class="m-0">
+                En Exchange Monitor sólo tenemos un compromiso informativo, brindamos los precios del dólar en Argentina, Chile, Colombia y Venezuela a partir de referencias locales e internacionales y una referencia propia que denominamos Dólar EM.                Brindamos además un valor de referencia del precio de las principales divisas internacionales; de acuerdo con los datos brindados por el mercado de <a href="https://www.tradingview.com/" target="_blank" rel="nofollow">TradingView</a>, y las principales criptomodedas con mayor mercado en <a href="https://coinmarketcap.com/" target="_blank" rel="nofollow">CoinMarketCap.</a>                No somos casa de cambio, ni prestamos servicios de envíos de dinero, ni trabajamos en colaboración con ninguna empresa, por lo que no nos hacemos respnsables por fraudes o estafas ocasionados por terceros en suplantación de nuestro nombre.            </p>
+        </div>
+
     </div>
-    <div class="text-view pt-4 pb-2">
-        <p class="mb-2 h2 fw-bold fw-expanded text-uppercase custom-text">Pagina No Encontrada</p>
-        <p class="mb-4 fw-light fw-condensed custom-text-message-light"><small>Lo sentimos, no pudimos encontrar la página solicitada.<br>Por favor vuelve a la página de inicio.</small></p>
-        <a class="px-3 btn custom-btn" href="/" role="button">Volver al Inicio</a>
-    </div>
-</section>-->
-<section class="message-view p-3 d-flex flex-column justify-content-center text-center">
-    <div class="mb-4 text-danger">
-        <svg class="bi" width="70" height="70" fill="currentColor">
-            <use xlink:href="/assets/icons/bootstrap.svg#exclamation-triangle"/>
-        </svg>
-    </div>
-    <p class="mb-2 h2 fw-bold fw-expanded text-uppercase custom-text">Pagina No Encontrada</p>
-    <p class="mb-4 fw-light fw-condensed custom-text-message-light"><small>Lo sentimos, no pudimos encontrar la página solicitada.<br>Por favor vuelve a la página de inicio.</small></p>
-    <div>
-        <a class="px-3 btn custom-btn" href="/" role="button">Volver al Inicio</a>
-    </div>
-</section>
+</footer></section>
 
 <script type="text/javascript">
-    setDimensContainerMessage();
+
+	window.addEventListener('load', function() { 
+		new Calculator({
+            "link": { 
+                "to":"-a-",  
+            },
+            "header_title": { 
+                "auto":"Calculadora de monedas",  
+                "conv":"[[code-from]] a [[code-to]] - [[name-from]] a [[name-to]]",  
+                "rates":"Calculadora de tasas en [[country]]",  
+                "rates_select":"Calculadora [[dollar]] [[name]] en [[country]]",  
+                "dollar_off":"de",  
+                "dollar_on":"del dólar", 
+            },
+            "header_desc": { 
+                "auto":"Convierte dólares estadounidenses a cualquier moneda o criptomoneda que desees, y viceversa, con la mejor calculadora.",  
+                "conv":"1 [[code-from]] equivale a [[rate]] [[code-to]]. Convierte [[name-from]] a [[name-to]] u otra moneda o criptomoneda con la mejor calculadora.",  
+                "rates":"Convierte cualquier tasa de referencia del dólar en [[country]] a dólares estadounidenses u otra moneda o criptomoneda que desees, y viceversa, con la mejor calculadora del dólar en [[country]].",  
+                "rates_select":"Convierte [[dollar]][[name]] en [[country]] a dólares estadounidenses o cualquier otra moneda o criptomoneda que desees, y viceversa, con la mejor calculadora del dólar en [[country]].",  
+                "dollar_off":"",  
+                "dollar_on":"el dólar ", 
+            },
+            "body_title": { 
+                "auto":"Calculadora de monedas",  
+                "conv":"Calculadora de monedas",  
+                "rates":"Calculadora de tasas [[country]]",  
+                "subtitle_conv_1":"[[name-from]] a [[name-to]]",  
+                "subtitle_conv_2":"[[code-from]] a [[code-to]]",  
+                "dollar_off":"",  
+                "dollar_on":"el dólar ", 
+            },
+            "body_subtitle": { 
+                "conv_1":"[[name-from]] a [[name-to]]",  
+                "conv_2":"[[code-from]] a [[code-to]]",  
+                "dollar":"Dólar ", 
+                "in":" en ", 
+            }
+        }); 
+	}); 
 </script>
             </div>
 <script type="text/javascript">
@@ -244,9 +531,8 @@
 <script type="text/javascript" src="/imports/jquery-3.7.1.min.js" ></script>
 <script type="text/javascript" src="/imports/bootstrap-bundle-5.2.3.min.js" ></script>
 <script type="text/javascript" src="/imports/select2-4.1.0-rc.0.min.js" ></script>
-<script type="text/javascript" src="/imports/html2canvas-0.4.1.js" ></script>
 
-<script type="text/javascript" src="/js/general-001.js" ></script>
-    </body>
+<script type="text/javascript" src="/js/general-005.js" ></script>
+<script type="text/javascript" src="/js/calculator-005.js" ></script><script type="text/javascript" src="/js/methods-003.js" ></script><script type="text/javascript" src="/js/inputs-002.js" ></script><script type="text/javascript" src="/js/forms-001.js" ></script><script type="text/javascript" src="/js/data-001.js" ></script>    </body>
 
 </html>
