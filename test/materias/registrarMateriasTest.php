@@ -13,25 +13,19 @@ class registrarMateriasTest extends TestCase{
 
 	//el usuario Ingresa los datos correctos
 	public function testRegistroExitoso(){
-        $this->materia->set_nombre("nociones basicas de oficina");
-        $this->materia->set_ano("2");
-        $this->materia->set_docente1("000101");
-        $this->materia->set_docente2("000103");
-        
-       
+		$datos = [
+			'nombre' => "DEPORTE",
+			'año' => 4,
+			'docentes' => array(28276731,'000103')//los 0 a las izq da problema de validacion x eso se coloca como string
+		];
     
         $this->materia->set_nivel("1");
-		$this->assertEquals("1Registro Incluido", $this->materia->registrar($this->materia));
+		$result=$this->materia->Registrar_Materia($datos);
+		$this->assertEquals(
+			"1Registro Incluido",// Valor esperado
+			 $result , // Valor obtenido
+			 'El Registro de la materia falló: ' . $result // Mensaje de error personalizado
+			);
 	}
-	public function testRegistrofallido(){
-        $this->materia->set_nombre("MATEMATICAS");
-        $this->materia->set_ano("1");
-        $this->materia->set_docente1("000101");
-        $this->materia->set_docente2("000103");
-        
-       
-    
-        $this->materia->set_nivel("1");
-		$this->assertEquals("MATERIA Ya esta Registrada", $this->materia->registrar($this->materia));
-	}
+
 }

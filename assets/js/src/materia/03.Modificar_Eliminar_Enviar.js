@@ -118,10 +118,10 @@ $("#editEmployeeModal").on("hidden.bs.modal", function () {
 //<!---------------------------------------ELIMINAR------------------------------------------------------------------------------------->
 function eliminar(id) {
     $("#id2").val(id);
-    $("#borrar").on("click", () => {
-            
-         enviaAjax($("#f3"));
-        });
+    //Corregido
+    $("#borrar").off("click").on("click", () => {
+        enviaAjax($("#f3"));   
+    });
 }
 
 

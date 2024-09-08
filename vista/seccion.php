@@ -205,7 +205,7 @@
 			<div class="col-1" style="display:none;">
 				<label class="form-label">Id</label>
 				<span id="id_v"></span>
-				<input type="text" class="form-control" style="display: none;"  name="accion" value="accion" >
+				<input type="text" class="form-control" style="display: none;"  name="accion" value="registrar" >
 				<input type="text" class="form-control sm" name="id" id="id" placeholder="0000000">
 			</div>
 
@@ -301,7 +301,7 @@
 			<div class="col-1" style="display:none;">
 				<label class="form-label">Id</label>
 				<span id="id_v"></span>
-				<input type="text" class="form-control" style="display: none;"  name="id_edit" value="id_edit" >
+				<input type="text" class="form-control" style="display: none;"  name="accion" value="modificar" >
 				<input type="text" class="form-control sm" name="id1" id="id1">
 			</div>
 			
@@ -388,7 +388,7 @@
 	  <form id="f3">
 
 		<input style="display: none;" type="text" name="id2" id="id2">
-		<input style="display: none;" type="text" name="accion3" id="accion3" value="accion">
+		<input style="display: none;" type="text" name="accion" id="accion3" value="eliminar">
 
 	</form>
       <div class="modal-body">

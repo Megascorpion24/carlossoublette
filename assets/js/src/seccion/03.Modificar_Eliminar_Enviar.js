@@ -159,7 +159,7 @@ function eliminar(id, s, a){
 
     //Corregido
     $("#borrar").off("click").on("click", () => {
-        enviaAjax($("#f3"));  
+        enviaAjax($("#f3"));   
     });
 }
 
@@ -183,7 +183,7 @@ function delete_info(s,a){
                 
                 success: (respuesta) => {
                     // alert(respuesta);
-                    LlamadaAlert(respuesta)
+                    LlamadaAlert(respuesta.trim());
                 //Carga de informacion actualizada
                     abc();
                     abc2();

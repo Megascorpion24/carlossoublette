@@ -63,9 +63,9 @@ if (isset($_POST['accion']) && !empty($_POST['accion'])) {
 					'docentes' => $_POST['docentes']
 				];
 				
-				echo $resultado = $m->Registrar_Materia($datos);
 				$m->set_nivel($nivel);
-			exit();//termina el script para no mostrar codigo html de la vista(afecta el alert) x el require_once("vista/".$pagina.".php");
+				echo $resultado = $m->Registrar_Materia($datos);
+			die();
 		case 'modificar':
 				//Editar (f2)
 				$datos = [
@@ -75,18 +75,19 @@ if (isset($_POST['accion']) && !empty($_POST['accion'])) {
 					'docentes' => $_POST['docentes1']
 				];
 				
-	 			echo $resultado = $m->Modificar_Materia($datos);
 				$m->set_nivel($nivel);
-			exit();
+	 			echo $resultado = $m->Modificar_Materia($datos);
+			die();
 		case 'eliminar':
 			//Eliminar (f3)
-			echo $m->Eliminar_Materia($_POST['id2']);
 			$m->set_nivel($nivel);
-			exit();
+			echo $m->Eliminar_Materia($_POST['id2']); 
+			die();
 			
 		default:break;
 	}
 	
+	exit();//termina el script para no mostrar codigo html de la vista(afecta el alert) x el require_once("vista/".$pagina.".php");
 }
  
 

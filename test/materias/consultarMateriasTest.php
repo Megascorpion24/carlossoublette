@@ -8,9 +8,8 @@ class consultarMateriasTest extends TestCase{
 	private $Materias;
 
 	public function setUp():void{
-		$this->Materias = new Materias();
+		$this->Materias = new materias();//m minuscula
 	}
-
 	
 	//productos consultados correctamente
 	public function testConsultaExitosa()
