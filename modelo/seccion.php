@@ -1,6 +1,7 @@
 <?php
 
 require_once('conexion.php');
+require_once('validator/validations.php');
  
 class secciones extends datos{
  
@@ -11,10 +12,30 @@ class secciones extends datos{
     private $ano_academico;
     private $cantidad;
     private $nivel;
+// ---------------------------------------------
     
- 
-// ----------------
+ public function Validar_Seccion($datos,$validate=true) {
+    try {
+        isset($datos["id"]) && !empty($datos["id"]) ? $this->id = validate_value('id', $datos['id'])  : '';
 
+    if($validate){
+        $this->secciones=validate_value('seccion', $datos['secciones']);
+        $this->ano=validate_value('año', $datos['año']);
+        $this->cedula_profesor=validate_value('cedula', $datos['Doc_Guia']);
+        $this->cantidad=validate_value('cantidad', $datos['cantidad']);
+        $this->ano_academico=validate_value('id', $datos['ano_academico']);
+    }
+        return true;
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+   
+ }
+
+
+
+
+// -----------------------------------------------------
     public function validarAbecedarioFormulario($abecedario) {
         foreach ($abecedario as $abc) {
           
@@ -44,58 +65,9 @@ public function getSec($index) {
 
  
 // ---------------------
-    public function set_id($valor){
-        if (preg_match("/^[0-9]{0,4}$/", $valor)) {
-		        $this->id = $valor; 
-            return true;
-            }else{
-                return false;
-            }
-        return true;
-	}
-    public function set_secciones($valor){
-        if (preg_match("/^[0-9]{1,3}$/", $valor)) {
-		    $this->secciones = $valor;
-            // echo 'seccion:'.$this->secciones;   
-            return true;
-            }else{
-                return false;
-            }
-        return true;
-	}
-    public function set_ano($valor){
-        if (preg_match("/^[0-9]{1,3}$/", $valor)) {
-         $this->ano = $valor;  
-            return true;
-            }else{
-                return false;
-            }
-    }
-    public function set_cantidad($valor){
-        if (preg_match("/^[0-9]{2}$/", $valor)&& $valor > 10) {
-          $this->cantidad = $valor;     
-            return true;
-            }else{
-                return false;
-            }
-    }
-     public function set_cedula_profesor($valor){
-        if (preg_match("/^[0-9]{6,15}$/", $valor)) {
-                 $this->cedula_profesor = $valor;            
-            return true;
-            }else{
-                return false;
-            }
-    }
-    public function set_ano_academico($valor){
-        if (preg_match("/^[0-9]{1,4}$/", $valor)) {
-        $this->ano_academico = $valor; 
-            return true;
-            }else{
-                return false;
-            }
-        return true;
-	}
+
+     
+   
 
     public function set_nivel($valor){
 		$this->nivel = $valor; 
@@ -106,19 +78,20 @@ public function getSec($index) {
 
 
 
-    public function registrar(){
-        $val=$this->registrar1();
-        echo $val;
+    public function registrar($datos){
+        $val= $this->Validar_Seccion($datos);
+        return $val ? $this->registrar1() : $val;
     }
 
-    public function modificar(){
-        $val=$this->modificar1();
-        echo $val;
+    public function modificar($datos){
+        $val= $this->Validar_Seccion($datos);
+       return  $val ? $this->modificar1() : "ocurrio un error en validar los datos".$val;
     }
 
-    public function eliminar(){
-        $val= $this->eliminar1();
-        echo $val;
+    public function eliminar($valor){
+    $val = $this->Validar_Seccion(['id' => $valor], false);
+    return $val ? $this->eliminar1() : $val;
+      
     }
  
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
@@ -212,12 +185,12 @@ private function registrar1(){
                 
                 $co->exec("UNLOCK TABLES");
                 $co->exec("COMMIT");
-                return "1Registro incluido"; 
                 $co->exec("SET AUTOCOMMIT = 1");
+                return "1Registro incluido"; 
  
             }catch(Exception $e){
-                return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                return $e->getMessage();
                 
             }
             
@@ -426,6 +399,10 @@ private function modificar1(){
 
     if (!$this->exists($this->secciones,$this->ano,$this->ano_academico) && !$this->exists_doc_guia($this->cedula_profesor, false) ) {
         try {
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES secciones_años WRITE, docente_guia WRITE");                    
+            $co->exec("START TRANSACTION");
+
             // Actualizar la tabla secciones_años
             $r = $co->prepare("UPDATE secciones_años 
                                 SET cantidad = :cantidad,
@@ -454,12 +431,16 @@ private function modificar1(){
 
             $co->exec("UNLOCK TABLES");
             $co->exec("COMMIT");
-            return "2Registro Modificado";
             $co->exec("SET AUTOCOMMIT = 1");
+            return "2Registro Modificado";
  
         }catch(Exception $e){
-            return $e->getMessage();
-            $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            $co->exec("UNLOCK TABLES");
+            $co->exec("COMMIT");
+            $co->exec("SET AUTOCOMMIT = 1");
+            // $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            // return $e->getMessage();
+            return "ci profe: " .$this->cedula_profesor;
             
         }
     } else { 
@@ -492,12 +473,12 @@ private function modificar1(){
 
             $co->exec("UNLOCK TABLES");
             $co->exec("COMMIT");
-            return "2Registro Modificado"; 
             $co->exec("SET AUTOCOMMIT = 1");
+            return "2Registro Modificado"; 
  
         }catch(Exception $e){
-            return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            return $e->getMessage();
             
         }
     } 
@@ -770,12 +751,12 @@ private function eliminar1(){
 
             $co->exec("UNLOCK TABLES");
             $co->exec("COMMIT");
-            return "3Registro Eliminado";
             $co->exec("SET AUTOCOMMIT = 1");
+            return "3Registro Eliminado";
  
         }catch(Exception $e){
-            return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            return $e->getMessage();
             
         }
         

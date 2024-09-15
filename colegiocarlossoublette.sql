@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-07-2024 a las 23:07:23
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 09-09-2024 a las 00:32:03
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -92,7 +92,9 @@ INSERT INTO `ano_secciones` (`id`, `id_anos`, `id_secciones`) VALUES
 (2, 1, 30),
 (3, 1, 36),
 (4, 1, 37),
-(5, 2, 38);
+(5, 2, 38),
+(6, 2, 39),
+(7, 2, 40);
 
 -- --------------------------------------------------------
 
@@ -366,7 +368,9 @@ INSERT INTO `bitacora` (`id`, `fecha`, `accion`, `modulo`, `id_usuario`) VALUES
 (204, '2024-07-17', 'se elimino una clase', 'Horario', '30019081'),
 (205, '2024-07-17', 'se intento ingresar al sistema', 'login', '0000'),
 (206, '2024-07-18', 'se intento ingresar al sistema', 'login', '0000'),
-(207, '2024-07-18', 'se elimino una clase', 'Horario', '30019081');
+(207, '2024-07-18', 'se elimino una clase', 'Horario', '30019081'),
+(208, '2024-09-08', 'se registro una seccion', 'secciones', '2827479'),
+(209, '2024-09-08', 'se registro una seccion', 'secciones', '2827479');
 
 -- --------------------------------------------------------
 
@@ -473,7 +477,9 @@ INSERT INTO `docente_guia` (`id`, `id_docente`, `id_ano_seccion`) VALUES
 (2, '000103', 30),
 (3, '000103', 36),
 (4, '000101', 37),
-(5, '000104', 38);
+(5, '000104', 38),
+(6, '000104', 39),
+(7, '000102', 40);
 
 -- --------------------------------------------------------
 
@@ -1510,7 +1516,9 @@ INSERT INTO `secciones_años` (`id`, `cantidad`, `id_secciones`, `id_anos`, `est
 (35, 0, 0, 3, 1),
 (36, 25, 5, 2, 0),
 (37, 25, 9, 5, 0),
-(38, 22, 2, 2, 1);
+(38, 22, 2, 2, 1),
+(39, 20, 1, 1, 1),
+(40, 30, 3, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -1851,7 +1859,7 @@ ALTER TABLE `ano_estudiantes`
 -- AUTO_INCREMENT de la tabla `ano_secciones`
 --
 ALTER TABLE `ano_secciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `años`
@@ -1869,7 +1877,7 @@ ALTER TABLE `años_materias`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
 
 --
 -- AUTO_INCREMENT de la tabla `deudas`
@@ -1881,7 +1889,7 @@ ALTER TABLE `deudas`
 -- AUTO_INCREMENT de la tabla `docente_guia`
 --
 ALTER TABLE `docente_guia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `docente_horario`
@@ -2001,7 +2009,7 @@ ALTER TABLE `secciones`
 -- AUTO_INCREMENT de la tabla `secciones_años`
 --
 ALTER TABLE `secciones_años`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios_tutor`

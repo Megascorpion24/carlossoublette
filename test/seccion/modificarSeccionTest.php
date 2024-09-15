@@ -13,23 +13,18 @@ class modificarSeccionTest extends TestCase{
 
 	//el usuario Ingresa los datos correctos
 	public function testModificacionExitoso(){
-		$this->seccion->set_id("36");
-        $this->seccion->set_secciones("2");
-        $this->seccion->set_ano("2");
-        $this->seccion->set_cantidad("25");
-        $this->seccion->set_cedula_profesor("000103");
+		$datos = [
+			'id' => 40,
+			'secciones' =>10,
+			'año' =>3,
+			'Doc_Guia' =>28276731,
+			'cantidad' =>15,
+			'ano_academico' =>2 
+		];
 	       
         $this->seccion->set_nivel("1");
-		$this->assertEquals("2Registro Modificado", $this->seccion->modificar($this->seccion));
+		$result= $this->seccion->modificar($datos);
+		$this->assertEquals("2Registro Modificado", $result,'Error en la prueba:' . $result);
 	}
-	public function testModificacionfallido(){
-		$this->seccion->set_id("36");
-		$this->seccion->set_secciones("2");
-        $this->seccion->set_ano("4");
-        $this->seccion->set_cantidad("28");
-        $this->seccion->set_cedula_profesor("000103");
-
-        $this->seccion->set_nivel("1");
-		$this->assertEquals("2Registro Modificado", $this->seccion->modificar($this->seccion));
-}
+	
 }

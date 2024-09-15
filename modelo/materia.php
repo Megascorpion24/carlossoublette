@@ -14,42 +14,41 @@ class materias extends datos{
     
  
      //---VALIDACIONES BACKEND---
-     public function Validar_Materia($datos) {
+     public function Validar_Materia($datos,$validate=true) {
         try {
             // Valida datos
+            isset($datos["id"]) && !empty($datos["id"]) ? $this->id = validate_value('id', $datos['id'])  : '';
+
+        if($validate) {
             $this->nombre = validate_value('nameMateria', $datos['nombre']);
             $this->ano = validate_value('año', $datos['año']);
             $this->docentes = validarDocentesFormulario('cedula', $datos['docentes']);
+        }
             return true;
         } catch (Exception $e) {
             echo $e->getMessage();
-            return false;
         }
     }
    
     // --------------
 
-   public function Registrar_Materia($datos) {
+   public function Registrar_Materia($datos){
         //Validar para Registrar
          $val = $this->Validar_Materia($datos);
-         return $val ? $res=$this->registrar1() : null;
+         return $val ? $this->registrar1() : $val;
           
    }
 
    public function Modificar_Materia($datos) {
-     //Validar para Modificar
-    //  print_r($datos);
-       $val = $this->Validar_Materia($datos);
-              $this->id = $datos['id']; 
-       return $val ? $this->modificar1() : null;
+       $val= $this->Validar_Materia($datos);
+       return $val ? $this->modificar1() : $val;
     }
 
     public function Eliminar_Materia($valor){
-        $this->id = $valor; 
-        return $this->eliminar1();
-    
+        $val = $this->Validar_Materia(['id' => $valor], false);
+        return $val ? $this->eliminar1() : $val;
     }
-    // ---------
+   
     public function set_nivel($valor){
 		$this->nivel = $valor; 
         return true;
@@ -109,12 +108,12 @@ private function registrar1() {
 
                 $co->exec("UNLOCK TABLES");
                 $co->exec("COMMIT");
-                return "1Registro Incluido";
                 $co->exec("SET AUTOCOMMIT = 1");
+                return "1Registro Incluido";
 
             }catch(Exception $e){
-                return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                return $e->getMessage();
                
             }
     } else {
@@ -200,16 +199,10 @@ private function modificar1(){
     if (!$this->exists($this->nombre, $this->ano)) {
         try {
 
-
-
-
             $co->exec("SET AUTOCOMMIT = 0");
             $co->exec("LOCK TABLES materias WRITE, años_materias WRITE, materias_docentes WRITE");                    
             $co->exec("START TRANSACTION");
             $co->exec("SAVEPOINT savepoint1");
-
-
-
 
             // Actualiza la materia en la tabla materias
             $r = $co->prepare("UPDATE materias SET nombre = :nombre WHERE id = :id");
@@ -223,28 +216,32 @@ private function modificar1(){
             $r->bindParam(':id', $this->id);
             $r->execute();
 
-            // Manejo de docentes
-            try {
+            
                 $this->off_Docente(); // Llama a la función que elimina los docentes actuales
                 $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
-            } catch (Exception $e) {
-                return "Error al manejar docentes: " . $e->getMessage();
-            }
+           
 
             $this->bitacora("se modificó una materia", "materias", $this->nivel);
 
             $co->exec("UNLOCK TABLES");
             $co->exec("COMMIT");
-            return "2Registro Modificado";
             $co->exec("SET AUTOCOMMIT = 1");
+            return "2Registro Modificado";
 
         }catch(Exception $e){
-            return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            $co->exec("UNLOCK TABLES");
+            $co->exec("SET AUTOCOMMIT = 1");
+            return "Error al modificar la materia: " .$e->getMessage();
            
         }
     } else {
         try {
+            $co->exec("SET AUTOCOMMIT = 0");
+            $co->exec("LOCK TABLES materias WRITE, años_materias WRITE, materias_docentes WRITE");                    
+            $co->exec("START TRANSACTION");
+            $co->exec("SAVEPOINT savepoint1");
+
             $this->off_Docente(); // Llama a la función que elimina los docentes actuales
             $this->insert_Docente(); // Llama a la función que registra los docentes nuevos
 
@@ -252,16 +249,20 @@ private function modificar1(){
 
             $co->exec("UNLOCK TABLES");
             $co->exec("COMMIT");
-            return "2Registro Modificado";
             $co->exec("SET AUTOCOMMIT = 1");
-
+            
+            return "2Registro Modificado";
         }catch(Exception $e){
-            return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+            $co->exec("UNLOCK TABLES");
+            $co->exec("SET AUTOCOMMIT = 1");
+            return $e->getMessage();
            
         }
     }
 }
+
+
 
 //<!---------------------------fin de funcion modificar--------------------------->
 
@@ -513,7 +514,7 @@ public function exists($nombre, $ano) {
 
 
             $co->exec("SET AUTOCOMMIT = 0");
-            $co->exec("LOCK TABLES materias WRITE");                    
+            $co->exec("LOCK TABLES materias WRITE");                     
             $co->exec("START TRANSACTION");
             $co->exec("SAVEPOINT savepoint1");
               
@@ -537,12 +538,14 @@ public function exists($nombre, $ano) {
                 
                  $co->exec("UNLOCK TABLES");
                  $co->exec("COMMIT");
-                 return "3Registro Eliminado";
                  $co->exec("SET AUTOCOMMIT = 1");
+                 return "3Registro Eliminado";
  
              }catch(Exception $e){
-                 return $e->getMessage();
                  $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
+                 $co->exec("UNLOCK TABLES");
+                 $co->exec("SET AUTOCOMMIT = 1");
+                 return $e->getMessage();
                  
              }
         

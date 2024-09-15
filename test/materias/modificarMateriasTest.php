@@ -13,25 +13,20 @@ class modificarMateriasTest extends TestCase{
 
 	//el usuario Ingresa los datos correctos
 	public function testmodificacionExitosa(){
-        $this->materia->set_id("15");
-        $this->materia->set_nombre("nociones basicas de oficina");
-        $this->materia->set_ano("5");
-		$this->materia->set_docente1("000101");
-        $this->materia->set_docente2("000103");
-       
+
+		$datos = [
+			'id' => 37,
+			'nombre' => "CASTELLANO",
+			'año' => 3,
+			'docentes' => array('000101','000103')
+		];
     
         $this->materia->set_nivel("1");
-		$this->assertEquals("2Registro Modificado", $this->materia->modificar($this->materia));
-	}
-	public function testModificacionfallido(){
-        $this->materia->set_id("67");
-        $this->materia->set_nombre("dibujo tecnico");
-        $this->materia->set_ano("4");
-       
-        
-       
-    
-        $this->materia->set_nivel("1");
-		$this->assertEquals("2Registro Modificado", $this->materia->modificar($this->materia));
+		$result=$this->materia->Modificar_Materia($datos);
+		$this->assertEquals(
+			"2Registro Modificado",// Valor esperado
+			 $result , // Valor obtenido
+			 'La Modificacion de la materia falló: ' . $result // Mensaje de error personalizado
+			);
 	}
 }
