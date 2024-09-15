@@ -329,7 +329,7 @@ class usuarios extends datos
     {
         $co = $this->conecta();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if ($this->existe($this->contraceña, "Select * from usuarios where id=:cedula", ':cedula')) {
+        if ($this->existe($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
 
 
             try {

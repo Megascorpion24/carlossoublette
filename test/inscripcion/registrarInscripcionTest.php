@@ -17,7 +17,7 @@ class registrarInscripcionTest extends TestCase{
         $this->inscripciones->set_cedula_repre("28621408");
         $this->inscripciones->set_estudiante("1");
         $this->inscripciones->set_materia("ninguna");
-        $this->inscripciones->set_cedula_estudiante("30019086");
+        $this->inscripciones->set_cedula_estudiante("30019088");
         $this->inscripciones->set_nombre_estudiante("santiago");
         $this->inscripciones->set_apellido_estudiante("casamayor");
         $this->inscripciones->set_edad_estudiante("16");
@@ -35,7 +35,7 @@ class registrarInscripcionTest extends TestCase{
       
               
         $this->inscripciones->set_nivel("1");
-        $this->assertEquals("Registro incluido", $this->inscripciones->registrar($this->inscripciones));
+        $this->assertEquals("1Registro incluido", $this->inscripciones->registrar($this->inscripciones));
     }
     
     //el usuario Ingresa los datos repetidos

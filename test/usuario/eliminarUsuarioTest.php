@@ -16,14 +16,14 @@ class eliminarUsuarioTest extends TestCase{
         
         $this->Usuarios->set_cedula("28621409");
       
-		$this->assertEquals("Registro Eliminado", $this->Usuarios->eliminar1($this->Usuarios));
+		$this->assertEquals("3Registro Eliminado", $this->Usuarios->eliminar1($this->Usuarios));
 	}
 
 	public function testEliminarFalla(){
         
-        $this->Usuarios->set_cedula("30019111");
+        $this->Usuarios->set_cedula("30019114");
       
-		$this->assertEquals("Usuario no registrado", $this->Usuarios->eliminar1($this->Usuarios));
+		$this->assertEquals("4Usuario no registrado", $this->Usuarios->eliminar1($this->Usuarios));
 	}
 	
 }

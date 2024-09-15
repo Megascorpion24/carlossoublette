@@ -49,7 +49,14 @@
 
 										</a>
 									<?php } ?>
-								
+
+									<?PHP if (in_array("registrar inscipcion", $nivel1)) { ?>
+										<a href="#addEmployeeModalPre" class="btn btn-success" data-toggle="modal">
+											<i class="material-icons">&#xE147;</i>
+											<span>Pre-Inscribir</span>
+
+										</a>
+									<?php } ?>
 
 
 									<?PHP if (in_array("registrar inscipcion", $nivel1)) { ?>
@@ -476,312 +483,157 @@
 
 
 				<!----MODAL PRE-REGISTRO--------->
-				<div class="modal fade" tabindex="-1" id="addEmployeeModalpre" role="dialog">
-					<div class="modal-dialog " role="document">
-						<div class="modal-content vw-100">
+				<div class="modal fade" tabindex="-1" id="addEmployeeModalPre" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
 							<div class="modal-header">
-								<form id="f">
-									<h5 class="modal-title">Inscribir estudiante</h5>
+								<form id="f2">
+									<h5 class="modal-title">Pre-Inscribir estudiante</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 							</div>
-							<ul class="nav nav-tabs">
-								<li class="nav-item">
-									<a class="nav-link active" href="#" id="I">Pagos</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link " href="#" id="II">Datos</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#" id="III">Secciones</a>
-								</li>
-
-							</ul>
-
-
 							<div class="modal-body">
-								<div id="1">
-
-
-									<div class="form-row">
-										<div class="form-group col-md-4">
-											<label>representantes</label>
-
-											<select name="mibuscador" id="mibuscador" onchange="añadir()">
-												<?php
-												if (!empty($consuta1[1])) {
-													echo $consuta1[1];
-												}
-												?>
-											</select>
+								<hr>
+								<h6 class="modal-title">Datos del estudiante</h6>
+								<hr>
+								<div class="form-row">
 
 
 
-
-										</div>
-
+									<div class="form-group col-md-4">
+										<label>Cedula</label>
+										<br>
+										<span id="scedula1"></span>
+										<input type="text" class="form-control" style="display: none;" name="accion1" value="accion1" required>
+										<input type="text" class="form-control" name="cedula1" id="cedula1" required>
 									</div>
-									<hr>
-									<h6 class="modal-title">Datos del representante</h6>
-									<hr>
-
-									<div class="form-row" id="contenido2">
-
-
-
-
-
-										<div class="form-group col-md-4">
-
-											<label>Cedula</label>
-											<br>
-											<span id="scedula"></span>
-											<input type="text" class="form-control" style="display: none;" name="accion" value="accion" required>
-											<input type="text" class="form-control" style="display: none;" name="cedu" id="cedu" required>
-											<div type="text" class="form-control" name="cedula" id="cedula" required></div>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Nombre</label>
-											<br>
-											<span id="snombre"></span>
-											<div type="text" class="form-control" name="nombre" id="nombre" required></div>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Apellido</label>
-											<br>
-											<span id="sapellido"></span>
-											<div type="text" class="form-control" name="apellido1" id="apellido1" required></div>
-										</div>
-
-										<div class="form-group col-md-4">
-											<label>Telefono</label>
-											<br>
-											<span id="scategoria"></span>
-											<div type="text" class="form-control" name="telefono" id="telefono" required></div>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Correo</label>
-											<br>
-											<span id="scategoria"></span>
-											<div type="text" class="form-control" name="correo" id="correo" required></div>
-										</div>
-
+									<div class="form-group col-md-4">
+										<label>Nombre</label>
+										<br>
+										<span id="snombre1"></span>
+										<input type="text" class="form-control" name="nombre1" id="nombre1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Apellido</label>
+										<br>
+										<span id="sapellido3"></span>
+										<input type="text" class="form-control" name="apellido3" id="apellido3" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Edad</label>
+										<br>
+										<span id="sedad1"></span>
+										<input type="text" class="form-control" name="edad1" id="edad1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Solvencia</label>
+										<br>
+										<span id="smateriae"></span>
+										<select name="materia1" id="materia1ss" class="form-control">
+											<option value="aprobado">aprobado</option>
+											<option value="reprovado">reprovado</option>
+										</select>
+									</div>
+									<div class="form-group col-md-4">
+										<label>observaciones</label>
+										<br>
+										<span id="sobservaciones3"></span>
+										<input type="text" class="form-control" name="observaciones3" id="observaciones3" required>
 									</div>
 
 								</div>
+								<hr>
+								<h6 class="modal-title">Ficha medica de: </h6>
+								<hr>
 
-								<div class="ocultar" id="2">
-									<hr>
-									<div class="form-row">
-										<div class="form-group col-md-4">
-											<div class="form-check" onclick="chect(0)">
-												<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" onclick="chect(0)" checked>
-												<label class="form-check-label" for="exampleRadios1" onclick="chect(0)">
-													Nuevo ingreso
-												</label>
-											</div>
-											<div class="form-check" onclick="chect2(0)">
-												<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" onclick="chect2(0)">
-												<label class="form-check-label" for="exampleRadios2" onclick="chect2(0)">
-													Regular
-												</label>
-											</div>
+								<div class="form-row">
 
-										</div>
-										<div class="form-group col-md-4">
-											<label>Estudiantes inscritos:</label>
-											<input type="text" class="form-control ocultar" name="estudiante" id="estudiante" value="1" required>
-											<select name="" id="mibuscador2" onchange="añadir2()" disabled>
-												<?php
-												if (!empty($consuta2[1])) {
-													echo $consuta2[1];
-												}
-												?>
-											</select>
-										</div>
+									<div class="form-group col-md-4">
+
+										<label>Tipo de sangre</label>
+										<br>
+										<span id="ssangre1"></span>
+										<input type="text" class="form-control" name="sangre1" id="sangre1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Vacunas</label>
+										<br>
+										<span id="svacunas1"></span>
+										<input type="text" class="form-control" name="vacunas1" id="vacunas1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Operaciones</label>
+										<br>
+										<span id="soperaciones1"></span>
+										<input type="text" class="form-control" name="operaciones1" id="operaciones1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Enfermedades</label>
+										<br>
+										<span id="senfermedades1"></span>
+										<input type="text" class="form-control" name="enfermedades1" id="enfermedades1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Medicamentos</label>
+										<br>
+										<span id="smedicamentos1"></span>
+										<input type="text" class="form-control" name="medicamentos1" id="medicamentos1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Alergias</label>
+										<br>
+										<span id="salerias1"></span>
+										<input type="text" class="form-control" name="alerias1" id="alerias1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Tratamientos</label>
+										<br>
+										<span id="stratamiento1"></span>
+										<input type="text" class="form-control" name="tratamiento1" id="tratamiento1" required>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Condicion medica</label>
+										<br>
+										<span id="scondicion1"></span>
+										<input type="text" class="form-control" name="condicion1" id="condicion1" required>
+									</div>
+								</div>
+
+
+
+
+								<hr>
+								<h6 class="modal-title">Seccion y año asignado</h6>
+								<hr>
+
+								<div class="form-row">
+
+									<div class="form-group col-md-4">
+										<label>selecciona un año:</label>
+										<select name="ano1" id="mibuscador4" onchange="añadir3('#mibuscador3')">
+											<?php
+											if (!empty($consuta3)) {
+												echo $consuta3;
+											}
+											?>
+										</select>
 									</div>
 
-
-									<hr>
-									<h6 class="modal-title">Datos del Estudiante: </h6>
-									<hr>
-									<div class="form-row">
-
-										<div class="form-group col-md-4">
-
-											<label id="laveC">Cedula </label>
-											<br>
-											<span id="scedulae"></span>
-											<span id="scedulae2"></span>
-											<input type="text" class="form-control" name="cedulae" id="cedulae" required>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Nombre</label>
-											<br>
-											<span id="snombree"></span>
-											<input type="text" class="form-control" name="nombree" id="nombree" required>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Apellido</label>
-											<br>
-											<span id="sapellidoe"></span>
-											<input type="text" class="form-control" name="apellidoe" id="apellidoe" required>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Edad</label>
-											<br>
-											<span id="sedade"></span>
-											<input type="text" class="form-control" name="edade" id="edade" required>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Solvencia</label>
-											<br>
-											<span id="smateriae"></span>
-											<select name="materiae" id="materiae" class="form-control" onchange="valida()">
-												<option value="aprobado">aprobado</option>
-												<option value="reprovado">reprovado</option>
-											</select>
-										</div>
-										<div class="form-group col-md-4">
-											<label>Observaciones</label>
-											<br>
-											<span id="sobservacionese"></span>
-											<input class="form-control" name="observacionese" id="observacionese" required>
-										</div>
-									</div>
-									<div id="medico">
-										<hr>
-										<h6 class="modal-title">Ficha medica de: </h6>
-										<hr>
-
-										<div class="form-row">
-
-											<div class="form-group col-md-4">
-
-												<label>Tipo de sangre</label>
-												<br>
-												<span id="ssangre"></span>
-												<input type="text" name="sangre" class="ocultar" id="sangre">
-												<select class="form-control" id="sanggre">
-													<option value="seleccionar" selected hidden>-seleccionar-</option>
-													<option value="ab+">ab+</option>
-													<option value="ab-">ab-</option>
-													<option value="a+">a+</option>
-													<option value="a-">a-</option>
-													<option value="b+">b+</option>
-													<option value="b-">b-</option>
-													<option value="o+">o+</option>
-													<option value="o-">o-</option>
-
-												</select>
-
-											</div>
-											<div class="form-group col-md-4">
-												<label>Vacunas</label>
-												<br>
-												<span id="svacunas"></span>
-												<input type="text" id="vacunas" class="ocultar" name="vacunas">
-												<select class="form-control" id="mibuscador222" multiple onchange="prueba()">
-
-													<option value="seleccionar" selected>seleccionar</option>
-													<option value="hepatitis b">hepatitis b</option>
-													<option value="BCG">BCG</option>
-													<option value="rotavirus">rotavirus</option>
-													<option value="pentavalente">pentavalente</option>
-													<option value="polio inactiva">polio inactiva</option>
-													<option value="polio oral">polio oral</option>
-													<option value="neumo 13 valente">neumo 13 valente</option>
-													<option value="influencia estacional">influencia estacional</option>
-													<option value="fiebre amarilla">fiebre amarilla</option>
-													<option value="srp">srp</option>
-
-												</select>
-											</div>
-											<div class="form-group col-md-4">
-												<label>Operaciones</label>
-												<br>
-												<span id="soperaciones"></span>
-												<input type="text" class="form-control" name="operaciones" id="operaciones" required>
-											</div>
-											<div class="form-group col-md-4">
-												<label>Enfermedades</label>
-												<br>
-												<span id="senfermedades"></span>
-												<input type="text" class="form-control" name="enfermedades" id="enfermedades" required>
-											</div>
-											<div class="form-group col-md-4">
-												<label>Medicamentos</label>
-												<br>
-												<span id="smedicamentos"></span>
-												<input type="text" class="form-control" name="medicamentos" id="medicamentos" required>
-											</div>
-											<div class="form-group col-md-4">
-												<label>Alergias</label>
-												<br>
-												<span id="salerias"></span>
-												<input type="text" class="form-control" name="alerias" id="alerias" required>
-											</div>
-											<div class="form-group col-md-4">
-												<label>Tratamientos</label>
-												<br>
-												<span id="stratamiento"></span>
-												<input type="text" class="form-control" name="tratamiento" id="tratamiento" required>
-											</div>
-											<div class="form-group col-md-4">
-												<label>Condicion medica</label>
-												<br>
-												<span id="scondicion"></span>
-												<input type="text" class="form-control" name="condicion" id="condicion" required>
-											</div>
-										</div>
-									</div>
 
 
 								</div>
 
 
-								<div class="ocultar" id="3">
-
-
-
-									<h6 class="modal-title">Asignar seccion al estudiante</h6>
-									<hr>
-
-									<div class="form-row">
-
-										<div class="form-group col-md-4">
-											<label>selecciona un año y seccion:</label>
-											<select name="ano" id="mibuscador3" onchange="añadir3('#mibuscador3')">
-												<?php
-												if (!empty($consuta3)) {
-													echo $consuta3;
-												}
-												?>
-											</select>
-										</div>
-
-
-
-
-
-
-									</div>
-
-
-								</div>
 							</div>
-							<div class="modal-footer" id="contenido">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelar">Cancelar</button>
-								<button type="button" class="btn btn-light ocultar" id="inscri1">Inscribir</button>
-								<button type="button" class="btn btn-light ocultar" id="inscri" onclick="enviar()">Inscribir</button>
-								<button type="button" class="btn btn-light" id="registrar">Siguiente</button>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+								<button type="button" class="btn btn-success" id="registrar2">Modificar</button>
 							</div>
 							</form>
 						</div>
 					</div>
 				</div>
-
 				<!----FIN MODAL REGISTRO--------->
 
 

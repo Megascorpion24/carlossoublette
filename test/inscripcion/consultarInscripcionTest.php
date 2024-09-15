@@ -15,7 +15,7 @@ class consultarInscripcionTest extends TestCase{
 	//productos consultados correctamenteÑ
 	public function testConsultaExitosa()
     {
-        $respuesta = $this->inscripciones->consultar(array(1));
+        $respuesta = $this->inscripciones->consultar(array(1), $n=0);
         $this->assertNotEmpty($respuesta);
     }
 }

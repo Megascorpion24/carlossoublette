@@ -13,25 +13,25 @@ class registrarUsuarioTest extends TestCase{
 
 	//el usuario Ingresa los datos correctos
 	public function testRegistroExitoso(){
-        $this->Usuarios->set_cedula("30019084");
+        $this->Usuarios->set_cedula("30019089");
         $this->Usuarios->set_nombre("arepa");
         $this->Usuarios->set_correo("santi@gmail.com");
         $this->Usuarios->set_contraceña("marial2");
         $this->Usuarios->set_rol("1");
         $this->Usuarios->set_nivel("1");
         
-		$this->assertEquals("Registro incluido", $this->Usuarios->registrar1($this->Usuarios));
+		$this->assertEquals("1Registro incluido", $this->Usuarios->registrar1($this->Usuarios));
 	}
     //el usuario Ingresa los datos ya registrados
     public function testRegistroFallido(){
-        $this->Usuarios->set_cedula("30019084");
+        $this->Usuarios->set_cedula("30019089");
         $this->Usuarios->set_nombre("arepa");
         $this->Usuarios->set_correo("santi@gmail.com");
         $this->Usuarios->set_contraceña("marial2");
         $this->Usuarios->set_rol("1");
         $this->Usuarios->set_nivel("1");
         
-		$this->assertEquals("cedula registrada registrado", $this->Usuarios->registrar1($this->Usuarios));
+		$this->assertEquals("4cedula registrada registrado", $this->Usuarios->registrar1($this->Usuarios));
 	}
 
 	

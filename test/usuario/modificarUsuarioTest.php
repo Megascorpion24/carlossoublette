@@ -22,18 +22,18 @@ class modificarUsuarioTest extends TestCase{
         $this->Usuarios->set_rol("1");
         $this->Usuarios->set_nivel("1");
         
-		$this->assertEquals("Registro modificado", $this->Usuarios->modificar($this->Usuarios));
+		$this->assertEquals("2Registro modificado", $this->Usuarios->modificar($this->Usuarios));
 	}
     //el usuario Ingresa los datos noxisten
     public function testRegistroFallido(){
-        $this->Usuarios->set_cedula("30019111");
+        $this->Usuarios->set_cedula("30019114");
         $this->Usuarios->set_nombre("arepa");
         $this->Usuarios->set_correo("santi@gmail.com");
         $this->Usuarios->set_contraceña("marial2");
         $this->Usuarios->set_rol("1");
         $this->Usuarios->set_nivel("1");
         
-		$this->assertEquals("el usuario no esta registrado", $this->Usuarios->modificar($this->Usuarios));
+		$this->assertEquals("4el usuario no esta registrado", $this->Usuarios->modificar($this->Usuarios));
 	}
 
 }

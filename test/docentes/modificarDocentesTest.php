@@ -25,7 +25,7 @@ class modificarDocentesTest extends TestCase{
         $this->Docente->set_correo("lucas23@gmail.com");
         $this->Docente->set_direccion("carrera 15 entre 23 y 24");
         $this->Docente->set_nivel("1");
-		$this->assertEquals("Registro modificado", $this->Docente->modificar1($this->Docente));
+		$this->assertEquals("2Registro modificado", $this->Docente->modificar1($this->Docente));
 	}
     //el usuario Ingresa los datos ya registrados
     public function testRegistroFallido(){
@@ -42,7 +42,7 @@ class modificarDocentesTest extends TestCase{
         $this->Docente->set_direccion("carrera 15 entre 23 y 24");
         $this->Docente->set_nivel("1");
         
-		$this->assertEquals("cedula no registrada", $this->Docente->modificar1($this->Docente));
+		$this->assertEquals("4cedula no registrada", $this->Docente->modificar1($this->Docente));
 	}
 
 	

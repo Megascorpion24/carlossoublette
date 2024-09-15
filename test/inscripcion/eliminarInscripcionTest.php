@@ -16,13 +16,13 @@ class eliminarInscripcionTest extends TestCase{
 	public function testRegistroExitoso(){
        
        
-        $this->inscripciones->set_cedula_estudiante("11111111");
+        $this->inscripciones->set_cedula_estudiante("12312313");
         
        
       
               
         $this->inscripciones->set_nivel("1");
-        $this->assertEquals("Registro Eliminado", $this->inscripciones->eliminar($this->inscripciones));
+        $this->assertEquals("3Registro Eliminado", $this->inscripciones->eliminar($this->inscripciones));
     }
     
     //el usuario Ingresa los datos repetidos
@@ -34,7 +34,7 @@ class eliminarInscripcionTest extends TestCase{
       
               
         $this->inscripciones->set_nivel("1");
-        $this->assertEquals("Cedula no registrada", $this->inscripciones->eliminar($this->inscripciones));
+        $this->assertEquals("4Cedula no registrada", $this->inscripciones->eliminar($this->inscripciones));
     }
     
 }

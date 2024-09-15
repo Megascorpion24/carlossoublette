@@ -34,7 +34,7 @@ class modificarInscripcionTest extends TestCase{
       
               
         $this->inscripciones->set_nivel("1");
-        $this->assertEquals("Registro modificado", $this->inscripciones->modificar($this->inscripciones));
+        $this->assertEquals("2Registro modificado", $this->inscripciones->modificar($this->inscripciones));
     }
     
     //el usuario Ingresa los datos repetidos
@@ -60,7 +60,7 @@ class modificarInscripcionTest extends TestCase{
       
               
         $this->inscripciones->set_nivel("1");
-        $this->assertEquals("cedula no registrada", $this->inscripciones->modificar($this->inscripciones));
+        $this->assertEquals("4cedula no registrada", $this->inscripciones->modificar($this->inscripciones));
     }
     
 }
