@@ -107,16 +107,24 @@ class ano_academico extends datos{
 
                 $estatus = "HABILITADO";
 
-                $consulta = "SELECT * FROM ano_academico WHERE estado = :estado;";
+
+ // Validar que fecha_ini no sea mayor a fecha_cierr
+    if ($this->fecha_ini > $this->fecha_cierr) {
+        return "4La fecha de inicio no puede ser mayor a la fecha de cierre";
+    }
+
+
+ // Validar que no exista otro año academico
+      $consulta = "SELECT * FROM ano_academico WHERE estado = :estado";
             $r = $co->prepare($consulta);
 
             $r->bindParam(':estado', $estado);
 
             $r->execute();
 
-            if ($r->rowCount() > 0) {
-                return "4Ya existe un año academico asignado al año en curso";
-            }
+       if ($r->rowCount() > 0) {
+            return "4Ya existe un año academico asignado al año en curso";
+        }
 
 
                 $r= $co->prepare("Insert into ano_academico(
@@ -141,18 +149,7 @@ class ano_academico extends datos{
                 $r->bindParam(':ano_academico',$this->ano_academico);
                 $r->bindParam(':estatus', $estatus);
                 $r->bindParam(':estado', $estado);
-
-                // Validar que fecha_ini no sea mayor a fecha_cierr
-    if ($this->fecha_ini > $this->fecha_cierr) {
-        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
-    }
-
-    // Validar que fecha_cierr no sea menor a fecha_ini
-    if ($this->fecha_cierr < $this->fecha_ini) {
-        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
-    }
-            
-             
+                        
                 $r->execute();
 
                 $this->bitacora("se registro un año academico", "ano_academico", $this->nivel);
