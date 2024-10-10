@@ -175,6 +175,69 @@ require_once("modelo/".$pagina.".php");
 			
 		  }
 
+		  if(!empty($_POST['accionp'])){
+
+			$valor=true;
+			$retorno="";
+			
+			
+			$validacion[0]=$o->set_cedula_repre($_POST['cedularp']);
+			$dato[0]="error en la validacion del mibuscador";
+			$validacion[1]=$o->set_estudiante("1");
+			$dato[1]="error en la validacion del estudiante";
+			$validacion[2]=$o->set_cedula_estudiante($_POST['cedulap']);
+			$dato[2]="error en la validacion del cedulae";
+			$validacion[3]=$o->set_nombre_estudiante($_POST['nombrep']);
+			$dato[3]="error en la validacion del nombree";
+			$validacion[4]=$o->set_apellido_estudiante($_POST['apellidop']);
+			$dato[4]="error en la validacion del apellidoe";
+			$validacion[5]=$o->set_edad_estudiante($_POST['edadp']);
+			$dato[5]="error en la validacion del edade";
+			$validacion[6]=$o->set_materia($_POST['materiap']);
+			$dato[6]="error en la validacion del materiae";
+			$validacion[7]=$o->set_observaciones($_POST['observacionesp']);
+			$dato[7]="error en la validacion del observacionese";
+			$validacion[8]=$o->set_sangre($_POST['sangrep']);
+			$dato[8]="error en la validacion del sangre";
+			$validacion[9]=$o->set_vacunas($_POST['vacunasp']);
+			$dato[9]="error en la validacion del vacunas";
+			$validacion[10]=$o->set_operaciones($_POST['operacionesp']);
+			$dato[10]="error en la validacion del operaciones";
+			$validacion[11]=$o->set_enfermedades($_POST['enfermedadesp']);
+			$dato[11]="error en la validacion del enfermedades";
+			$validacion[12]=$o->set_medicamentos($_POST['medicamentosp']);
+			$dato[12]="error en la validacion del medicamentos";
+			$validacion[13]=$o->set_alerias($_POST['aleriasp']);
+			$dato[13]="error en la validacion del alerias";
+			$validacion[14]=$o->set_tratamiento($_POST['tratamientop']);
+			$dato[14]="error en la validacion del tratamiento";
+			$validacion[15]=$o->set_condicion($_POST['condicionp']);
+			$dato[15]="error en la validacion del condicion";
+			$validacion[16]=$o->set_ano($_POST['anop']);
+			$dato[16]="error en la validacion del ano";
+
+
+			$o->set_nivel($nivel);
+			for ($i=0; $i <= 16 ; $i++) { 
+				if ($validacion[$i]== false) {
+					$retorno=$retorno.$dato[$i]."<br>";
+					$valor=false;
+				}
+			}
+
+			if ($valor==true) {
+				$mensaje = $o->registrar();
+				echo $mensaje;
+			}else{
+				echo $retorno;
+			}
+			
+			exit;	
+			
+			
+		  }
+
+
 		  if(!empty($_POST['accion3'])){
 
 			$valor=true;
