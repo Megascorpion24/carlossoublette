@@ -54,6 +54,9 @@ if (isset($data->user) && isset($data->password) && $_SERVER['REQUEST_METHOD'] =
         echo $exception;
     }
 } 
+else{
+    echo json_encode("nose q pacho");
+}
 
  
 // ------------------------------------------------------------------------------------------------------
