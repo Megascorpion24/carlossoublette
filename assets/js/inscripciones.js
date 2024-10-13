@@ -11,6 +11,9 @@ $(document).ready(function () {
         dropdownParent: $('#addEmployeeModal')
     });
 
+    $('#cedularp').select2({
+        dropdownParent: $('#addEmployeeModalPre')
+    });
 
     $('#mibuscador2').select2({
         dropdownParent: $('#addEmployeeModal')
@@ -22,6 +25,9 @@ $(document).ready(function () {
 
     $('#mibuscador4').select2({
         dropdownParent: $('#editEmployeeModal')
+    });
+    $('#mibuscadorp').select2({
+        dropdownParent: $('#addEmployeeModalPre')
     });
  
     $("#registrar").on("click", function () {
@@ -96,6 +102,49 @@ $(document).ready(function () {
 
 
     });
+
+    $("#registrarp").on("click", function () {
+        
+
+        $("#cedulap").removeAttr("disabled");
+        var publicKey = `-----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl/s/lMg8oJcuiz4vRlYu
+    Q96OFjlwhIy/cpEXgYxtr/NV47BNISKv+4L0IulDkcYsTj8YjuCX6dZV0dy60yOr
+    MxTVWb162pfVvOQmHDzB4OUQGy+ksjvuUFnpmZ20vY7BzWIp2a2esBluiHAnAz8I
+    rWmZvgok6iaOunkcdmfbb88ZYnPucPIy0g0f1ndQgs9oRQ4VdNC6fQYyH3gZMBHf
+    fy8naxxpz8ew8CT2bM1QbLZUWVsB3ISn7zge3+GzIgUn8s2DolSlZ1/DCEVhf1sA
+    Ok9k828PnOT4EW/L++7I+JlZ5ExuEXLm45zccpoKrwDllrbDjVTtVo3ASmeE5jJU
+    gQIDAQAB
+    -----END PUBLIC KEY-----`;
+    var cedula1 = $('#cedulap').val();
+    var nombre1 = $('#nombrep').val();
+    var apellido3 = $('#apellidop').val();
+    var edad1 = $('#edadp').val();
+
+                var encrypt = new JSEncrypt();
+                encrypt.setPublicKey(publicKey);
+        
+                var encryptedcedula1 = encrypt.encrypt(cedula1);
+                var encryptednombre1 = encrypt.encrypt(nombre1);
+                var encryptedapellido3 = encrypt.encrypt(apellido3);
+                var encryptededad1 = encrypt.encrypt(edad1);
+
+                
+
+                $('#cedulap').val(encryptedcedula1);
+                $('#nombrep').val(encryptednombre1);
+                $('#apellidop').val(encryptedapellido3);
+                $('#edadp').val(encryptededad1);
+
+        enviaAjax($("#fp"));
+        $("#fp").trigger("reset");
+        $("#addEmployeeModalPre").modal("hide");
+
+
+
+
+    });
+
 
     $("#cancelar").on("click", function () {
 
@@ -366,6 +415,143 @@ $(document).ready(function () {
     $("#condicion1").on("keyup", function () {
         validarkeyup(/^[A-Za-z\s]{4,26}$/,
             $(this), $("#scondicion1"), "El formato puede ser A-Z a-z 8-26");
+    });
+
+    /**/
+
+    $("#cedularp").on("keypress", function (e) {
+        validarkeypress(/^[0-9-\b]*$/, e);
+
+    });
+
+    $("#cedularp").on("keyup", function () {
+        validarkeyup(/^[0-9]{6,10}$/,
+            $(this), $("#scedularp"), "La Cedula debe ser en el siguiente formato 00000000");
+    });
+    $("#cedulap").on("keypress", function (e) {
+        validarkeypress(/^[0-9-\b]*$/, e);
+
+    });
+
+    $("#cedulap").on("keyup", function () {
+        validarkeyup(/^[0-9]{6,10}$/,
+            $(this), $("#scedulap"), "La Cedula debe ser en el siguiente formato 00000000");
+    });
+
+    $("#nombrep").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z]$/, e);
+
+    });
+
+    $("#nombrep").on("keyup", function () {
+        validarkeyup(/^[A-Za-z]{4,15}$/,
+            $(this), $("#snombrep"), "El formato puede ser A-Z a-z 4-15");
+    });
+
+    $("#apellidop").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z]$/, e);
+
+    });
+
+    $("#apellidop").on("keyup", function () {
+        validarkeyup(/^[A-Za-z]{4,15}$/,
+            $(this), $("#sapellidop"), "El formato puede ser A-Z a-z 4-15");
+    });
+
+    $("#edadp").on("keypress", function (e) {
+        validarkeypress(/^[0-9]$/, e);
+
+    });
+
+    $("#edadp").on("keyup", function () {
+        validarkeyup(/^[0-9]{1,2}$/,
+            $(this), $("#sedadp"), "El formato debe ser solo numeros");
+    });
+
+    $("#observacionesp").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z\s]$/, e);
+
+    });
+
+    $("#observacionesp").on("keyup", function () {
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
+            $(this), $("#sobservacionesp"), "El formato puede ser A-Z a-z 4-26");
+    });
+
+
+
+    $("#sangrep").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z]$/, e);
+
+    });
+
+    $("#sangrep").on("keyup", function () {
+        validarkeyup(/^[A-Za-z]{4,10}$/,
+            $(this), $("#ssangrep"), "El formato puede ser A-Z a-z 4-10");
+    });
+
+    $("#vacunasp").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z]$/, e);
+
+    });
+
+    $("#vacunasp").on("keyup", function () {
+        validarkeyup(/^[A-Za-z]{4,26}$/,
+            $(this), $("#svacunasp"), "El formato puede ser A-Z a-z 8-26");
+    });
+    $("#operacionesp").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z\s]$/, e);
+
+    });
+
+    $("#operacionesp").on("keyup", function () {
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
+            $(this), $("#soperacionesp"), "El formato puede ser A-Z a-z 8-26");
+    });
+    $("#enfermedadesp").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z\s]$/, e);
+
+    });
+
+    $("#enfermedadesp").on("keyup", function () {
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
+            $(this), $("#senfermedadesp"), "El formato puede ser A-Z a-z 8-26");
+    });
+    $("#medicamentosp").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z\s]$/, e);
+
+    });
+
+    $("#medicamentosp").on("keyup", function () {
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
+            $(this), $("#smedicamentosp"), "El formato puede ser A-Z a-z 8-26");
+    });
+    $("#aleriasp").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z\s]$/, e);
+
+    });
+
+    $("#aleriasp").on("keyup", function () {
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
+            $(this), $("#saleriasp"), "El formato puede ser A-Z a-z 8-26");
+    });
+    $("#tratamientop").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z\s]$/, e);
+
+    });
+
+    $("#tratamientop").on("keyup", function () {
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
+            $(this), $("#stratamientop"), "El formato puede ser A-Z a-z 8-26");
+    });
+    $("#condicionp").on("keypress", function (e) {
+        validarkeypress(/^[A-Za-z\s]$/, e);
+
+    });
+
+    $("#condicionp").on("keyup", function () {
+        validarkeyup(/^[A-Za-z\s]{4,26}$/,
+            $(this), $("#scondicionp"), "El formato puede ser A-Z a-z 8-26");
     });
 
 
