@@ -931,6 +931,12 @@ class inscripciones extends datos
             $respuesta = "";
 
             foreach ($resultado as $r) {
+                if ($r['secciones']=="vacia") {
+                    $respuesta =  $respuesta.'<tr style="background-color: #c4ffe5;">';
+                  
+                }else{
+                    $respuesta =  $respuesta.'<tr>';
+                }
                 
                 $respuesta = $respuesta . "<td>" . $r['cedula'] . "</td>";
                 $respuesta = $respuesta . "<td>" . $r['nombre'] . "</td>";
@@ -946,12 +952,7 @@ class inscripciones extends datos
                 if (in_array("modificar inscipcion", $nivel1)) {
                     $estado= $r['estado'];
                     if($estado > 0){
-                        if ($r['secciones']=="vacia") {
-                            $respuesta =  '<tr style="background-color: #c4ffe5;">'.$respuesta;
-                          
-                        }else{
-                            $respuesta =  '<tr>'.$respuesta;
-                        }
+                        
                         $respuesta = $respuesta . '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`' . $r['cedula'] . '`,`' . $r['anos'] . ' - ' . $r['secciones'] . '`)">
                         <i class="material-icons"  title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
                        </a>';

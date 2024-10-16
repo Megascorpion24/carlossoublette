@@ -183,7 +183,7 @@ require_once("modelo/".$pagina.".php");
 			
 			$validacion[0]=$o->set_cedula_repre($_POST['cedularp']);
 			$dato[0]="error en la validacion del mibuscador";
-			$validacion[1]=$o->set_estudiante("1");
+			$validacion[1]=$o->set_estudiante(1);
 			$dato[1]="error en la validacion del estudiante";
 			$validacion[2]=$o->set_cedula_estudiante($_POST['cedulap']);
 			$dato[2]="error en la validacion del cedulae";
@@ -229,7 +229,7 @@ require_once("modelo/".$pagina.".php");
 				$mensaje = $o->registrar();
 				echo $mensaje;
 			}else{
-				echo $retorno;
+				echo "4".$retorno;
 			}
 			
 			exit;	

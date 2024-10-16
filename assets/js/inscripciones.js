@@ -630,6 +630,25 @@ $(document).ready(function () {
     
     const input123 = document.getElementById("tratamiento1");
     const input134 = document.getElementById("condicion1");
+
+
+    const input110 = document.getElementById("cedulap");
+    const input220 = document.getElementById("nombrep");
+    const input330 = document.getElementById("apellidop");
+    const input440 = document.getElementById("edadp");
+    const input550 = document.getElementById("observacionesp");
+
+    const input660 = document.getElementById("sangrep");
+    const input770 = document.getElementById("vacunasp");
+    const input880 = document.getElementById("operacionesp");
+
+    const input990 = document.getElementById("enfermedadesp");
+    const input1010 = document.getElementById("medicamentosp");
+    const input1120 = document.getElementById("aleriasp");
+    
+    const input1230 = document.getElementById("tratamientop");
+    const input1340 = document.getElementById("condicionp");
+    
     
     
     
@@ -779,13 +798,94 @@ $(document).ready(function () {
         });
 
 
+        
+         // Función para limitar la longitud del valor
+
+
+
+      
+         input110.addEventListener("input", () => {
+        const maxLength = 8; // Cambia este valor al límite máximo deseado
+        limitarLongitud(input110, maxLength);
+      });
+        
+      input220.addEventListener("input", () => {
+          const maxLength = 15; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input220, maxLength);
+      });
+      input330.addEventListener("input", () => {
+          const maxLength = 15; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input330, maxLength);
+        });
+          
+      input440.addEventListener("input", () => {
+          const maxLength = 2; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input440, maxLength);
+      });
+      
+      input550.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input550, maxLength);
+        });
+  
+  
+  
+        input660.addEventListener("input", () => {
+          const maxLength = 10; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input660, maxLength);
+        });
+          
+      input770.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input770, maxLength);
+      });
+      
+      input880.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input880, maxLength);
+        });
+  
+        input990.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input990, maxLength);
+        });
+  
+        input1010.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input1010, maxLength);
+        });
+  
+        input1120.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input1120, maxLength);
+        });
+  
+        input1230.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input1230, maxLength);
+        });
+  
+        input1340.addEventListener("input", () => {
+          const maxLength = 26; // Cambia este valor al límite máximo deseado
+          limitarLongitud(input1340, maxLength);
+        });
+
 
 });
 function modificar(id, id2) {
-
+    var condicional=1;
+    $("#tablas tr").each(function () {
+        if (id == $(this).find("th:eq(0)").text() && $(this).find("th:eq(0)").text()=="vacia") {
+            condicional=0;
+        }
+    });
+    if (condicional==1) {
+        
+    
     $("#consulta_estudiantes2 tr").each(function () {
 
         if (id == $(this).find("th:eq(0)").text()) {
+           
             $("#cedula1").val($(this).find("th:eq(0)").text());
             $("#nombre1").val($(this).find("th:eq(1)").text());
             $("#apellido3").val($(this).find("th:eq(2)").text());
@@ -809,6 +909,25 @@ function modificar(id, id2) {
 
         }
     });
+}else{
+    $("#cedulap").val($(this).find("th:eq(0)").text());
+            $("#nombrep").val($(this).find("th:eq(1)").text());
+            $("#apellidop").val($(this).find("th:eq(2)").text());
+            $("#edadp").val($(this).find("th:eq(3)").text());
+            $("#materiap").val(id2);
+            $("#observacionesp").val($(this).find("th:eq(4)").text());
+
+            $("#tratamientop").val($(this).find("th:eq(6)").text());
+            $("#aleriasp").val($(this).find("th:eq(7)").text());
+            $("#medicamentosp").val($(this).find("th:eq(8)").text());
+            $("#enfermedadesp").val($(this).find("th:eq(9)").text());
+            $("#operacionesp").val($(this).find("th:eq(10)").text());
+            $("#vacunasp").val($(this).find("th:eq(11)").text());
+
+            $("#sangrep").val($(this).find("th:eq(12)").text());
+            $("#condicionp").val($(this).find("th:eq(13)").text());
+}
+
 
 }
 function morocidad(valu) {
@@ -1495,6 +1614,8 @@ function validarenvio1() {
     }
     return true;
 }
+
+
 
 
 function valfecha(fecha, sfecha) {

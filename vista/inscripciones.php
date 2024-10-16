@@ -641,7 +641,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-								<button type="button" class="btn btn-success" id="registrarp">Modificar</button>
+								<button type="button" class="btn btn-success" id="registrarp">pre-inscribir</button>
 							</div>
 							</form>
 						</div>

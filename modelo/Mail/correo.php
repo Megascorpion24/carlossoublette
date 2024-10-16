@@ -1,5 +1,7 @@
 <?php
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 trait Envio_Correo{
 
@@ -13,7 +15,8 @@ try {
     $mail->Host       = $_ENV['HOST'];                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = $_ENV['USER'];                     //SMTP username
-    $mail->Password   = $_ENV['PASS'] ;                               //SMTP password
+    $mail->Password   = $_ENV['PASS'] ;  
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;                        //SMTP password
     $mail->Port       = $_ENV['PORT'] ;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
