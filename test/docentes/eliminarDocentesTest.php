@@ -29,6 +29,7 @@ class eliminarDocentesTest extends TestCase
 
 		$this->docente->set_cedula("30019076");
 
-		$this->assertEquals("4Cedula no registrada o este docente esta siendo utilizado en otro modulo", $this->docente->eliminar1($this->docente));
+		$this->assertEquals("4Cedula no registrada o este docente esta siendo utilizado en otro modulo",
+		 $this->docente->eliminar1($this->docente));
 	}
 }

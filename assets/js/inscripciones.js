@@ -4,6 +4,12 @@ $(document).ready(function () {
 
 
 
+    $('#sanggre2').select2({
+        dropdownParent: $('#addEmployeeModalPre')
+    });
+    $('#mibuscador01').select2({
+        dropdownParent: $('#addEmployeeModalPre')
+    });
     $('#mibuscador').select2({
         dropdownParent: $('#addEmployeeModal')
     });

@@ -1,17 +1,11 @@
 <?php 
 use PHPUnit\Framework\TestCase;
 require_once("./modelo/inscripciones.php");
-
-
 class registrarInscripcionTest extends TestCase{
-
 	private $inscripciones;
-
 	public function setUp():void{
 		$this->inscripciones = new inscripciones();
 	}
-
-	
 	//productos consultados correctamenteÑ
 	public function testRegistroExitoso(){
         $this->inscripciones->set_cedula_repre("28621408");
@@ -30,10 +24,7 @@ class registrarInscripcionTest extends TestCase{
         $this->inscripciones->set_alerias("polvo");
         $this->inscripciones->set_condicion("ninguna");
         $this->inscripciones->set_ano("30");
-        $this->inscripciones->set_tratamiento("ninguno");
-       
-      
-              
+        $this->inscripciones->set_tratamiento("ninguno");   
         $this->inscripciones->set_nivel("1");
         $this->assertEquals("1Registro incluido", $this->inscripciones->registrar($this->inscripciones));
     }
@@ -57,9 +48,6 @@ class registrarInscripcionTest extends TestCase{
         $this->inscripciones->set_condicion("ninguna");
         $this->inscripciones->set_ano("30");
         $this->inscripciones->set_tratamiento("ninguno");
-       
-      
-              
         $this->inscripciones->set_nivel("1");
         $this->assertEquals("cedula registrada", $this->inscripciones->registrar($this->inscripciones));
     }
