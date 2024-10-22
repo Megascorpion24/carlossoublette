@@ -168,6 +168,7 @@
 														<th>ENCARGADO</th>
 														<th>EVENTO</th>
 														<th>AÑO ACADEMICO</th>
+														<th>ESTADO</th>
 														<th>ACCIONES</th>
 													</tr>
 												</thead>
