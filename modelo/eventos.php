@@ -361,7 +361,11 @@ public function consultar($nivel1){
         try{
             
             
-            $resultado = $co->prepare("SELECT eventos. *,concat(docentes.nombre ,'-', docentes.cedula) as cedula, ano_academico.ano_academico as ano
+            $resultado = $co->prepare("SELECT eventos. *,concat(docentes.nombre ,'-', docentes.cedula) as cedula, ano_academico.ano_academico as ano,
+            CASE
+            WHEN eventos.estado = 1 THEN 'activo' 
+            WHEN eventos.estado = 0 THEN 'inactivo'
+            end as estado2
             FROM eventos
 
             INNER JOIN eventos_docente
@@ -374,7 +378,7 @@ public function consultar($nivel1){
 
 
 
-            WHERE eventos.estado = 1
+           
 
             ORDER BY `eventos`.`id` ASC ");
 
@@ -389,28 +393,43 @@ public function consultar($nivel1){
                 $respuesta=$respuesta."<th>".$r['cedula']."</th>";
                 $respuesta=$respuesta."<th>".$r['evento']."</th>";
                 $respuesta=$respuesta."<th>".$r['ano']."</th>";
+                $respuesta=$respuesta."<th>".$r['estado2']."</th>";
                 $respuesta=$respuesta.'<th>';
 
                 if (in_array("modificar_evento", $nivel1)) {
-                    # code...
-                
-                $respuesta=$respuesta. '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
-               <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
-               </a>';
-               }
-               
-                if (in_array("eliminar_evento", $nivel1)) {
-                    # code...
+                    $estado= $r['estado'];
+                    if($estado > 0){
                     
-               $respuesta=$respuesta. '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
-               <i class="material-icons" title="BORRAR"><img src="assets/icon/trashh.png"/></i>
+                    $respuesta=$respuesta. '<a href="#editClase" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
+                   <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
+                   </a>';
+                   }
+                   else{
+                        $respuesta .= '<a href="#" onclick="delete_info(`'.$r['estado2'].'`)">
+                        <i class="material-icons"  title="MODIFICAR"><img style="width: 18px;" src="assets/icon/pencil2.png"/></i>    
+                        </a>';
+                    }
+                }
+                if (in_array("eliminar_evento", $nivel1)) {
+                    $estado= $r['estado'];
+                    if($estado > 0){
+                    
+
+                    $respuesta = $respuesta . '<a href="#deleteClase" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['id'] . '`)">
+               <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
                </a>';
-               }
+            }
+            else{
+                 $respuesta .= '<a href="#" onclick="delete_info(`'.$r['estado2'].'`)">
+                 <i class="material-icons"  title="MODIFICAR"><img style="width: 18px;" src="assets/icon/basura.png"/></i>    
+                 </a>';
+             }
+                }
 
              $respuesta=$respuesta.'</th>';
              $respuesta= $respuesta.'</tr>';
 
-            }
+            }   
 
            
             return $respuesta;
