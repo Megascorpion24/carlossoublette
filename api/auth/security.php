@@ -49,26 +49,31 @@ function decryptData($data) {
 //     echo json_encode($r);
 // }
 
-// $data = {
-//     "user":"admin",
-//     "password": 12345678
-// }
 
-$data = json_decode(file_get_contents("php://input"));
-// Verifica si se recibieron los datos de usuario y contraseña
-if (isset($data->user) && isset($data->password)) {
-    try {
-        //code...
-        // print json_encode("entrooo");
-    echo json_encode([
-        "user"=> encryptData($data->user),
-        "password"=> encryptData($data->password)
-    ]);
-    } catch (Exception $e) {
-        return $e;
-    }
+
+// $data = json_decode(file_get_contents("php://input"));
+// // Verifica si se recibieron los datos de usuario y contraseña
+// if (isset($data->clave)) {
+//     try {
+//     echo json_encode([
+//         "codigo"=> encryptData($data->clave)
+//     ]);
+//     } catch (Exception $e) {
+//         return $e;
+//     }
     
-}
+// }
+// if (isset($data->user) && isset($data->password)) {
+//     try {
+//     echo json_encode([
+//         "user"=> encryptData($data->user),
+//         "password"=> encryptData($data->password)
+//     ]);
+//     } catch (Exception $e) {
+//         return $e;
+//     }
+    
+// }
 
 
 ?>

@@ -26,7 +26,7 @@ class materias extends datos{
         }
             return true;
         } catch (Exception $e) {
-            echo $e->getMessage();
+             throw $e;
         }
     }
    
@@ -34,19 +34,33 @@ class materias extends datos{
 
    public function Registrar_Materia($datos){
         //Validar para Registrar
-         $val = $this->Validar_Materia($datos);
-         return $val ? $this->registrar1() : $val;
+        try {
+            $this->Validar_Materia($datos);
+            return $this->registrar1();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
           
    }
 
    public function Modificar_Materia($datos) {
-       $val= $this->Validar_Materia($datos);
-       return $val ? $this->modificar1() : $val;
+        //Validar para Modificar
+        try {
+            $this->Validar_Materia($datos);
+            return  $this->modificar1();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function Eliminar_Materia($valor){
-        $val = $this->Validar_Materia(['id' => $valor], false);
-        return $val ? $this->eliminar1() : $val;
+        //Validar para Eliminar
+        try {
+            $this->Validar_Materia(['id' => $valor], false);
+            return $this->eliminar1();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
    
     public function set_nivel($valor){
@@ -68,9 +82,6 @@ private function registrar1() {
             $co->exec("LOCK TABLES materias WRITE, años_materias WRITE, materias_docentes WRITE");                    
             $co->exec("START TRANSACTION");
             $co->exec("SAVEPOINT savepoint1");
-
-
-
 
 
             // ------Materia---

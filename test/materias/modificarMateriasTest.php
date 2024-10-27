@@ -2,7 +2,6 @@
 use PHPUnit\Framework\TestCase;
 require_once("./modelo/materia.php");
 
-
 class modificarMateriasTest extends TestCase{
 
 	private $materia;
@@ -28,5 +27,19 @@ class modificarMateriasTest extends TestCase{
 			 $result , // Valor obtenido
 			 'La Modificacion de la materia falló: ' . $result // Mensaje de error personalizado
 			);
+	}
+
+	public function testmodificacionFallida(){
+
+		$datos = [
+			'id' => 37,
+			'nombre' => "QUIMICA",
+			'año' => "SJ",
+			'docentes' => array('000101')
+		];
+    
+        $this->materia->set_nivel("1");
+		$result=$this->materia->Modificar_Materia($datos);
+		$this->assertStringContainsString('El año no es valido', $result);
 	}
 }

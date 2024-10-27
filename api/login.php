@@ -31,7 +31,8 @@ if (isset($data->user) && isset($data->password) && $_SERVER['REQUEST_METHOD'] =
             // Construir el array asociativo para la respuesta JSON
             $data = [
                 'entrada' => $entrada['success'],
-                'token' => $encryptedToken
+                'token' => $token //Token Crudo
+                // 'token' => $encryptedToken //Token Encriptado
             ];
             
             echo json_encode($data);// Convertir el array asociativo a JSON y enviarlo como respuesta
