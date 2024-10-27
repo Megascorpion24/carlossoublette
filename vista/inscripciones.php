@@ -562,19 +562,53 @@
 
 								<div class="form-row">
 
-									<div class="form-group col-md-4">
+									
+							
 
-										<label>Tipo de sangre</label>
-										<br>
-										<span id="ssangrep"></span>
-										<input type="text" class="form-control" name="sangrep" id="sangrep" required>
-									</div>
-									<div class="form-group col-md-4">
-										<label>Vacunas</label>
-										<br>
-										<span id="svacunasp"></span>
-										<input type="text" class="form-control" name="vacunasp" id="vacunasp" required>
-									</div>
+				
+
+											<div class="form-group col-md-4">
+
+												<label>Tipo de sangre</label>
+												<br>
+												<span id="ssangrep"></span>
+												<input type="text" name="sangrep" class="ocultar" id="sangrep">
+												<select class="form-control" id="sanggre2">
+													<option value="seleccionar" selected hidden>-seleccionar-</option>
+													<option value="ab+">ab+</option>
+													<option value="ab-">ab-</option>
+													<option value="a+">a+</option>
+													<option value="a-">a-</option>
+													<option value="b+">b+</option>
+													<option value="b-">b-</option>
+													<option value="o+">o+</option>
+													<option value="o-">o-</option>
+
+												</select>
+
+											</div>
+											<div class="form-group col-md-4">
+												<label>Vacunas</label>
+												<br>
+												<span id="svacunasp"></span>
+												<input type="text" id="vacunasp" class="ocultar" name="vacunasp">
+												<select class="form-control" id="mibuscador01" multiple onchange="prueba()">
+
+													<option value="seleccionar" selected>seleccionar</option>
+													<option value="hepatitis b">hepatitis b</option>
+													<option value="BCG">BCG</option>
+													<option value="rotavirus">rotavirus</option>
+													<option value="pentavalente">pentavalente</option>
+													<option value="polio inactiva">polio inactiva</option>
+													<option value="polio oral">polio oral</option>
+													<option value="neumo 13 valente">neumo 13 valente</option>
+													<option value="influencia estacional">influencia estacional</option>
+													<option value="fiebre amarilla">fiebre amarilla</option>
+													<option value="srp">srp</option>
+
+												</select>
+											</div>
+
 									<div class="form-group col-md-4">
 										<label>Operaciones</label>
 										<br>
