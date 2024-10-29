@@ -27,7 +27,8 @@ class secciones extends datos{
     }
         return true;
     } catch (Exception $e) {
-        return $e->getMessage();
+        // return $e->getMessage();
+        throw $e;
     }
    
  }
@@ -79,19 +80,31 @@ public function getSec($index) {
 
 
     public function registrar($datos){
-        $val= $this->Validar_Seccion($datos);
-        return $val ? $this->registrar1() : $val;
+        try {
+            $this->Validar_Seccion($datos);
+            return $this->registrar1();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function modificar($datos){
-        $val= $this->Validar_Seccion($datos);
-       return  $val ? $this->modificar1() : "ocurrio un error en validar los datos".$val;
+        try {
+            $this->Validar_Seccion($datos);
+            return $this->modificar1();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+       
     }
 
     public function eliminar($valor){
-    $val = $this->Validar_Seccion(['id' => $valor], false);
-    return $val ? $this->eliminar1() : $val;
-      
+        try {
+            $this->Validar_Seccion(['id' => $valor], false);
+            return $this->eliminar1();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
  
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
@@ -734,7 +747,11 @@ public function consulta_E($id){
 private function eliminar1(){
     $co = $this->conecta();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe($this->id, "SELECT COUNT(*) AS cantidad_estudiantes  FROM estudiantes WHERE id_anos_secciones = :id AND estado = 1; ", ':id')){
+    if(!$this->existe(
+    $this->id, 
+    "SELECT COUNT(*) AS cantidad_estudiantes FROM estudiantes WHERE id_anos_secciones = :id AND estado = 1 HAVING cantidad_estudiantes > 0; ",
+     ':id')
+     ){
     
 
         try {

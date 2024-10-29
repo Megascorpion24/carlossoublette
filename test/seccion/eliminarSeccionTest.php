@@ -15,9 +15,15 @@ class eliminarSeccionTest extends TestCase{
 	public function testEliminacionExitoso(){
   
         $this->seccion->set_nivel("1");
-
 		$result=$this->seccion->eliminar(39);
 		$this->assertEquals("3Registro Eliminado", $result, 'Error en la prueba:' . $result);
 	}
-	
+	 
+	public function testEliminacionFallida(){
+
+        $this->seccion->set_nivel("1");
+		$result=$this->seccion->eliminar(38);
+		//Prueba
+		$this->assertEquals("3Registro Eliminado", $result, 'La eliminación de la seccion falló: ' . $result);
+	}
 }

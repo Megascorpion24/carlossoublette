@@ -44,5 +44,22 @@ class registrarMateriasTest extends TestCase{
 		$this->assertStringContainsString('Nombres no pueden contener caracteres especiales o', $result);
 	}
 
+	public function testRegistroDatosIncorrectos(){
+		$datos = [
+			'nombre' => "DEPORTE",
+			'año' => "ghp",
+			'docentes' => array(28276731)//los 0 a las izq da problema de validacion x eso se coloca como string
+		];
+    
+        $this->materia->set_nivel("1");
+		$result=$this->materia->Registrar_Materia($datos);
+
+		$this->assertEquals(
+			"1Registro Incluido",// Valor esperado
+			 $result , // Valor obtenido
+			 'El Registro de la materia falló: ' . $result // Mensaje de error personalizado
+			);
+	}
+
 }
 

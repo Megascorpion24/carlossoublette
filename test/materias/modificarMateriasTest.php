@@ -32,7 +32,7 @@ class modificarMateriasTest extends TestCase{
 	public function testmodificacionFallida(){
 
 		$datos = [
-			'id' => 37,
+			'id' => 15,
 			'nombre' => "QUIMICA",
 			'año' => "SJ",
 			'docentes' => array('000101')
@@ -41,5 +41,24 @@ class modificarMateriasTest extends TestCase{
         $this->materia->set_nivel("1");
 		$result=$this->materia->Modificar_Materia($datos);
 		$this->assertStringContainsString('El año no es valido', $result);
+	}
+
+	//el usuario Ingresa los datos incorrectos
+	public function testmodificacionDatosIncorrectos(){
+
+		$datos = [
+			'id' => 37,
+			'nombre' => "DEPORTE",
+			'año' => 3,
+			'docentes' => array('')
+		];
+    
+        $this->materia->set_nivel("1");
+		$result=$this->materia->Modificar_Materia($datos);
+		$this->assertEquals(
+			"2Registro Modificado",// Valor esperado
+			 $result , // Valor obtenido
+			 'La Modificacion de la materia falló: ' . $result // Mensaje de error personalizado
+			);
 	}
 }

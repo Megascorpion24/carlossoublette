@@ -11,11 +11,19 @@ class eliminarMateriasTest extends TestCase{
 		$this->materia = new materias();
 	}
 
-	//el usuario Ingresa los datos correctos
+
 	public function testEliminacionExitosa(){
 
         $this->materia->set_nivel("1");
-		$result= $this->materia->Eliminar_Materia("15");
+		$result= $this->materia->Eliminar_Materia(37);
+		//Prueba
+		$this->assertEquals("3Registro Eliminado", $result, 'La eliminación de la materia falló: ' . $result);
+	}
+
+	public function testEliminacionFallida(){
+
+        $this->materia->set_nivel("1");
+		$result= $this->materia->Eliminar_Materia(100);
 		//Prueba
 		$this->assertEquals("3Registro Eliminado", $result, 'La eliminación de la materia falló: ' . $result);
 	}
