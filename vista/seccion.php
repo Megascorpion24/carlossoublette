@@ -54,6 +54,9 @@
 			.abc-filter {
 				margin-left: 15%; /* Cambia el margen cuando el ancho de la pantalla sea menor a 768px */
 			}
+			#contenido-seccion{
+				display:none;
+			}
 		}
 		@media (max-width: 1024px) {
 			.abc-filter {
@@ -65,11 +68,18 @@
 				margin-top: 50%;
 			}
 		}
+		@media (min-width: 2560px) {
+			#contenido-seccion {
+				margin-top: -7% !important;
+			}
+		}
+
+	
 		
 		#contenido-seccion {
 			/* display: inline-block; Hace que el div se comporte como un elemento en línea */
 			/* vertical-align: middle; Alinea verticalmente con respecto al otro elemento */
-			margin-top:-7%;
+			margin-top:-13%;
 			margin-left: 42%; 
 			position: absolute;
 			z-index: 200;

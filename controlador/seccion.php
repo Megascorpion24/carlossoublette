@@ -129,8 +129,8 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
 					else{
 						// echo "validacion exitosa";
 						// Procesar los registros
-						foreach ($secciones as $key => $s) {
-							$s->setSec($key + 1, $s);
+						foreach ($secciones as $key => $se) {
+							$s->setSec($key + 1, $se);
 						}
 					}
 
@@ -144,7 +144,7 @@ else{ echo "Falta definir la clase ".$pagina;  exit; }
 
 				
 
-				$o->set_nivel($nivel);
+				$s->set_nivel($nivel);
 					for ($i=0; $i < 0 ; $i++) { 
 						if ($validacion[$i]== false) {
 							$retorno=$retorno.$dato[$i]."<br>";
