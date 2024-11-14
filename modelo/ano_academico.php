@@ -113,7 +113,6 @@ class ano_academico extends datos{
         return "4La fecha de inicio no puede ser mayor a la fecha de cierre";
     }
 
-
  // Validar que no exista otro año academico
       $consulta = "SELECT * FROM ano_academico WHERE estado = :estado";
             $r = $co->prepare($consulta);
@@ -181,6 +180,12 @@ class ano_academico extends datos{
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Verificar si fecha_ini está vacío
+            if (empty($this->fecha_ini)) {
+                return "4La fecha de inicio no puede estar vacía";
+            }
+
             if($this->existe($this->id, "Select * from ano_academico where id=:id", ':id')){
                 try{
 
@@ -203,9 +208,10 @@ class ano_academico extends datos{
             }
 
 
-
-
-
+            // Validar que fecha_ini no sea mayor a fecha_cierr
+            if ($this->fecha_ini > $this->fecha_cierr) {
+                return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
+            }
 
                     $r= $co->prepare("Update ano_academico set 
                             
@@ -226,15 +232,8 @@ class ano_academico extends datos{
                     $r->bindParam(':fecha_cierr',$this->fecha_cierr);
                     $r->bindParam(':ano_academico',$this->ano_academico);
 
-                    // Validar que fecha_ini no sea mayor a fecha_cierr
-    if ($this->fecha_ini > $this->fecha_cierr) {
-        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
-    }
 
-    // Validar que fecha_cierr no sea menor a fecha_ini
-    if ($this->fecha_cierr < $this->fecha_ini) {
-        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
-    } 
+
                 
                  
                     $r->execute();
@@ -284,8 +283,6 @@ class ano_academico extends datos{
 
 
   //<!---------------------------------funcion consultar------------------------------------------------------------------> 
-
-
 
 public function consultar($nivel1){
     $co = $this->conecta();
@@ -381,10 +378,6 @@ public function consultar($nivel1){
 }
 //<!---------------------------------fin funcion consultar------------------------------------------------------------------>
 
-
-
-
-
 public function consulta_E($id){
     $co = $this->conecta(); 
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -401,17 +394,6 @@ public function consulta_E($id){
         return false;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -441,7 +423,6 @@ public function eventos(){
         }
 }
 
-
 //<!---------------------------------fin funcion eventos------------------------------------------------------------------>
 
 
@@ -468,13 +449,6 @@ private function existe2() {
         return false;
     }
 }
-
-
-
-
-
-
-
 
 
 

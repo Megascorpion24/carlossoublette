@@ -61,7 +61,6 @@ class eventos extends datos{
     }else{
         return false;
     }
-    return true;
     }
 
 
@@ -108,6 +107,7 @@ class eventos extends datos{
 
         $co = $this->conecta();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         if(!$this->existe($this->id, "Select * from eventos where id=:id", ':id')){
             try{
 
@@ -121,6 +121,11 @@ class eventos extends datos{
 
 
                 $estado = 1;
+
+                // Validar que fecha_ini no sea mayor a fecha_cierr
+                if ($this->fecha_ini > $this->fecha_cierr) {
+                    return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
+                }
 
                 $r= $co->prepare("Insert into eventos(
 						
@@ -144,16 +149,6 @@ class eventos extends datos{
                 $r->bindParam(':evento',$this->evento);
                 $r->bindParam(':id_ano_academico',$this->ano_academico);
                 $r->bindParam(':estado', $estado);
-
-                // Validar que fecha_ini no sea mayor a fecha_cierr
-    if ($this->fecha_ini > $this->fecha_cierr) {
-        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
-    }
-
-    // Validar que fecha_cierr no sea menor a fecha_ini
-    if ($this->fecha_cierr < $this->fecha_ini) {
-        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
-    }
             
              
                 $r->execute();
@@ -267,6 +262,7 @@ public function ano_academico(){
 
             $co = $this->conecta();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             if($this->existe($this->id, "Select * from eventos where id=:id", ':id')){
                 try{
 
@@ -276,6 +272,11 @@ public function ano_academico(){
                     $co->exec("START TRANSACTION");
                     $co->exec("SAVEPOINT savepoint1");
 
+
+                    // Validar que fecha_ini no sea mayor a fecha_cierr
+                    if ($this->fecha_ini > $this->fecha_cierr) {
+                        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
+                    }
 
 
                     $r= $co->prepare("Update eventos set 
@@ -297,17 +298,9 @@ public function ano_academico(){
                     $r->bindParam(':fecha_cierr',$this->fecha_cierr);
                     $r->bindParam(':evento',$this->evento);
 
-                    // Validar que fecha_ini no sea mayor a fecha_cierr
-    if ($this->fecha_ini > $this->fecha_cierr) {
-        return"4La fecha de inicio no puede ser mayor a la fecha de cierre";
-    }
+                    
 
-    // Validar que fecha_cierr no sea menor a fecha_ini
-    if ($this->fecha_cierr < $this->fecha_ini) {
-        return"4La fecha de finalizacion no puede ser menor a la fecha de inicio";
-    }
-                
-                 
+                                
                     $r->execute();
 
                     $this->bitacora("se modifico un evento", "eventos", $this->nivel);
@@ -351,8 +344,6 @@ public function ano_academico(){
 
 
   //<!---------------------------------funcion consultar------------------------------------------------------------------> 
-
-
 
 public function consultar($nivel1){
     $co = $this->conecta();
@@ -400,7 +391,7 @@ public function consultar($nivel1){
                     $estado= $r['estado'];
                     if($estado > 0){
                     
-                    $respuesta=$respuesta. '<a href="#editClase" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
+                    $respuesta=$respuesta. '<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
                    <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
                    </a>';
                    }
@@ -415,7 +406,7 @@ public function consultar($nivel1){
                     if($estado > 0){
                     
 
-                    $respuesta = $respuesta . '<a href="#deleteClase" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['id'] . '`)">
+                    $respuesta = $respuesta . '<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`' . $r['id'] . '`)">
                <i class="material-icons"  title="BORRAR"><img src="assets/icon/trashh.png"/></i>    
                </a>';
             }
@@ -486,34 +477,6 @@ public function eventos(){
 
 
 //<!---------------------------------fin funcion eventos------------------------------------------------------------------>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
