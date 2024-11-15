@@ -42,7 +42,7 @@ class entrada extends datos
 
 	public function busca()
 	{
-		$co = $this->conecta();
+		$co = $this->conecta1();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
 

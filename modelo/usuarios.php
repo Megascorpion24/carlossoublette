@@ -102,7 +102,7 @@ class usuarios extends datos
 
 
 
-        $co = $this->conecta();
+        $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if (!$this->existe($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
             try {
@@ -175,7 +175,7 @@ class usuarios extends datos
     {
 
 
-        $co = $this->conecta();
+        $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($this->existe($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
             try {
@@ -248,7 +248,7 @@ class usuarios extends datos
 
     public function roles()
     {
-        $co = $this->conecta();
+        $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         try {
@@ -281,7 +281,7 @@ class usuarios extends datos
 
     public function consultar($nivel1)
     {
-        $co = $this->conecta();
+        $co = $this->conecta1();
 
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
@@ -327,7 +327,7 @@ class usuarios extends datos
 
     public function eliminar1()
     {
-        $co = $this->conecta();
+        $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($this->existe($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
 
@@ -349,7 +349,7 @@ class usuarios extends datos
     private function bitacora($accion, $modulo, $id)
     {
         try {
-            $co = $this->conecta();
+            $co = $this->conecta1();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             parent::registrar_bitacora($accion, $modulo, $id);;

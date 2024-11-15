@@ -61,7 +61,7 @@ public function bitacora1($accion, $modulo,$id){
 //<!---------------------------------funcion registrar------------------------------------------------------------------>
     public function registrar(){
 
-        $co = $this->conecta();
+        $co = $this->conecta1();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
             try{
@@ -98,7 +98,7 @@ public function bitacora1($accion, $modulo,$id){
 
 
 
-    $co = $this->conecta();
+    $co = $this->conecta1();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if(!$this->existe($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
         try{
@@ -169,7 +169,7 @@ public function bitacora1($accion, $modulo,$id){
         public function modificar(){
 
 
-            $co = $this->conecta();
+            $co = $this->conecta1();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if($this->existe($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
                 try{
@@ -230,7 +230,7 @@ public function bitacora1($accion, $modulo,$id){
 
   //<!---------------------------------funcion consultar------------------------------------------------------------------>          
 public function consultar($nivel1){
-    $co = $this->conecta();
+    $co = $this->conecta1();
 		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
@@ -290,7 +290,7 @@ public function consultar($nivel1){
 
 
 public function consultar1(){
-    $co = $this->conecta();
+    $co = $this->conecta1();
 		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{
@@ -354,7 +354,7 @@ public function consultar1(){
 
     private function existe1($cedula){
 		
-		$co = $this->conecta();
+		$co = $this->conecta1();
 		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
@@ -399,7 +399,7 @@ public function consultar1(){
 
 
 public function eliminar1(){
-    $co = $this->conecta();
+    $co = $this->conecta1();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     
@@ -429,7 +429,7 @@ public function eliminar1(){
 
 //<!---------------------------------funcion eliminar------------------------------------------------------------------>
 public function eliminar(){
-    $co = $this->conecta();
+    $co = $this->conecta1();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($this->existe1($this->id)){
     
@@ -460,7 +460,7 @@ public function eliminar(){
 
 private function bitacora($accion, $modulo,$id){
     try {
-        $co = $this->conecta();
+        $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     parent::registrar_bitacora($accion, $modulo,$id);

@@ -2,6 +2,7 @@
 class datos {
     private $ip = "localhost";
     private $bd = "colegiocarlossoublette";
+    private $bd1 = "colegiocarlossoublette_usuario";
     private $usuario = "root";
     
     private $contrasena = "";
@@ -40,6 +41,11 @@ NcFh8zm7trhXUuGbjI+DzJsx3mInyiI2S8K+/kpKi+TKnlbr0FagO4luFpYx5yiU
 
     protected function conecta() {
         $pdo = new PDO("mysql:host=".$this->ip.";dbname=".$this->bd."", $this->usuario, $this->contrasena);
+        $pdo->exec("set names utf8");
+        return $pdo;
+    }
+    protected function conecta1() {
+        $pdo = new PDO("mysql:host=".$this->ip.";dbname=".$this->bd1."", $this->usuario, $this->contrasena);
         $pdo->exec("set names utf8");
         return $pdo;
     }
