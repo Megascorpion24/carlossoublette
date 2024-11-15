@@ -6,7 +6,7 @@ class bitacora extends datos{
     
 
 public function consultar(){
-    $co = $this->conecta();
+    $co = $this->conecta1();
 		
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try{

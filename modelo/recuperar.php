@@ -82,7 +82,7 @@ class recuperar extends datos
 	private function bitacora($accion, $modulo, $id)
 	{
 		try {
-			$co = $this->conecta();
+			$co = $this->conecta1();
 			$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			parent::registrar_bitacora($accion, $modulo, $id);;
