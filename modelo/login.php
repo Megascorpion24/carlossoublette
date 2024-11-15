@@ -76,7 +76,7 @@ class entrada extends datos
 
 	public function permisos($rol)
 	{
-		$co = $this->conecta();
+		$co = $this->conecta1();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
 
@@ -117,7 +117,7 @@ class entrada extends datos
 
 	public function rol_name($rol)
 	{
-		$co = $this->conecta();
+		$co = $this->conecta1();
 		$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		try {
 
@@ -385,7 +385,7 @@ class entrada extends datos
 	private function bitacora($accion, $modulo, $id)
 	{
 		try {
-			$co = $this->conecta();
+			$co = $this->conecta1();
 			$co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			parent::registrar_bitacora($accion, $modulo, $id);;
