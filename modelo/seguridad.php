@@ -100,7 +100,7 @@ public function bitacora1($accion, $modulo,$id){
 
     $co = $this->conecta1();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if(!$this->existe($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
+    if(!$this->existe98($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
         try{
             $estado=1;
             $r= $co->prepare("Insert into rol(
@@ -171,7 +171,7 @@ public function bitacora1($accion, $modulo,$id){
 
             $co = $this->conecta1();
             $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($this->existe($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
+            if($this->existe98($this->rol, "Select * from rol where nombre=:cedula", ':cedula')){
                 try{
                     $r= $co->prepare("Update rol set 
                             
@@ -352,7 +352,7 @@ public function consultar1(){
 
 
 
-    private function existe1($cedula){
+    private function existe981($cedula){
 		
 		$co = $this->conecta1();
 		
@@ -382,7 +382,7 @@ public function consultar1(){
 			return false;
 		}
 	}
-//<!---------------------------------fin de funcion existe------------------------------------------------------------------>
+//<!---------------------------------fin de funcion existe98------------------------------------------------------------------>
 
 
 
@@ -431,7 +431,7 @@ public function eliminar1(){
 public function eliminar(){
     $co = $this->conecta1();
     $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if($this->existe1($this->id)){
+    if($this->existe981($this->id)){
     
 
         try {

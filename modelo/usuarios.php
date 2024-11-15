@@ -104,7 +104,7 @@ class usuarios extends datos
 
         $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if (!$this->existe($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
+        if (!$this->existe98($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
             try {
                 $t = "1";
                 $claveencr = password_hash($this->contraceña, PASSWORD_DEFAULT, ['cost' => 10]);
@@ -177,7 +177,7 @@ class usuarios extends datos
 
         $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if ($this->existe($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
+        if ($this->existe98($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
             try {
                 $t = "1";
                 $claveencr = password_hash($this->contraceña, PASSWORD_DEFAULT, ['cost' => 10]);
@@ -329,7 +329,7 @@ class usuarios extends datos
     {
         $co = $this->conecta1();
         $co->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if ($this->existe($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
+        if (!$this->existe98($this->cedula, "Select * from usuarios where id=:cedula", ':cedula')) {
 
 
             try {
