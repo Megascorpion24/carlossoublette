@@ -775,7 +775,7 @@
 
 
 	<?php require_once('comunes/footer.php') ?> 
-    <script src="assets/js/tabla.js"></script>
+  <script src="assets/js/tabla.js"></script>
 	<script src="assets/js/seguridad.js"></script>
 </body>
 </html>

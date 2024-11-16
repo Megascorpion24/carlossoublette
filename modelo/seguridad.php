@@ -249,17 +249,13 @@ public function consultar($nivel1){
                 $respuesta=$respuesta.'<th>';
                 if (in_array("modificar seguridad",$nivel1)) {
                 $respuesta=$respuesta.'<a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="modificar(`'.$r['id'].'`)">
-               <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+               <i class="material-icons" title="MODIFICAR"><img src="assets/icon/pencill.png"/></i>
             </a>';
                 }
-                if (in_array("eliminar seguridad",$nivel1) and $r['id']!= "1" and $r['id']!= "3" and $r['id']!= "19") {
-            $respuesta=$respuesta.'<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"  onclick="eliminar(`'.$r['id'].'`)">
-               <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-            </a>';
-                }
+           
                 if (in_array("permisos seguridad",$nivel1)) {
             $respuesta=$respuesta.'<a href="#addEmployeeModal" class="edit" data-toggle="modal"  onclick="permiso(`'.$r['id'].'`)">
-               <i class="material-icons" data-toggle="tooltip" title="edit">&#xE872;</i>
+               <i class="material-icons" title="MODIFICAR"><img src="assets/icon/editar.png"/></i>
             </a>';
                 }
             $respuesta=$respuesta.'</th>';
