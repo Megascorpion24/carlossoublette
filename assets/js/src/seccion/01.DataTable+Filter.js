@@ -163,7 +163,7 @@ var htmlSelect_Seccion = `
  <div class="form-group">
     <label for="secciones-filter">Filtrar:</label>
     <div class="d-inline-block">
-      <select class="form-control abc-filter" id="secciones-filter">
+      <select class="form-control" id="secciones-filter">
         <!-- Opciones del select -->
       </select>
     </div>
