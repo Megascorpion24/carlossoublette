@@ -79,7 +79,7 @@
 		#contenido-seccion {
 			/* display: inline-block; Hace que el div se comporte como un elemento en línea */
 			/* vertical-align: middle; Alinea verticalmente con respecto al otro elemento */
-			margin-top:-13%;
+			margin-top:-7%;
 			margin-left: 42%; 
 			position: absolute;
 			z-index: 200;
