@@ -47,6 +47,7 @@ class ComposerStaticInitaed76201e6a77b943381b3f80b8c4b02
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'PhpParser\\' => 10,
@@ -57,6 +58,7 @@ class ComposerStaticInitaed76201e6a77b943381b3f80b8c4b02
         'M' => 
         array (
             'MyApp\\' => 6,
+            'Monolog\\' => 8,
             'Matrix\\' => 7,
         ),
         'I' => 
@@ -152,10 +154,14 @@ class ComposerStaticInitaed76201e6a77b943381b3f80b8c4b02
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -180,6 +186,10 @@ class ComposerStaticInitaed76201e6a77b943381b3f80b8c4b02
         'MyApp\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Matrix\\' => 
         array (

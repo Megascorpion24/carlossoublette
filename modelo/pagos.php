@@ -1,9 +1,12 @@
 <?php
 
 require_once('conexion.php');
+require_once('config/logger.php');
+
 class pagos extends datos{
 
-    
+    private $logger;
+
     private $id;
 	private $id_deudas;
 	private $identificador;
@@ -28,7 +31,10 @@ class pagos extends datos{
     private $file;
     private $precio;
 
-    
+
+    public function __construct() {
+        $this->logger = getLogger();
+    }
 
     public function set_id($valor){
         $cexryp=$this->decryptMessage($valor);
@@ -305,7 +311,9 @@ class pagos extends datos{
 //<!----------------------------PAGO UNICO DE MENSUALIDAD-----------------------------------------------------------------------------------------------------------------------> 
            
 
-                
+
+                // Registrar en logs
+                $this->logger->info("Nuevo pago registrado: ID {$this->id}.");
 
                 $this->bitacora("se registro un pago", "Pagos",$this->nivel);
 
@@ -315,6 +323,10 @@ class pagos extends datos{
                 $co->exec("SET AUTOCOMMIT = 1");            
          
             }catch(Exception $e){
+
+                // Registrar error en logs
+                $this->logger->error("Error al registrar evento: " . $e->getMessage());
+
                 return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");                
             }
@@ -365,7 +377,9 @@ class pagos extends datos{
                     $r->execute();
 
 
-              
+                    // Registrar en logs
+                    $this->logger->info("Nuevo pago registrado: ID {$this->id}.");
+
 
                     $this->bitacora("se registro un pago", "Pagos",$this->nivel);
                
@@ -376,6 +390,10 @@ class pagos extends datos{
                     $co->exec("SET AUTOCOMMIT = 1");
 
                 }catch(Exception $e){
+
+                    // Registrar error en logs
+                    $this->logger->error("Error al registrar evento: " . $e->getMessage());
+
                     return $e->getMessage();
                     $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
             
@@ -448,6 +466,8 @@ private function modificar1(){
          
             $r->execute();       
 
+            // Registrar en logs
+            $this->logger->info("Pago modificado: ID {$this->id}.");
 
             $this->bitacora("se modifico un pago", "Pagos",$this->nivel);
          
@@ -459,6 +479,10 @@ private function modificar1(){
                 $co->exec("SET AUTOCOMMIT = 1");
 
             }catch(Exception $e){
+
+                // Registrar error en logs
+                $this->logger->error("Error al modificar un pago: " . $e->getMessage());
+
                 return $e->getMessage();
                 $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
            
@@ -576,7 +600,8 @@ private function modificarMM(){
 
 
 
-
+            // Registrar en logs
+            $this->logger->info("Monto modificado: Codigo {$this->codigo}.");
 
             $this->bitacora("se modifico un monto", "Pagos",$this->nivel);
          
@@ -588,6 +613,10 @@ private function modificarMM(){
             $co->exec("SET AUTOCOMMIT = 1");
 
         }catch(Exception $e){
+
+            // Registrar error en logs
+            $this->logger->error("Error al modificar un monto: " . $e->getMessage());
+
             return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
          
@@ -719,6 +748,9 @@ private function registrarp1(){
             $r->execute();
 
 
+            // Registrar en logs
+            $this->logger->info("Se confirmo un pago: ID {$this->id}.");
+
             $this->bitacora("se confirmo un pago", "Pagos",$this->nivel);
          
             
@@ -729,6 +761,10 @@ private function registrarp1(){
             $co->exec("SET AUTOCOMMIT = 1");
     
         }catch(Exception $e){
+
+            // Registrar error en logs
+            $this->logger->error("Error al confirmar un pago: " . $e->getMessage());
+
             return $e->getMessage();
             $co->exec("ROLLBACK TO SAVEPOINT savepoint1");
           
@@ -1282,12 +1318,17 @@ private function eliminar1(){
                 $r->bindParam(':id',$this->id);
                 $r->execute();
 
-
+                // Registrar en logs
+                $this->logger->info("Pago eliminado: ID {$this->id}."); 
                       
                 $this->bitacora("se elimino un pago", "Pagos",$this->nivel);
                 return "3REGISTRO ELIMINADO";
                 
         } catch(Exception $e) {
+
+            // Registrar error en logs
+            $this->logger->error("Error al eliminar un pago: " . $e->getMessage());
+
             
             return $e->getMessage();
         }

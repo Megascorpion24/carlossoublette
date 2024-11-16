@@ -1,9 +1,12 @@
 <?php
 
 require_once('conexion.php');
+require_once('config/logger.php');
+
 class horario extends datos
 {
 
+    private $logger;
 
     private $id;
     private $clase;
@@ -19,6 +22,9 @@ class horario extends datos
 
 
 
+    public function __construct() {
+        $this->logger = getLogger();
+    }
 
 
     public function set_id($valor)
@@ -242,6 +248,7 @@ class horario extends datos
 
              // Validar que clase_inicio no sea mayor a clase_termina
     if ($this->clase_inicia > $this->clase_termina) {
+        $this->logger->warning("Fallo al intentar registrar: La Fecha de inicio no puede ser mayor a la de cierre.");
         return"4la hora de inicio no puede ser mayor a la hora final";
     }
 
@@ -327,13 +334,18 @@ class horario extends datos
 
 
 
-
+            // Registrar en logs
+            $this->logger->info("Nueva clase registrada: ID {$lid}.");
 
             $this->bitacora("se registro una clase", "Horario", $this->nivel);
 
             return "1Registro incluido";
            
         } catch (Exception $e) {
+
+            // Registrar error en logs
+            $this->logger->error("Error al registrar una clase: " . $e->getMessage());
+
             return $e->getMessage();
             $co->exec("ROOLBACK");
             $co->exec("COMMIT");
@@ -383,6 +395,9 @@ class horario extends datos
                 $r->execute();
 
                 if ($r->rowCount() >0) {
+
+                    $this->logger->info("Error al editar la clase: La clase con ID {$this->id} no se puede asiganar a ese bloque academico.");
+                    
                     return "4Ya existe una existe una clase en ese bloque academico, eliga una seccion o hora diferente";
                 }
 
@@ -417,6 +432,7 @@ class horario extends datos
 
              // Validar que clase_inicio no sea mayor a clase_termina
              if ($this->clase_inicia > $this->clase_termina) {
+                $this->logger->warning("Fallo al intentar modificar: La Fecha de inicio no puede ser mayor a la de cierre.");
                 return"4la hora de inicio no puede ser mayor a la hora final";
             }
             
@@ -435,7 +451,8 @@ class horario extends datos
   // Set AutoCommit to 1
       $co->exec("SET AUTOCOMMIT = 1");
 
-
+            // Registrar en logs
+            $this->logger->info("Nueva clase modificada: ID {$this->id}.");
 
                 $this->bitacora("se modifico una clase", "Horario", $this->nivel);
                 
@@ -443,6 +460,10 @@ class horario extends datos
                 return "2Registro modificado";
                 
             } catch (Exception $e) {
+
+                // Registrar error en logs
+                $this->logger->error("Error al registrar una clase: " . $e->getMessage());
+
                 return $e->getMessage();
                 $co->exec("ROOLBACK");
                 $co->exec("COMMIT");
@@ -1018,9 +1039,17 @@ class horario extends datos
                 $r = $co->prepare("UPDATE `horario_docente` SET `estado`= 0 WHERE id=:id");
                 $r->bindParam(':id', $this->id);
                 $r->execute();
+
+                // Registrar en logs
+                $this->logger->info("Clase Eliminada: ID {$this->id}.");
+
                 $this->bitacora("se elimino una clase", "Horario", $this->nivel);
                 return "3Registro Eliminado";
             } catch (Exception $e) {
+
+                // Registrar error en logs
+                $this->logger->error("Error al eliminar la clase: " . $e->getMessage());
+
                 return $e->getMessage();
             }
         } else {
