@@ -580,8 +580,8 @@ $(document).ready(function () {
 
 
 
-            if(codigo == $(this).find("th:eq(0)").text()){
-                $("#laveC").append(" registrada");
+            if(codigo === $(this).find("th:eq(0)").text()){
+                $("#laveC").text("cedula registrada");
                 $("#nombree").attr("readonly","readonly");
                 $("#apellidoe").attr("readonly","readonly");
                 $("#edade").attr("readonly","readonly");
