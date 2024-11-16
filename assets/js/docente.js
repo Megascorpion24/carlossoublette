@@ -104,22 +104,22 @@ $(document).ready(function() {
     });
 
     $("#correo").on("keypress", function(e) {
-        validarkeypress(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
+        validarkeypress(/^[0-9A-Za-z/\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
 
     });
 
     $("#correo").on("keyup", function() {
-        validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        validarkeyup(/^[0-9a-z\s\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
             $(this), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio");
     });
 
     $("#direccion").on("keypress", function(e) {
-        validarkeypress(/^[0-9A-Za-z]$/, e);
+        validarkeypress(/^[0-9A-Za-z\s]$/, e);
 
     });
 
     $("#direccion").on("keyup", function() {
-        validarkeyup(/^[0-9A-Za-z]{4,26}$/,
+        validarkeyup(/^[0-9A-Za-z\s]{4,26}$/,
             $(this), $("#sdireccion"), "El formato puede ser A-Z a-z 8-26");
     });
 
@@ -206,22 +206,22 @@ $("#años1").on("keyup", function() {
 });
 
 $("#correo1").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
+    validarkeypress(/^[0-9A-Za-z\s\u002A\u002E\u00F1\u00D1\u00D1\u00F1\u0040]$/, e);
 
 });
 
 $("#correo1").on("keyup", function() {
-    validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+    validarkeyup(/^[0-9a-z\s\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
         $(this), $("#scorreo1"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio");
 });
 
 $("#direccion1").on("keypress", function(e) {
-    validarkeypress(/^[0-9A-Za-z_]$/, e);
+    validarkeypress(/^[0-9A-Za-z_\s]$/, e);
 
 });
 
 $("#direccion1").on("keyup", function() {
-    validarkeyup(/^[0-9A-Za-z_]{4,26}$/,
+    validarkeyup(/^[0-9A-Za-z_\s]{4,26}$/,
         $(this), $("#sdireccion1"), "El formato puede ser A-Z a-z 4-26");
 });
 
@@ -395,11 +395,11 @@ $("#direccion1").on("keyup", function() {
         $("#años"), $("#saños"), "Los años debe ser solamente numeros") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 00</p>");
             return false;
-        }else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        }else if (validarkeyup(/^[0-9a-z\s\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
         $("#correo"), $("#scorreo"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
             mensaje("<p>El formato puede ser A-Z a-z 0-9</p>");
             return false;
-        }else if (validarkeyup(/^[0-9A-Za-z]{4,26}$/,
+        }else if (validarkeyup(/^[0-9A-Za-z\s]{4,26}$/,
         $("#direccion"), $("#sdireccion"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
@@ -447,11 +447,11 @@ $("#direccion1").on("keyup", function() {
         $("#años1"), $("#saños1"), "Los años debe ser solamente numeros") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
-        }else if (validarkeyup(/^[0-9a-z\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
+        }else if (validarkeyup(/^[0-9a-z\s\u002A\u002E\u00F1\u00D1\u00D1\u00F1]{4,26}[\u0040]{1}[a-z]{5,7}[\u002E]{1}[a-z]{3}$/,
         $("#correo1"), $("#scorreo1"), "El formato puede ser A-Z a-z 0-9 ejemplo: nombreUsuari+@+servidor+.+dominio") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;
-        }else if (validarkeyup(/^[A-Za-z0-9]{4,26}$/,
+        }else if (validarkeyup(/^[A-Za-z0-9\s]{4,26}$/,
         $("#direccion1"), $("#sdireccion1"), "El formato puede ser A-Z a-z 8-26") == 0) {
             mensaje("<p>Solo numeros 0-9 en el formato 0000-0000000</p>");
             return false;

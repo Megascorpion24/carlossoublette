@@ -194,15 +194,15 @@ public function bitacora1($accion, $modulo,$id){
                     $r->execute();
     
                     $this->bitacora("se modifico un rol", "seguridad",$this->nivel);
-                        return "Registro modificado";	
+                        return "2Registro modificado";	
                     
                 }catch(Exception $e){
-                    return $e->getMessage();
+                    return "4".$e->getMessage();
                 }
                     
                 }
                 else{
-                    return "cedula no registrada";
+                    return "4cedula no registrada";
                 }
         
 
