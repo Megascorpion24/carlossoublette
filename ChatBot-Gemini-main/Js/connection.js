@@ -48,7 +48,10 @@ const promptJSON = {
   tambien rechaza responder cualquier pregunta no relacionada con lo descrito.
     `,
 };
-
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-pro",
+  systemInstruction: promptJSON.systemInstruction
+});
 const generationConfig = {
   temperature: 1,
   topP: 0.95,
