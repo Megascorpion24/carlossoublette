@@ -1,0 +1,161 @@
+{
+  "module_name": "MODULO-11",
+  "name": "Gestionar Pagos",
+  "description": "Este módulo permite consultar, registrar, pagar, modificar y eliminar los pagos de los estudiantes, así como consultar los detalles de pagos y montos.",
+  "features": [
+    {
+      "code": "RF06.1",
+      "name": "Registrar pagos",
+      "description": "Permite registrar los pagos de inscripción y mensualidad de los estudiantes.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Haz clic en 'Registrar'.",
+        "Completa el formulario con los datos del pago.",
+        "Confirma el registro para guardar los datos ingresados."
+      ],
+      "restrictions": [
+        "No se puede registrar un pago si los campos del formulario no están completamente llenos."
+      ],
+      "pre_conditions": [
+        "Todos los campos del formulario deben estar llenos con los datos correspondientes."
+      ],
+      "post_conditions": [
+        "El pago se registra exitosamente en el sistema."
+      ]
+    },
+    {
+      "code": "RF06.2",
+      "name": "Confirmar pagos",
+      "description": "Permite confirmar los pagos realizados por los representantes.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Haz clic en 'Confirmar'.",
+        "Revisa los datos del pago a confirmar.",
+        "Confirma para finalizar el proceso."
+      ],
+      "restrictions": [
+        "No se puede confirmar un pago si los datos no están completos."
+      ],
+      "pre_conditions": [
+        "Debe haber un pago registrado previamente para poder confirmarlo."
+      ],
+      "post_conditions": [
+        "El pago se confirma exitosamente."
+      ]
+    },
+    {
+      "code": "RF06.3",
+      "name": "Consultar pagos",
+      "description": "Permite consultar los pagos registrados en la institución.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Revisa el registro de pagos disponible en el sistema."
+      ],
+      "restrictions": [
+        "Debe haber pagos registrados previamente para poder consultarlos."
+      ],
+      "pre_conditions": [
+        "Debe existir información de pagos o deudas en el sistema."
+      ],
+      "post_conditions": [
+        "El sistema muestra el registro de pagos o deudas existentes."
+      ]
+    },
+    {
+      "code": "RF06.4",
+      "name": "Modificar pago",
+      "description": "Permite modificar la información de los pagos registrados.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Selecciona el registro de pago a modificar.",
+        "Realiza los cambios necesarios en los campos del formulario.",
+        "Guarda los cambios realizados."
+      ],
+      "restrictions": [
+        "No se puede modificar un pago si no está registrado."
+      ],
+      "pre_conditions": [
+        "El pago debe estar registrado previamente."
+      ],
+      "post_conditions": [
+        "La información del pago se actualiza correctamente."
+      ]
+    },
+    {
+      "code": "RF06.5",
+      "name": "Consultar detalle de pago",
+      "description": "Permite consultar información específica de los pagos registrados.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Selecciona el registro de pago a consultar.",
+        "Revisa los detalles específicos del pago seleccionado."
+      ],
+      "restrictions": [
+        "No se puede consultar un pago si no está registrado."
+      ],
+      "pre_conditions": [
+        "El pago debe estar registrado previamente."
+      ],
+      "post_conditions": [
+        "Se muestra la información detallada del pago."
+      ]
+    },
+    {
+      "code": "RF06.6",
+      "name": "Eliminar pago",
+      "description": "Permite eliminar un pago registrado en el sistema.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Selecciona el registro de pago a eliminar.",
+        "Confirma la eliminación del pago."
+      ],
+      "restrictions": [
+        "No se puede eliminar un pago si no está registrado."
+      ],
+      "pre_conditions": [
+        "El pago debe estar registrado previamente."
+      ],
+      "post_conditions": [
+        "El pago se elimina exitosamente del sistema."
+      ]
+    },
+    {
+      "code": "RF06.7",
+      "name": "Modificar monto",
+      "description": "Permite modificar los montos registrados en el sistema.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Selecciona el monto a modificar.",
+        "Realiza los cambios en los datos del monto.",
+        "Guarda los cambios realizados."
+      ],
+      "restrictions": [
+        "No se puede modificar un monto si no está registrado."
+      ],
+      "pre_conditions": [
+        "El monto debe estar registrado previamente."
+      ],
+      "post_conditions": [
+        "El monto se actualiza correctamente."
+      ]
+    },
+    {
+      "code": "RF06.8",
+      "name": "Consultar montos",
+      "description": "Permite consultar los montos registrados en el sistema.",
+      "steps": [
+        "Selecciona la opción 'Gestionar pagos'.",
+        "Revisa el registro de montos disponibles en el sistema."
+      ],
+      "restrictions": [
+        "Debe haber montos registrados previamente para poder consultarlos."
+      ],
+      "pre_conditions": [
+        "Debe existir información de montos registrados."
+      ],
+      "post_conditions": [
+        "El sistema muestra los montos registrados existentes."
+      ]
+    }
+  ]
+}

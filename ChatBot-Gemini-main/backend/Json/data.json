@@ -1,0 +1,176 @@
+[
+    {
+      "code": "RF01",
+      "module_name": "MODULO-01",
+      "name": "Inicio Sesión",
+      "function": "El sistema permitirá manejar el acceso al sistema.",
+      "description": "Esta interfaz permitirá a los usuarios ingresar sus datos (correo electrónico o usuario y clave) para acceder al sistema. Validará la información y, si es correcta, permitirá el ingreso al menú principal para seleccionar las opciones disponibles.",
+      "steps_to_follow": [
+        "Mostrar un formulario donde el usuario pueda ingresar los datos de inicio de sesión.",
+        "Solicitar que el usuario ingrese su correo o usuario y la contraseña.",
+        "Verificar la información ingresada con los datos existentes en el sistema.",
+        "Permitir el acceso al sistema si los datos son correctos o mostrar una alerta en caso de error."
+      ],
+      "restrictions": "No se puede iniciar sesión si los datos son incorrectos.",
+      "pre_conditions": "Los datos del usuario deben estar ingresados en el formulario.",
+      "post_conditions": "Se permite el acceso al sistema o se muestra un mensaje de error."
+    },
+    {
+      "code": "RF02",
+      "module_name": "MODULO-01",
+      "name": "Recuperar Contraseña",
+      "function": "El sistema permitirá a los usuarios recuperar su contraseña de acceso.",
+      "description": "Los usuarios podrán recuperar su contraseña mediante un correo electrónico que contiene una nueva contraseña temporal.",
+      "steps_to_follow": [
+        "Proporcionar un formulario donde el usuario pueda ingresar el correo electrónico asociado a su perfil.",
+        "Solicitar al usuario que ingrese el correo electrónico.",
+        "Verificar si el correo ingresado está registrado en el sistema.",
+        "Enviar un correo electrónico al usuario con una nueva contraseña temporal."
+      ],
+      "restrictions": "No se puede usar un correo no asociado al perfil.",
+      "pre_conditions": "El correo electrónico debe estar registrado previamente.",
+      "post_conditions": "El usuario recibe un correo electrónico con su nueva contraseña temporal."
+    },
+    {
+      "code": "RF02",
+      "module_name": "MODULO-02",
+      "name": "Gestionar Usuarios",
+      "function": "El sistema permitirá registrar, consultar, modificar y eliminar usuarios.",
+      "description": "Este módulo permite administrar a los usuarios mediante opciones para registrar nuevos usuarios, modificar, consultar o eliminar usuarios existentes.",
+      "steps_to_follow": [
+        "Mostrar un formulario con la lista de usuarios registrados y las acciones disponibles (registrar, consultar, modificar, eliminar).",
+        "Solicitar al usuario seleccionar la acción que desea realizar en el módulo.",
+        "Ejecutar la acción seleccionada según los permisos del usuario."
+      ],
+      "restrictions": "No se pueden gestionar usuarios sin permisos asignados.",
+      "pre_conditions": "El usuario debe tener permisos para acceder al módulo.",
+      "post_conditions": "Los usuarios son registrados, modificados, consultados o eliminados según la acción realizada."
+    },
+    {
+      "code": "RF02.1",
+      "module_name": "MODULO-02",
+      "name": "Consultar Usuarios",
+      "function": "El sistema permitirá consultar los usuarios registrados.",
+      "description": "El módulo facilita buscar y consultar información de los usuarios previamente registrados.",
+      "steps_to_follow": [
+        "Seleccionar la opción 'gestionar usuarios' en el sistema.",
+        "Realizar la consulta indicando el criterio de búsqueda (por nombre, cargo o rol).",
+        "Mostrar la información de los usuarios que cumplen con los criterios seleccionados."
+      ],
+      "restrictions": "No se pueden consultar usuarios si no existen en el sistema.",
+      "pre_conditions": "Debe haber usuarios previamente registrados para realizar la consulta.",
+      "post_conditions": "Se obtiene la información de los usuarios consultados."
+    },
+    {
+      "code": "RF02.2",
+      "module_name": "MODULO-02",
+      "name": "Registrar Usuarios",
+      "function": "El sistema permitirá registrar nuevos usuarios.",
+      "description": "Permite agregar nuevos usuarios al sistema completando un formulario con su información.",
+      "steps_to_follow": [
+        "Seleccionar la opción 'gestionar usuarios'.",
+        "Elegir la opción 'registrar usuarios' en el menú del módulo.",
+        "Completar el formulario con la información requerida del usuario.",
+        "Guardar los datos para registrar al usuario en el sistema."
+      ],
+      "restrictions": "No se puede registrar un usuario si ya existe en el sistema.",
+      "pre_conditions": "El usuario no debe estar registrado previamente.",
+      "post_conditions": "El usuario es registrado en el sistema o se muestra un mensaje de error si ya existe."
+    },
+    {
+      "code": "RF08",
+      "module_name": "MODULO-08",
+      "name": "Gestión de Docentes",
+      "function": "El sistema permitirá gestionar información sobre los docentes.",
+      "description": "Este módulo permite registrar, consultar, actualizar y eliminar información relacionada con los docentes, como datos personales, asignaturas a cargo y horarios.",
+      "steps_to_follow": [
+        "Acceder al módulo de gestión de docentes desde el menú principal.",
+        "Seleccionar la acción deseada: registrar, consultar, actualizar o eliminar un docente.",
+        "Completar el formulario correspondiente con la información requerida.",
+        "Guardar los cambios realizados en el sistema."
+      ],
+      "restrictions": "No se puede registrar un docente sin completar todos los campos obligatorios.",
+      "pre_conditions": "Debe existir un usuario con permisos para gestionar docentes.",
+      "post_conditions": "La información del docente se registra o actualiza correctamente."
+    },
+    {
+      "code": "RF09",
+      "module_name": "MODULO-09",
+      "name": "Gestión de Representantes",
+      "function": "El sistema permitirá gestionar información sobre los representantes.",
+      "description": "Este módulo permite registrar, consultar, actualizar y eliminar información relacionada con los representantes de los estudiantes, como datos personales, estudiantes asociados y datos de contacto.",
+      "steps_to_follow": [
+        "Acceder al módulo de gestión de representantes desde el menú principal.",
+        "Seleccionar la acción deseada: registrar, consultar, actualizar o eliminar un representante.",
+        "Completar el formulario con los datos necesarios, asegurando la vinculación con los estudiantes correspondientes.",
+        "Guardar los cambios realizados en el sistema."
+      ],
+      "restrictions": "No se puede registrar un representante sin vincularlo al menos a un estudiante.",
+      "pre_conditions": "Debe existir al menos un estudiante registrado para asociarlo con un representante.",
+      "post_conditions": "La información del representante se actualiza correctamente en el sistema."
+    },
+    {
+        "modules": [
+          {
+            "code": "RF10",
+             "module_name": "MODULO-10",
+            "name": "Gestionar Inscripciones",
+            "description": "Este módulo permite consultar las inscripciones de los estudiantes, realizar el registro de nuevas inscripciones y modificar los datos ingresados.",
+            "steps_to_follow": [
+              "Selecciona la opción 'Gestionar Inscripciones' desde el menú principal.",
+              "Consulta las inscripciones existentes mediante la vista correspondiente.",
+              "Registra nuevos estudiantes llenando todos los campos del formulario de inscripción.",
+              "Modifica datos de inscripciones seleccionando el registro y editando la información deseada.",
+              "Elimina inscripciones seleccionando el registro correspondiente y confirmando la acción."
+            ],
+            "restrictions": [
+              "El usuario debe tener los permisos asignados para acceder al módulo.",
+              "No se pueden registrar inscripciones si los campos del formulario no están completamente llenados.",
+              "No se puede modificar o eliminar un registro inexistente."
+            ],
+            "pre_conditions": [
+              "Deben existir representantes, secciones, años y un año académico vigente registrados previamente.",
+              "El usuario debe estar autenticado y contar con permisos adecuados para gestionar inscripciones."
+            ],
+            "post_conditions": [
+              "El sistema genera correctamente la inscripción o modificación de datos, según la acción realizada.",
+              "Si los datos son inválidos o incompletos, se muestra un mensaje de error indicando qué debe corregirse."
+            ]
+          }
+        ]
+      },      
+    {
+        "modules": [
+          {
+            "code": "RF11",
+            "module_name": "MODULO-11",
+            "name": "Gestionar Materia",
+            "description": "Este módulo te ayuda a registrar o actualizar la información de una materia, asegurando que los datos ingresados sean correctos.",
+            "steps_to_follow": [
+              "Revisa que todos los campos necesarios estén llenos: nombre de la materia, año y docentes asociados.",
+              "Ingresa el nombre de la materia. Este debe contener únicamente letras (sin números ni símbolos especiales).",
+              "Selecciona el año correspondiente para la materia. Por ejemplo: '1', '2', '3', etc.",
+              "Asocia a los docentes de la materia ingresando sus identificaciones correctamente.",
+              "Haz clic en 'Validar' para que el sistema revise los datos.",
+              "Si hay algún error, el sistema te mostrará un mensaje indicando qué debes corregir.",
+              "Cuando todo esté en orden, el sistema guardará los datos y la materia estará registrada correctamente."
+            ],
+            "restrictions": [
+              "El nombre de la materia no puede contener caracteres especiales ni números.",
+              "El año debe ser un número válido dentro del rango permitido (por ejemplo, entre '1' y '6').",
+              "Debe haber al menos un docente asociado a la materia con una identificación válida."
+            ],
+            "pre_conditions": [
+              "Debes tener todos los datos de la materia listos antes de comenzar.",
+              "Asegúrate de estar en la sección de 'Gestión de Materias' dentro del sistema."
+            ],
+            "post_conditions": [
+              "Si la información es válida, la materia será registrada o actualizada correctamente.",
+              "Si hay errores en los datos ingresados, el sistema te indicará qué debes corregir."
+            ]
+          }
+        ]
+      }
+      
+  ]
+  
