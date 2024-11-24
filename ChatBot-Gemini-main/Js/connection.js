@@ -1,14 +1,8 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getApiKey } from "./request.js";
+import { getGenAIInstance } from "./genAIInitializer.js";
+import { Identificar } from "./Identifier.js";
 
-// Obtenemos la clave API
-const apiKey = await getApiKey();
-if (!apiKey) {
-  throw new Error("No se pudo obtener la clave API.");
-}
-
-// Inicialización del cliente Google Generative AI
-const genAI = new GoogleGenerativeAI(apiKey);
+// Inicializar la instancia de genAI una vez
+const genAI = await getGenAIInstance();
 
 // Configuración del modelo principal
 const promptJSON = {
@@ -111,6 +105,9 @@ async function runModelo(userMessage) {
     });
 
     const result = await chatSession.sendMessage(userMessage);
+    await Identificar(userMessage,genAI);
+    // console.log(result);
+    
     return result.response.text();
 
   } catch (error) {

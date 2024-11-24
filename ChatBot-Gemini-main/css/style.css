@@ -26,7 +26,7 @@ body {
   background: #0a985d;
   transition: all 0.2s ease;
   position: absolute;
-			z-index: 200;
+			z-index: 300;
 }
 body.show-chatbot .chatbot-toggler {
   transform: rotate(90deg);
@@ -59,7 +59,7 @@ body.show-chatbot .chatbot-toggler span:last-child {
   transition: all 0.1s ease;
 
   position: absolute;
-			z-index: 200;
+			z-index: 300;
 }
 body.show-chatbot .chatbot {
   opacity: 1;
@@ -82,7 +82,7 @@ body.show-chatbot .chatbot {
   cursor: pointer;
   transform: translateY(-50%);
   position: absolute;
-			z-index: 200;
+			z-index: 300;
 }
 header h2 {
   font-size: 1.4rem;

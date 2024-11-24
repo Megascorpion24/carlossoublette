@@ -43,10 +43,6 @@
       }
     </script>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script type="module" src="ChatBot-Gemini-main\Js\main.js"></script> -->
-    <script type="module" src="ChatBot-Gemini-main\Js\request.js"></script>
-    <script type="module" src="ChatBot-Gemini-main\Js\connection.js"></script>
     <script type="module" src="ChatBot-Gemini-main\Js\main.js"></script>
 
   </body>
