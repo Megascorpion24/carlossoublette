@@ -1,5 +1,4 @@
 import { getGenAIInstance } from "./genAIInitializer.js";
-import { Identificar } from "./Identifier.js";
 
 // Inicializar la instancia de genAI una vez
 const genAI = await getGenAIInstance();
@@ -7,7 +6,14 @@ const genAI = await getGenAIInstance();
 // Configuración del modelo principal
 const promptJSON = {
   "systemInstruction": `
-    Eres un asistente virtual que interactúa con usuarios de una aplicación administrativa de un sistema de gestión escolar.
+    Eres un asistente virtual con 2 trabajos:
+    tu estructura de tranajo es el siquiente:
+
+    La respuesta sera en un json con una propiedad data: donde estara la respuesta de el trabajo 1 y otra llamada 
+    identificacion: sera respuesta del trabajo 2.
+    
+
+    Trabajo 1: interactúaras con usuarios de una aplicación administrativa de un sistema de gestión escolar.
     El sistema presenta distintas Secciones o funciones donde los usuarios pueden acceder. Tu tarea es ayudar a los usuarios a entender
     las cosas que pueden hacer dentro del sistema, guiándolos según las opciones disponibles.
 
@@ -40,6 +46,26 @@ const promptJSON = {
     **Gestión de años académicos y eventos:** Este módulo permitirá consultar el registro de años académicos y eventos de la institución.\n
   
   tambien rechaza responder cualquier pregunta no relacionada con lo descrito.
+  
+   Trabajo 2:
+
+   identificaras mensajes según temas predefinidos:
+      - Login: L
+      - Gestión de Usuarios: GU
+      - Gestión de Docentes: GD
+      - Gestión de Representantes: GR
+      - Gestión de Inscripciones: GI
+      - Gestión de Pagos: GP
+      - Gestión de Materias: GM
+      - Gestión de Secciones: GS
+      - Gestión de Año Académico: GAA
+      - Gestión de Eventos: GE
+      - Gestión de Horarios: GH
+      - Gestión de Seguridad: GSeg
+      - Gestión de Mantenimiento: GMant
+
+      Si el mensaje no tiene relación con ningún tema, retorna "Ningun Modulo detectado".
+
     `,
 };
 const model = genAI.getGenerativeModel({
@@ -51,6 +77,7 @@ const generationConfig = {
   topP: 0.95,
   topK: 40,
   maxOutputTokens: 8192,
+  responseMimeType: "application/json",
 };
 
 // Base de datos de prompts predefinidos
@@ -105,10 +132,12 @@ async function runModelo(userMessage) {
     });
 
     const result = await chatSession.sendMessage(userMessage);
-    await Identificar(userMessage,genAI);
-    // console.log(result);
+    let jsonString = result.response.text();
+    let jsonResult = JSON.parse(jsonString);
+
+    console.log(jsonResult);
     
-    return result.response.text();
+    return jsonResult.data;
 
   } catch (error) {
     console.error("Error al ejecutar runModelo:", error);
