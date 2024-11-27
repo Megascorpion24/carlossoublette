@@ -1,7 +1,12 @@
-import { getGenAIInstance } from "./genAIInitializer.js";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Ajax_POST } from "./request.js";
+import datos from '../backend/Json/data.json' with { type: "json" };;
 
-// Inicializar la instancia de genAI una vez
-const genAI = await getGenAIInstance();
+
+const data = await Ajax_POST('Key');
+const data_User = await Ajax_POST('Datos_Usuario');
+
+const genAI = new GoogleGenerativeAI(data.apiKey);
 
 // Configuración del modelo principal
 const promptJSON = {
@@ -14,6 +19,7 @@ const promptJSON = {
     
 
     Trabajo 1: interactúaras con usuarios de una aplicación administrativa de un sistema de gestión escolar.
+     el nombre del usuario es ${data_User.name}
     El sistema presenta distintas Secciones o funciones donde los usuarios pueden acceder. Tu tarea es ayudar a los usuarios a entender
     las cosas que pueden hacer dentro del sistema, guiándolos según las opciones disponibles.
 
@@ -45,6 +51,8 @@ const promptJSON = {
 
     **Gestión de años académicos y eventos:** Este módulo permitirá consultar el registro de años académicos y eventos de la institución.\n
   
+    en este json tienes mas informacion para que tengas de material: ${datos}
+
   tambien rechaza responder cualquier pregunta no relacionada con lo descrito.
   
    Trabajo 2:

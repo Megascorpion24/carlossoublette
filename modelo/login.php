@@ -47,7 +47,7 @@ class entrada extends datos
 		try {
 
 			$cexryp=$this->decryptMessage($this->usuario );
-			$resultado = $co->prepare("SELECT usuarios.clave, usuarios.id_rol, usuarios.id FROM usuarios WHERE usuarios.nombre =:usua");
+			$resultado = $co->prepare("SELECT usuarios.clave, usuarios.id_rol, usuarios.id, usuarios.nombre FROM usuarios WHERE usuarios.nombre =:usua");
 
 			$resultado->bindParam(':usua', $cexryp );
 
@@ -55,7 +55,7 @@ class entrada extends datos
 
 
 			foreach ($resultado as $r) {
-				$fila = array($r["clave"], $r["id_rol"], $r["id"]);
+				$fila = array($r["clave"], $r["id_rol"], $r["id"],$r['nombre']);
 			}
 
 
