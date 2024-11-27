@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Ajax_POST } from "./request.js";
-import datos from '../backend/Json/data.json' with { type: "json" };;
+import datos from '../backend/Json/data.json' with { type: "json" };
 
 
 const data = await Ajax_POST('Key');
