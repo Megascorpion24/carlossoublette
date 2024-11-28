@@ -52,15 +52,6 @@ function generateEncryptedLink($url, $img) {
 }
 ?>
 
-<?php
-
-if (is_file("ChatBot-Gemini-main\index.php")) {
-	require_once("ChatBot-Gemini-main\index.php");
-  }
-  else{
-	echo "direccion mala";
-  }
-?>
 
 
 <div class="wrapper">
