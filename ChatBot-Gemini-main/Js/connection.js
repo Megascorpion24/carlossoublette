@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Ajax_POST } from "./request.js";
+import { identificacion } from "./Identifier_Manual.js"
 import datos from '../backend/Json/data.json' with { type: "json" };
 
 
@@ -1317,9 +1318,17 @@ async function runModelo(userMessage) {
     let jsonString = result.response.text();
     let jsonResult = JSON.parse(jsonString);
 
-    console.log(jsonResult);
+    let message = jsonResult.data;
+    let idt=identificacion(jsonResult.identificacion);
     
-    return jsonResult.data;
+    console.log(jsonResult);
+    console.log(idt);
+    
+ // Combina los mensajes en un solo string
+return idt !== "Abreviatura no válida" 
+            ? `${message}\n---------Manual de Usuario---------\n${idt}` 
+            : message;
+
 
   } catch (error) {
     console.error("Error al ejecutar runModelo:", error);

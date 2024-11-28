@@ -44,6 +44,10 @@ if (!empty($_GET['pagina'])) {
 
 if (is_file("controlador/" . $pagina . ".php")) {
     require_once("controlador/" . $pagina . ".php");
+    
+    if (!empty($_SESSION)) {
+	    require_once("ChatBot-Gemini-main\index.php");
+    }
 } else {
     echo "PAGINA EN CONSTRUCCION";
 }
