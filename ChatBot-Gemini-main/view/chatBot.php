@@ -43,7 +43,7 @@
       }
     </script>
     
-    <script type="module" src="ChatBot-Gemini-main\Js\main.js"></script>
+    <script type="module" src="ChatBot-Gemini-main/Js/main.js" defer></script>
 
   </body>
 </html>

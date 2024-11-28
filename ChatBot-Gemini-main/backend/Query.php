@@ -23,7 +23,8 @@ if ( $_POST['ajaxPet_ChatBot'] && !empty($_COOKIE['token']) ) {
                 //Nota devemos distribuir un token para cada Usuario o Roles
                 
                 // 'apiKey' => "AIzaSyAqtFhT57K2SCavh33uXLdMc1KA3IsAVN4"  // yeissoncolmenarez@gmail.com
-                'apiKey' => "AIzaSyAfkpxdQV6oBcSvGozc1d5lp36WCAd2MbY"  // De santiago
+                // 'apiKey' => "AIzaSyAfkpxdQV6oBcSvGozc1d5lp36WCAd2MbY"  // De santiago
+                'apiKey' => "AIzaSyDaALPHpOACfWQ7rVL_BrtgvundMILSZt0"  // yeissoncolmenarez19@gmail.com
             ]);
             //...
             break;
