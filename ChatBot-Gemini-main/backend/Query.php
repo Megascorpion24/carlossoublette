@@ -24,7 +24,7 @@ if ( $_POST['ajaxPet_ChatBot'] && !empty($_COOKIE['token']) ) {
                 
                 // 'apiKey' => "AIzaSyAqtFhT57K2SCavh33uXLdMc1KA3IsAVN4"  // yeissoncolmenarez@gmail.com
                 // 'apiKey' => "AIzaSyAfkpxdQV6oBcSvGozc1d5lp36WCAd2MbY"  // De santiago
-                'apiKey' => "AIzaSyDaALPHpOACfWQ7rVL_BrtgvundMILSZt0"  // yeissoncolmenarez19@gmail.com
+                'apiKey' => "AIzaSyCt6FpYfeKRVT2XEc_csDIxYftuDlcWZwo"  // yeissoncolmenarez19@gmail.com
             ]);
             //...
             break;
